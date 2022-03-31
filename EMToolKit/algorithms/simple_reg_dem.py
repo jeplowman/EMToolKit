@@ -62,7 +62,7 @@ def simple_reg_dem(data, errors, exptimes, logt, tresps,
 				mmat = Rij*np.outer(1.0/err,np.exp(s))
 				amat = np.matmul(mmat.T,mmat)+regmat
 				try: [c,low] = cho_factor(amat)
-				except LinAlgError: break
+				except: break
 				c2p = np.mean((dat0-np.dot(Rij,np.exp(s)))**2/err**2)
 				deltas = cho_solve((c,low),np.dot(mmat.T,dat))-s
 				deltas *= np.clip(np.max(np.abs(deltas)),None,0.5/steps[0])/np.max(np.abs(deltas))

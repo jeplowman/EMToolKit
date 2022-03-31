@@ -5,6 +5,7 @@ from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
 from EMToolKit.algorithms.simple_reg_dem import simple_reg_dem
 
+# Need to implement passing the wrapargs to the init routines...
 def simple_reg_dem_wrapper(datasequence,wrapargs=None):   
     nc = len(datasequence)
     [nx,ny] = datasequence[0].data.shape
