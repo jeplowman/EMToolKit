@@ -7,7 +7,7 @@ from astropy.nddata import StdDevUncertainty
 from EMToolKit.algorithms.sparse_em import sparse_em_init, sparse_em_solve
 
 # Need to implement passing wrapargs to the sparse_em routines...
-def sparse_em_wrapper(datasequence, wrapargs=None):
+def sparse_em_wrapper(datasequence, gpu=False, wrapargs=None):
 	nc = len(datasequence)
 	[nx,ny] = datasequence[0].data.shape
 	for seq in datasequence: 
@@ -23,6 +23,8 @@ def sparse_em_wrapper(datasequence, wrapargs=None):
 		tresps.append(datasequence[i].meta['tresp'])
 		trlogts.append(datasequence[i].meta['logt'])
 		exptimes[i] = datasequence[i].meta['exptime']
+
+	assert not gpu, "GPU support not implemented yet"
 
 	[Dict, lgtaxis, basis_funcs, bases_sigmas] = sparse_em_init(trlogts, tresps, differential=True)
 	coeffs, zmax, status = sparse_em_solve(datacube, errscube, exptimes, Dict)

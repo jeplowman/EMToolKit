@@ -4,13 +4,15 @@ from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
 
+# H. Farooki: Temporarily set missing=0 because it was giving me an error otherwise
+
 # Load AIA data from a set of paths and return the appropriate 
 # arguments for use in an EMToolKit DataSequence -- a list
 # of SunPy maps, corresponding errors, the log temperature
 # axes for the temperature response functions and the temperature
 # response functions themselves:
 def load_from_paths(paths,xl=None,yl=None,dx=None,dy=None,refindex=0):
-	refmap = Map(paths[refindex]).rotate(order=3)
+	refmap = Map(paths[refindex]).rotate(order=3, missing=0)
 	nocrop = (xl is None or yl is None or dx is None or dy is None)
 	if(nocrop == False):
 		blc=SkyCoord(xl,yl,frame=refmap.coordinate_frame)
@@ -18,7 +20,7 @@ def load_from_paths(paths,xl=None,yl=None,dx=None,dy=None,refindex=0):
 
 	maps=[]
 	for i in range(0,len(paths)):
-		maps.append(Map(paths[i]).rotate(order=3))
+		maps.append(Map(paths[i]).rotate(order=3, missing=0))
 		if(nocrop==False): maps[i] = maps[i].submap(blc,top_right=trc)
 	return maps
 
@@ -29,7 +31,7 @@ def load_from_paths(paths,xl=None,yl=None,dx=None,dy=None,refindex=0):
 def aia_wrapper(maps_in):
 	[maps,logts,tresps,errs] = [[],[],[],[]]
 	for i in range(0,len(maps_in)):
-		current_map = copy.deepcopy(maps_in[i]).rotate(order=3)	
+		current_map = copy.deepcopy(maps_in[i]).rotate(order=3, missing=0)	
 		if(not('detector' in current_map.meta)): current_map.meta['detector'] = 'AIA'
 		[logt,tresp] = aia_temperature_response(current_map)
 		if(len(tresp) == len(logt)):
