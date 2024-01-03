@@ -1,3 +1,11 @@
+# This code computes DEMs by inverting the forward problem with sparse
+# matrix methods. It can seamlessly incorporate multiple instruments,
+# with regularization similar to the Plowman & Caspi 2020 method. Unlike
+# that method, the regularization can be applied to both the spatial
+# and thermal directions. Regularization strength can be tweaked
+# along each axis independently. There is a multi-instrument example
+# notebook supplied that demonstrates the method.
+
 # NOTE: Sparse as used here means that it uses sparse matrix methods,
 # Not (necessarily) that it uses 'sparsity' of the solution as a constraint
 # a la the L1 norm used in Mark Cheung's sparse_em basis pursuit algorithm.
