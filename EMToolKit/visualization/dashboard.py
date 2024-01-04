@@ -23,7 +23,7 @@ def dem_color_table(ctlogts,sigmin=0.1,sigmax=0.1,intmin=0.0,intmax=1.0,n=81):
     for i in range(0,ns):
         for j in range(0,nctlt):
             clrtab[:,i,j] = ctints[i]*np.exp(-0.5*(logt-ctlogts[j])**2.0/(ctsigmas[i])**2.0)
-        
+
     ctmodel = emtk.dem_model(clrtab,basislogts,bases,wcs.WCS(naxis=2),'Color Table',None,meta={},wrapargs=None)
     ctcoll = emtk.em_collection(None)
     ctcoll.add_model(ctmodel)
@@ -71,6 +71,7 @@ def dashboard_figure(em_collection,plotpoint=None,temperatures=[5.8,6.1,6.4], gf
     ax4.plot(10*synthchanlogts[2],synthchantresps[2],'b')
     ax4.set(title='RGB Composite DEM channel responses',xlabel='Temperature (dB Kelvin)')
     ax1.imshow(((clbimage/np.max(clbimage))**gfac),aspect='auto',extent=[cbints[0],cbints[-1],10*cblogts[0],10*cblogts[-1]])
+        # Function to update sliders based on click position
     ax1.set(title='Color Reference',ylabel='Temperature (dB Kelvin)',xlabel='Channel EM')
 
     plt.rcParams.update({'font.size':fontsize_prev})
