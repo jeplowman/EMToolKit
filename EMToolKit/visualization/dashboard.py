@@ -1,3 +1,4 @@
+from __future__ import print_function
 import copy
 import numpy as np
 from sunpy.map import Map
@@ -28,11 +29,31 @@ def dem_color_table(ctlogts,sigmin=0.1,sigmax=0.1,intmin=0.0,intmax=1.0,n=81):
         for j in range(0,nctlt):
             clrtab[:,i,j] = ctints[i]*np.exp(-0.5*(logt-ctlogts[j])**2.0/(ctsigmas[i])**2.0)
 
-    ctmodel = emtk.dem_model(clrtab,basislogts,bases,wcs.WCS(naxis=2),'Color Table',None,meta={},wrapargs=None)
+    ctmodel = emtk.dem_model(clrtab,basislogts,bases,wcs.WCS(naxis=2),'Color Table',None,meta=dummy_meta(nt,ns),wrapargs=None)
     ctcoll = emtk.em_collection(None)
     ctcoll.add_model(ctmodel)
     return ctcoll,ctlogts,ctints,ctsigmas
 
+def dummy_meta(nx,ny):
+	return {'CDELT1':1,'CDELT2':1,'CROTA':0,'CRPIX1':1,'CRPIX2':1,'CRVAL1':0,'CRVAL2':0,'NAXIS1':nx,'NAXIS2':ny,
+			'CUNIT1':'arcsec','CUNIT2':'arcsec','CTYPE1':'HPLN-TAN','CTYPE2':'HPLT-TAN','DATE-OBS':'1980-01-01T00:00:00.000'}
+
+# May need installation, for example some of the following
+# pip install ipywidgets
+# conda install -c conda-forge ipywidgets
+# conda install -n base -c conda-forge widgetsnbextension
+# conda install -n py36 -c conda-forge ipywidgets
+# see https://ipywidgets.readthedocs.io/en/latest/user_install.html
+
+from ipywidgets import interact, interactive, fixed, interact_manual
+import ipywidgets as widgets
+
+class dashboard_object(object):
+    def __init__(self,em_collection):
+        self.emc = em_collection
+
+    def widgwrap(self, xpt, ypt, rtemp, gtemp, btemp, sigma, algorithm):
+        dashboard_figure(self.emc, plotpoint=[xpt,ypt], temperatures=[rtemp,gtemp,btemp], sigmas=sigma, algorithm=algorithm)
 
 class dashboard_object(object):
     def __init__(self, em_collection):
