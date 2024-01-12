@@ -4,12 +4,13 @@ from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
 
-# Load AIA data from a set of paths and return the appropriate 
+# Load AIA data from a set of paths and return the appropriate
 # arguments for use in an EMToolKit DataSequence -- a list
 # of SunPy maps, corresponding errors, the log temperature
 # axes for the temperature response functions and the temperature
 # response functions themselves:
 def load_from_paths(paths,xl=None,yl=None,dx=None,dy=None,refindex=0):
+	refmap = Map(paths[refindex])#.rotate(order=3)
 	refmap = Map(paths[refindex])#.rotate(order=3)
 	nocrop = (xl is None or yl is None or dx is None or dy is None)
 	if(nocrop == False):
@@ -22,14 +23,14 @@ def load_from_paths(paths,xl=None,yl=None,dx=None,dy=None,refindex=0):
 		if(nocrop==False): maps[i] = maps[i].submap(blc,top_right=trc)
 	return maps
 
-# Given a set up AIA SunPy Maps, return the appropriate arguments for use 
+# Given a set up AIA SunPy Maps, return the appropriate arguments for use
 # as an EMToolKit data sequence -- the selection of maps appropriate for
 # DEMs (EUV not including 304), corresponding errors, temperature response
 # functions and corresponding (log) temperature arrays
 def aia_wrapper(maps_in):
 	[maps,logts,tresps,errs] = [[],[],[],[]]
 	for i in range(0,len(maps_in)):
-		current_map = copy.deepcopy(maps_in[i])#.rotate(order=3)	
+		current_map = copy.deepcopy(maps_in[i]).rotate(order=3)
 		if(not('detector' in current_map.meta)): current_map.meta['detector'] = 'AIA'
 		[logt,tresp] = aia_temperature_response(current_map)
 		if(len(tresp) == len(logt)):
@@ -40,7 +41,7 @@ def aia_wrapper(maps_in):
 	return maps,errs,logts,tresps
 
 # These are placeholder methods pending temperature response functions
-# being added to AIApy. error estimates are included for the initial 
+# being added to AIApy. error estimates are included for the initial
 # version as well, although I believe they're already in the initial version
 def estimate_aia_error(map_in):
 	channel = map_in.meta['detector']+map_in.meta['wave_str']
@@ -51,7 +52,7 @@ def estimate_aia_error(map_in):
 	dnpp = refg[np.where(refchannels == channel)]
 	rdn = refn[np.where(refchannels == channel)]
 	return np.sqrt(np.clip(map_in.data*dnpp,0.0,None) + rdn**2)
-	
+
 def aia_temperature_response(map_in):
 
 	import numpy as np
@@ -102,9 +103,9 @@ def aia_temperature_response(map_in):
 		[2.30756823e-29, 3.99377760e-28, 2.24072357e-28, 9.54159826e-27, 2.54348518e-28, 2.25550937e-29]
 	])
 
-	logt = np.array([5.5 , 5.55, 5.6 , 5.65, 5.7 , 5.75, 5.8 , 5.85, 5.9 , 5.95, 6., 
-					6.05, 6.1 , 6.15, 6.2 , 6.25, 6.3 , 6.35, 6.4 , 6.45, 6.5 , 
-					6.55, 6.6 , 6.65, 6.7 , 6.75, 6.8 , 6.85, 6.9 , 6.95, 7.  , 
+	logt = np.array([5.5 , 5.55, 5.6 , 5.65, 5.7 , 5.75, 5.8 , 5.85, 5.9 , 5.95, 6.,
+					6.05, 6.1 , 6.15, 6.2 , 6.25, 6.3 , 6.35, 6.4 , 6.45, 6.5 ,
+					6.55, 6.6 , 6.65, 6.7 , 6.75, 6.8 , 6.85, 6.9 , 6.95, 7.  ,
 					7.05, 7.1 , 7.15, 7.2 , 7.25, 7.3 , 7.35, 7.4 , 7.45, 7.5 ])
-					
+
 	return logt,tresp_table[:,np.where(refchannels == channel)].flatten()

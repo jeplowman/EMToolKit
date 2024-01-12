@@ -14,9 +14,9 @@ def lognormal_synthetic_channels(temps,sigmas=0.1,logt=None,nt=81):
     for i in range(0,len(temps)):
         tresps.append(np.exp(-0.5*(logt-temps[i])**2.0/(sigmas[i])**2.0))
     logts = [logt for temp in temps]
-    
+
     return logts,tresps
-    
+
 def triangle_basis(logt):
     nt = len(logt)
     basislogt = np.linspace(np.min(logt),np.max(logt),2*(nt-1)+1)
