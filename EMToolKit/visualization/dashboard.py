@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from EMToolKit.util import lognormal_synthetic_channels, triangle_basis
 import ipywidgets as widgets
 from IPython.display import display, HTML
-
+import time
 
 
 def dem_color_table(ctlogts,sigmin=0.1,sigmax=0.1,intmin=0.0,intmax=1.0,n=81):
@@ -53,15 +53,20 @@ class dashboard_object(object):
         self.ax3 = None
         self.ax4 = None
         self.crosshair = None
+        self.crosshair_mouseover = None
         self.demplot = None
         self.plotmax = 0.0
         self.count = 0
         self.clicking = False
+        self.last_click = 1
 
         self.red_temp = None
         self.grn_temp = None
         self.blu_temp = None
         self.colorbar = None
+
+        self.last_update_time = 0
+        self.click_time = 0
 
         # Define the custom CSS
         self.custom_css = """
@@ -79,6 +84,10 @@ class dashboard_object(object):
         out = widgets.interactive_output(self.widgwrap, {'xpt': self.xpt_slider, 'ypt': self.ypt_slider, 'rtemp': self.rtemp, 'gtemp': self.gtemp, 'btemp': self.btemp, 'sigma': self.sigma, 'algorithm': self.algorithm})
         return ui, out
 
+    def display(self):
+        ui, out = self.displays()
+        display(ui,out)
+
     def widgwrap(self, xpt, ypt, rtemp, gtemp, btemp, sigma, algorithm):
         if self.fig is None:
             self.create_figure()
@@ -95,6 +104,8 @@ class dashboard_object(object):
         self.fontsize_prev = plt.rcParams.get('font.size')
         plt.rcParams.update({'font.size':22})
 
+        # Display the custom CSS in the notebook
+        HTML(self.custom_css)
         self.fig = plt.figure(constrained_layout=True)
         self.fig.set_size_inches(16, 8)
         spec = self.fig.add_gridspec(ncols=3, nrows=2, width_ratios=[0.1, 0.6, 0.3], height_ratios=[1, 1])
@@ -104,8 +115,6 @@ class dashboard_object(object):
         self.ax3 = self.fig.add_subplot(spec[0, 2])
         self.ax4 = self.fig.add_subplot(spec[1, 2])
 
-        # Display the custom CSS in the notebook
-        HTML(self.custom_css)
 
 
     def init_figure(self, xpt, ypt, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27):
@@ -122,16 +131,20 @@ class dashboard_object(object):
         [i, j] = [xpt, ypt]
 
         self.demimg = self.ax2.imshow(((np.clip(self.demimage, 0, plt_emmax)/plt_emmax)**gfac).transpose((1, 0, 2)))
-        self.crosshair, = self.ax2.plot([i], [j], color='white', marker='+', linewidth=4, markersize=20)
+        self.crosshair, = self.ax2.plot([i], [j], color='C0', marker='+',           linewidth=8, markersize=20) #, markeredgewidth=3, markeredgecolor='white',)
+        self.crosshair_2, = self.ax2.plot([i], [j], color='C1', marker='+',         linewidth=8, markersize=20) #, markeredgewidth=3, markeredgecolor='white',)
+        self.crosshair_mouseover, = self.ax2.plot([i], [j], color='C2', marker='+', linewidth=8, markersize=20) #, markeredgewidth=3, markeredgecolor='white',)
 
         [ptlogt, ptdem] = self.emc.compute_dem(i, j, algorithm=algorithm)
-        self.demplot, = self.ax3.plot(10*ptlogt, ptdem/1.0e28)
-
-
+        self.demplot, = self.ax3.plot(10*ptlogt, ptdem/1.0e28,              label=f'Click   at [{i:03}, {j:03}]')
+        self.demplot_2, = self.ax3.plot(10*ptlogt, ptdem/1.0e28,            label=f'Click2 at [{i:03}, {j:03}]')
+        self.demplot_mouseover, = self.ax3.plot(10*ptlogt, ptdem/1.0e28,    label=f'Mouse at [{i:03}, {j:03}]')
+        self.ax3.set_ylim(0, 1.1)
+        self.ax3.legend(loc='upper right', fontsize=12)
 
         plt.suptitle(synthdata[0].meta['algorithm'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'])
         self.ax2.set(title='RGB Composite DEM image')
-        self.ax3.set(title='DEM at '+str([i, j]), xlabel='Temperature (dB Kelvin)', ylabel='DEM (Mm \n[$10^9$ cm$^{-3}$]$^2$/dBK)')
+        self.ax3.set(title='Diff Emission Measure', xlabel='Temperature (dB Kelvin)', ylabel='DEM (Mm \n[$10^9$ cm$^{-3}$]$^2$/dBK)')
         self.ax3.minorticks_on()
         self.ax4.set(title='RGB Composite DEM channel responses', xlabel='Temperature (dB Kelvin)')
 
@@ -147,28 +160,66 @@ class dashboard_object(object):
 
         [nx,ny,nz] = self.demimage.shape
         def on_click(event):
-            self.clicking = True
             if event.inaxes == self.ax2:
+                self.clicking = True
+                self.click_time = time.time()
+                self.last_click *= -1
                 ix, iy = int(event.xdata), int(event.ydata)
-                # Update the xpt and ypt sliders
-                i = self.xpt_slider.value = min(max(ix, 0), nx-1)
-                j = self.ypt_slider.value = min(max(iy, 0), ny-1)
-                self.crosshair.set_data([i], [j])
-                [ptlogt,ptdem] = self.emc.compute_dem(i,j,algorithm=algorithm)
-                self.demplot.set_data(10*ptlogt,ptdem/1.0e28)
-                self.plotmax = max(self.plotmax, np.amax(ptdem/1.0e28))
-                self.ax3.set(title='DEM at '+str([i,j]), ylim=(0, 1.1*self.plotmax))
+                if self.last_click < 0:
+                    # Update the xpt and ypt sliders
+                    i = self.xpt_slider.value = min(max(ix, 0), nx-1)
+                    j = self.ypt_slider.value = min(max(iy, 0), ny-1)
+                    self.crosshair.set_data([i], [j])
+                    [ptlogt,ptdem] = self.emc.compute_dem(i,j,algorithm=algorithm)
+                    self.demplot.set_data(10*ptlogt,ptdem/1.0e28)
+                    self.plotmax = max(self.plotmax, np.amax(ptdem/1.0e28))
+                    self.demplot.set_label('Click  at '+str([i,j])) #, ylim=(0, 1.1*self.plotmax))
+                    self.ax3.legend(loc='upper right', fontsize=12)
+                else:
+                    # Update the xpt and ypt sliders
+                    i = min(max(ix, 0), nx-1)
+                    j = min(max(iy, 0), ny-1)
+                    self.crosshair_2.set_data([i], [j])
+                    [ptlogt,ptdem] = self.emc.compute_dem(i,j,algorithm=algorithm)
+                    self.demplot_2.set_data(10*ptlogt,ptdem/1.0e28)
+                    self.demplot_2.set_label('Click2 at '+str([i,j])) #, ylim=(0, 1.1*self.plotmax))
+                    self.ax3.legend(loc='upper right', fontsize=12)
                 self.fig.canvas.draw_idle()
             self.clicking = False
-
-
         self.fig.canvas.mpl_connect('button_press_event', on_click)
+
+        def on_mouseover(event):
+            current_time = time.time()
+            i, j = self.xpt_slider.value, self.ypt_slider.value
+
+            if current_time - self.last_update_time < 1/2:
+                return  # Skip the update if less than 1/3 second has passed
+            if current_time - self.click_time < 1/4:
+                return
+            if event.inaxes == self.ax2:
+                ix, iy = int(event.xdata), int(event.ydata)
+
+                [ptlogt,ptdem] = self.emc.compute_dem(ix,iy,algorithm=algorithm)
+                self.demplot_mouseover.set_data(10*ptlogt,ptdem/1.0e28)
+
+                self.crosshair_mouseover.set_data([ix],[iy])
+                self.demplot_mouseover.set_label(f"Mouse at [{ix}, {iy}]")
+                self.ax3.legend(loc='upper right', fontsize=12)
+                self.fig.canvas.draw_idle()
+            else:
+
+                self.crosshair_mouseover.set_data([np.nan],[np.nan])
+                self.demplot_mouseover.set_data([np.nan],[np.nan])
+                self.demplot_mouseover.set_label("Mouse off chart")
+                self.ax3.legend(loc='upper right', fontsize=12)
+                self.fig.canvas.draw_idle()
+
+        self.fig.canvas.mpl_connect('motion_notify_event', on_mouseover)
 
 
 
     def update_figure(self, xpt, ypt, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27):
         # Update the plots using the stored handles
-        # print("Updating Dashboard: Click = ", self.clicking)
         if self.crosshair is not None:
             [i, j] = [xpt, ypt]
             self.crosshair.set_data([i], [j])
@@ -178,7 +229,6 @@ class dashboard_object(object):
             self.demplot.set_data(10*ptlogt, ptdem/1.0e28)
 
             self.plotmax = max(self.plotmax, np.amax(ptdem/1.0e28))
-            self.ax3.set(title='DEM at '+str([i,j]), ylim=(0, 1.1*self.plotmax))
 
         [synthchanlogts, synthchantresps] = lognormal_synthetic_channels([rtemp, gtemp, btemp], sigma)
         if self.red_temp is not None:
@@ -200,55 +250,4 @@ class dashboard_object(object):
             self.demimg.set_data(((np.clip(demimage, 0, plt_emmax)/plt_emmax)**gfac).transpose((1, 0, 2)))
 
         self.fig.canvas.draw()
-
-
-
-    # def dashboard_figure(self, em_collection, temperatures=[5.8,6.1,6.4], gfac=1.0/2.2, sigmas=0.1, cropto=[None]*4, plt_emmax=3.0e27, algorithm=None, plotpoint=None):
-    #     [synthchanlogts,synthchantresps] = lognormal_synthetic_channels(temperatures,sigmas)
-    #     [cbcoll,cblogts,cbints,cbsigmas] = dem_color_table(synthchanlogts[0])
-
-    #     [ilo,ihi,jlo,jhi] = cropto
-    #     synthdata = em_collection.synthesize_data(synthchanlogts,synthchantresps,
-    #                         ilo=ilo,ihi=ihi,jlo=jlo,jhi=jhi,algorithm=algorithm)
-    #     demimage = np.stack([dat.data for dat in synthdata.data]).T
-
-    #     colorbar_synthdata = cbcoll.synthesize_data(synthchanlogts,synthchantresps)
-    #     clbimage = np.stack([dat.data for dat in colorbar_synthdata.data]).T
-
-    #     if(plotpoint is None): plotpoint = np.round(0.5*np.array(demimage.shape)).astype(np.int32)
-    #     [i,j] = [xpt, ypt] = plotpoint[0:2]
-
-    #     plt.suptitle(synthdata[0].meta['algorithm'] + ' inversion at ' + em_collection.data()[0].meta['date-obs'])
-    #     [ptlogt,ptdem] = em_collection.compute_dem(i,j,algorithm=algorithm)
-
-    #     self.ax2.imshow(((np.clip(demimage,0,plt_emmax)/plt_emmax)**gfac).transpose((1,0,2)))
-    # #     self.ax2.plot([i],[j],color='white',marker='+',linewidth=4,markersize=20)
-    #     # crosshair, = self.ax2.plot([i], [j], color='white', marker='+', linewidth=4, markersize=20)
-    #     self.ax2.set(title='RGB Composite DEM image')
-    #     demplot, = self.ax3.plot(10*ptlogt,ptdem/1.0e28)
-    #     self.ax3.set(title='DEM at '+str([i,j]),xlabel='Temperature (dB Kelvin)',ylabel='DEM (Mm \n[$10^9$ cm$^{-3}$]$^2$/dBK)')
-    #     self.ax3.minorticks_on()
-    #     self.ax4.plot(10*synthchanlogts[0],synthchantresps[0],'r')
-    #     self.ax4.plot(10*synthchanlogts[1],synthchantresps[1],'g')
-    #     self.ax4.plot(10*synthchanlogts[2],synthchantresps[2],'b')
-    #     self.ax4.set(title='RGB Composite DEM channel responses',xlabel='Temperature (dB Kelvin)')
-    #     self.ax1.imshow(((clbimage/np.max(clbimage))**gfac),aspect='auto',extent=[cbints[0],cbints[-1],10*cblogts[0],10*cblogts[-1]])
-    #         # Function to update sliders based on click position
-    #     self.ax1.set(title='Color Reference',ylabel='Temperature (dB Kelvin)',xlabel='Channel EM')
-
-    #     plt.rcParams.update({'font.size':self.fontsize_prev})
-
-    #     [nx,ny,nz] = demimage.shape
-    #     def on_click(event):
-    #         if event.inaxes == self.ax2:
-    #             ix, iy = int(event.xdata), int(event.ydata)
-    #             # Update the xpt and ypt sliders
-    #             i = self.xpt_slider.value = min(max(ix, 0), nx-1)
-    #             j = self.ypt_slider.value = min(max(iy, 0), ny-1)
-    #             self.crosshair.set_data([i], [j])
-    #             [ptlogt,ptdem] = em_collection.compute_dem(i,j,algorithm=algorithm)
-    #             self.ax3.set(title='DEM at '+str([i,j]), ylim=(0, 1.1*np.amax(ptdem/1.0e28)))
-    #             demplot.set_data(10*ptlogt,ptdem/1.0e28)
-    #             self.fig.canvas.draw()
-    #     self.fig.canvas.mpl_connect('button_press_event', on_click)
 
