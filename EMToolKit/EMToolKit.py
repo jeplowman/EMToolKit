@@ -22,7 +22,7 @@ def em_data(maps,errs,logts,tresps,channels=None):
 			mapi.meta['SCHEMA'] = basic_detector(mapi.meta)
 		cubes.append(NDCube(mapi,uncertainty=errs[i]))
 	return NDCubeSequence(cubes)
-    
+
 def dem_model(coeffs,logts,bases,coord_info,algorithm,wrapper,meta=None,wrapargs=None):
 
 	nd = len(coeffs)
@@ -31,14 +31,14 @@ def dem_model(coeffs,logts,bases,coord_info,algorithm,wrapper,meta=None,wrapargs
 	else: # Check to see if the coordinate info input is a dict:
 		meta = coord_info
 		if(isinstance(coord_info,dict)==False):
-			print('Warning in EMToolKit dem_model: coord_info is not a wcs or dict') 
+			print('Warning in EMToolKit dem_model: coord_info is not a wcs or dict')
 		wcs = meta.get('wcs',None)
-	
+
 	if(meta is None):
 		if(wcs is not None): meta = dict(wcs.to_header())
 		else: print('Warning in EMToolKit dem_model: need wcs or image meta')
 	if('LOGT' not in meta): meta['LOGT'] = logts[0]
-	if('SCHEMA' not in meta): 
+	if('SCHEMA' not in meta):
 		meta['SCHEMA'] = basic_source([Map(coeffs[0],meta)])
 	for i in range(0,nd):
 		logt0 = np.median(logts[i][np.where(bases[i]==np.max(bases[i]))])
@@ -46,41 +46,54 @@ def dem_model(coeffs,logts,bases,coord_info,algorithm,wrapper,meta=None,wrapargs
 		dem_sequence.append(NDCube(coeffs[i],wcs=wcs,meta={**meta,**metai}))
 	return NDCubeSequence(dem_sequence,meta={'ALGORITHM':algorithm,'WRAPPER':wrapper,'WRAPARGS':wrapargs})
 
- 
-   
+
+
 class em_collection:
 
 	def __init__(self,datasequence):
 		self.collection = NDCollection([("data",datasequence),("models",[])])
-	
+
 	def data(self): return self.collection['data']
-	
+
 	def add_model(self,modelsequence):
 		# Have to remake the collection from keys because update doesn't work when there are no aligned axes
 		# and we can't use aligned axes because all parts of the collection must have aligned axes, which is
 		# not necessarily true for the elements of the em collection!!! Obviously we'll want to change this
 		# back once those issues are fixed on the NDCube side.
-		pairs = [] 
+		pairs = []
 		for k in self.collection.keys(): pairs.append((k,self.collection.get(k)))
-		pairs.append((modelsequence.meta['ALGORITHM'],modelsequence))
+		try:
+			pairs.append((modelsequence.meta['ALGORITHM'],modelsequence))
+		except KeyError:
+			pairs.append((modelsequence.meta['algorithm'],modelsequence))
 		self.collection.clear()
 		self.collection = NDCollection(pairs)
-		self.collection['models'].append(modelsequence.meta['ALGORITHM'])
-	
+		try:
+			self.collection['models'].append(modelsequence.meta['ALGORITHM'])
+		except:
+			self.collection['models'].append(modelsequence.meta['algorithm'])
+
 	def compute_dem(self,i,j,logt=None,algorithm=None):
 		from scipy.interpolate import interp1d
 
 		if(algorithm is None): algorithm = self.collection['models'][0]
 		model = self.collection[algorithm]
-		if(logt is None): logt = model[0].meta['LOGT']
+		try:
+			if(logt is None): logt = model[0].meta['LOGT']
+		except KeyError:
+			if(logt is None): logt = model[0].meta['logt']
 		dem = np.zeros(logt.size)
 		for component in model:
-			complogt = component.meta['LOGT']
-			compbasis = component.meta['BASIS']
+			try:
+				complogt = component.meta['LOGT']
+				compbasis = component.meta['BASIS']
+			except KeyError:
+				complogt = component.meta['logt']
+				compbasis = component.meta['basis']
 			dem += component.data[i,j]*interp1d(complogt,compbasis,fill_value=0.0,bounds_error=False)(logt)
-		return logt,dem	
-	
-	
+		return logt,dem
+
+
 	def compute_dem_all(self,logt=None,algorithm=None):
 		from scipy.interpolate import interp1d
 
@@ -92,7 +105,7 @@ class em_collection:
 			complogt = component.meta['LOGT']
 			compbasis = component.meta['BASIS']
 			dem += np.expand_dims(component.data,-1)*interp1d(complogt,compbasis,fill_value=0.0,bounds_error=False)(logt)
-		return logt,dem	
+		return logt,dem
 
 	def synthesize_data(self, logts, tresps, algorithm=None, channels=None, ilo=0, ihi=-1, jlo=0, jhi=-1, meta=None):
 		from scipy.integrate import trapezoid
@@ -112,14 +125,18 @@ class em_collection:
 			synthmap.meta['CHANNEL'] = channels[i]
 			datainterp = interp1d(logts[i], tresps[i], fill_value=0.0, bounds_error=False)
 			for component in model:
-				basistemp = component.meta['LOGT']
-				basisinterp = interp1d(basistemp, component.meta['BASIS'], fill_value=0.0, bounds_error=False)
+				try:
+					basistemp = component.meta['LOGT']
+					basisinterp = interp1d(basistemp, component.meta['BASIS'], fill_value=0.0, bounds_error=False)
+				except KeyError:
+					basistemp = component.meta['logt']
+					basisinterp = interp1d(basistemp, component.meta['basis'], fill_value=0.0, bounds_error=False)
 				logt = np.unique(np.hstack([basistemp, logts[i]]))
 				coupling = trapezoid(datainterp(logt)*basisinterp(logt),x=logt)
 				synthdata += coupling*component.data[ilo:ihi,jlo:jhi]
 			synthmap.data[:] = synthdata[:]
 			synthmaps.append(synthmap)
-		
+
 		return em_data(synthmaps,syntherrs,logts,tresps,channels=channels)
 
 	def synthesize_map(self, map, logt=None, tresp=None, algorithm=None, channel=None):
@@ -138,4 +155,4 @@ class em_collection:
 		output_map.meta['CHANNEL'] += '_SYNTHETIC'
 		output_map.data[::] = (((map.meta['SCHEMA']).fwdop(source))*coeffs).reshape(map.data.shape)
 		return output_map
-		
+

@@ -213,10 +213,10 @@ class dashboard_object(object):
             current_time = time.time()
             i, j = self.xpt_slider.value, self.ypt_slider.value
 
-            if current_time - self.last_update_time < 1/2:
-                return  # Skip the update if less than 1/3 second has passed
-            if current_time - self.click_time < 1/4:
-                return
+            if current_time - self.last_update_time < 1/4:
+                return  # Skip the update if less than 1/4 second has passed
+            # if current_time - self.click_time < 1/4:
+            #     return
             if event.inaxes == self.ax2:
                 ix, iy = int(event.xdata), int(event.ydata)
 
