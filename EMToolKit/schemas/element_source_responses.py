@@ -1,4 +1,5 @@
 import time, numpy as np
+from tqdm import tqdm
 #from processify import processify
 
 
@@ -16,10 +17,10 @@ import time, numpy as np
 #                as well as nelm and coords attributes with usage consistent with their
 #                definitions in element_grid.
 #     transform: A function which returns an object that maps points in the source
-#                coordinate system to the detector coordinate system. This coordinate 
-#                transform does not need to be reversible (e.g., the source system 
-#                can be 3D and the detector system can be 2D) -- only the forward 
-#                direction must be well defined. Naturally, this may result in a 
+#                coordinate system to the detector coordinate system. This coordinate
+#                transform does not need to be reversible (e.g., the source system
+#                can be 3D and the detector system can be 2D) -- only the forward
+#                direction must be well defined. Naturally, this may result in a
 #                singular response matrix. Transform must be callable with the
 #                following syntax:
 #                    transformer = transform(source.coords,detector.coords)
@@ -39,16 +40,16 @@ def element_source_responses(source, detector, transform, nbuf = 10**7, dtype='f
     shape = (detector.nelm,source.nelm) # Number of input/outputs
     from scipy.sparse import csc_matrix, lil_matrix, csr_matrix
 
-    # Updating the sparse matrix comes with some overhead. We use buffers so we 
+    # Updating the sparse matrix comes with some overhead. We use buffers so we
     # don't have to do it so often:
     #[ibuf_in,ibuf_out] = [np.zeros(nbuf,dtype=np.uint32),np.zeros(nbuf,dtype=np.uint32)]
     [ibuf_in,ibuf_out] = [np.zeros(nbuf,dtype=np.uint32),np.zeros(nbuf,dtype=np.uint32)]
     valbuf = np.zeros(nbuf,dtype=dtype)
-    
+
     amat = csc_matrix(shape,dtype=dtype) # The initial empty sparse matrix
     #amat = lil_matrix(shape,dtype=dtype) # The initial empty sparse matrix
     [icur, t0] = [0, time.time()] # Buffer position and starting time (for printing status)
-    for i in range(0,source.nadr): # Loop over each source address
+    for i in tqdm(range(0,source.nadr)): # Loop over each source address
         # Get the source elements for the current address:
         [src_elms,src_vals,src_pnts] = source.elements(i)
 
@@ -71,7 +72,7 @@ def element_source_responses(source, detector, transform, nbuf = 10**7, dtype='f
             icur+=len(det_elms)
 
         # Print the status:
-        if(((i+1) % int(shape[1]/20)) == 0): print(100*i/(shape[1]-1),'% done after',time.time()-t0,'seconds')
+        # if(((i+1) % int(shape[1]/20)) == 0): print(100*i/(shape[1]-1),'% done after',time.time()-t0,'seconds')
 
     # Update the sparse matrix with the last value in the buffer
     if(icur > 0): amat += csc_matrix((valbuf[0:icur],(ibuf_out[0:icur],ibuf_in[0:icur])),shape=shape,dtype=dtype)

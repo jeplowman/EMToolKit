@@ -72,21 +72,42 @@ def sparse_nlmap_dem_wrapper(datasequence, wrapargs={}):
 	reg_steps = copy.deepcopy(steps)
 	for i in range(1,len(reg_steps)): reg_steps[i] /= 60
 
-	reg_operator = sparse_d2_partial_matrix(src_dims_all, 0, nc, steps=reg_steps[0], drv_con=drv_con, dtype=dtype, use_postfactor=False) 
-	for i in range(1,ndims): reg_operator += sparse_d2_partial_matrix(src_dims_all, i, nc, steps=reg_steps[i], 
+	reg_operator = sparse_d2_partial_matrix(src_dims_all, 0, nc, steps=reg_steps[0], drv_con=drv_con, dtype=dtype, use_postfactor=False)
+	for i in range(1,ndims):
+		reg_operator += sparse_d2_partial_matrix(src_dims_all, i, nc, steps=reg_steps[i],
 																	  drv_con=drv_con, dtype=dtype, use_postfactor=False)
 
+	# fwdops = []
+	# for i in range(0,nc):
+	# 	# Need to check to see if the metadata for each data element
+	# 	# has a forward operator and whether or not it's the correct
+	# 	# one for the model. We'll leave it to the data element to check
+	# 	# that and compute one if it's not there:
+	# 	print(f"Running on image {i+1} of {nc}" )
+	# 	fwdops.append((datasequence[i].meta['SCHEMA']).fwdop(source))
+	# 	#fwdops.append(model.get_fwdop(datasequence[i]))
+
+	import concurrent.futures
+
+
+
+	# Assuming datasequence, source, and nc are already defined
 	fwdops = []
-	for i in range(0,nc):	
-		# Need to check to see if the metadata for each data element
-		# has a forward operator and whether or not it's the correct
-		# one for the model. We'll leave it to the data element to check
-		# that and compute one if it's not there:
-		fwdops.append((datasequence[i].meta['SCHEMA']).fwdop(source))
-		#fwdops.append(model.get_fwdop(datasequence[i]))
+	with concurrent.futures.ProcessPoolExecutor() as executor:
+		# Submit tasks to the executor
+		futures = [executor.submit(process_data_element, i, datasequence[i], source) for i in range(nc)]
+
+		# Retrieve results in the order they were submitted
+		for future in futures:
+			try:
+				result, ii = future.result()
+				fwdops.append(result)
+				# print(f"Got result for image {ii + 1}")
+			except Exception as e:
+				print(f"An error occurred: {e}")
+				fwdops.append(None)  # or handle the error as appropriate
 
 	fwd_operator = multi_instrument_linear_operator(fwdops, wrapargs=wrapargs)
-	
 	data, errors = [[],[]]
 	for i in range(0,nc):
 		errors.append(datasequence[i].uncertainty.array.flatten().astype(dtype))
@@ -105,14 +126,19 @@ def sparse_nlmap_dem_wrapper(datasequence, wrapargs={}):
 	alg_object = sparse_nlmap_dem_wrap_object(wrapargs,source=source)
 	return list(dem_soln), source.logts, source.bases, source.wcs, 'sparse_multi_instrument', alg_object
 
+def process_data_element(i, element, source):
+	# print(f"Running on image {i + 1}")
+	return (element.meta['SCHEMA']).fwdop(source), i
+	# return model.get_fwdop(element)  # Uncomment if needed
+
 class sparse_nlmap_dem_wrap_object(object):
-	
+
 	def __init__(self,wrapargs,source=None):
 		self.wrapargs = copy.deepcopy(wrapargs)
 		if(source is not None):
 			self.wrapargs['source'] = copy.deepcopy(source)
 			self.meta = source.meta
-	
+
 	def compute_dem(self,datasequence,wrapargs=None):
 		if(wrapargs is None): wrapargs = self.wrapargs
 		return sparse_multi_instrument_dem_wrapper(datasequence, wrapargs=wrapargs)

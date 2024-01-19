@@ -152,9 +152,9 @@ class dashboard_object(object):
         [i, j] = [xpt, ypt]
 
         self.demimg = self.ax2.imshow(((np.clip(self.demimage, 0, plt_emmax)/plt_emmax)**gfac).transpose((1, 0, 2)))
-        self.crosshair, = self.ax2.plot([i], [j], color='C0', marker='+',           linewidth=8, markersize=20) #, markeredgewidth=3, markeredgecolor='white',)
-        self.crosshair_2, = self.ax2.plot([i], [j], color='C1', marker='+',         linewidth=8, markersize=20) #, markeredgewidth=3, markeredgecolor='white',)
-        self.crosshair_mouseover, = self.ax2.plot([i], [j], color='C2', marker='+', linewidth=8, markersize=20) #, markeredgewidth=3, markeredgecolor='white',)
+        self.crosshair, = self.ax2.plot([i], [j], color='C0', marker='+',           markersize=25) #, markeredgewidth=3, markeredgecolor='white',)
+        self.crosshair_2, = self.ax2.plot([i], [j], color='C1', marker='+',         markersize=25) #, markeredgewidth=3, markeredgecolor='white',)
+        self.crosshair_mouseover, = self.ax2.plot([i], [j], color='C2', marker='+', markersize=25) #, markeredgewidth=3, markeredgecolor='white',)
 
         [ptlogt, ptdem] = self.emc.compute_dem(i, j, algorithm=algorithm)
         self.demplot, = self.ax3.plot(10*ptlogt, ptdem/1.0e28,              label=f'Click   at [{i:03}, {j:03}]')
@@ -163,7 +163,11 @@ class dashboard_object(object):
         self.ax3.set_ylim(0, 1.1)
         self.ax3.legend(loc='upper right', fontsize=12)
 
-        plt.suptitle(synthdata[0].meta['algorithm'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'])
+        try:
+            plt.suptitle(synthdata[0].meta['algorithm'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'])
+        except KeyError:
+            plt.suptitle(synthdata[0].meta['ALGORITHM'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'])
+
         self.ax2.set(title='RGB Composite DEM image')
         self.ax3.set(title='Diff Emission Measure', xlabel='Temperature (dB Kelvin)', ylabel='DEM (Mm \n[$10^9$ cm$^{-3}$]$^2$/dBK)')
         self.ax3.minorticks_on()
