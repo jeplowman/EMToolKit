@@ -48,12 +48,12 @@ def dummy_meta(nx,ny):
 from ipywidgets import interact, interactive, fixed, interact_manual
 import ipywidgets as widgets
 
-class dashboard_object(object):
-    def __init__(self,em_collection):
-        self.emc = em_collection
+# class dashboard_object(object):
+#     def __init__(self,em_collection):
+#         self.emc = em_collection
 
-    def widgwrap(self, xpt, ypt, rtemp, gtemp, btemp, sigma, algorithm):
-        dashboard_figure(self.emc, plotpoint=[xpt,ypt], temperatures=[rtemp,gtemp,btemp], sigmas=sigma, algorithm=algorithm)
+#     def widgwrap(self, xpt, ypt, rtemp, gtemp, btemp, sigma, algorithm):
+#         dashboard_figure(self.emc, plotpoint=[xpt,ypt], temperatures=[rtemp,gtemp,btemp], sigmas=sigma, algorithm=algorithm)
 
 class dashboard_object(object):
     def __init__(self, em_collection):
