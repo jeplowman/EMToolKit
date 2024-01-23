@@ -90,6 +90,8 @@ class dashboard_object(object):
         self.clicking = False
         self.last_click = 1
         self.bezier_points = None
+        self.dem_along_line = None
+        self.max_line = None
 
         self.red_temp = None
         self.grn_temp = None
@@ -295,8 +297,12 @@ class dashboard_object(object):
                 self.dem_along_line = None
 
             self.crosshairs = []
+            if self.max_line is not None:
+                self.max_line.remove()
+                self.max_line = None
 
             self.count = 0
+            self.curve_points = []
             self.ax3.set_prop_cycle(rcParams['axes.prop_cycle'])
 
             self.init_mouseover_line()
@@ -311,8 +317,13 @@ class dashboard_object(object):
     def update_bezier_map(self):
         dems = [self.get_dem_at(int(np.round(i)), int(np.round(j))) for i, j in zip(self.bezier_points[:, 0], self.bezier_points[:, 1])]
         temperatures = dems[0][0]
-        the_map = np.stack([dem[1] for dem in dems]).T
-        self.dem_along_line = self.ax5.imshow(the_map, aspect='auto', extent=[0, 1.0, np.min(temperatures), np.max(temperatures)])
+        the_map = np.stack([dem[1]/np.max(dem[1]) for dem in dems]).T
+
+        # amax_line = np.amax(the_map)
+        max_line = [temperatures[np.argmax(the_map[:, i])] for i in range(len(dems))]
+        self.max_line, = plt.plot(max_line, 'r')
+
+        self.dem_along_line = self.ax5.imshow(the_map, aspect='auto', extent=[0, len(dems), np.min(temperatures), np.max(temperatures)])
         # print(temperatures)
 
 
@@ -323,7 +334,7 @@ class dashboard_object(object):
             return
 
 
-        def compute_bezier_points(control_points, num_points=100):
+        def compute_bezier_points(control_points, num_points=250):
             n = len(control_points) - 1
             t = np.linspace(0, 1, num_points)
             curve_points = np.zeros((num_points, 2))
@@ -335,7 +346,7 @@ class dashboard_object(object):
             return curve_points
 
         # Compute the Bezier curve points
-        self.bezier_points = compute_bezier_points(self.curve_points, num_points=100)
+        self.bezier_points = compute_bezier_points(self.curve_points, num_points=250)
 
         # Clear the previous curve and draw a new one
         if self.bezline is not None:
