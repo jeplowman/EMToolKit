@@ -76,9 +76,6 @@ class dashboard_object(object):
         self.curve_points = []
         self.drawing = False
 
-
-
-
         self.fig = None
         self.ax1 = None
         self.ax2 = None
@@ -92,6 +89,7 @@ class dashboard_object(object):
         self.count = 0
         self.clicking = False
         self.last_click = 1
+        self.bezier_points = None
 
         self.red_temp = None
         self.grn_temp = None
@@ -145,35 +143,38 @@ class dashboard_object(object):
         # Display the custom CSS in the notebook
         HTML(self.custom_css)
         self.fig = plt.figure(constrained_layout=True)
-        self.fig.set_size_inches(16, 8)
-        spec = self.fig.add_gridspec(ncols=3, nrows=2, width_ratios=[0.1, 0.6, 0.3], height_ratios=[1, 1])
+        self.fig.set_size_inches(17, 10)
+        # spec = self.fig.add_gridspec(ncols=3, nrows=2, width_ratios=[0.1, 0.6, 0.3], height_ratios=[1, 1])
+        # self.ax1 = self.fig.add_subplot(spec[:, 0])
+        # self.ax2 = self.fig.add_subplot(spec[:, 1])
+        # self.ax3 = self.fig.add_subplot(spec[0, 2])
+        # self.ax4 = self.fig.add_subplot(spec[1, 2])
 
+        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.1, 0.6, 0.3], height_ratios=[1, 1,1,1,1.5])
         self.ax1 = self.fig.add_subplot(spec[:, 0])
-        self.ax2 = self.fig.add_subplot(spec[:, 1])
-        self.ax3 = self.fig.add_subplot(spec[0, 2])
-        self.ax4 = self.fig.add_subplot(spec[1, 2])
+        self.ax2 = self.fig.add_subplot(spec[:-1, 1])
+        self.ax3 = self.fig.add_subplot(spec[0:2, 2])
+        self.ax4 = self.fig.add_subplot(spec[-1, 1])
+        self.ax5 = self.fig.add_subplot(spec[2:5, 2])
+
 
     def update_legend(self):
         # Hide the legend based on the condition
         self.legend = self.ax3.legend(loc='upper right', fontsize=12,bbox_to_anchor=(1, 1))
-
-        # if self.count > 5:
-        #     if self.legend is not None:
-        #         self.legend.set_visible(False)
-        # else:
-        #     if self.legend is not None:
-        #         self.legend.set_visible(True)
-
         self.fig.canvas.draw_idle()
 
     def init_dem_line(self, ix, iy):
         NC = self.count
         self.crosshairs.append(self.ax2.plot([ix], [iy], marker='+', color=f"C{NC}", markersize=25)[0])
-        [ptlogt, ptdem] = self.emc.compute_dem(ix, iy, algorithm=self.the_algorithm)
         self.count += 1
         thelabel = f'Click {self.count} at [{ix:03}, {iy:03}]' if self.count < 6 else None
-        self.demlines.append(self.ax3.plot(10*ptlogt, ptdem/1.0e28, color=f"C{NC}", label=thelabel)[0])
+        tt, dd = self.get_dem_at(ix, iy)
+        self.demlines.append(self.ax3.plot(tt, dd, color=f"C{NC}", label=thelabel)[0])
         self.update_legend()
+
+    def get_dem_at(self, ix, iy):
+        [ptlogt, ptdem] = self.emc.compute_dem(ix, iy, algorithm=self.the_algorithm)
+        return 10*ptlogt, ptdem/1.0e28
 
     def init_mouseover_line(self):
         NC = self.count
@@ -181,10 +182,6 @@ class dashboard_object(object):
         # [ptlogt, ptdem] = self.emc.compute_dem(0, 0, algorithm=self.the_algorithm)
         self.demplot_mouseover, = self.ax3.plot([],[], color='purple', ls="--", zorder=10000,  label=f"Mouse off chart")
         self.update_legend()
-
-
-
-
 
     def init_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27):
         # print("Initializing Dashboard")
@@ -213,6 +210,7 @@ class dashboard_object(object):
 
         self.ax2.set(title='RGB Composite DEM image')
         self.ax3.set(title='Diff Emission Measure', xlabel='Temperature (dB Kelvin)', ylabel='DEM (Mm \n[$10^9$ cm$^{-3}$]$^2$/dBK)')
+        self.ax5.set(title='Diff Emission Measure', xlabel='Along the Line', ylabel='Temperature (dB Kelvin)')
         self.ax3.minorticks_on()
         self.ax4.set(title='RGB Composite DEM channel responses', xlabel='Temperature (dB Kelvin)')
 
@@ -225,6 +223,8 @@ class dashboard_object(object):
         self.ax1.set(title='Color Reference', ylabel='Temperature (dB Kelvin)', xlabel='Channel EM')
 
         self.init_interactivity()
+
+
 
     def init_interactivity(self):
 
@@ -271,11 +271,15 @@ class dashboard_object(object):
                 self.drawing = True
                 self.curve_points = []  # Reset the points
                 b.description = "Stop Drawing"
-                b.button_style = 'success'  # Red color
+                b.button_style = 'success'  # Green color
             else:
                 self.drawing = False
                 b.description = "Draw Curve"
-                b.button_style = ''  # Default color  # Default color
+                b.button_style = ''  # Default color
+                # print(self.bezier_points)
+                self.update_bezier_map()
+
+
 
         def on_reset_lines_clicked(b):
             for line in self.ax3.lines:
@@ -285,6 +289,10 @@ class dashboard_object(object):
                     crosshair.remove()
             if self.bezline is not None:
                 self.bezline.set_data([np.nan], [np.nan])
+
+            if self.dem_along_line is not None:
+                self.dem_along_line.remove()
+                self.dem_along_line = None
 
             self.crosshairs = []
 
@@ -297,10 +305,15 @@ class dashboard_object(object):
 
             print("Reset Lines")
 
-
-
         self.btn_draw_curve.on_click(on_draw_curve_clicked)
         self.btn_finish_lines.on_click(on_reset_lines_clicked)
+
+    def update_bezier_map(self):
+        dems = [self.get_dem_at(int(np.round(i)), int(np.round(j))) for i, j in zip(self.bezier_points[:, 0], self.bezier_points[:, 1])]
+        temperatures = dems[0][0]
+        the_map = np.stack([dem[1] for dem in dems]).T
+        self.dem_along_line = self.ax5.imshow(the_map, aspect='auto', extent=[0, 1.0, np.min(temperatures), np.max(temperatures)])
+        # print(temperatures)
 
 
     def update_bezier_curve(self, i, j):
@@ -322,13 +335,13 @@ class dashboard_object(object):
             return curve_points
 
         # Compute the Bezier curve points
-        bezier_points = compute_bezier_points(self.curve_points, num_points=100)
+        self.bezier_points = compute_bezier_points(self.curve_points, num_points=100)
 
         # Clear the previous curve and draw a new one
         if self.bezline is not None:
-            self.bezline.set_data(bezier_points[:, 0], bezier_points[:, 1])
+            self.bezline.set_data(self.bezier_points[:, 0], self.bezier_points[:, 1])
         else:
-            self.bezline, = self.ax2.plot(bezier_points[:, 0], bezier_points[:, 1], 'r-')
+            self.bezline, = self.ax2.plot(self.bezier_points[:, 0], self.bezier_points[:, 1], 'r-')
         self.fig.canvas.draw_idle()
 
 
