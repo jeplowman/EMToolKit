@@ -14,7 +14,7 @@ import time
 from scipy.interpolate import make_interp_spline
 import scipy.special
 from matplotlib import rcParams
-
+from scipy.interpolate import splprep, splev, UnivariateSpline
 
 def dem_color_table(ctlogts,sigmin=0.1,sigmax=0.1,intmin=0.0,intmax=1.0,n=81):
 
@@ -51,12 +51,6 @@ def dummy_meta(nx,ny):
 from ipywidgets import interact, interactive, fixed, interact_manual
 import ipywidgets as widgets
 
-# class dashboard_object(object):
-#     def __init__(self,em_collection):
-#         self.emc = em_collection
-
-#     def widgwrap(self, xpt, ypt, rtemp, gtemp, btemp, sigma, algorithm):
-#         dashboard_figure(self.emc, plotpoint=[xpt,ypt], temperatures=[rtemp,gtemp,btemp], sigmas=sigma, algorithm=algorithm)
 
 class dashboard_object(object):
     def __init__(self, em_collection):
@@ -69,12 +63,19 @@ class dashboard_object(object):
         self.gtemp=widgets.FloatSlider(min=5, max=7, value=6.1, step=0.05, description='gtemp', continuous_update=False)
         self.btemp=widgets.FloatSlider(min=5, max=7, value=6.4, step=0.05, description='btemp', continuous_update=False)
         self.sigma=widgets.FloatSlider(min=0.025, max=0.5, value=0.125, step=0.01, description='sigma', continuous_update=False)
+        self.rng=widgets.FloatRangeSlider(min=55, max=75, value=(58, 68), step=0.5, description='PlotRange', continuous_update=False)
         self.algorithm=widgets.Dropdown(options=self.emc.collection['models'], description='algorithm', continuous_update=False)
+        self.normalization=widgets.Dropdown(options=['max', 'area', 'none'], description='norm', continuous_update=True)
         self.btn_draw_curve = widgets.Button(description="Draw Curve")
         self.btn_finish_lines = widgets.Button(description="Reset Lines")
-
-        self.curve_points = []
+        # self.slice_type = "bezier"
+        self.slice_type=widgets.Dropdown(options=["spline","bezier"], description='slice type', continuous_update=False)
+        self.mouseover = widgets.Checkbox( value=True, description='mouseover')
+        self.tick_spacing = widgets.IntSlider(min=5, max=100, value=50, step=5, description='spacing', continuous_update=False)
+        self.tick_spacing_value = 50
+        self.control_points = []
         self.drawing = False
+        self.the_normalization = "max"
 
         self.fig = None
         self.ax1 = None
@@ -83,15 +84,18 @@ class dashboard_object(object):
         self.ax4 = None
         self.crosshair = None
         self.crosshair_mouseover = None
-        self.bezline = None
+        self.slice_line = None
         self.demplot = None
         self.plotmax = 0.0
         self.count = 0
         self.clicking = False
         self.last_click = 1
-        self.bezier_points = None
+        self.slice_points = None
         self.dem_along_line = None
         self.max_line = None
+        self.demimage = None
+        self.slice_ticks = None
+        self.logt = None
 
         self.red_temp = None
         self.grn_temp = None
@@ -101,6 +105,8 @@ class dashboard_object(object):
         self.crosshairs = []
         self.crosshairs_bezier = []
         self.demlines = []
+        self.slice_points_interpolated = []
+        self.slice_ticks_list = []
         self.legend = None
 
         self.last_update_time = 0
@@ -118,23 +124,26 @@ class dashboard_object(object):
 
 
     def displays(self):
-        ui0 = widgets.HBox([self.rtemp,self.gtemp,self.btemp,self.sigma,self.algorithm])
-        ui1 = widgets.HBox([self.btn_draw_curve, self.btn_finish_lines])
-        ui = widgets.VBox([ui0,ui1])
-        out = widgets.interactive_output(self.widgwrap, {'rtemp': self.rtemp, 'gtemp': self.gtemp, 'btemp': self.btemp, 'sigma': self.sigma, 'algorithm': self.algorithm})
+        ui0 = widgets.HBox([self.rtemp,self.gtemp,self.btemp,self.sigma,])
+        ui05= widgets.HBox([self.slice_type, self.rng, self.tick_spacing, self.normalization])
+        ui1 = widgets.HBox([self.btn_draw_curve, self.btn_finish_lines, self.algorithm, self.mouseover])
+        ui = widgets.VBox([ui0,ui05, ui1])
+        out = widgets.interactive_output(self.widgwrap, {'rtemp': self.rtemp, 'gtemp': self.gtemp, 'btemp': self.btemp, 'sigma': self.sigma,
+                                        'algorithm': self.algorithm, 'rng': self.rng, 'slice_type': self.slice_type,
+                                        "mouseover": self.mouseover, "spacing": self.tick_spacing, 'normalization': self.normalization})
         return ui, out
 
     def display(self):
         ui, out = self.displays()
         display(ui,out)
 
-    def widgwrap(self, rtemp, gtemp, btemp, sigma, algorithm):
+    def widgwrap(self, rtemp, gtemp, btemp, sigma, algorithm, rng, slice_type, mouseover, spacing, normalization):
         if self.fig is None:
             self.create_figure()
-            self.init_figure( rtemp, gtemp, btemp, sigma, algorithm)
+            self.init_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type)
         else:
             self.count += 1
-            self.update_figure( rtemp, gtemp, btemp, sigma, algorithm)
+            self.update_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type, mouseover=mouseover, spacing=spacing, normalization=normalization)
 
 
     def create_figure(self):
@@ -145,14 +154,9 @@ class dashboard_object(object):
         # Display the custom CSS in the notebook
         HTML(self.custom_css)
         self.fig = plt.figure(constrained_layout=True)
-        self.fig.set_size_inches(17, 10)
-        # spec = self.fig.add_gridspec(ncols=3, nrows=2, width_ratios=[0.1, 0.6, 0.3], height_ratios=[1, 1])
-        # self.ax1 = self.fig.add_subplot(spec[:, 0])
-        # self.ax2 = self.fig.add_subplot(spec[:, 1])
-        # self.ax3 = self.fig.add_subplot(spec[0, 2])
-        # self.ax4 = self.fig.add_subplot(spec[1, 2])
+        self.fig.set_size_inches(19, 10)
 
-        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.1, 0.6, 0.3], height_ratios=[1, 1,1,1,1.5])
+        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.1, 0.6, 0.6], height_ratios=[1, 1,1,1,1.5])
         self.ax1 = self.fig.add_subplot(spec[:, 0])
         self.ax2 = self.fig.add_subplot(spec[:-1, 1])
         self.ax3 = self.fig.add_subplot(spec[0:2, 2])
@@ -175,19 +179,22 @@ class dashboard_object(object):
         self.update_legend()
 
     def get_dem_at(self, ix, iy):
-        [ptlogt, ptdem] = self.emc.compute_dem(ix, iy, algorithm=self.the_algorithm)
+        [ptlogt, ptdem] = self.emc.compute_dem(ix, iy, logt=self.logt, algorithm=self.the_algorithm)
         return 10*ptlogt, ptdem/1.0e28
 
     def init_mouseover_line(self):
         NC = self.count
         self.crosshair_mouseover, = self.ax2.plot([], [], color='purple', marker='+', markersize=25)
-        # [ptlogt, ptdem] = self.emc.compute_dem(0, 0, algorithm=self.the_algorithm)
         self.demplot_mouseover, = self.ax3.plot([],[], color='purple', ls="--", zorder=10000,  label=f"Mouse off chart")
         self.update_legend()
 
-    def init_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27):
+    def init_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27, rng=[58, 68], slice_type="bezier", mouseover=True):
         # print("Initializing Dashboard")
         self.the_algorithm = algorithm
+        self.the_slice_type = slice_type
+        self.mouseover = mouseover
+        self.logt = np.linspace(5.5, 7.5, 200)
+        self.last_update_time = time.time()
 
         [synthchanlogts, synthchantresps] = lognormal_synthetic_channels([rtemp, gtemp, btemp], sigma)
         [cbcoll, cblogts, cbints, cbsigmas] = dem_color_table(synthchanlogts[0])
@@ -197,12 +204,14 @@ class dashboard_object(object):
         self.demimage = np.stack([dat.data for dat in synthdata.data]).T
         colorbar_synthdata = cbcoll.synthesize_data(synthchanlogts, synthchantresps)
         clbimage = np.stack([dat.data for dat in colorbar_synthdata.data]).T
-        self.demimg = self.ax2.imshow(((np.clip(self.demimage, 0, plt_emmax)/plt_emmax)**gfac).transpose((1, 0, 2)))
+        self.demimg = self.ax2.imshow(((np.clip(self.demimage, 0, plt_emmax)/plt_emmax)**gfac).transpose((1, 0, 2)), interpolation="None")
 
-        [ptlogt, ptdem] = self.emc.compute_dem(0,0, algorithm=self.the_algorithm)
+        # [ptlogt, ptdem] = self.emc.compute_dem(0,0, algorithm=self.the_algorithm)
         self.init_mouseover_line()
         self.ax3.set_ylim(0, 1.1)
-        self.ax3.set_xlim(np.min(10*ptlogt), np.max(10*ptlogt))
+        self.ax3.set_xlim(*rng)
+        self.ax5.set_ylim(*rng)
+
         self.update_legend()
 
         try:
@@ -226,148 +235,253 @@ class dashboard_object(object):
 
         self.init_interactivity()
 
-
-
     def init_interactivity(self):
-
         [nx,ny,nz] = self.demimage.shape
+
         def on_click(event):
             if event.inaxes == self.ax2:
                 ix, iy = int(event.xdata), int(event.ydata)
                 i = min(max(ix, 0), nx-1)
                 j = min(max(iy, 0), ny-1)
-
                 if self.drawing:
-                    self.update_bezier_curve(i, j)  # Function to draw/update the Bezier curve
-                # else:
+                    self.update_slice_curve(i, j)  # Function to draw/update the Bezier curve
                 self.init_dem_line(i, j)
-
             self.update_legend()
-
         self.fig.canvas.mpl_connect('button_press_event', on_click)
 
+
         def on_mouseover(event):
-
-            if self.demplot_mouseover is None:
-                self.init_mouseover_line()
-
-            if event.inaxes == self.ax2:
-                ix, iy = int(event.xdata), int(event.ydata)
-
-                [ptlogt,ptdem] = self.emc.compute_dem(ix,iy,algorithm=self.the_algorithm)
-                self.demplot_mouseover.set_data(10*ptlogt,ptdem/1.0e28)
-                self.crosshair_mouseover.set_data([ix],[iy])
-                self.demplot_mouseover.set_label(f"Mouse at [{ix}, {iy}]")
-                self.update_legend()
-            else:
-                self.crosshair_mouseover.set_data([np.nan],[np.nan])
-                self.demplot_mouseover.set_data([np.nan],[np.nan])
-                self.demplot_mouseover.set_label("Mouse off chart")
-                self.update_legend()
-
+            if self.mouseover:
+                if self.demplot_mouseover is None:
+                    self.init_mouseover_line()
+                if event.inaxes == self.ax2:
+                    ix, iy = int(event.xdata), int(event.ydata)
+                    self.crosshair_mouseover.set_data([ix],[iy])
+                    self.demplot_mouseover.set_label(f"Mouse at [{ix}, {iy}]")
+                    self.demplot_mouseover.set_data(*self.get_dem_at(ix, iy))
+                    self.update_legend()
+                else:
+                    self.crosshair_mouseover.set_data([np.nan],[np.nan])
+                    self.demplot_mouseover.set_data([np.nan],[np.nan])
+                    self.demplot_mouseover.set_label("Mouse off chart")
+                    self.update_legend()
         self.fig.canvas.mpl_connect('motion_notify_event', on_mouseover)
 
+
         def on_draw_curve_clicked(b):
-            print("Drawing curve")
+            # print("Drawing curve")
             if b.description == "Draw Curve":
                 self.drawing = True
-                self.curve_points = []  # Reset the points
-                b.description = "Stop Drawing"
+                self.control_points = []  # Reset the points
+                b.description = "Calculate Curve"
                 b.button_style = 'success'  # Green color
             else:
                 self.drawing = False
                 b.description = "Draw Curve"
                 b.button_style = ''  # Default color
-                # print(self.bezier_points)
-                self.update_bezier_map()
-
+                # print(self.slice_points)
+                self.update_slice_map()
+        self.btn_draw_curve.on_click(on_draw_curve_clicked)
 
 
         def on_reset_lines_clicked(b):
             for line in self.ax3.lines:
                 line.remove()
+
             for crosshair in self.crosshairs:
                 if crosshair is not None and crosshair.axes is not None:
                     crosshair.remove()
-            if self.bezline is not None:
-                self.bezline.set_data([np.nan], [np.nan])
-
-            if self.dem_along_line is not None:
-                self.dem_along_line.remove()
-                self.dem_along_line = None
-
             self.crosshairs = []
+
+            if self.slice_line is not None:
+                self.slice_line.set_data([np.nan], [np.nan])
+
+            for image in self.ax5.get_images():
+                image.remove()
+
             if self.max_line is not None:
-                self.max_line.remove()
-                self.max_line = None
+                if not isinstance(self.max_line, list):
+                    print(self.max_line)
+                    self.max_line.remove()
+                    self.max_line = None
+
+            for line in self.ax5.lines:
+                line.remove()
 
             self.count = 0
-            self.curve_points = []
+            self.control_points = []
             self.ax3.set_prop_cycle(rcParams['axes.prop_cycle'])
+
+            self.remove_slice_ticks()
 
             self.init_mouseover_line()
 
             self.update_legend()
 
-            print("Reset Lines")
+            # Reset the "Draw Curve" button properties
+            self.btn_draw_curve.description = "Draw Curve"
+            self.btn_draw_curve.button_style = ''  # Default color
 
-        self.btn_draw_curve.on_click(on_draw_curve_clicked)
         self.btn_finish_lines.on_click(on_reset_lines_clicked)
 
-    def update_bezier_map(self):
-        dems = [self.get_dem_at(int(np.round(i)), int(np.round(j))) for i, j in zip(self.bezier_points[:, 0], self.bezier_points[:, 1])]
-        temperatures = dems[0][0]
-        the_map = np.stack([dem[1]/np.max(dem[1]) for dem in dems]).T
+    def update_slice_map(self):
+        if self.slice_points is None or self.drawing:
+            self.remove_slice_ticks()
+            return
+        dems = [self.get_dem_at(int(np.round(i)), int(np.round(j))) for i, j in zip(self.slice_points[0], self.slice_points[1])]
 
-        # amax_line = np.amax(the_map)
+        temperatures = dems[0][0]
+
+
+        # print(self.the_normalization)
+
+
+        if self.the_normalization == "area":
+            func = np.sum
+        elif self.the_normalization == "max":
+            func = np.max
+        elif self.the_normalization == "none":
+            func = lambda x: 1
+
+        the_map = np.stack([dem[1]/func(dem[1]) for dem in dems]).T
+
         max_line = [temperatures[np.argmax(the_map[:, i])] for i in range(len(dems))]
-        self.max_line, = plt.plot(max_line, 'r')
+        self.max_line, = plt.step(max_line, 'r', where='post')
 
         self.dem_along_line = self.ax5.imshow(the_map, aspect='auto', extent=[0, len(dems), np.min(temperatures), np.max(temperatures)])
-        # print(temperatures)
+
+
+    def update_slice_curve(self, i, j):
+        if self.the_slice_type == "bezier":
+            self.update_bezier_curve(i, j)
+        elif self.the_slice_type == "spline":
+            self.update_spline_curve(i, j)
+
+
+    def add_control_point(self, i, j):
+        self.control_points.append((i, j))
+        self.crosshairs.append(self.ax2.plot([i], [j], marker='o', markeredgecolor=f"k", markersize=10)[0])
 
 
     def update_bezier_curve(self, i, j):
-        self.curve_points.append((i, j))
-        self.crosshairs.append(self.ax2.plot([i], [j], marker='o', markeredgecolor=f"cyan", markersize=10)[0])
-        if len(self.curve_points) < 2:
+        self.add_control_point(i, j)
+
+        if len(self.control_points) < 2:
             return
 
-
-        def compute_bezier_points(control_points, num_points=250):
+        def compute_bez_slice_points(control_points, num_points=252):
             n = len(control_points) - 1
             t = np.linspace(0, 1, num_points)
-            curve_points = np.zeros((num_points, 2))
+            slice_points = np.zeros((num_points, 2))
             for i in range(n + 1):
                 binomial_coeff = scipy.special.comb(n, i)
-                # We need to ensure that the shapes are compatible for broadcasting
-                # The np.newaxis helps in aligning the shapes for the operation
-                curve_points += binomial_coeff * (t**i)[:, np.newaxis] * ((1 - t)**(n - i))[:, np.newaxis] * np.array(control_points[i])
-            return curve_points
+                term = binomial_coeff * (t**i)[:, np.newaxis] * ((1 - t)**(n - i))[:, np.newaxis] * np.array(control_points[i])
+                slice_points += term
+            return slice_points
 
-        # Compute the Bezier curve points
-        self.bezier_points = compute_bezier_points(self.curve_points, num_points=250)
+        self.slice_points = compute_bez_slice_points(self.control_points, num_points=252).T
 
-        # Clear the previous curve and draw a new one
-        if self.bezline is not None:
-            self.bezline.set_data(self.bezier_points[:, 0], self.bezier_points[:, 1])
-        else:
-            self.bezline, = self.ax2.plot(self.bezier_points[:, 0], self.bezier_points[:, 1], 'r-')
-        self.fig.canvas.draw_idle()
+        self.update_curve()
 
 
+    def update_spline_curve(self, i, j):
+        self.add_control_point(i, j)
 
-    def update_figure(self, xpt, ypt, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27):
+        if len(self.control_points) < 4:
+            return
+
+        def compute_spline_slice_points(control_points, num_points=252):
+            # Get x and y coordinates of control points
+            x_coords, y_coords = zip(*control_points)
+
+            # Fit a cubic spline to the control points
+            tck, u = splprep([x_coords, y_coords], s=0)
+
+            # Evaluate the spline at a set of points to create the curve
+            u_new = np.linspace(0, 1, num_points)
+            spline_points = splev(u_new, tck)
+
+            return spline_points
+
+        self.slice_points = compute_spline_slice_points(self.control_points)
+
+        self.update_curve()
+
+
+    def interpolate_slice_points(self):
+        xp0 = self.slice_points[0]
+        yp0 = self.slice_points[1]
+
+        # Compute the arc length along the curve
+        L = np.zeros(xp0.shape)
+        for i in range(1, len(xp0)):
+            distance = np.sqrt((xp0[i] - xp0[i-1])**2 + (yp0[i] - yp0[i-1])**2)
+            L[i] = L[i-1] + distance
+
+        # Normalize the arc length to [0, 1]
+        L /= L[-1]
+
+        # Create a linearly spaced parameter 'L2' from 0 to 1
+        L2 = np.linspace(0, 1, 252)
+
+        # Interpolate 'xp0' and 'yp0' along the normalized arc length 'L' to obtain evenly spaced points 'xp2' and 'yp2'
+        xp2 = UnivariateSpline(L, xp0)(L2)
+        yp2 = UnivariateSpline(L, yp0)(L2)
+
+        self.slice_points_interpolated = np.asarray([xp2, yp2])
+        # 'xp2' and 'yp2' now contain the resampled points that are evenly spaced along the curve
+
+        # Remove the old scatter plot
+        self.remove_slice_ticks()
+        self.make_slice_ticks()
+
+
+    def remove_slice_ticks(self):
+        if self.slice_ticks is not None:
+            self.slice_ticks.remove()
+            self.slice_ticks = None
+            self.slice_ticks_list = []
+
+        for line in self.ax5.lines:
+            line.remove()
+
+    def make_slice_ticks(self):
+        for ii, pt in enumerate(self.slice_points_interpolated.T):
+            if ii % self.tick_spacing_value == 0:
+                self.slice_ticks_list.append(pt)
+
+        self.slice_ticks_array = np.asarray(self.slice_ticks_list).T
+
+        for ii, pt in enumerate(self.slice_ticks_list):
+            self.ax5.axvline(ii*self.tick_spacing.value, color="cyan", ls=":", zorder=1000)
+
+    def update_curve(self):
+        if self.slice_points is not None:
+            self.interpolate_slice_points()
+            # Clear the previous curve and draw a new one
+            if self.slice_line is not None:
+                self.slice_line.set_data(self.slice_points_interpolated[0], self.slice_points_interpolated[1])
+            else:
+                self.slice_line, = self.ax2.plot(self.slice_points_interpolated[0], self.slice_points_interpolated[1], 'r-')
+
+            self.slice_ticks = self.ax2.scatter(self.slice_ticks_array[0], self.slice_ticks_array[1], marker='o', color='cyan', s=20, zorder=100)
+            self.fig.canvas.draw_idle()
+
+
+    def update_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27, rng=[55, 75], slice_type=None, mouseover=True, spacing=50, normalization="max"):
         # Update the plots using the stored handles
-        if self.crosshair is not None:
-            [i, j] = [xpt, ypt]
-            self.crosshair.set_data([i], [j])
 
-        if self.demplot is not None:
-            [ptlogt, ptdem] = self.emc.compute_dem(i, j, algorithm=algorithm)
-            self.demplot.set_data(10*ptlogt, ptdem/1.0e28)
+        # print("Updating Figure")
+        self.ax3.set_xlim(*rng)
+        self.ax5.set_ylim(*rng)
 
-            self.plotmax = max(self.plotmax, np.amax(ptdem/1.0e28))
+        if algorithm is not None:
+            self.the_algorithm = algorithm
+        if slice_type is not None:
+            self.the_slice_type = slice_type
+        self.tick_spacing_value = spacing
+        self.the_normalization = normalization
+        self.mouseover = mouseover
 
         [synthchanlogts, synthchantresps] = lognormal_synthetic_channels([rtemp, gtemp, btemp], sigma)
         if self.red_temp is not None:
@@ -384,9 +498,17 @@ class dashboard_object(object):
 
         if self.demimg is not None:
             [ilo, ihi, jlo, jhi] = [None]*4  # Update as needed
-            synthdata = self.emc.synthesize_data(synthchanlogts, synthchantresps, ilo=ilo, ihi=ihi, jlo=jlo, jhi=jhi, algorithm=algorithm)
+            synthdata = self.emc.synthesize_data(synthchanlogts, synthchantresps, ilo=ilo, ihi=ihi, jlo=jlo, jhi=jhi, algorithm=self.the_algorithm)
             demimage = np.stack([dat.data for dat in synthdata.data]).T
             self.demimg.set_data(((np.clip(demimage, 0, plt_emmax)/plt_emmax)**gfac).transpose((1, 0, 2)))
+
+        try:
+            plt.suptitle(synthdata[0].meta['algorithm'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'])
+        except KeyError:
+            plt.suptitle(synthdata[0].meta['ALGORITHM'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'])
+
+        self.update_curve()
+        self.update_slice_map()
 
         self.fig.canvas.draw_idle()
 
