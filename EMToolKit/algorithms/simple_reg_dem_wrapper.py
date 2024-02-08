@@ -4,9 +4,14 @@ from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
 from EMToolKit.algorithms.simple_reg_dem import simple_reg_dem
+import os.path
+import pickle
+import time
+import EMToolKit.EMToolKit as emtk
+
 
 # Need to implement passing the wrapargs to the init routines...
-def simple_reg_dem_wrapper(datasequence,wrapargs=None):   
+def simple_reg_dem_wrapper(datasequence,wrapargs=None):
     nc = len(datasequence)
     [nx,ny] = datasequence[0].data.shape
     for seq in datasequence: [nx,ny] = [np.min([seq.data.shape[0],nx]),np.min([seq.data.shape[1],ny])]
@@ -20,11 +25,11 @@ def simple_reg_dem_wrapper(datasequence,wrapargs=None):
         errscube[:,:,i] = datasequence[i].uncertainty.array[0:nx,0:ny]
         tresps[:,i] = datasequence[i].meta['tresp']
         exptimes[i] = datasequence[i].meta['exptime']
-    
-    coeffs,chi2 = simple_reg_dem(datacube,errscube,exptimes,logt,tresps)    
+
+    coeffs,chi2 = simple_reg_dem(datacube,errscube,exptimes,logt,tresps)
     # Simple_reg_dem puts the temperature axis last. Transpose so it's the first:
     coeffs = coeffs.transpose(np.roll(np.arange(coeffs.ndim),1))
-    
+
     nt = logt.size
     wcs = datasequence[0].wcs
     basislogt = np.linspace(np.min(logt),np.max(logt),2*(nt-1)+1)
@@ -36,3 +41,20 @@ def simple_reg_dem_wrapper(datasequence,wrapargs=None):
         bases.append(basis)
         logts.append(basislogt)
     return list(coeffs),logts,bases,wcs,'simple_reg_dem'
+
+
+
+def autoloading_simple_reg_dem_wrapper(datasequence, data_dir, recalc_simple=False):
+    pk_file = os.path.join(data_dir, 'simple_reg_demsequence.pkl')
+
+    if os.path.exists(pk_file) and not recalc_simple:
+        with open(pk_file, 'rb') as file:
+            (simple_reg_demsequence, simpl_out) = pickle.load(file)
+    else:
+        tstart=time.time()
+        simpl_out = simple_reg_dem_wrapper(datasequence)
+        print('Simple method took',time.time()-tstart)
+        simple_reg_demsequence = emtk.dem_model(*simpl_out, simple_reg_dem_wrapper)
+        with open(pk_file, 'wb') as file:
+            pickle.dump((simple_reg_demsequence, simpl_out), file)
+    return simple_reg_demsequence, simpl_out

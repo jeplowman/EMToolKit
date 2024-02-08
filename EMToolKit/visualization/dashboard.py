@@ -59,9 +59,9 @@ class dashboard_object(object):
         [nx,ny] = em_collection.collection[em_collection.collection['models'][0]][0].data.shape
         # self.xpt_slider = widgets.IntSlider(min=0, max=nx-1, value=10, step=1, description='xpt', continuous_update=False)
         # self.ypt_slider = widgets.IntSlider(min=0, max=ny-1, value=100, step=1, description='ypt', continuous_update=False)
-        self.rtemp=widgets.FloatSlider(min=5, max=7, value=5.8, step=0.05, description='rtemp', continuous_update=False)
+        self.rtemp=widgets.FloatSlider(min=5, max=7, value=5.6, step=0.05, description='rtemp', continuous_update=False)
         self.gtemp=widgets.FloatSlider(min=5, max=7, value=6.1, step=0.05, description='gtemp', continuous_update=False)
-        self.btemp=widgets.FloatSlider(min=5, max=7, value=6.4, step=0.05, description='btemp', continuous_update=False)
+        self.btemp=widgets.FloatSlider(min=5, max=7, value=6.6, step=0.05, description='btemp', continuous_update=False)
         self.sigma=widgets.FloatSlider(min=0.025, max=0.5, value=0.125, step=0.01, description='sigma', continuous_update=False)
         self.rng=widgets.FloatRangeSlider(min=55, max=75, value=(58, 68), step=0.5, description='PlotRange', continuous_update=False)
         self.algorithm=widgets.Dropdown(options=self.emc.collection['models'], description='algorithm', continuous_update=False)
@@ -76,7 +76,8 @@ class dashboard_object(object):
         self.control_points = []
         self.drawing = False
         self.the_normalization = "max"
-
+        self.demplot_mouseover_vert = None
+        self.demplot_mouseover = None
         self.fig = None
         self.ax1 = None
         self.ax2 = None
@@ -107,6 +108,7 @@ class dashboard_object(object):
         self.demlines = []
         self.slice_points_interpolated = []
         self.slice_ticks_list = []
+        self.dem_vertlines = []
         self.legend = None
 
         self.last_update_time = 0
@@ -143,7 +145,8 @@ class dashboard_object(object):
             self.init_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type)
         else:
             self.count += 1
-            self.update_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type, mouseover=mouseover, spacing=spacing, normalization=normalization)
+            self.update_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type,
+                               mouseover=mouseover, spacing=spacing, normalization=normalization)
 
 
     def create_figure(self):
@@ -173,8 +176,11 @@ class dashboard_object(object):
         NC = self.count
         self.crosshairs.append(self.ax2.plot([ix], [iy], marker='+', color=f"C{NC}", markersize=25)[0])
         self.count += 1
-        thelabel = f'Click {self.count} at [{ix:03}, {iy:03}]' if self.count < 6 else None
         tt, dd = self.get_dem_at(ix, iy)
+        themax = np.argmax(dd)
+        the_max_temp = tt[themax]
+        self.dem_vertlines.append(self.ax3.axvline(the_max_temp, color=f"C{NC}"))
+        thelabel = f'Click {self.count} at [{ix:03}, {iy:03}, Max = {the_max_temp:0.2f}]' if self.count < 6 else None
         self.demlines.append(self.ax3.plot(tt, dd, color=f"C{NC}", label=thelabel)[0])
         self.update_legend()
 
@@ -186,6 +192,7 @@ class dashboard_object(object):
         NC = self.count
         self.crosshair_mouseover, = self.ax2.plot([], [], color='purple', marker='+', markersize=25)
         self.demplot_mouseover, = self.ax3.plot([],[], color='purple', ls="--", zorder=10000,  label=f"Mouse off chart")
+        self.demplot_mouseover_vert = self.ax3.axhline(62, color='purple', ls="--", zorder=10000)
         self.update_legend()
 
     def init_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27, rng=[58, 68], slice_type="bezier", mouseover=True):
@@ -256,14 +263,26 @@ class dashboard_object(object):
                     self.init_mouseover_line()
                 if event.inaxes == self.ax2:
                     ix, iy = int(event.xdata), int(event.ydata)
-                    self.crosshair_mouseover.set_data([ix],[iy])
-                    self.demplot_mouseover.set_label(f"Mouse at [{ix}, {iy}]")
-                    self.demplot_mouseover.set_data(*self.get_dem_at(ix, iy))
-                    self.update_legend()
+                    xlen, ylen, zlen = self.demimage.shape
+
+                    if ix >= 0 and ix < xlen and iy >= 0 and iy < ylen:  # Check if ix and iy are within the bounds
+                        self.crosshair_mouseover.set_data([ix],[iy])
+                        self.demplot_mouseover.set_data(*self.get_dem_at(ix, iy))
+
+                        themax = np.argmax(self.demplot_mouseover.get_ydata())
+                        the_max_temp = self.demplot_mouseover.get_xdata()[themax]
+                        self.demplot_mouseover.set_label(f"Mouse at [{ix}, {iy}] {the_max_temp:0.2f}")
+                        self.demplot_mouseover_vert.remove()
+                        self.demplot_mouseover_vert = self.ax3.axvline(the_max_temp, color='purple', ls="--", zorder=10000)
+                        self.demplot_mouseover_vert.set_visible(True)
+
+                        self.update_legend()
                 else:
                     self.crosshair_mouseover.set_data([np.nan],[np.nan])
                     self.demplot_mouseover.set_data([np.nan],[np.nan])
                     self.demplot_mouseover.set_label("Mouse off chart")
+                    self.demplot_mouseover_vert.set_visible(False)
+
                     self.update_legend()
         self.fig.canvas.mpl_connect('motion_notify_event', on_mouseover)
 
@@ -468,7 +487,8 @@ class dashboard_object(object):
             self.fig.canvas.draw_idle()
 
 
-    def update_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27, rng=[55, 75], slice_type=None, mouseover=True, spacing=50, normalization="max"):
+    def update_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27,
+                      rng=[55, 75], slice_type=None, mouseover=True, spacing=50, normalization="max"):
         # Update the plots using the stored handles
 
         # print("Updating Figure")

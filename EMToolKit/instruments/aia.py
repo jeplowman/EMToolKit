@@ -77,12 +77,12 @@ def load_from_paths(paths,xl=None,yl=None,dx=None,dy=None,refindex=0):
 # as an EMToolKit data sequence -- the selection of maps appropriate for
 # DEMs (EUV not including 304), corresponding errors, temperature response
 # functions and corresponding (log) temperature arrays
-def aia_wrapper(maps_in, step_size=0.05):
+def aia_wrapper(maps_in, temp_step_size=0.05):
 	[maps,logts,tresps,errs] = [[],[],[],[]]
 	for i in range(0,len(maps_in)):
 		current_map = copy.deepcopy(maps_in[i])#.rotate(order=3)
 		if(not('detector' in current_map.meta)): current_map.meta['detector'] = 'AIA'
-		[logt,tresp] = aia_temperature_response(current_map, step_size)
+		[logt,tresp] = aia_temperature_response(current_map, temp_step_size)
 		if(len(tresp) == len(logt)):
 			maps.append(current_map)
 			errs.append(StdDevUncertainty(estimate_aia_error(current_map)))
@@ -125,3 +125,48 @@ def interpolate_table(table, step_size):
         interpolated_table[:, i] = np.interp(new_logt, logt, table[:, i])
 
     return new_logt, interpolated_table
+
+
+import os
+import numpy as np
+import astropy.units as u
+from sunpy.net import Fido, attrs as a
+from sunpy.time import TimeRange
+from astropy.time import Time
+from EMToolKit.util import list_fits_files
+
+
+def download_sdo_data(base_path, date, redownload=False):
+	folder_name = date.replace("/", "_").replace(" ", "_").replace(":", "_")
+	sdo_data_dir = os.path.join(base_path, "data", folder_name)  # Place to put data files. You'll need to change it or create these subdirectories
+
+	if not os.path.exists(sdo_data_dir):
+		os.makedirs(sdo_data_dir)
+
+	paths = list_fits_files(sdo_data_dir, 'aia')
+	print(f"Found {len(paths)} aia images on disk.")
+
+
+	if len(paths) < 6 or redownload:
+		print(f"Searching for images from {date}...")
+		passbands = np.array([94, 131, 171, 193, 211, 335]) * u.angstrom
+
+		# Combine the wavelength queries using the | operator
+		wavelength_query = a.Wavelength(passbands[0])
+		for band in passbands[1:]:
+			wavelength_query |= a.Wavelength(band)
+
+		qry = Fido.search(a.Time(TimeRange(date, 11.5 * u.s)), a.Instrument('AIA'), wavelength_query)
+
+		print("Downloading images...")
+		Fido.fetch(qry, path=sdo_data_dir, max_conn=len(passbands) + 3)
+
+	paths = list_fits_files(sdo_data_dir, "aia")
+
+
+	return paths, sdo_data_dir
+
+# Example usage:
+# base_path = "/your/base/path/"
+# date = '2012/07/11 18:54:00'
+# download_sdo_data(base_path, date, redownload=True)  # Set redownload to True to force download
