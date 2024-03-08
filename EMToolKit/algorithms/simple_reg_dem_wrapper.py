@@ -44,17 +44,21 @@ def simple_reg_dem_wrapper(datasequence,wrapargs=None):
 
 
 
-def autoloading_simple_reg_dem_wrapper(datasequence, data_dir, recalc_simple=False):
+def autoloading_simple_reg_dem_wrapper(datasequence, data_dir="../", recalc_simple=False, wrapargs=None):
     pk_file = os.path.join(data_dir, 'simple_reg_demsequence.pkl')
 
     if os.path.exists(pk_file) and not recalc_simple:
+        print('Loading simple_reg_demsequence from', pk_file)
         with open(pk_file, 'rb') as file:
             (simple_reg_demsequence, simpl_out) = pickle.load(file)
     else:
+        print("Calculating DEM from scratch...", end="")
         tstart=time.time()
-        simpl_out = simple_reg_dem_wrapper(datasequence)
-        print('Simple method took',time.time()-tstart)
+        simpl_out = simple_reg_dem_wrapper(datasequence, wrapargs)
+        print('Done! Simple method took',time.time()-tstart)
         simple_reg_demsequence = emtk.dem_model(*simpl_out, simple_reg_dem_wrapper)
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir)
         with open(pk_file, 'wb') as file:
             pickle.dump((simple_reg_demsequence, simpl_out), file)
     return simple_reg_demsequence, simpl_out
