@@ -28,7 +28,7 @@ from astropy.nddata import StdDevUncertainty
 # elements and only provides wcs for spatial information.
 # We should begin by implementing a backward compatible layer
 # for that.
-def multi_inst_dem_wrapper(datasequence, wrapargs={}, doPlot=False):
+def multi_inst_simple_dem_wrapper(datasequence, wrapargs={}, doPlot=False, dat_dir="../data/multitest"):
 
 	print("Reprojecting all maps to smallest map...", end="")
 	# Find the smallest map, which should be the XRT map
@@ -85,5 +85,5 @@ def multi_inst_dem_wrapper(datasequence, wrapargs={}, doPlot=False):
 	print("Success!")
 	print("Performing simple DEM...")
 	from EMToolKit.algorithms.simple_reg_dem_wrapper import autoloading_simple_reg_dem_wrapper
-	return autoloading_simple_reg_dem_wrapper(datasequence, "../data/multitest", wrapargs=wrapargs)
+	return autoloading_simple_reg_dem_wrapper(datasequence, dat_dir, wrapargs=wrapargs)
 
