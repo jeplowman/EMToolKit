@@ -13,6 +13,7 @@ import EMToolKit.EMToolKit as emtk
 # Need to implement passing the wrapargs to the init routines...
 def simple_reg_dem_wrapper(datasequence,wrapargs=None):
     nc = len(datasequence)
+    prepend = wrapargs.get('prepend',"")
     [nx,ny] = datasequence[0].data.shape
     for seq in datasequence: [nx,ny] = [np.min([seq.data.shape[0],nx]),np.min([seq.data.shape[1],ny])]
     logt = datasequence[0].meta['logt']
@@ -40,7 +41,7 @@ def simple_reg_dem_wrapper(datasequence,wrapargs=None):
         if(i < nt-1): basis += (logt[i+1]-basislogt)*(basislogt < logt[i+1])*(basislogt > logt[i])/(logt[i+1]-logt[i])
         bases.append(basis)
         logts.append(basislogt)
-    return list(coeffs),logts,bases,wcs,'simple_reg_dem'
+    return list(coeffs),logts,bases,wcs,prepend+'simple_reg_dem'
 
 
 
