@@ -55,6 +55,7 @@ import ipywidgets as widgets
 class dashboard_object(object):
     def __init__(self, em_collection):
         self.emc = em_collection
+        self.first = em_collection.collection[em_collection.collection['models'][0]][0]
 
         [nx,ny] = em_collection.collection[em_collection.collection['models'][0]][0].data.shape
         # self.xpt_slider = widgets.IntSlider(min=0, max=nx-1, value=10, step=1, description='xpt', continuous_update=False)
@@ -161,7 +162,7 @@ class dashboard_object(object):
 
         spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.1, 0.6, 0.6], height_ratios=[1, 1,1,1,1.5])
         self.ax1 = self.fig.add_subplot(spec[:, 0])
-        self.ax2 = self.fig.add_subplot(spec[:-1, 1])
+        self.ax2 = self.fig.add_subplot(spec[:-1, 1], projection=self.first.wcs)
         self.ax3 = self.fig.add_subplot(spec[0:2, 2])
         self.ax4 = self.fig.add_subplot(spec[-1, 1])
         self.ax5 = self.fig.add_subplot(spec[2:5, 2])
