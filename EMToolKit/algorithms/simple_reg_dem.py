@@ -110,7 +110,7 @@ def process_pixel(i, j, data, errors, Rij, regmat, rvec, nt_ones, kmax, kcon, st
 
     err = errors[i, j, :]
     dat0 = np.clip(data[i, j, :], 0.0, None)
-    s = np.log(np.sum((rvec) * ((dat0 > 1.0e-2) / err**2)) / np.sum((rvec / err)**2) / nt_ones)
+    s = np.log(np.sum((rvec) * (np.clip(dat0,1.0e-2,None) / err**2)) / np.sum((rvec / err)**2) / nt_ones)
     for k in range(kmax):
         dat = (dat0 - np.matmul(Rij, ((1 - s) * np.exp(s)))) / err
         mmat = Rij * np.outer(1.0 / err, np.exp(s))
