@@ -77,12 +77,12 @@ def load_from_paths(paths,xl=None,yl=None,dx=None,dy=None,refindex=0):
 # as an EMToolKit data sequence -- the selection of maps appropriate for
 # DEMs (EUV not including 304), corresponding errors, temperature response
 # functions and corresponding (log) temperature arrays
-def aia_wrapper(maps_in, temp_step_size=0.05):
+def aia_wrapper(maps_in, temperature_array=None):
 	[maps,logts,tresps,errs] = [[],[],[],[]]
 	for i in range(0,len(maps_in)):
 		current_map = copy.deepcopy(maps_in[i])#.rotate(order=3)
 		if(not('detector' in current_map.meta)): current_map.meta['detector'] = 'AIA'
-		[logt,tresp] = aia_temperature_response(current_map, temp_step_size)
+		[logt,tresp] = aia_temperature_response(current_map, temperature_array)
 		if(len(tresp) == len(logt)):
 			maps.append(current_map)
 			errs.append(StdDevUncertainty(estimate_aia_error(current_map)))
@@ -104,20 +104,20 @@ def estimate_aia_error(map_in):
 	return np.sqrt(np.clip(map_in.data*dnpp,0.0,None) + rdn**2)
 
 
-def aia_temperature_response(map_in, step_size):
+def aia_temperature_response(map_in, temperature_array):
     channel = map_in.meta['detector'] + map_in.meta['wave_str']
     refchannels = np.array(['AIA94_THIN', 'AIA131_THIN', 'AIA171_THIN', 'AIA193_THIN', 'AIA211_THIN', 'AIA335_THIN'])
 
     tresp_table = AIA_TEMPERATURE_RESPONSE_TABLE
 
-    logt, tresp = interpolate_table(tresp_table, step_size)
+    logt, tresp = interpolate_table(tresp_table, temperature_array)
 
     return logt, tresp[:, np.where(refchannels == channel)].flatten()
 
 
-def interpolate_table(table, step_size):
+def interpolate_table(table, temperature_array):
     logt = np.linspace(5.5, 7.5, num=len(table))
-    new_logt = np.arange(5.5, 7.5 + step_size, step_size)
+    new_logt = temperature_array
 
     interpolated_table = np.zeros((len(new_logt), table.shape[1]))
 
