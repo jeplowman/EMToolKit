@@ -104,7 +104,9 @@ def process_pixel(i, j, data, errors, Rij, regmat, rvec, nt_ones, kmax, kcon, st
     - If the Cholesky factorization fails, the iteration breaks early.
     - The function employs an iterative method to adjust the DEM based on the observed data, errors, and a regularization term.
     """
-    if np.isnan(data[i, j, :]).any():
+    dat00 = data[i, j, :]
+    nan_level = -10 # This is the level below which we will mask out the data
+    if np.isnan(dat00).any() or np.any(dat00 < nan_level):
         # print(f'Pix: Skipping pixel {i}, {j} with NaNs in data or errors')
         return i, j, np.nan, np.nan
 
