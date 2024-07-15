@@ -158,7 +158,7 @@ class dashboard_object(object):
         # Display the custom CSS in the notebook
         HTML(self.custom_css)
         self.fig = plt.figure(constrained_layout=True)
-        self.fig.set_size_inches(19, 10)
+        self.fig.set_size_inches(15, 10)
 
         spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.1, 0.6, 0.6], height_ratios=[1, 1,1,1,1.5])
         self.ax1 = self.fig.add_subplot(spec[:, 0])
