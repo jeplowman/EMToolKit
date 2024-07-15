@@ -29,7 +29,7 @@ from astropy.nddata import StdDevUncertainty
 # We should begin by implementing a backward compatible layer
 # for that.
 
-def multi_inst_simple_dem_wrapper(datasequence, wrapargs={}, doPlot=True, dat_dir="../data/multitest", recalc_simple=False):
+def multi_inst_simple_dem_wrapper(datasequence, wrapargs={}, doPlot=False, dat_dir="../data/multitest", recalc_simple=False):
 
 	downprojected_sequence, nan_mask, coarsest_cube= _reproject_with_uncertainties(datasequence)
 
@@ -95,7 +95,7 @@ def plot_reprojected(downprojected_sequence, nan_mask, coarsest_cube):
 		ax1.set_facecolor("grey")
 		ax2.set_facecolor("grey")
 		ax1.imshow(coarsest_cube.data, cmap=xrt_color_table(), origin="lower")
-		wave = aia_reproj_map.meta["wavelnth"]*u.angstrom
+		wave = aia_reproj_map.meta.get("wavelnth", 0)*u.angstrom
 		# aia_reproj_map.plot( axes=ax1, alpha=0.75, cmap=aia_color_table(wave))
 		ax1.imshow(np.sqrt(aia_reproj_map.data), alpha=0.75, cmap=aia_color_table(wave))
 		ax2.imshow(aia_reproj_map.uncertainty.array, cmap="plasma")
