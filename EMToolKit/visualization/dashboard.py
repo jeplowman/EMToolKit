@@ -182,6 +182,7 @@ class dashboard_object(object):
         the_max_temp = tt[themax]
         self.dem_vertlines.append(self.ax3.axvline(the_max_temp, color=f"C{NC}"))
         thelabel = f'Click {self.count} at [{ix:03}, {iy:03}, Max = {the_max_temp:0.2f}]' if self.count < 6 else None
+        thelabel = f'{the_max_temp:0.2f}'
         self.demlines.append(self.ax3.plot(tt, dd, color=f"C{NC}", label=thelabel)[0])
         self.update_legend()
 
@@ -193,7 +194,7 @@ class dashboard_object(object):
         NC = self.count
         self.crosshair_mouseover, = self.ax2.plot([], [], color='purple', marker='+', markersize=25)
         self.demplot_mouseover, = self.ax3.plot([],[], color='purple', ls="--", zorder=10000,  label=f"Mouse off chart")
-        self.demplot_mouseover_vert = self.ax3.axhline(62, color='purple', ls="--", zorder=10000)
+        # self.demplot_mouseover_vert = self.ax3.axhline(62, color='purple', ls="--", zorder=10000)
         self.update_legend()
 
     def init_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27, rng=[58, 68], slice_type="bezier", mouseover=True):
@@ -273,6 +274,7 @@ class dashboard_object(object):
                         themax = np.argmax(self.demplot_mouseover.get_ydata())
                         the_max_temp = self.demplot_mouseover.get_xdata()[themax]
                         self.demplot_mouseover.set_label(f"Mouse at [{ix}, {iy}] {the_max_temp:0.2f}")
+                        self.demplot_mouseover.set_label(f"{the_max_temp:0.2f}")
                         self.demplot_mouseover_vert.remove()
                         self.demplot_mouseover_vert = self.ax3.axvline(the_max_temp, color='purple', ls="--", zorder=10000)
                         self.demplot_mouseover_vert.set_visible(True)
