@@ -156,3 +156,4 @@ class em_collection:
 		output_map.data[::] = (((map.meta['SCHEMA']).fwdop(source))*coeffs).reshape(map.data.shape)
 		return output_map
 
+
