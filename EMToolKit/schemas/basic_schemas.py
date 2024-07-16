@@ -1,4 +1,4 @@
-import numba, os, sys, time, pickle, resource, copy, numpy as np
+import os, sys, time, pickle, resource, copy, numpy as np
 from EMToolKit.schemas import operators, element_functions, element_grid, coord_grid, element_source_responses
 from EMToolKit.schemas.operators import multi_instrument_linear_operator, sparse_d2_partial_matrix
 from EMToolKit.schemas.operators import reg_operator_postfac_wrapper, single_instrument_linear_operator_separable
@@ -117,10 +117,10 @@ class basic_source(object):
 			if(i < nt-1): self.bases[i] += (logt[i+1]-basislogt)*(basislogt < logt[i+1])*(basislogt > logt[i])/(logt[i+1]-logt[i])
 
 		x0, y0 = xmin - 0.5*((nx-1)*dx-(xmax-xmin)), ymin - 0.5*((ny-1)*dy-(ymax-ymin))
-		self.meta = {'CDELT1':dx, 'CDELT2':dy, 'CROTA':0.0, 'CRPIX1':1, 'CRPIX2':1,
-					 'CRVAL1':x0, 'CRVAL2':y0, 'NAXIS1':nx, 'NAXIS2':ny, 
-					 'CUNIT1':sequence[0].meta['CUNIT1'], 'CUNIT2':sequence[0].meta['CUNIT2'],
-					 'ctype1':sequence[0].meta['ctype1'], 'CTYPE2':sequence[0].meta['CTYPE2'],
+		self.meta = {'CDELT1':dx, 'CDELT2':dy, 'CROTA':0.0, 'CRPIX1':1, 'CRPIX2':1, 'RSUN_REF':sequence[0].meta['RSUN_REF'],
+					 'CRVAL1':x0, 'CRVAL2':y0, 'NAXIS1':nx, 'NAXIS2':ny, 'DSUN_OBS':sequence[0].meta['DSUN_OBS'],
+					 'CUNIT1':sequence[0].meta['CUNIT1'], 'CUNIT2':sequence[0].meta['CUNIT2'], 'HGLN_OBS':sequence[0].meta['HGLN_OBS'],
+					 'ctype1':sequence[0].meta['ctype1'], 'CTYPE2':sequence[0].meta['CTYPE2'], 'HGLT_OBS':sequence[0].meta['HGLT_OBS'],
 					 'LOGT':logt, 'PARENT_WCS':sequence[0].wcs, 'DATE-OBS':date, 'DATE-AVG':date}
 		self.shape, self.axes = [nt,nx,ny], [logt,x0+dx*np.arange(nx),y0+dy*np.arange(ny)]
 		self.scale = np.array([dx,dy])
