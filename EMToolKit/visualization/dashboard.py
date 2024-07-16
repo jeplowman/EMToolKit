@@ -130,18 +130,20 @@ class dashboard_object(object):
 
 
 
-    def displays(self):
-        ui0 = widgets.HBox([self.rtemp,self.gtemp,self.btemp,self.sigma,])
-        ui05= widgets.HBox([self.slice_type, self.rng, self.tick_spacing, self.normalization])
-        ui1 = widgets.HBox([self.btn_draw_curve, self.btn_reset_lines, self.algorithm, self.mouseover])
-        ui = widgets.VBox([ui0,ui05, ui1])
+    def displays(self, debug=False):
+        ui0 = widgets.HBox([self.rtemp,self.gtemp,self.btemp,self.sigma,]) if debug else widgets.HBox([])
+        ui05= widgets.HBox([self.slice_type, self.rng, self.tick_spacing])
+        ui11 = widgets.HBox([self.normalization, self.mouseover])
+        ui1 = widgets.HBox([self.algorithm])
+        ui15 = widgets.HBox([self.btn_draw_curve, self.btn_reset_lines])
+        ui = widgets.VBox([ui0,ui05, ui11, ui1, ui15])
         out = widgets.interactive_output(self.widgwrap, {'rtemp': self.rtemp, 'gtemp': self.gtemp, 'btemp': self.btemp, 'sigma': self.sigma,
                                         'algorithm': self.algorithm, 'rng': self.rng, 'slice_type': self.slice_type,
                                         "mouseover": self.mouseover, "spacing": self.tick_spacing, 'normalization': self.normalization})
         return ui, out
 
-    def display(self):
-        ui, out = self.displays()
+    def display(self, debug=False):
+        ui, out = self.displays(debug)
         display(ui,out)
 
     def widgwrap(self, rtemp, gtemp, btemp, sigma, algorithm, rng, slice_type, mouseover, spacing, normalization):
@@ -162,7 +164,7 @@ class dashboard_object(object):
         # Display the custom CSS in the notebook
         HTML(self.custom_css)
         self.fig = plt.figure(constrained_layout=True)
-        self.fig.set_size_inches(15, 10)
+        self.fig.set_size_inches(14, 10)
 
         spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.1, 0.6, 0.6], height_ratios=[1, 1,1,1,1.5])
         self.ax1 = self.fig.add_subplot(spec[:, 0])

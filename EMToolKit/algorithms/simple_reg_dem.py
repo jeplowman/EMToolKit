@@ -1,8 +1,8 @@
 #+
 # Just repeating the IDL comment block here for now:
-# [dems,chi2] = simple_reg_dem(data, errors, exptimes, logt, tresps, 
+# [dems,chi2] = simple_reg_dem(data, errors, exptimes, logt, tresps,
 #					kmax=100, kcon=5, steps=[0.1,0.5], drv_con=8.0, chi2_th=1.0, tol=0.1):
-# 
+#
 # Computes a DEM given a set of input data, errors, exposure times, temperatures, and
 # temperature response functions. Inputs:
 #	data: image data (dimensions n_x by n_y by n_channels)
@@ -32,9 +32,9 @@
 # Author: Joseph Plowman -- 09-15-2021
 # See: https://ui.adsabs.harvard.edu/abs/2020ApJ...905...17P/abstract
 #-
-def simple_reg_dem(data, errors, exptimes, logt, tresps, 
+def simple_reg_dem(data, errors, exptimes, logt, tresps,
 					kmax=100, kcon=5, steps=[0.1,0.5], drv_con=8.0, chi2_th=1.0, tol=0.1):
-	
+
 	import numpy as np
 	from scipy.linalg import cho_factor, cho_solve
 
@@ -76,13 +76,3 @@ def simple_reg_dem(data, errors, exptimes, logt, tresps,
 			dems[i,j,:] = np.exp(s)
 
 	return dems,chi2
-
-
-    Returns:
-    - dems: Computed DEM values, a 3D array (nx, ny, nt).
-    - chi2: Computed chi-squared values for each pixel, a 2D array (nx, ny).
-    """
-    if doParallel:
-        return simple_reg_dem_parallel(*args, **kwargs)
-    else:
-        return simple_reg_dem_serial(*args, **kwargs)
