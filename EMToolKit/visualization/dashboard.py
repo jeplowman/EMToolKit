@@ -9,7 +9,7 @@ import EMToolKit.EMToolKit as emtk
 import matplotlib.pyplot as plt
 from EMToolKit.util import lognormal_synthetic_channels, triangle_basis
 import ipywidgets as widgets
-from IPython.display import display, HTML
+from IPython.display import display, HTML, clear_output
 import time
 from scipy.interpolate import make_interp_spline
 import scipy.special
@@ -53,6 +53,9 @@ import ipywidgets as widgets
 
 
 class dashboard_object(object):
+
+
+
     def __init__(self, em_collection):
         self.emc = em_collection
         self.first = em_collection.collection[em_collection.collection['models'][0]][0]
@@ -67,15 +70,15 @@ class dashboard_object(object):
         self.rng=widgets.FloatRangeSlider(min=55, max=75, value=(58, 68), step=0.5, description='PlotRange', continuous_update=False)
         self.algorithm=widgets.Dropdown(options=self.emc.collection['models'], description='algorithm', continuous_update=False)
         self.normalization=widgets.Dropdown(options=['max', 'area', 'none'], description='norm', continuous_update=True)
-        self.btn_draw_curve = widgets.Button(description="Draw Curve")
-        self.btn_finish_lines = widgets.Button(description="Reset Lines")
+        self.init_buttons()
+
         # self.slice_type = "bezier"
         self.slice_type=widgets.Dropdown(options=["spline","bezier"], description='slice type', continuous_update=False)
         self.mouseover = widgets.Checkbox( value=True, description='mouseover')
         self.tick_spacing = widgets.IntSlider(min=5, max=100, value=50, step=5, description='spacing', continuous_update=False)
         self.tick_spacing_value = 50
         self.control_points = []
-        self.drawing = False
+        self.drawing = True
         self.the_normalization = "max"
         self.demplot_mouseover_vert = None
         self.demplot_mouseover = None
@@ -126,10 +129,11 @@ class dashboard_object(object):
 
 
 
+
     def displays(self):
         ui0 = widgets.HBox([self.rtemp,self.gtemp,self.btemp,self.sigma,])
         ui05= widgets.HBox([self.slice_type, self.rng, self.tick_spacing, self.normalization])
-        ui1 = widgets.HBox([self.btn_draw_curve, self.btn_finish_lines, self.algorithm, self.mouseover])
+        ui1 = widgets.HBox([self.btn_draw_curve, self.btn_reset_lines, self.algorithm, self.mouseover])
         ui = widgets.VBox([ui0,ui05, ui1])
         out = widgets.interactive_output(self.widgwrap, {'rtemp': self.rtemp, 'gtemp': self.gtemp, 'btemp': self.btemp, 'sigma': self.sigma,
                                         'algorithm': self.algorithm, 'rng': self.rng, 'slice_type': self.slice_type,
@@ -193,7 +197,7 @@ class dashboard_object(object):
     def init_mouseover_line(self):
         NC = self.count
         self.crosshair_mouseover, = self.ax2.plot([], [], color='purple', marker='+', markersize=25)
-        self.demplot_mouseover, = self.ax3.plot([],[], color='purple', ls="--", zorder=10000,  label=f"Mouse off chart")
+        self.demplot_mouseover, = self.ax3.plot([],[], color='purple', ls="--", zorder=10000,  label=f"Offscreen")
         self.demplot_mouseover_vert = self.ax3.axhline(62, color='purple', ls="--", zorder=10000)
         self.update_legend()
 
@@ -244,6 +248,15 @@ class dashboard_object(object):
 
         self.init_interactivity()
 
+
+    def init_buttons(self):
+        self.n_control = 0
+        self.btn_draw_curve = widgets.Button(description="Calculate Curve")
+        self.btn_draw_curve.button_style = 'primary'
+        self.btn_draw_curve.disabled = True
+        self.btn_reset_lines = widgets.Button(description="Reset Lines")
+        self.btn_reset_lines.disabled = True
+
     def init_interactivity(self):
         [nx,ny,nz] = self.demimage.shape
 
@@ -283,27 +296,28 @@ class dashboard_object(object):
                 else:
                     self.crosshair_mouseover.set_data([np.nan],[np.nan])
                     self.demplot_mouseover.set_data([np.nan],[np.nan])
-                    self.demplot_mouseover.set_label("Mouse off chart")
+                    self.demplot_mouseover.set_label("Offscreen")
                     self.demplot_mouseover_vert.set_visible(False)
 
                     self.update_legend()
         self.fig.canvas.mpl_connect('motion_notify_event', on_mouseover)
 
-
-        def on_draw_curve_clicked(b):
+        def on_calc_curve_clicked(b):
             # print("Drawing curve")
-            if b.description == "Draw Curve":
-                self.drawing = True
-                self.control_points = []  # Reset the points
-                b.description = "Calculate Curve"
-                b.button_style = 'success'  # Green color
-            else:
-                self.drawing = False
-                b.description = "Draw Curve"
-                b.button_style = ''  # Default color
-                # print(self.slice_points)
+            b.description = "Computing..."
+            b.disabled = True
+            try:
                 self.update_slice_map()
-        self.btn_draw_curve.on_click(on_draw_curve_clicked)
+                b.description += "done!"
+                b.button_style = 'success'
+            except IndexError as e:
+                b.description += "Failed!"
+                b.button_style = 'warning'
+                raise e
+                # with self.output:
+                #     clear_output()
+
+        self.btn_draw_curve.on_click(on_calc_curve_clicked)
 
 
         def on_reset_lines_clicked(b):
@@ -341,13 +355,15 @@ class dashboard_object(object):
             self.update_legend()
 
             # Reset the "Draw Curve" button properties
-            self.btn_draw_curve.description = "Draw Curve"
-            self.btn_draw_curve.button_style = ''  # Default color
+            self.btn_draw_curve.description = "Calculate Curve"
+            self.btn_draw_curve.button_style = 'primary'  # Default color
+            self.btn_draw_curve.disabled = True
+            b.disabled = True
 
-        self.btn_finish_lines.on_click(on_reset_lines_clicked)
+        self.btn_reset_lines.on_click(on_reset_lines_clicked)
 
     def update_slice_map(self):
-        if self.slice_points is None or self.drawing:
+        if self.slice_points is None:
             self.remove_slice_ticks()
             return
         dems = [self.get_dem_at(int(np.round(i)), int(np.round(j))) for i, j in zip(self.slice_points[0], self.slice_points[1])]
@@ -372,10 +388,14 @@ class dashboard_object(object):
 
         self.dem_along_line = self.ax5.imshow(the_map, aspect='auto', extent=[0, len(dems), np.min(temperatures), np.max(temperatures)])
 
+    def enable_buttons(self, both=True):
+        self.btn_reset_lines.disabled = False
+        self.btn_draw_curve.disabled = not both
 
     def update_slice_curve(self, i, j):
         if self.the_slice_type == "bezier":
             self.update_bezier_curve(i, j)
+
         elif self.the_slice_type == "spline":
             self.update_spline_curve(i, j)
 
@@ -383,6 +403,9 @@ class dashboard_object(object):
     def add_control_point(self, i, j):
         self.control_points.append((i, j))
         self.crosshairs.append(self.ax2.plot([i], [j], marker='o', markeredgecolor=f"k", markersize=10)[0])
+        self.n_control = len(self.control_points)
+        self.enable_buttons(False)
+
 
 
     def update_bezier_curve(self, i, j):
@@ -390,6 +413,7 @@ class dashboard_object(object):
 
         if len(self.control_points) < 2:
             return
+        self.enable_buttons()
 
         def compute_bez_slice_points(control_points, num_points=252):
             n = len(control_points) - 1
@@ -411,6 +435,7 @@ class dashboard_object(object):
 
         if len(self.control_points) < 4:
             return
+        self.enable_buttons()
 
         def compute_spline_slice_points(control_points, num_points=252):
             # Get x and y coordinates of control points
