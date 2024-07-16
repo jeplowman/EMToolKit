@@ -3,7 +3,7 @@ from sunpy.map import Map
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
-from EMToolKit.algorithms.simple_reg_dem import simple_reg_dem
+from EMToolKit.algorithms.simple_reg_dem_parallel import simple_reg_dem
 import os.path
 import pickle
 import time
