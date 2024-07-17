@@ -19,6 +19,8 @@ authors:
     family-names: Caspi
   - given-names: Mark
     family-names: Cheung
+  - given-names: C.
+    family-names: Gilly
 identifiers:
   - type: doi
     value: 10.5281/zenodo.6604713
