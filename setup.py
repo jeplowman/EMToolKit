@@ -23,6 +23,12 @@ setup(
         'ndcube',
         'numba',
         'xrtpy',
-        'sunpy'
+        'sunpy',
+        'requests',
+        'bs4',
+        'lxml',
+        'zeep',
+        'drms',
+        'reproject',
     ],
 )
