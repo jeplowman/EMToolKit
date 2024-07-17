@@ -12,13 +12,17 @@ setup(
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: BSD 3-Clause License",
+        "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
     install_requires=[
-        "numpy>=1.19.2",
-        "pandas>=1.1.3",
-        "scipy>=1.5.2",
+        'astropy',
+        'scipy',
+        'ipympl',
+        'ndcube',
+        'numba',
+        'xrtpy',
+        'sunpy'
     ],
 )
