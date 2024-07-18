@@ -23,7 +23,20 @@ Create the environment
     conda create --name EMToolKit_env
     conda activate EMToolKit_env
 
+Install the Package
 
-    $ conda env create -f environment.yml
-    $ conda activate EMToolKit_env
+    pip install
+
+### Macos
+
+# Install conda and make a blank environment
+conda init #If you've never done it before, initialize the shell
+conda create --name emtoolkitenvarm # Make your new environment
+conda activate emtoolkitenvarm # Activate the environment
+conda install python
+git clone https://github.com/jeplowman/EMToolKit.git
+
+
+pip install -e .
+
 
