@@ -30,5 +30,6 @@ setup(
         'zeep',
         'drms',
         'reproject',
+        'ipykernel',
     ],
 )
