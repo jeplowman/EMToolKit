@@ -84,7 +84,7 @@ def reproject_with_uncertainties(datasequence, nan_level=-50):
     new_area = downprojected_sequence[0].data.shape[0] * downprojected_sequence[0].data.shape[1]
     area_ratio_rt = np.sqrt(new_area / orig_area)
 
-    print(f"Original area: {orig_area}, New area: {new_area}, Area ratio root: {area_ratio_rt}")
+    # print(f"Original area: {orig_area}, New area: {new_area}, Area ratio root: {area_ratio_rt}")
 
     # Reproject and scale the uncertainties
     uncertainties = [StdDevUncertainty(
