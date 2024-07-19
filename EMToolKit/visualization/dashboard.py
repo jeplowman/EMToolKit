@@ -59,7 +59,7 @@ class dashboard_object(object):
         self.first = em_collection.collection[em_collection.collection['models'][0]][0]
 
         [nx,ny] = em_collection.collection[em_collection.collection['models'][0]][0].data.shape
-        self.width_slider = widgets.FloatSlider(min=20, max=200, value=100, step=5, description='Width', continuous_update=False)
+        self.width_slider = widgets.IntSlider(min=10, max=150, value=60, step=5, description='Width', continuous_update=False)
         self.rtemp=widgets.FloatSlider(min=5, max=7, value=5.6, step=0.05, description='rtemp', continuous_update=False)
         self.gtemp=widgets.FloatSlider(min=5, max=7, value=6.1, step=0.05, description='gtemp', continuous_update=False)
         self.btemp=widgets.FloatSlider(min=5, max=7, value=6.6, step=0.05, description='btemp', continuous_update=False)
@@ -97,7 +97,7 @@ class dashboard_object(object):
         self.demimage = None
         self.slice_ticks = None
         self.logt = None
-        self.font_size = None
+        self.font_size = 26
 
         self.red_temp = None
         self.grn_temp = None
@@ -111,7 +111,7 @@ class dashboard_object(object):
         self.slice_ticks_list = []
         self.dem_vertlines = []
         self.legend = None
-        self.base_width, self.base_height = 15,10
+        self.base_width, self.base_height = 15, 10
 
         self.last_update_time = 0
         self.click_time = 0
@@ -145,25 +145,25 @@ class dashboard_object(object):
         if self.fig is None:
             self.create_figure()
             self.init_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type, width=width)
-            # print("wrap: init figure", width/5, self.count)
         else:
             self.count += 1
-            self.update_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type,
-                               mouseover=mouseover, spacing=spacing, normalization=normalization, width=width)
-            # print("wrap: update figure", width/5, self.count)
+        self.update_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type,
+                            mouseover=mouseover, spacing=spacing, normalization=normalization, width=width)
 
 
     def create_figure(self):
         # print("Creating Dashboard")
         self.fontsize_prev = plt.rcParams.get('font.size')
-        plt.rcParams.update({'font.size':18})
+        plt.rcParams.update({'font.size':14})
 
         # Display the custom CSS in the notebook
         HTML(self.custom_css)
         self.fig = plt.figure(constrained_layout=True)
+        # self.fig = plt.figure(tight_layout=True)
         self.fig.set_size_inches(self.base_width, self.base_height)
 
-        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.2, 1.0, 1.0], height_ratios=[1, 1,1,1,1.5])
+        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.2, 1.3, 1.0],
+            height_ratios=[1,1,1,1,1.5])
         self.ax1 = self.fig.add_subplot(spec[:, 0])
         self.ax2 = self.fig.add_subplot(spec[:-1, 1], projection=self.first.wcs)
         self.ax3 = self.fig.add_subplot(spec[0:2, 2])
@@ -175,9 +175,9 @@ class dashboard_object(object):
         # Hide the legend based on the condition
         self.legend = self.ax3.legend(loc='upper right',bbox_to_anchor=(1, 1), fontsize=self.font_size)
         # Update the legend font size
-        # if self.legend:
-        #     for text in self.legend.get_texts():
-        #         text.set_fontsize(self.font_size/2)
+        if self.legend:
+            for text in self.legend.get_texts():
+                text.set_fontsize(self.font_size/2)
         self.fig.canvas.draw_idle()
 
     def init_dem_line(self, ix, iy):
@@ -243,7 +243,7 @@ class dashboard_object(object):
         self.ax3.set(title='Diff Emission Measure', xlabel='Temperature (dB Kelvin)', ylabel='DEM (Mm \n[$10^9$ cm$^{-3}$]$^2$/dBK)')
         self.ax5.set(title='Diff Emission Measure', xlabel='Along the Line', ylabel='Temperature (dB Kelvin)')
         self.ax3.minorticks_on()
-        self.ax4.set(title='RGB Composite DEM channel responses', xlabel='Temperature (dB Kelvin)')
+        self.ax4.set(title='RGB Composite DEM\n channel responses', xlabel='Temperature (dB Kelvin)')
 
 
         self.red_temp, = self.ax4.plot(10*synthchanlogts[0], synthchantresps[0], 'r')
@@ -303,7 +303,7 @@ class dashboard_object(object):
                 else:
                     self.crosshair_mouseover.set_data([np.nan],[np.nan])
                     self.demplot_mouseover.set_data([np.nan],[np.nan])
-                    self.demplot_mouseover.set_label("Offscreen")
+                    self.demplot_mouseover.set_label(" ")
                     self.demplot_mouseover_vert.set_visible(False)
 
                     self.update_legend()
@@ -584,5 +584,7 @@ class dashboard_object(object):
 
         self.update_curve()
         self.update_slice_map()
+
+        # plt.tight_layout()
 
         self.fig.canvas.draw_idle()
