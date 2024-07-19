@@ -275,7 +275,9 @@ class dashboard_object(object):
                 if self.drawing:
                     self.update_slice_curve(i, j)  # Function to draw/update the Bezier curve
                 self.init_dem_line(i, j)
-            self.update_legend()
+                self.update_legend()
+                self.update_slice_map()
+
         self.fig.canvas.mpl_connect('button_press_event', on_click)
 
 
