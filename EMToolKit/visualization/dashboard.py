@@ -54,20 +54,29 @@ import ipywidgets as widgets
 
 class dashboard_object(object):
 
-    def __init__(self, em_collection):
+    def __init__(self, em_collection, **kwargs):
+
         self.emc = em_collection
         self.first = em_collection.collection[em_collection.collection['models'][0]][0]
+        
+        rt0,gt0,bt0 = kwargs.get('rtemp',5.6),kwargs.get('gtemp',6.1),kwargs.get('btemp',6.6)
+        sg0 = 0.5*np.mean(np.sort([rt0,gt0,bt0])[1:]-np.sort([rt0,gt0,bt0])[0:-1])
 
         [nx,ny] = em_collection.collection[em_collection.collection['models'][0]][0].data.shape
+
         self.width_slider = widgets.IntSlider(min=10, max=150, value=60, step=5, description='Width', continuous_update=False)
-        self.rtemp=widgets.FloatSlider(min=5, max=7, value=5.6, step=0.05, description='rtemp', continuous_update=False)
-        self.gtemp=widgets.FloatSlider(min=5, max=7, value=6.1, step=0.05, description='gtemp', continuous_update=False)
-        self.btemp=widgets.FloatSlider(min=5, max=7, value=6.6, step=0.05, description='btemp', continuous_update=False)
-        self.sigma=widgets.FloatSlider(min=0.025, max=0.5, value=0.125, step=0.01, description='sigma', continuous_update=False)
+
+        self.rtemp=widgets.FloatSlider(min=5, max=7, value=rt0, step=0.05, description='rtemp', continuous_update=False)
+        self.gtemp=widgets.FloatSlider(min=5, max=7, value=gt0, step=0.05, description='gtemp', continuous_update=False)
+        self.btemp=widgets.FloatSlider(min=5, max=7, value=bt0, step=0.05, description='btemp', continuous_update=False)
+        self.sigma=widgets.FloatSlider(min=0.025, max=0.5, value=sg0, step=0.01, description='sigma', continuous_update=False)
+
         self.rng=widgets.FloatRangeSlider(min=55, max=75, value=(58, 68), step=0.5, description='PlotRange', continuous_update=False)
         self.algorithm=widgets.Dropdown(options=self.emc.collection['models'], description='algorithm', continuous_update=False)
         self.normalization=widgets.Dropdown(options=['max', 'area', 'none'], description='norm', continuous_update=True)
         self.init_buttons()
+        self.xsize,self.ysize=kwargs.get('xsize',14),kwargs.get('ysize',10)
+        self.fontsize = kwargs.get('fontsize',18)
 
         self.slice_type=widgets.Dropdown(options=["spline","bezier"], description='slice type', continuous_update=False)
         self.mouseover = widgets.Checkbox( value=True, description='mouseover')
@@ -75,7 +84,7 @@ class dashboard_object(object):
         self.tick_spacing_value = 50
         self.control_points = []
         self.drawing = True
-        self.the_normalization = "max"
+        self.the_normalization = "none"
         self.demplot_mouseover_vert = None
         self.demplot_mouseover = None
         self.fig = None
@@ -125,12 +134,20 @@ class dashboard_object(object):
         """
 
     def displays(self, debug=False):
-        ui0 = widgets.HBox([self.rtemp,self.gtemp,self.btemp,self.sigma,]) if debug else widgets.HBox([])
-        ui05= widgets.HBox([self.slice_type, self.rng, self.tick_spacing])
-        ui11 = widgets.HBox([self.normalization, self.mouseover])
-        ui1 = widgets.HBox([self.algorithm])
-        ui15 = widgets.HBox([self.btn_draw_curve, self.btn_reset_lines])
-        ui = widgets.VBox([self.width_slider, ui0, ui05, ui11, ui1, ui15])
+
+        # ui0 = widgets.HBox([self.rtemp,self.gtemp,self.btemp,self.sigma,]) if debug else widgets.HBox([])
+        # ui05= widgets.HBox([self.slice_type, self.rng, self.tick_spacing])
+        # ui11 = widgets.HBox([self.normalization, self.mouseover])
+        # ui1 = widgets.HBox([self.algorithm])
+        # ui15 = widgets.HBox([self.btn_draw_curve, self.btn_reset_lines])
+        # ui = widgets.VBox([ui0,ui05, ui11, ui1, ui15])
+        ui0 = widgets.HBox([self.rtemp,self.gtemp,self.btemp,self.sigma]) if debug else widgets.HBox([])
+        #ui05= widgets.HBox([self.slice_type, self.rng, self.tick_spacing])
+        #ui11 = widgets.HBox([self.normalization, self.mouseover])
+        #ui1 = widgets.HBox([self.algorithm])
+        ui15 = widgets.HBox([self.btn_draw_curve, self.btn_reset_lines,self.rng, self.algorithm, self.mouseover])
+        ui = widgets.VBox([self.width_slider, ui0, ui15])
+
         out = widgets.interactive_output(self.widgwrap, {'rtemp': self.rtemp, 'gtemp': self.gtemp, 'btemp': self.btemp, 'sigma': self.sigma,
                                         'algorithm': self.algorithm, 'rng': self.rng, 'slice_type': self.slice_type,
                                         "mouseover": self.mouseover, "spacing": self.tick_spacing, 'normalization': self.normalization,
@@ -154,21 +171,23 @@ class dashboard_object(object):
     def create_figure(self):
         # print("Creating Dashboard")
         self.fontsize_prev = plt.rcParams.get('font.size')
-        plt.rcParams.update({'font.size':14})
+        plt.rcParams.update({'font.size':self.fontsize})
+
 
         # Display the custom CSS in the notebook
         HTML(self.custom_css)
         self.fig = plt.figure(constrained_layout=True)
-        # self.fig = plt.figure(tight_layout=True)
-        self.fig.set_size_inches(self.base_width, self.base_height)
 
-        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.2, 1.3, 1.0],
-            height_ratios=[1,1,1,1,1.5])
+        self.fig.set_size_inches(self.xsize, self.ysize)
+
+        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.1, 0.6, 0.6], height_ratios=[1.5, 1,1,1,1.5])
+
         self.ax1 = self.fig.add_subplot(spec[:, 0])
         self.ax2 = self.fig.add_subplot(spec[:-1, 1], projection=self.first.wcs)
         self.ax3 = self.fig.add_subplot(spec[0:2, 2])
         self.ax4 = self.fig.add_subplot(spec[-1, 1])
         self.ax5 = self.fig.add_subplot(spec[2:5, 2])
+        spec.tight_layout
 
 
     def update_legend(self):
@@ -240,7 +259,7 @@ class dashboard_object(object):
         # self.fig.suptitle(self.fig._suptitle.get_text(), fontsize=self.font_size)
 
         self.ax2.set(title='RGB Composite DEM image')
-        self.ax3.set(title='Diff Emission Measure', xlabel='Temperature (dB Kelvin)', ylabel='DEM (Mm \n[$10^9$ cm$^{-3}$]$^2$/dBK)')
+        self.ax3.set(title='Diff Emission Measure', xlabel='Temperature (dB Kelvin)', ylabel='DEM (Mm [$10^9$ cm$^{-3}$]$^2$/dBK)')
         self.ax5.set(title='Diff Emission Measure', xlabel='Along the Line', ylabel='Temperature (dB Kelvin)')
         self.ax3.minorticks_on()
         self.ax4.set(title='RGB Composite DEM\n channel responses', xlabel='Temperature (dB Kelvin)')
@@ -586,7 +605,5 @@ class dashboard_object(object):
 
         self.update_curve()
         self.update_slice_map()
-
-        # plt.tight_layout()
-
         self.fig.canvas.draw_idle()
+
