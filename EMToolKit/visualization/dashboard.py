@@ -54,15 +54,12 @@ import ipywidgets as widgets
 
 class dashboard_object(object):
 
-
-
     def __init__(self, em_collection):
         self.emc = em_collection
         self.first = em_collection.collection[em_collection.collection['models'][0]][0]
 
         [nx,ny] = em_collection.collection[em_collection.collection['models'][0]][0].data.shape
-        # self.xpt_slider = widgets.IntSlider(min=0, max=nx-1, value=10, step=1, description='xpt', continuous_update=False)
-        # self.ypt_slider = widgets.IntSlider(min=0, max=ny-1, value=100, step=1, description='ypt', continuous_update=False)
+        self.width_slider = widgets.FloatSlider(min=20, max=200, value=100, step=5, description='Width', continuous_update=False)
         self.rtemp=widgets.FloatSlider(min=5, max=7, value=5.6, step=0.05, description='rtemp', continuous_update=False)
         self.gtemp=widgets.FloatSlider(min=5, max=7, value=6.1, step=0.05, description='gtemp', continuous_update=False)
         self.btemp=widgets.FloatSlider(min=5, max=7, value=6.6, step=0.05, description='btemp', continuous_update=False)
@@ -72,7 +69,6 @@ class dashboard_object(object):
         self.normalization=widgets.Dropdown(options=['max', 'area', 'none'], description='norm', continuous_update=True)
         self.init_buttons()
 
-        # self.slice_type = "bezier"
         self.slice_type=widgets.Dropdown(options=["spline","bezier"], description='slice type', continuous_update=False)
         self.mouseover = widgets.Checkbox( value=True, description='mouseover')
         self.tick_spacing = widgets.IntSlider(min=5, max=100, value=50, step=5, description='spacing', continuous_update=False)
@@ -101,6 +97,7 @@ class dashboard_object(object):
         self.demimage = None
         self.slice_ticks = None
         self.logt = None
+        self.font_size = None
 
         self.red_temp = None
         self.grn_temp = None
@@ -114,11 +111,11 @@ class dashboard_object(object):
         self.slice_ticks_list = []
         self.dem_vertlines = []
         self.legend = None
+        self.base_width, self.base_height = 15,10
 
         self.last_update_time = 0
         self.click_time = 0
 
-        # Define the custom CSS
         self.custom_css = """
         <style>
         .widget-readout {
@@ -127,33 +124,33 @@ class dashboard_object(object):
         </style>
         """
 
-
-
-
     def displays(self, debug=False):
         ui0 = widgets.HBox([self.rtemp,self.gtemp,self.btemp,self.sigma,]) if debug else widgets.HBox([])
         ui05= widgets.HBox([self.slice_type, self.rng, self.tick_spacing])
         ui11 = widgets.HBox([self.normalization, self.mouseover])
         ui1 = widgets.HBox([self.algorithm])
         ui15 = widgets.HBox([self.btn_draw_curve, self.btn_reset_lines])
-        ui = widgets.VBox([ui0,ui05, ui11, ui1, ui15])
+        ui = widgets.VBox([self.width_slider, ui0, ui05, ui11, ui1, ui15])
         out = widgets.interactive_output(self.widgwrap, {'rtemp': self.rtemp, 'gtemp': self.gtemp, 'btemp': self.btemp, 'sigma': self.sigma,
                                         'algorithm': self.algorithm, 'rng': self.rng, 'slice_type': self.slice_type,
-                                        "mouseover": self.mouseover, "spacing": self.tick_spacing, 'normalization': self.normalization})
+                                        "mouseover": self.mouseover, "spacing": self.tick_spacing, 'normalization': self.normalization,
+                                        'width': self.width_slider})
         return ui, out
 
     def display(self, debug=False):
         ui, out = self.displays(debug)
         display(ui,out)
 
-    def widgwrap(self, rtemp, gtemp, btemp, sigma, algorithm, rng, slice_type, mouseover, spacing, normalization):
+    def widgwrap(self, rtemp, gtemp, btemp, sigma, algorithm, rng, slice_type, mouseover, spacing, normalization, width):
         if self.fig is None:
             self.create_figure()
-            self.init_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type)
+            self.init_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type, width=width)
+            # print("wrap: init figure", width/5, self.count)
         else:
             self.count += 1
             self.update_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type,
-                               mouseover=mouseover, spacing=spacing, normalization=normalization)
+                               mouseover=mouseover, spacing=spacing, normalization=normalization, width=width)
+            # print("wrap: update figure", width/5, self.count)
 
 
     def create_figure(self):
@@ -164,9 +161,9 @@ class dashboard_object(object):
         # Display the custom CSS in the notebook
         HTML(self.custom_css)
         self.fig = plt.figure(constrained_layout=True)
-        self.fig.set_size_inches(14, 10)
+        self.fig.set_size_inches(self.base_width, self.base_height)
 
-        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.1, 0.6, 0.6], height_ratios=[1, 1,1,1,1.5])
+        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.2, 1.0, 1.0], height_ratios=[1, 1,1,1,1.5])
         self.ax1 = self.fig.add_subplot(spec[:, 0])
         self.ax2 = self.fig.add_subplot(spec[:-1, 1], projection=self.first.wcs)
         self.ax3 = self.fig.add_subplot(spec[0:2, 2])
@@ -176,7 +173,11 @@ class dashboard_object(object):
 
     def update_legend(self):
         # Hide the legend based on the condition
-        self.legend = self.ax3.legend(loc='upper right', fontsize=12,bbox_to_anchor=(1, 1))
+        self.legend = self.ax3.legend(loc='upper right',bbox_to_anchor=(1, 1), fontsize=self.font_size)
+        # Update the legend font size
+        # if self.legend:
+        #     for text in self.legend.get_texts():
+        #         text.set_fontsize(self.font_size/2)
         self.fig.canvas.draw_idle()
 
     def init_dem_line(self, ix, iy):
@@ -203,8 +204,8 @@ class dashboard_object(object):
         self.demplot_mouseover_vert = self.ax3.axhline(62, color='purple', ls="--", zorder=10000)
         self.update_legend()
 
-    def init_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27, rng=[58, 68], slice_type="bezier", mouseover=True):
-        # print("Initializing Dashboard")
+    def init_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27, rng=[58, 68], slice_type="bezier", mouseover=True, width=None):
+
         self.the_algorithm = algorithm
         self.the_slice_type = slice_type
         self.mouseover = mouseover
@@ -228,11 +229,15 @@ class dashboard_object(object):
         self.ax5.set_ylim(*rng)
 
         self.update_legend()
+        self.font_size = width / 5  # Example scaling factor, adjust as needed
 
         try:
-            plt.suptitle(synthdata[0].meta['algorithm'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'])
+            plt.suptitle(synthdata[0].meta['algorithm'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'], fontsize=self.font_size)
         except KeyError:
-            plt.suptitle(synthdata[0].meta['ALGORITHM'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'])
+            plt.suptitle(synthdata[0].meta['ALGORITHM'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'], fontsize=self.font_size)
+
+
+        # self.fig.suptitle(self.fig._suptitle.get_text(), fontsize=self.font_size)
 
         self.ax2.set(title='RGB Composite DEM image')
         self.ax3.set(title='Diff Emission Measure', xlabel='Temperature (dB Kelvin)', ylabel='DEM (Mm \n[$10^9$ cm$^{-3}$]$^2$/dBK)')
@@ -339,7 +344,7 @@ class dashboard_object(object):
 
             if self.max_line is not None:
                 if not isinstance(self.max_line, list):
-                    print(self.max_line)
+                    # print(self.max_line)
                     self.max_line.remove()
                     self.max_line = None
 
@@ -518,9 +523,29 @@ class dashboard_object(object):
 
 
     def update_figure(self, rtemp, gtemp, btemp, sigma, algorithm, gfac=1.0/2.2, plt_emmax=3.0e27,
-                      rng=[55, 75], slice_type=None, mouseover=True, spacing=50, normalization="max"):
+                    rng=[55, 75], slice_type=None, mouseover=True, spacing=50, normalization="max", width=None):
         # Update the plots using the stored handles
 
+        if width is not None:
+            self.fig.set_size_inches(self.base_width*width/100, self.base_height*width/100)
+
+            # Calculate font size based on width slider value
+            self.font_size = width / 5  # Example scaling factor, adjust as needed
+            self.fig.suptitle(self.fig._suptitle.get_text(), fontsize=self.font_size)
+
+            # Update font sizes
+            for ax in [self.ax1, self.ax2, self.ax3, self.ax4, self.ax5]:
+                ax.title.set_fontsize(self.font_size)
+                ax.xaxis.label.set_fontsize(self.font_size)
+                ax.yaxis.label.set_fontsize(self.font_size)
+                ax.tick_params(axis='both', labelsize=self.font_size)
+
+
+            self.ax2.coords[0].set_axislabel(self.ax2.coords[0].get_axislabel(), fontsize=self.font_size)
+            self.ax2.coords[1].set_axislabel(self.ax2.coords[1].get_axislabel(), fontsize=self.font_size)
+
+            self.fig.canvas.draw_idle()  # Use draw_idle instead of draw
+        self.update_legend()
         # print("Updating Figure")
         self.ax3.set_xlim(*rng)
         self.ax5.set_ylim(*rng)
@@ -553,12 +578,11 @@ class dashboard_object(object):
             self.demimg.set_data(((np.clip(demimage, 0, plt_emmax)/plt_emmax)**gfac).transpose((1, 0, 2)))
 
         try:
-            plt.suptitle(synthdata[0].meta['algorithm'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'])
+            self.fig.suptitle(synthdata[0].meta['algorithm'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'], fontsize=self.font_size)
         except KeyError:
-            plt.suptitle(synthdata[0].meta['ALGORITHM'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'])
+            self.fig.suptitle(synthdata[0].meta['ALGORITHM'] + ' inversion at ' + self.emc.data()[0].meta['date-obs'], fontsize=self.font_size)
 
         self.update_curve()
         self.update_slice_map()
 
         self.fig.canvas.draw_idle()
-
