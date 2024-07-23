@@ -90,7 +90,10 @@ class em_collection:
 			except KeyError:
 				complogt = component.meta['logt']
 				compbasis = component.meta['basis']
-			dem += component.data[i,j]*interp1d(complogt,compbasis,fill_value=0.0,bounds_error=False)(logt)
+			try:
+				dem += component.data[i,j]*interp1d(complogt,compbasis,fill_value=0.0,bounds_error=False)(logt)
+			except IndexError as e:
+				print(e)
 		return logt,dem
 
 
