@@ -3,3 +3,4 @@ __pycache__/
 *.png
 EMToolKit/visualization/dashboard_gpt.py
 EMToolKit.egg-info
+dem_cache.pkl

@@ -1,4 +1,7 @@
 from __future__ import print_function
+import matplotlib
+matplotlib.use('Qt5Agg')  # or 'TkAgg'
+import matplotlib.pyplot as plt
 import copy
 import numpy as np
 from sunpy.map import Map
@@ -6,7 +9,7 @@ from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
 import EMToolKit.EMToolKit as emtk
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import matplotlib.style as mplstyle
 import ipywidgets as widgets
 from IPython.display import display, HTML, clear_output
@@ -22,6 +25,7 @@ import pickle
 import inspect
 from functools import wraps
 from tqdm import tqdm
+from EMToolKit.util import lognormal_synthetic_channels, triangle_basis
 
 mplstyle.use('fast')
 
@@ -137,8 +141,8 @@ class dashboard_object(object):
         self.cache_file = 'dem_cache.pkl'
         self.dem_cache = {}
 
-        # Load cache if it exists
-        self.load_cache()
+
+        self.demimage = None
 
         self.demplot_mouseover_vert = None
         self.demplot_mouseover = None
@@ -160,7 +164,6 @@ class dashboard_object(object):
         self.slice_points = None
         self.dem_along_line = None
         self.max_line = None
-        self.demimage = None
         self.slice_ticks = None
         self.logt = None
         self.font_size = 26
@@ -199,10 +202,11 @@ class dashboard_object(object):
         ui, out = self.displays(debug)
         display(ui,out)
 
-    @debounce(0.1)
+    # @debounce(0.01)
     @print_call_info
     def widgwrap(self, rtemp, gtemp, btemp, sigma, algorithm, rng, slice_type, mouseover, spacing, normalization, width):
         if self.fig is None:
+            self.fig = 0
             self.create_figure()
             self.init_figure( rtemp, gtemp, btemp, sigma, algorithm, rng=rng, slice_type=slice_type, width=width)
         else:
@@ -218,7 +222,7 @@ class dashboard_object(object):
         iy_range = iy_range or range(ylen-1)
 
         cache = {}
-
+        fail = 0
         with tqdm(total=(xlen-1) * (ylen-1), desc="Precomputing Cache") as pbar:
             for ix in tqdm(ix_range, desc="Outer Loop", leave=False):
                 for iy in iy_range:
@@ -226,7 +230,8 @@ class dashboard_object(object):
                         ptlogt, ptdem = self.emc.compute_dem(ix, iy, logt=self.logt, algorithm=self.the_algorithm)
                         cache[(ix, iy)] = (10 * ptlogt, ptdem / 1.0e28)
                     except IndexError as e:
-                        print(e)
+                        # print(e)
+                        fail += 1
                     pbar.update(1)
 
         with open(self.cache_file, 'wb') as f:
@@ -351,6 +356,7 @@ class dashboard_object(object):
         self.ax1.set(title='Color Reference', ylabel='Temperature (dB Kelvin)', xlabel='Channel EM')
 
         self.init_interactivity()
+        self.load_cache()
 
     def init_buttons(self):
         self.n_control = 0
@@ -376,7 +382,7 @@ class dashboard_object(object):
 
         self.fig.canvas.mpl_connect('button_press_event', on_click)
 
-        # @debounce(0.1)
+        @debounce(0.01)
         def on_mouseover(event):
             print(time.time())
 
@@ -468,7 +474,7 @@ class dashboard_object(object):
 
         self.btn_reset_lines.on_click(on_reset_lines_clicked)
 
-    @debounce(0.1)
+    @debounce(0.01)
     def update_slice_map(self):
         if self.slice_points is None:
             self.remove_slice_ticks()
