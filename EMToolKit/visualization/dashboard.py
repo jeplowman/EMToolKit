@@ -146,7 +146,7 @@ class dashboard_object(object):
         #ui11 = widgets.HBox([self.normalization, self.mouseover])
         #ui1 = widgets.HBox([self.algorithm])
         ui15 = widgets.HBox([self.btn_reset_lines,self.rng, self.algorithm, self.mouseover])
-        ui = widgets.VBox([self.width_slider, ui0, ui15])
+        ui = widgets.VBox([ui0, ui15])
 
         out = widgets.interactive_output(self.widgwrap, {'rtemp': self.rtemp, 'gtemp': self.gtemp, 'btemp': self.btemp, 'sigma': self.sigma,
                                         'algorithm': self.algorithm, 'rng': self.rng, 'slice_type': self.slice_type,
