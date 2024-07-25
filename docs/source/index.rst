@@ -12,7 +12,10 @@ Welcome to EMToolKit's documentation!
 
    modules
    EMToolKit
-   EMToolKit.visualization
+..    EMToolKit.algorithms
+..    EMToolKit.instruments
+..    EMToolKit.schemas
+..    EMToolKit.visualization
 
 Indices and tables
 ==================
