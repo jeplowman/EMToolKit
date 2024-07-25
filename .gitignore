@@ -3,3 +3,5 @@ __pycache__/
 *.png
 EMToolKit/visualization/dashboard_gpt.py
 EMToolKit.egg-info
+.data
+.vscode
