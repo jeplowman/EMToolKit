@@ -20,7 +20,7 @@ from astropy.nddata import StdDevUncertainty
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from sunpy.visualization.colormaps.color_tables import aia_color_table, xrt_color_table
 from astropy.nddata import StdDevUncertainty
-from EMToolKit.algorithms.simple_reg_dem_wrapper import autoloading_simple_reg_dem_wrapper
+from emtoolkit.algorithms.simple_reg_dem_wrapper import autoloading_simple_reg_dem_wrapper
 
 def multi_inst_simple_dem_wrapper(datasequence, wrapargs={}, doPlot=False, dat_dir=".data/default", recalc_simple=False):
     """

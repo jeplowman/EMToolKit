@@ -55,7 +55,7 @@ AIA_TEMPERATURES = np.array([5.5 , 5.55, 5.6 , 5.65, 5.7 , 5.75, 5.8 , 5.85, 5.9
 
 
 # Load AIA data from a set of paths and return the appropriate
-# arguments for use in an EMToolKit DataSequence -- a list
+# arguments for use in an emtoolkit DataSequence -- a list
 # of SunPy maps, corresponding errors, the log temperature
 # axes for the temperature response functions and the temperature
 # response functions themselves:
@@ -74,7 +74,7 @@ def load_from_paths(paths,xl=None,yl=None,dx=None,dy=None,refindex=0):
 	return maps
 
 # Given a set up AIA SunPy Maps, return the appropriate arguments for use
-# as an EMToolKit data sequence -- the selection of maps appropriate for
+# as an emtoolkit data sequence -- the selection of maps appropriate for
 # DEMs (EUV not including 304), corresponding errors, temperature response
 # functions and corresponding (log) temperature arrays
 def aia_wrapper(maps_in, temperature_array=None):
@@ -133,7 +133,7 @@ import astropy.units as u
 from sunpy.net import Fido, attrs as a
 from sunpy.time import TimeRange
 from astropy.time import Time
-from EMToolKit.util import list_fits_files
+from emtoolkit.util import list_fits_files
 
 
 def download_sdo_data(base_path, date, redownload=False):

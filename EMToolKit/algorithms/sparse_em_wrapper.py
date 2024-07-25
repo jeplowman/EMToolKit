@@ -4,11 +4,11 @@ from sunpy.map import Map
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
-from EMToolKit.algorithms.sparse_em import sparse_em_init, sparse_em_solve
+from emtoolkit.algorithms.sparse_em import sparse_em_init, sparse_em_solve
 import os.path
 import pickle
 import time
-import EMToolKit.EMToolKit as emtk
+import emtoolkit.emtoolkit as emtk
 
 # Need to implement passing wrapargs to the sparse_em routines...
 def sparse_em_wrapper(datasequence, wrapargs=None):

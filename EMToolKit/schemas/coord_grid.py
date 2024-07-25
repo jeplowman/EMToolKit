@@ -1,10 +1,10 @@
-# There is an issue with rounding and floating point jitter for aligned grids that 
-# share some ratios in their spacing. We add this small offset when discretizing 
+# There is an issue with rounding and floating point jitter for aligned grids that
+# share some ratios in their spacing. We add this small offset when discretizing
 # grid indices to avoid this, which is a bit of a hack...
 tiny = 1.0e-4
 
 import numpy as np
-from EMToolKit.schemas.util import multivec_matmul, rindices, ftp, btp
+from emtoolkit.schemas.util import multivec_matmul, rindices, ftp, btp
 
 # This implements the notion of a grid of coordinate points that are meant to be indexed by integers.
 # The basic class includes implementation for an affine (linear transformation) grid, but more general
@@ -14,8 +14,8 @@ class coord_grid:
     # Set up the grid. Inputs:
     #    dims: The dimensions of the source grid, a 1-D array containing [nx0,nx1,...]
     #    origin: The location of the center of the [0,0,...] pixel in the grid
-    #    fwd: The information needed to define the forward transformation (i.e., from 
-    #         indices to coordinates), in addition to the origin. For the affine 
+    #    fwd: The information needed to define the forward transformation (i.e., from
+    #         indices to coordinates), in addition to the origin. For the affine
     #         transformation, this is an nd by nd matrix, where nd is the number of dimensions.
     #    inv: The information needed to define the inverse transformation (i.e., from
     #         coordinates to indices). Optional -- For the base (affine) implementation, this is
@@ -47,7 +47,7 @@ class coord_grid:
     # Returns the 'flattened' indices given a set of coordinates. Does discretize (because it has to).
     # Also discards out-of-bounds points. Because of this, there's an accompanying vals array that can
     # be used to account for the discarding.
-    def flatinds(self,vals,coords,thold=0): 
+    def flatinds(self,vals,coords,thold=0):
         [inds, keeps] = [list(np.round(self.inds(coords)+tiny).T.astype(np.int32)), vals>thold]
         for j in range(0,len(self.dims)): keeps *= (inds[j] >= 0)*(inds[j] < self.dims[j])
         return vals[keeps], np.ravel_multi_index(inds,self.dims,mode='clip')[keeps]
