@@ -58,7 +58,7 @@ class dashboard_object(object):
 
         self.emc = em_collection
         self.first = em_collection.collection[em_collection.collection['models'][0]][0]
-        
+
         rt0,gt0,bt0 = kwargs.get('rtemp',5.6),kwargs.get('gtemp',6.1),kwargs.get('btemp',6.6)
         sg0 = 0.5*np.mean(np.sort([rt0,gt0,bt0])[1:]-np.sort([rt0,gt0,bt0])[0:-1])
 
@@ -75,7 +75,7 @@ class dashboard_object(object):
         self.algorithm=widgets.Dropdown(options=self.emc.collection['models'], description='algorithm', continuous_update=False)
         self.normalization=widgets.Dropdown(options=['max', 'area', 'none'], description='norm', continuous_update=True)
         self.init_buttons()
-        self.xsize,self.ysize=kwargs.get('xsize',14),kwargs.get('ysize',10)
+        self.xsize,self.ysize=kwargs.get('xsize',16),kwargs.get('ysize',12)
         self.fontsize = kwargs.get('fontsize',18)
 
         self.slice_type=widgets.Dropdown(options=["spline","bezier"], description='slice type', continuous_update=False)
@@ -120,7 +120,7 @@ class dashboard_object(object):
         self.slice_ticks_list = []
         self.dem_vertlines = []
         self.legend = None
-        self.base_width, self.base_height = 15, 10
+        # self.xsize, self.ysize = 15, 10
 
         self.last_update_time = 0
         self.click_time = 0
@@ -145,7 +145,7 @@ class dashboard_object(object):
         #ui05= widgets.HBox([self.slice_type, self.rng, self.tick_spacing])
         #ui11 = widgets.HBox([self.normalization, self.mouseover])
         #ui1 = widgets.HBox([self.algorithm])
-        ui15 = widgets.HBox([self.btn_draw_curve, self.btn_reset_lines,self.rng, self.algorithm, self.mouseover])
+        ui15 = widgets.HBox([self.btn_reset_lines,self.rng, self.algorithm, self.mouseover])
         ui = widgets.VBox([self.width_slider, ui0, ui15])
 
         out = widgets.interactive_output(self.widgwrap, {'rtemp': self.rtemp, 'gtemp': self.gtemp, 'btemp': self.btemp, 'sigma': self.sigma,
@@ -180,13 +180,14 @@ class dashboard_object(object):
 
         self.fig.set_size_inches(self.xsize, self.ysize)
 
-        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.1, 0.6, 0.6], height_ratios=[1.5, 1,1,1,1.5])
+        spec = self.fig.add_gridspec(ncols=3, nrows=5, width_ratios=[0.4, 3.0, 3.0], height_ratios=[1,3,2,1,13])
 
-        self.ax1 = self.fig.add_subplot(spec[:, 0])
-        self.ax2 = self.fig.add_subplot(spec[:-1, 1], projection=self.first.wcs)
-        self.ax3 = self.fig.add_subplot(spec[0:2, 2])
-        self.ax4 = self.fig.add_subplot(spec[-1, 1])
-        self.ax5 = self.fig.add_subplot(spec[2:5, 2])
+                                        #   row, columns
+        self.ax1 = self.fig.add_subplot(spec[:, 0]) #colorbar
+        self.ax2 = self.fig.add_subplot(spec[:-2, 1], projection=self.first.wcs) #image
+        self.ax3 = self.fig.add_subplot(spec[0:3, 2]) #DEM Lines
+        self.ax4 = self.fig.add_subplot(spec[-2:, 1]) # Channel Responses
+        self.ax5 = self.fig.add_subplot(spec[3:5, 2]) # DEM Image
         spec.tight_layout
 
 
@@ -194,9 +195,9 @@ class dashboard_object(object):
         # Hide the legend based on the condition
         self.legend = self.ax3.legend(loc='upper right',bbox_to_anchor=(1, 1), fontsize=self.font_size)
         # Update the legend font size
-        if self.legend:
-            for text in self.legend.get_texts():
-                text.set_fontsize(self.font_size/2)
+        # if self.legend:
+        #     for text in self.legend.get_texts():
+        #         text.set_fontsize(self.font_size/1.5)
         self.fig.canvas.draw_idle()
 
     def init_dem_line(self, ix, iy):
@@ -265,23 +266,38 @@ class dashboard_object(object):
         self.ax4.set(title='RGB Composite DEM\n channel responses', xlabel='Temperature (dB Kelvin)')
 
 
-        self.red_temp, = self.ax4.plot(10*synthchanlogts[0], synthchantresps[0], 'r')
-        self.grn_temp, = self.ax4.plot(10*synthchanlogts[1], synthchantresps[1], 'g')
-        self.blu_temp, = self.ax4.plot(10*synthchanlogts[2], synthchantresps[2], 'b')
+        self.red_temp, = self.ax4.plot(10*synthchanlogts[0], 1*synthchantresps[0], 'r')
+        self.grn_temp, = self.ax4.plot(10*synthchanlogts[1], 1*synthchantresps[1], 'g')
+        self.blu_temp, = self.ax4.plot(10*synthchanlogts[2], 1*synthchantresps[2], 'b')
 
         self.colorbar = self.ax1.imshow(((clbimage/np.max(clbimage))**gfac), aspect='auto', extent=[cbints[0], cbints[-1], 10*cblogts[0], 10*cblogts[-1]])
-        self.ax1.set(title='Color Reference', ylabel='Temperature (dB Kelvin)', xlabel='Channel EM')
+        self.ax1.set(title='Color\nReference', ylabel='Temperature (dB Kelvin)', xlabel='Channel EM')
 
         self.init_interactivity()
 
 
-    def init_buttons(self):
-        self.n_control = 0
-        self.btn_draw_curve = widgets.Button(description="Calculate Curve")
-        self.btn_draw_curve.button_style = 'primary'
-        self.btn_draw_curve.disabled = True
-        self.btn_reset_lines = widgets.Button(description="Reset Lines")
-        self.btn_reset_lines.disabled = True
+        if width is not None:
+            self.fig.set_size_inches(self.xsize*width/100, self.ysize*width/100)
+
+            # Calculate font size based on width slider value
+            self.font_size = width / 5  # Example scaling factor, adjust as needed
+            self.fig.suptitle(self.fig._suptitle.get_text(), fontsize=self.font_size)
+
+            # Update font sizes
+            for ax in [self.ax1, self.ax2, self.ax3, self.ax4, self.ax5]:
+                ax.title.set_fontsize(self.font_size)
+                ax.xaxis.label.set_fontsize(self.font_size)
+                ax.yaxis.label.set_fontsize(self.font_size)
+                ax.tick_params(axis='both', labelsize=self.font_size)
+
+
+            self.ax2.coords[0].set_axislabel(self.ax2.coords[0].get_axislabel(), fontsize=self.font_size)
+            self.ax2.coords[1].set_axislabel(self.ax2.coords[1].get_axislabel(), fontsize=self.font_size)
+
+            self.fig.canvas.draw_idle()  # Use draw_idle instead of draw
+
+
+
 
     def init_interactivity(self):
         [nx,ny,nz] = self.demimage.shape
@@ -306,7 +322,7 @@ class dashboard_object(object):
                     self.init_mouseover_line()
                 if event.inaxes == self.ax2:
                     ix, iy = int(event.xdata), int(event.ydata)
-                    xlen, ylen, zlen = self.demimage.shape
+                    ylen, xlen, zlen = self.demimage.shape
 
                     if ix >= 0 and ix < xlen and iy >= 0 and iy < ylen:  # Check if ix and iy are within the bounds
                         self.crosshair_mouseover.set_data([ix],[iy])
@@ -314,7 +330,7 @@ class dashboard_object(object):
 
                         themax = np.argmax(self.demplot_mouseover.get_ydata())
                         the_max_temp = self.demplot_mouseover.get_xdata()[themax]
-                        self.demplot_mouseover.set_label(f"Mouse at [{ix}, {iy}] {the_max_temp:0.2f}")
+                        # self.demplot_mouseover.set_label(f"Mouse at [{ix}, {iy}] {the_max_temp:0.2f}")
                         self.demplot_mouseover.set_label(f"{the_max_temp:0.2f}")
                         self.demplot_mouseover_vert.remove()
                         self.demplot_mouseover_vert = self.ax3.axvline(the_max_temp, color='purple', ls="--", zorder=10000)
@@ -330,22 +346,21 @@ class dashboard_object(object):
                     self.update_legend()
         self.fig.canvas.mpl_connect('motion_notify_event', on_mouseover)
 
-        def on_calc_curve_clicked(b):
-            # print("Drawing curve")
-            b.description = "Computing..."
-            b.disabled = True
-            try:
-                self.update_slice_map()
-                b.description += "done!"
-                b.button_style = 'success'
-            except IndexError as e:
-                b.description += "Failed!"
-                b.button_style = 'warning'
-                raise e
-                # with self.output:
-                #     clear_output()
+        # def on_calc_curve_clicked(b):
+        #     b.description = "Computing..."
+        #     b.disabled = True
+        #     try:
+        #         self.update_slice_map()
+        #         b.description += "done!"
+        #         b.button_style = 'success'
+        #     except IndexError as e:
+        #         b.description += "Failed!"
+        #         b.button_style = 'warning'
+        #         raise e
+        #         # with self.output:
+        #         #     clear_output()
 
-        self.btn_draw_curve.on_click(on_calc_curve_clicked)
+        # self.btn_draw_curve.on_click(on_calc_curve_clicked)
 
 
         def on_reset_lines_clicked(b):
@@ -377,18 +392,32 @@ class dashboard_object(object):
             self.ax3.set_prop_cycle(rcParams['axes.prop_cycle'])
 
             self.remove_slice_ticks()
-
+            self.slice_points = None
             self.init_mouseover_line()
 
             self.update_legend()
 
-            # Reset the "Draw Curve" button properties
-            self.btn_draw_curve.description = "Calculate Curve"
-            self.btn_draw_curve.button_style = 'primary'  # Default color
-            self.btn_draw_curve.disabled = True
+            self.reset_buttons()
             b.disabled = True
 
         self.btn_reset_lines.on_click(on_reset_lines_clicked)
+
+    def reset_buttons(self):
+        # Reset the "Draw Curve" button properties
+        # self.btn_draw_curve.description = "Select More Points"
+        # self.btn_draw_curve.button_style = 'warning'  # Default color
+        # self.btn_draw_curve.disabled = True
+        self.btn_reset_lines.button_style = 'info'
+        self.btn_reset_lines.disabled = True
+
+    def init_buttons(self):
+        self.n_control = 0
+        # self.btn_draw_curve = widgets.Button(description=f"Select more points")
+        self.btn_reset_lines = widgets.Button(description="Reset Lines")
+        self.reset_buttons()
+
+    def enable_buttons(self, both=True):
+        self.btn_reset_lines.disabled = False
 
     def update_slice_map(self):
         if self.slice_points is None:
@@ -416,9 +445,7 @@ class dashboard_object(object):
 
         self.dem_along_line = self.ax5.imshow(the_map, aspect='auto', extent=[0, len(dems), np.min(temperatures), np.max(temperatures)])
 
-    def enable_buttons(self, both=True):
-        self.btn_reset_lines.disabled = False
-        self.btn_draw_curve.disabled = not both
+
 
     def update_slice_curve(self, i, j):
         if self.the_slice_type == "bezier":
@@ -547,25 +574,7 @@ class dashboard_object(object):
                     rng=[55, 75], slice_type=None, mouseover=True, spacing=50, normalization="max", width=None):
         # Update the plots using the stored handles
 
-        if width is not None:
-            self.fig.set_size_inches(self.base_width*width/100, self.base_height*width/100)
 
-            # Calculate font size based on width slider value
-            self.font_size = width / 5  # Example scaling factor, adjust as needed
-            self.fig.suptitle(self.fig._suptitle.get_text(), fontsize=self.font_size)
-
-            # Update font sizes
-            for ax in [self.ax1, self.ax2, self.ax3, self.ax4, self.ax5]:
-                ax.title.set_fontsize(self.font_size)
-                ax.xaxis.label.set_fontsize(self.font_size)
-                ax.yaxis.label.set_fontsize(self.font_size)
-                ax.tick_params(axis='both', labelsize=self.font_size)
-
-
-            self.ax2.coords[0].set_axislabel(self.ax2.coords[0].get_axislabel(), fontsize=self.font_size)
-            self.ax2.coords[1].set_axislabel(self.ax2.coords[1].get_axislabel(), fontsize=self.font_size)
-
-            self.fig.canvas.draw_idle()  # Use draw_idle instead of draw
         self.update_legend()
         # print("Updating Figure")
         self.ax3.set_xlim(*rng)
