@@ -77,7 +77,7 @@ def sparse_em_wrapper(datasequence, wrapargs=None):
 
     return list(coeffs), logts, list(basis_funcs), wcs, 'sparse_em'
 
-def autoloading_sparse_em_wrapper(datasequence, data_dir="../", recalc_sparse=False, wrapargs=None):
+def autoloading_sparse_em_wrapper(datasequence, data_dir="../data/multitest", recalc_sparse=False, wrapargs=None):
     """
     Loads or recalculates the sparse_em DEM sequence and saves the result to a pickle file.
 

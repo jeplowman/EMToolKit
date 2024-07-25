@@ -87,7 +87,7 @@ def simple_reg_dem_wrapper(datasequence, wrapargs=None):
 
     return list(coeffs), logts, bases, wcs, 'simple_reg_dem'
 
-def autoloading_simple_reg_dem_wrapper(datasequence, data_dir="../", recalc_simple=False, wrapargs=None):
+def autoloading_simple_reg_dem_wrapper(datasequence, data_dir="../data/multitest", recalc_simple=False, wrapargs=None):
     """
     Loads or recalculates the simple_reg_dem DEM sequence and saves the result to a pickle file.
 
