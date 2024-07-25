@@ -3,7 +3,7 @@
 
 cff-version: 1.2.0
 title: >-
-  EMToolKit: A Standardized Framework for Computing
+  emtoolkit: A Standardized Framework for Computing
   and Visualizing Differential Emission Measures
 message: >-
   If you use this software, please cite it using the
