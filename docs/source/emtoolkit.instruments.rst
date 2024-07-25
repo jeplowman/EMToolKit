@@ -1,21 +1,21 @@
-emtoolkit.instruments package
+EMToolKit.instruments package
 =============================
 
 Submodules
 ----------
 
-emtoolkit.instruments.aia module
+EMToolKit.instruments.aia module
 --------------------------------
 
-.. automodule:: emtoolkit.instruments.aia
+.. automodule:: EMToolKit.instruments.aia
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.instruments.xrt module
+EMToolKit.instruments.xrt module
 --------------------------------
 
-.. automodule:: emtoolkit.instruments.xrt
+.. automodule:: EMToolKit.instruments.xrt
    :members:
    :undoc-members:
    :show-inheritance:
@@ -23,7 +23,7 @@ emtoolkit.instruments.xrt module
 Module contents
 ---------------
 
-.. automodule:: emtoolkit.instruments
+.. automodule:: EMToolKit.instruments
    :members:
    :undoc-members:
    :show-inheritance:

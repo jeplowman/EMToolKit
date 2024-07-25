@@ -1,69 +1,69 @@
-emtoolkit.schemas package
+EMToolKit.schemas package
 =========================
 
 Submodules
 ----------
 
-emtoolkit.schemas.basic\_schemas module
+EMToolKit.schemas.basic\_schemas module
 ---------------------------------------
 
-.. automodule:: emtoolkit.schemas.basic_schemas
+.. automodule:: EMToolKit.schemas.basic_schemas
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.schemas.basic\_transforms module
+EMToolKit.schemas.basic\_transforms module
 ------------------------------------------
 
-.. automodule:: emtoolkit.schemas.basic_transforms
+.. automodule:: EMToolKit.schemas.basic_transforms
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.schemas.coord\_grid module
+EMToolKit.schemas.coord\_grid module
 ------------------------------------
 
-.. automodule:: emtoolkit.schemas.coord_grid
+.. automodule:: EMToolKit.schemas.coord_grid
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.schemas.element\_functions module
+EMToolKit.schemas.element\_functions module
 -------------------------------------------
 
-.. automodule:: emtoolkit.schemas.element_functions
+.. automodule:: EMToolKit.schemas.element_functions
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.schemas.element\_grid module
+EMToolKit.schemas.element\_grid module
 --------------------------------------
 
-.. automodule:: emtoolkit.schemas.element_grid
+.. automodule:: EMToolKit.schemas.element_grid
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.schemas.element\_source\_responses module
+EMToolKit.schemas.element\_source\_responses module
 ---------------------------------------------------
 
-.. automodule:: emtoolkit.schemas.element_source_responses
+.. automodule:: EMToolKit.schemas.element_source_responses
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.schemas.operators module
+EMToolKit.schemas.operators module
 ----------------------------------
 
-.. automodule:: emtoolkit.schemas.operators
+.. automodule:: EMToolKit.schemas.operators
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.schemas.util module
+EMToolKit.schemas.util module
 -----------------------------
 
-.. automodule:: emtoolkit.schemas.util
+.. automodule:: EMToolKit.schemas.util
    :members:
    :undoc-members:
    :show-inheritance:
@@ -71,7 +71,7 @@ emtoolkit.schemas.util module
 Module contents
 ---------------
 
-.. automodule:: emtoolkit.schemas
+.. automodule:: EMToolKit.schemas
    :members:
    :undoc-members:
    :show-inheritance:

@@ -51,8 +51,8 @@ tiny = 1.0e-4
 # number over 1.
 
 import numpy as np
-from emtoolkit.schemas import util
-from emtoolkit.schemas.util import multivec_matmul, rindices, ftp, btp
+from EMToolKit.schemas import util
+from EMToolKit.schemas.util import multivec_matmul, rindices, ftp, btp
 
 class element_grid:
     # Set up the elements. Required inputs:

@@ -11,8 +11,8 @@ Welcome to EMToolKit's documentation!
    :caption: Contents:
 
    modules
-   emtoolkit
-   emtoolkit.visualization
+   EMToolKit
+   EMToolKit.visualization
 
 Indices and tables
 ==================

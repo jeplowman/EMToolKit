@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../../'))
 
-project = 'emtoolkit'
+project = 'EMToolKit'
 author = 'Joseph Plowman'
 release = '0.1.0'
 

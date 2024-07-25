@@ -1,5 +1,5 @@
 [project]
-name = "emtoolkit"
+name = "EMToolKit"
 version = "0.1.0"
 description = "Add your description here"
 authors = [
@@ -36,4 +36,4 @@ dev-dependencies = []
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/emtoolkit"]
+packages = ["src/EMToolKit"]

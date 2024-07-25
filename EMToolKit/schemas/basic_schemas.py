@@ -1,14 +1,14 @@
 import os, sys, time, pickle, resource, copy, numpy as np
-from emtoolkit.schemas import operators, element_functions, element_grid, coord_grid, element_source_responses
-from emtoolkit.schemas.operators import multi_instrument_linear_operator, sparse_d2_partial_matrix
-from emtoolkit.schemas.operators import reg_operator_postfac_wrapper, single_instrument_linear_operator_separable
-from emtoolkit.schemas.basic_transforms import generic_transform, trivialframe, fits_transform
-from emtoolkit.schemas.element_functions import (nd_voigt_psf, bin_function, get_2d_cov, get_3d_cov,
+from EMToolKit.schemas import operators, element_functions, element_grid, coord_grid, element_source_responses
+from EMToolKit.schemas.operators import multi_instrument_linear_operator, sparse_d2_partial_matrix
+from EMToolKit.schemas.operators import reg_operator_postfac_wrapper, single_instrument_linear_operator_separable
+from EMToolKit.schemas.basic_transforms import generic_transform, trivialframe, fits_transform
+from EMToolKit.schemas.element_functions import (nd_voigt_psf, bin_function, get_2d_cov, get_3d_cov,
                                nd_gaussian_psf, nd_powgaussian_psf, spike_function,
                                flattop_guassian_psf, spice_spectrograph_psf)
-from emtoolkit.schemas.element_grid import detector_grid, source_grid
-from emtoolkit.schemas.coord_grid import coord_grid
-from emtoolkit.schemas.element_source_responses import element_source_responses as esr
+from EMToolKit.schemas.element_grid import detector_grid, source_grid
+from EMToolKit.schemas.coord_grid import coord_grid
+from EMToolKit.schemas.element_source_responses import element_source_responses as esr
 from sunpy.map import Map
 
 # A detector schema needs to contain the information needed to map from a given source

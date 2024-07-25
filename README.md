@@ -1,6 +1,6 @@
-# emtoolkit
+# EMToolKit
 
-Repository for emtoolkit project for computing Solar Differential Emission Measures in Python.
+Repository for EMToolKit project for computing Solar Differential Emission Measures in Python.
 
 To run the example notebook, you'll need Python set up with Sunpy, Numpy, Astropy, and the latest version of NDCube (see [NDCube Installation Guide](https://docs.sunpy.org/projects/ndcube/en/latest/installation.html)). After that, the example should work with the existing directory structure. Let me know if not, of course!
 
@@ -24,8 +24,8 @@ To run the example notebook, you'll need Python set up with Sunpy, Numpy, Astrop
 
 2. **Create and Activate the Conda Environment**:
     ```sh
-    conda create --name emtoolkit_env
-    conda activate emtoolkit_env
+    conda create --name EMToolKit_env
+    conda activate EMToolKit_env
     ```
 
 3. **Install the Package**:
@@ -42,14 +42,14 @@ To run the example notebook, you'll need Python set up with Sunpy, Numpy, Astrop
 
 2. **Clone the Repository**:
     ```sh
-    git clone https://github.com/jeplowman/emtoolkit.git
-    cd emtoolkit
+    git clone https://github.com/jeplowman/EMToolKit.git
+    cd EMToolKit
     ```
 
 3. **Create and Activate the Conda Environment**:
     ```sh
     conda env create -f environment.yml
-    conda activate emtoolkit_env
+    conda activate EMToolKit_env
     ```
 
 4. **Install the Package in Editable Mode**:
@@ -73,4 +73,4 @@ To run the example notebook, ensure your environment includes the necessary depe
 
 ---
 
-By following these instructions, you should be able to set up the development environment for emtoolkit on both Linux and macOS. If you have any questions or need further assistance, feel free to reach out!
+By following these instructions, you should be able to set up the development environment for EMToolKit on both Linux and macOS. If you have any questions or need further assistance, feel free to reach out!

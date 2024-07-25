@@ -4,7 +4,7 @@
 tiny = 1.0e-4
 
 import numpy as np
-from emtoolkit.schemas.util import multivec_matmul, rindices, ftp, btp
+from EMToolKit.schemas.util import multivec_matmul, rindices, ftp, btp
 
 # This implements the notion of a grid of coordinate points that are meant to be indexed by integers.
 # The basic class includes implementation for an affine (linear transformation) grid, but more general

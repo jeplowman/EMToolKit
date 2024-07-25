@@ -1,5 +1,5 @@
 import numpy as np
-from emtoolkit.schemas.util import multivec_matmul
+from EMToolKit.schemas.util import multivec_matmul
 tiny = 1.0e-4
 
 # This is a basis function that's a set of rectilinear 'in' or 'out' boxes -- e.g., pixels in 2D:

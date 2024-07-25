@@ -1,7 +1,7 @@
-emtoolkit
+EMToolKit
 =========
 
 .. toctree::
    :maxdepth: 4
 
-   emtoolkit
+   EMToolKit

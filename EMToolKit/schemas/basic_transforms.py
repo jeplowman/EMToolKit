@@ -8,7 +8,7 @@
 # unlike the transforms in the coord_grid class.
 
 import numpy as np
-from emtoolkit.schemas.util import multivec_matmul
+from EMToolKit.schemas.util import multivec_matmul
 
 class generic_transform:
     # Setup: takes two objects defining the two coordinate system. The minimal implementation

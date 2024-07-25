@@ -1,2 +1,2 @@
 def hello() -> str:
-    return "Hello from emtoolkit!"
+    return "Hello from EMToolKit!"

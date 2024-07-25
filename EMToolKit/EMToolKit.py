@@ -5,7 +5,7 @@ from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
 from astropy.nddata import UnknownUncertainty
-from emtoolkit.schemas.basic_schemas import basic_detector, basic_source
+from EMToolKit.schemas.basic_schemas import basic_detector, basic_source
 import astropy
 
 def em_data(maps,errs,logts,tresps,channels=None):
@@ -31,12 +31,12 @@ def dem_model(coeffs,logts,bases,coord_info,algorithm,wrapper,meta=None,wrapargs
 	else: # Check to see if the coordinate info input is a dict:
 		meta = coord_info
 		if(isinstance(coord_info,dict)==False):
-			print('Warning in emtoolkit dem_model: coord_info is not a wcs or dict')
+			print('Warning in EMToolKit dem_model: coord_info is not a wcs or dict')
 		wcs = meta.get('wcs',None)
 
 	if(meta is None):
 		if(wcs is not None): meta = dict(wcs.to_header())
-		else: print('Warning in emtoolkit dem_model: need wcs or image meta')
+		else: print('Warning in EMToolKit dem_model: need wcs or image meta')
 	if('LOGT' not in meta): meta['LOGT'] = logts[0]
 	if('SCHEMA' not in meta):
 		meta['SCHEMA'] = basic_source([Map(coeffs[0],meta)])

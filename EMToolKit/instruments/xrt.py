@@ -7,7 +7,7 @@ from astropy.nddata import StdDevUncertainty
 # The code here is only a prototype/placeholder!
 
 # Given a set of XRT SunPy Maps, return the appropriate arguments for use
-# as an emtoolkit data sequence -- the selection of maps appropriate for
+# as an EMToolKit data sequence -- the selection of maps appropriate for
 # DEMs, corresponding errors, temperature response
 # functions and corresponding (log) temperature arrays
 def xrt_wrapper(maps_in, temperature_array):
@@ -110,7 +110,7 @@ import astropy.units as u
 from sunpy.net import Fido, attrs as a
 from sunpy.time import TimeRange
 from astropy.time import Time
-from emtoolkit.util import list_fits_files
+from EMToolKit.util import list_fits_files
 
 
 def download_xrt_data(base_path, date, redownload=False):

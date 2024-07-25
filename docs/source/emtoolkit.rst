@@ -1,4 +1,4 @@
-emtoolkit package
+EMToolKit package
 =================
 
 Subpackages
@@ -7,26 +7,26 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   emtoolkit.algorithms
-   emtoolkit.instruments
-   emtoolkit.schemas
-   emtoolkit.visualization
+   EMToolKit.algorithms
+   EMToolKit.instruments
+   EMToolKit.schemas
+   EMToolKit.visualization
 
 Submodules
 ----------
 
-emtoolkit.emtoolkit module
+EMToolKit.EMToolKit module
 --------------------------
 
-.. automodule:: emtoolkit.emtoolkit
+.. automodule:: EMToolKit.EMToolKit
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.util module
+EMToolKit.util module
 ---------------------
 
-.. automodule:: emtoolkit.util
+.. automodule:: EMToolKit.util
    :members:
    :undoc-members:
    :show-inheritance:
@@ -34,7 +34,7 @@ emtoolkit.util module
 Module contents
 ---------------
 
-.. automodule:: emtoolkit
+.. automodule:: EMToolKit
    :members:
    :undoc-members:
    :show-inheritance:

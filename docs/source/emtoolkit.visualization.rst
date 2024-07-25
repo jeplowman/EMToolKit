@@ -1,13 +1,13 @@
-emtoolkit.visualization package
+EMToolKit.visualization package
 ===============================
 
 Submodules
 ----------
 
-emtoolkit.visualization.dashboard module
+EMToolKit.visualization.dashboard module
 ----------------------------------------
 
-.. automodule:: emtoolkit.visualization.dashboard
+.. automodule:: EMToolKit.visualization.dashboard
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ emtoolkit.visualization.dashboard module
 Module contents
 ---------------
 
-.. automodule:: emtoolkit.visualization
+.. automodule:: EMToolKit.visualization
    :members:
    :undoc-members:
    :show-inheritance:

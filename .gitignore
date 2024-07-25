@@ -1,8 +1,8 @@
 __pycache__/
 *.pyc
 *.png
-emtoolkit/visualization/dashboard_gpt.py
-emtoolkit.egg-info
+EMToolKit/visualization/dashboard_gpt.py
+EMToolKit.egg-info
 .data
 .vscode
 

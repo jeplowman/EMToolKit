@@ -17,17 +17,17 @@
 # when they're sparse.
 
 import numba, os, sys, time, pickle, resource, copy, numpy as np
-from emtoolkit.schemas.operators import multi_instrument_linear_operator, sparse_d2_partial_matrix
-from emtoolkit.schemas.operators import reg_operator_postfac_wrapper, single_instrument_linear_operator_separable
-#from emtoolkit.schemas.coord_transform import coord_transform, trivialframe, basic_fits_transform
-from emtoolkit.schemas.element_functions import (nd_voigt_psf, bin_function, get_2d_cov, get_3d_cov,
+from EMToolKit.schemas.operators import multi_instrument_linear_operator, sparse_d2_partial_matrix
+from EMToolKit.schemas.operators import reg_operator_postfac_wrapper, single_instrument_linear_operator_separable
+#from EMToolKit.schemas.coord_transform import coord_transform, trivialframe, basic_fits_transform
+from EMToolKit.schemas.element_functions import (nd_voigt_psf, bin_function, get_2d_cov, get_3d_cov,
                                nd_gaussian_psf, nd_powgaussian_psf, spike_function,
                                flattop_guassian_psf, spice_spectrograph_psf)
-from emtoolkit.schemas.element_grid import detector_grid, source_grid
-from emtoolkit.schemas.coord_grid import coord_grid
-from emtoolkit.schemas.element_source_responses import element_source_responses as esr
+from EMToolKit.schemas.element_grid import detector_grid, source_grid
+from EMToolKit.schemas.coord_grid import coord_grid
+from EMToolKit.schemas.element_source_responses import element_source_responses as esr
 from . import sparse_nlmap_solver
-from emtoolkit.schemas.basic_schemas import basic_detector, basic_source
+from EMToolKit.schemas.basic_schemas import basic_detector, basic_source
 
 def minmax(arg):
 	return([np.min(arg),np.max(arg)])
@@ -49,7 +49,7 @@ def minmax(arg):
 # to be indicated in the meta, and the responses will
 # need to be supplied, methods for computed them provided, or
 # a standard way of defining them must be developed.
-# The current baseline in emtoolkit assumes localized detector
+# The current baseline in EMToolKit assumes localized detector
 # elements and only provides wcs for spatial information.
 # We should begin by implementing a backward compatible layer
 # for that.

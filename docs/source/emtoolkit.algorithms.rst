@@ -1,77 +1,77 @@
-emtoolkit.algorithms package
+EMToolKit.algorithms package
 ============================
 
 Submodules
 ----------
 
-emtoolkit.algorithms.multi\_inst\_dem\_wrapper module
+EMToolKit.algorithms.multi\_inst\_dem\_wrapper module
 -----------------------------------------------------
 
-.. automodule:: emtoolkit.algorithms.multi_inst_dem_wrapper
+.. automodule:: EMToolKit.algorithms.multi_inst_dem_wrapper
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.algorithms.simple\_reg\_dem module
+EMToolKit.algorithms.simple\_reg\_dem module
 --------------------------------------------
 
-.. automodule:: emtoolkit.algorithms.simple_reg_dem
+.. automodule:: EMToolKit.algorithms.simple_reg_dem
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.algorithms.simple\_reg\_dem\_parallel module
+EMToolKit.algorithms.simple\_reg\_dem\_parallel module
 ------------------------------------------------------
 
-.. automodule:: emtoolkit.algorithms.simple_reg_dem_parallel
+.. automodule:: EMToolKit.algorithms.simple_reg_dem_parallel
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.algorithms.simple\_reg\_dem\_wrapper module
+EMToolKit.algorithms.simple\_reg\_dem\_wrapper module
 -----------------------------------------------------
 
-.. automodule:: emtoolkit.algorithms.simple_reg_dem_wrapper
+.. automodule:: EMToolKit.algorithms.simple_reg_dem_wrapper
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.algorithms.simple\_reg\_dem\_wrapper\_parallel module
+EMToolKit.algorithms.simple\_reg\_dem\_wrapper\_parallel module
 ---------------------------------------------------------------
 
-.. automodule:: emtoolkit.algorithms.simple_reg_dem_wrapper_parallel
+.. automodule:: EMToolKit.algorithms.simple_reg_dem_wrapper_parallel
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.algorithms.sparse\_em module
+EMToolKit.algorithms.sparse\_em module
 --------------------------------------
 
-.. automodule:: emtoolkit.algorithms.sparse_em
+.. automodule:: EMToolKit.algorithms.sparse_em
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.algorithms.sparse\_em\_wrapper module
+EMToolKit.algorithms.sparse\_em\_wrapper module
 -----------------------------------------------
 
-.. automodule:: emtoolkit.algorithms.sparse_em_wrapper
+.. automodule:: EMToolKit.algorithms.sparse_em_wrapper
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.algorithms.sparse\_nlmap\_dem\_wrapper module
+EMToolKit.algorithms.sparse\_nlmap\_dem\_wrapper module
 -------------------------------------------------------
 
-.. automodule:: emtoolkit.algorithms.sparse_nlmap_dem_wrapper
+.. automodule:: EMToolKit.algorithms.sparse_nlmap_dem_wrapper
    :members:
    :undoc-members:
    :show-inheritance:
 
-emtoolkit.algorithms.sparse\_nlmap\_solver module
+EMToolKit.algorithms.sparse\_nlmap\_solver module
 -------------------------------------------------
 
-.. automodule:: emtoolkit.algorithms.sparse_nlmap_solver
+.. automodule:: EMToolKit.algorithms.sparse_nlmap_solver
    :members:
    :undoc-members:
    :show-inheritance:
@@ -79,7 +79,7 @@ emtoolkit.algorithms.sparse\_nlmap\_solver module
 Module contents
 ---------------
 
-.. automodule:: emtoolkit.algorithms
+.. automodule:: EMToolKit.algorithms
    :members:
    :undoc-members:
    :show-inheritance:
