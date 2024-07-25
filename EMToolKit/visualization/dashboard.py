@@ -5,9 +5,9 @@ from sunpy.map import Map
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
-import emtoolkit.emtoolkit as emtk
+import EMToolKit.EMToolKit as emtk
 import matplotlib.pyplot as plt
-from emtoolkit.util import lognormal_synthetic_channels, triangle_basis
+from EMToolKit.util import lognormal_synthetic_channels, triangle_basis
 import ipywidgets as widgets
 from IPython.display import display, HTML, clear_output
 import time
