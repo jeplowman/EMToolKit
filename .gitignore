@@ -5,6 +5,8 @@ EMToolKit/visualization/dashboard_gpt.py
 EMToolKit.egg-info
 .data
 .vscode
+*.rst
+!index.rst
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
