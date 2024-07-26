@@ -22,3 +22,13 @@ exclude_patterns = []
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+
+import subprocess
+
+def run_apidoc(_):
+    source_dir = os.path.abspath('../../EMToolKit')
+    output_dir = os.path.abspath('.')
+    subprocess.run(['sphinx-apidoc', '-o', output_dir, source_dir])
+
+def setup(app):
+    app.connect('builder-inited', run_apidoc)
