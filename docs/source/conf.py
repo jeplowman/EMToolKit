@@ -7,11 +7,15 @@ author = 'Joseph Plowman'
 release = '0.1.0'
 
 extensions = [
+    'sphinx.ext.autosummary',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx_autodoc_typehints',
 ]
+
+autosummary_generate = True  # Turn on autosummary
+autosummary_imported_members = True
 
 templates_path = ['_templates']
 exclude_patterns = []
