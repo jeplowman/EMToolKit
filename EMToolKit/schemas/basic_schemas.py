@@ -15,7 +15,7 @@ from sunpy.map import Map
 # (or at least a source as defined by basic_source) onto its own detector numbers,
 # as well as the code to compute the mapping.
 class basic_detector(object):
-	
+
 	def __init__(self,meta):
 		self.meta = meta
 		self.wcs = None # Not yet implemented
@@ -43,7 +43,7 @@ class basic_detector(object):
 		self.logt, self.tresp = meta['LOGT'], meta['TRESP']
 		self.transform = meta.get('TRANSFORM',generic_transform)
 		self.fwdops = []
-	
+
 	def fwdop(self,source):
 		index = len(self.fwdops)
 		for index in range(0,len(self.fwdops)):
@@ -54,10 +54,10 @@ class basic_detector(object):
 			operator = single_instrument_linear_operator_separable(sresp, self.tresp, temps=self.logt, exptime=self.meta['EXPTIME'])
 			self.fwdops.append({'OPERATOR':operator,'SOURCE':source})
 		return self.fwdops[index]['OPERATOR']
-		
+
 class basic_source(object):
 	# This is a boneheaded source model that's based on an
-	# ndcube data sequence (really anything that behaves like 
+	# ndcube data sequence (really anything that behaves like
 	# a sunpy map should do. It assumes the map
 	# has meta with crpix, cdelt, crval, and crota keywords
 	# and does a basic transform assuming a fixed observer
@@ -73,7 +73,7 @@ class basic_source(object):
 
 		def minmax(arg):
 			return([np.min(arg),np.max(arg)])
-		
+
 		date = None
 		# Need to find out the smallest pixel size in the sequence and the maximum extent of the data in it
 		for i in range(0,nc):
@@ -134,7 +134,7 @@ class basic_source(object):
 		self.frame = trivialframe(np.arange(1,self.ndim_spatial+1).astype(str))
 		self.coords = coord_grid(self.spatial_shape,self.origin,self.fwdtransform,self.frame)
 		self.grid = source_grid(self.coords,None,bin_function)
-	
+
 	def is_same(self,src):
 		check = 'meta' in dir(src)
 		if(check):
