@@ -13,7 +13,7 @@ def spike_function(ptcoords,coordarr,parms): return np.prod(np.clip(1.0-np.abs(p
 # It's defined in terms of the 3 axes of the ellipse and a set of three angles
 # about which the ellipse is rotated. The initial axes are x, y, z, while
 # the rotation matrices use the Tait Bryan convention z, x, y -- i.e., if
-# the angles are all zero, sigmas[0] will be the ellipse length along x, 
+# the angles are all zero, sigmas[0] will be the ellipse length along x,
 # sigmas[1] wil be the ellipse length along y, etc; and, if the angles are not zero
 # the ellipse is first rotated about the z axis (in the x-y plane), then x (z-y plane)
 # then y (z-x plane). If the PSF is evaluated in 2D, only the first two
@@ -41,14 +41,14 @@ def spice_spectrograph_psf(pt, coords, inputs):
 	for i in range(1,n_slit_subpts): psf += nd_powgaussian_psf(pt+subpts[i], coords, inputs)
 	return psf/n_slit_subpts
 
-# Evaluate an nd Gaussian PSF centered at the point pt, for each of the 
+# Evaluate an nd Gaussian PSF centered at the point pt, for each of the
 # coordinates coords, based on the q (inverse of covariance) matrix q.
 # Coords must have dimensions npts by nd where nd is the dimensionality
 # of the Gaussian. q can be larger than nd by nd; higher dimensions will be ignored.
 def nd_gaussian_psf(pt, coords, inputs):
     dxa = coords-pt
     q = inputs[0]
-    return np.exp(-0.5*np.sum(dxa*multivec_matmul(q[0:pt.size,0:pt.size],dxa), axis=-1)) 
+    return np.exp(-0.5*np.sum(dxa*multivec_matmul(q[0:pt.size,0:pt.size],dxa), axis=-1))
 
 def nd_voigt_psf(pt, coords, inputs):
     from scipy.special import voigt_profile
@@ -59,13 +59,13 @@ def nd_voigt_psf(pt, coords, inputs):
     mdist = np.sum(dxa*multivec_matmul(q[0:pt.size,0:pt.size],dxa), axis=-1)
     return voigt_profile(mdist**0.5,e,g)*(1.0/voigt_profile(0,e,g))
 
-   
+
 def nd_powgaussian_psf(pt, coords, inputs):
     dxa = coords-pt
     q = inputs[0]
     exp = inputs[1]
-    return np.exp(-0.5*np.sum(dxa*multivec_matmul(q[0:pt.size,0:pt.size],dxa), axis=-1)**exp) 
-	
+    return np.exp(-0.5*np.sum(dxa*multivec_matmul(q[0:pt.size,0:pt.size],dxa), axis=-1)**exp)
+
 def flattop_guassian_psf(pt, coords, inputs):
 	dxa = coords-pt
 	q = inputs[0]
