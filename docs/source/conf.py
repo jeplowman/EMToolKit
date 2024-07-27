@@ -26,8 +26,8 @@ html_static_path = ['_static']
 import subprocess
 
 def run_apidoc(_):
-    source_dir = os.path.abspath('../../EMToolKit')
-    output_dir = os.path.abspath('.')
+    source_dir = os.path.abspath('EMToolKit')
+    output_dir = os.path.abspath('docs/source')
     subprocess.run(['sphinx-apidoc', '-o', output_dir, source_dir])
 
 def setup(app):
