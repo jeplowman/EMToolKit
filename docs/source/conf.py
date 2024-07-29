@@ -30,11 +30,17 @@ html_static_path = ['_static']
 def run_apidoc(_):
     """Generate .rst files for the Sphinx documentation."""
     try:
-        source_dir = os.path.abspath('../../EMToolKit')  # Adjust the path as necessary
+        source_dir = os.path.abspath('../../EMToolKit/EMToolKit')  # Adjust the path as necessary
         output_dir = os.path.abspath('docs/source')
         subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
     except subprocess.CalledProcessError as e:
         print("sphinx-apidoc failed with exit code", e.returncode)
+        try:
+            source_dir = os.path.abspath('../EMToolKit/EMToolKit')  # Adjust the path as necessary
+            output_dir = os.path.abspath('docs/source')
+            subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
+        except Exception as e:
+            raise e
 
 def setup(app):
     app.connect('builder-inited', run_apidoc)
