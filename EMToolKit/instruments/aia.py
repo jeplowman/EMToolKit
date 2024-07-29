@@ -138,7 +138,7 @@ from EMToolKit.util import list_fits_files
 
 def download_sdo_data(base_path, date, redownload=False):
 	folder_name = date.replace("/", "_").replace(" ", "_").replace(":", "_")
-	sdo_data_dir = os.path.join(base_path, "data", folder_name)  # Place to put data files. You'll need to change it or create these subdirectories
+	sdo_data_dir = os.path.join(base_path, ".data", folder_name)  # Place to put data files. You'll need to change it or create these subdirectories
 
 	if not os.path.exists(sdo_data_dir):
 		os.makedirs(sdo_data_dir)

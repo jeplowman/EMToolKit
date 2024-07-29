@@ -37,7 +37,7 @@ def sparse_em_wrapper(datasequence, wrapargs=None):
 	logts = nb*[lgtaxis]
 	return list(coeffs),logts,list(basis_funcs),wcs,'sparse_em'
 
-def autoloading_sparse_em_wrapper(datasequence, data_dir=".data/default", recalc_sparse=False):
+def autoloading_sparse_em_wrapper(datasequence, data_dir="../.data/default", recalc_sparse=False):
 	if not os.path.exists(data_dir):
 		os.makedirs(data_dir)
 

@@ -115,7 +115,8 @@ from EMToolKit.util import list_fits_files
 
 def download_xrt_data(base_path, date, redownload=False):
 	folder_name = date.replace("/", "_").replace(" ", "_").replace(":", "_")
-	xrt_data_dir = os.path.join(base_path, "data", folder_name)
+	xrt_data_dir = os.path.join(base_path, ".data", folder_name)
+
 	if not os.path.exists(xrt_data_dir):
 		os.makedirs(xrt_data_dir)
 
