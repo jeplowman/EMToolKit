@@ -78,52 +78,52 @@ sphinx_gallery_conf = {
     'remove_config_comments': True,  # Remove comments from config files
 }
 
-import os, subprocess
-print(f"Sphinx root directory: {os.path.abspath(os.path.dirname(__file__))}\n")
-import sys
-import platform
-import os
+# import os, subprocess
+# print(f"Sphinx root directory: {os.path.abspath(os.path.dirname(__file__))}\n")
+# import sys
+# import platform
+# import os
 
-def get_environment_name():
-    if hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix):
-        return os.path.basename(sys.prefix)
-    elif "VIRTUAL_ENV" in os.environ:
-        return os.path.basename(os.environ["VIRTUAL_ENV"])
-    else:
-        return "System environment"
+# def get_environment_name():
+#     if hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix):
+#         return os.path.basename(sys.prefix)
+#     elif "VIRTUAL_ENV" in os.environ:
+#         return os.path.basename(os.environ["VIRTUAL_ENV"])
+#     else:
+#         return "System environment"
 
-print(f"Python version: {sys.version}")
-print(f"Executable: {sys.executable}")
-print(f"Platform: {platform.platform()}")
-print(f"Environment: {get_environment_name()}")
-print("")
+# print(f"Python version: {sys.version}")
+# print(f"Executable: {sys.executable}")
+# print(f"Platform: {platform.platform()}")
+# print(f"Environment: {get_environment_name()}")
+# print("")
 
-import os
-import subprocess
+# import os
+# import subprocess
 
-def run_apidoc(app):
-    """Generate .rst files for the Sphinx documentation and build HTML output."""
-    # Check if a specific command-line argument is passed
-    if 'skip-apidoc' in app.config.sphinx_run_options:
-        print("Skipping sphinx-apidoc because skip-apidoc flag was set.")
-        return
+# def run_apidoc(app):
+#     """Generate .rst files for the Sphinx documentation and build HTML output."""
+#     # Check if a specific command-line argument is passed
+#     if 'skip-apidoc' in app.config.sphinx_run_options:
+#         print("Skipping sphinx-apidoc because skip-apidoc flag was set.")
+#         return
 
-    try:
-        source_dir = os.path.abspath('EMToolKit/')  # Path to your source code
-        output_dir = os.path.abspath('docs/source/')  # Path to save generated .rst files
-        html_dir = os.path.abspath("docs/build/html")  # Path to save the built HTML
+#     try:
+#         source_dir = os.path.abspath('EMToolKit/')  # Path to your source code
+#         output_dir = os.path.abspath('docs/source/')  # Path to save generated .rst files
+#         html_dir = os.path.abspath("docs/build/html")  # Path to save the built HTML
 
-        # Run sphinx-apidoc to generate .rst files
-        subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
+#         # Run sphinx-apidoc to generate .rst files
+#         subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
 
-        # Run sphinx-build to generate HTML files
-        subprocess.check_call(['sphinx-build', '-b', 'html', output_dir, html_dir])
+#         # Run sphinx-build to generate HTML files
+#         subprocess.check_call(['sphinx-build', '-b', 'html', output_dir, html_dir])
 
-    except subprocess.CalledProcessError as e:
-        print(f"sphinx-apidoc or sphinx-build failed with exit code {e.returncode}")
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+#     except subprocess.CalledProcessError as e:
+#         print(f"sphinx-apidoc or sphinx-build failed with exit code {e.returncode}")
+#     except Exception as e:
+#         print(f"An unexpected error occurred: {e}")
 
-def setup(app):
-    app.add_config_value('sphinx_run_options', [], 'env')
-    app.connect('builder-inited', run_apidoc)
+# def setup(app):
+#     app.add_config_value('sphinx_run_options', [], 'env')
+#     app.connect('builder-inited', run_apidoc)
