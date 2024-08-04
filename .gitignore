@@ -8,6 +8,7 @@ data
 .vscode
 *.rst
 !index.rst
+!GALLERY_HEADER.rst
 gen_modules/
 .auto_examples
 

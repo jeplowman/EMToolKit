@@ -19,18 +19,15 @@ jobs:
         python-version: '3.10'
 
     - name: Install dependencies
-      run: |
+      run:
         python -m pip install --upgrade pip
-        # pip install sphinx sphinx-rtd-theme sphinx-autodoc-typehints
-        # pip install sphinx-gallery sphinx-hoverxref nbsphinx nbsphinx-link ipython pandoc==2.3
         pip install -r docs/requirements.txt
 
-
     - name: Generate .rst files
-      run: sphinx-apidoc -o docs/source/ ../EMToolKit
+      run: sphinx-apidoc -o docs/source/ ../EMToolKit/
 
     - name: Build documentation
-      run: sphinx-build -b html docs/source/ docs/build/html
+      run: sphinx-build -v -b html docs/source/ docs/build/html
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
