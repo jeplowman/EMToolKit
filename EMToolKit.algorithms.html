@@ -7,6 +7,10 @@
   <title>EMToolKit.algorithms package &mdash; EMToolKit 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
   <!--[if lt IE 9]>
@@ -18,6 +22,7 @@
         <script src="_static/documentation_options.js?v=01f34227"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -45,27 +50,25 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="EMToolKit.html">EMToolKit package</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">EMToolKit.algorithms package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#emtoolkit-algorithms-multi-inst-dem-wrapper-module">EMToolKit.algorithms.multi_inst_dem_wrapper module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-EMToolKit.algorithms.simple_reg_dem">EMToolKit.algorithms.simple_reg_dem module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#EMToolKit.algorithms.simple_reg_dem.simple_reg_dem"><code class="docutils literal notranslate"><span class="pre">simple_reg_dem()</span></code></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">EMToolKit</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="EMToolKit.html">EMToolKit package</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">EMToolKit.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#emtoolkit-algorithms-simple-reg-dem-parallel-module">EMToolKit.algorithms.simple_reg_dem_parallel module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#emtoolkit-algorithms-simple-reg-dem-wrapper-module">EMToolKit.algorithms.simple_reg_dem_wrapper module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#emtoolkit-algorithms-simple-reg-dem-wrapper-parallel-module">EMToolKit.algorithms.simple_reg_dem_wrapper_parallel module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#emtoolkit-algorithms-sparse-em-module">EMToolKit.algorithms.sparse_em module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#emtoolkit-algorithms-sparse-em-wrapper-module">EMToolKit.algorithms.sparse_em_wrapper module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#emtoolkit-algorithms-sparse-nlmap-dem-wrapper-module">EMToolKit.algorithms.sparse_nlmap_dem_wrapper module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#emtoolkit-algorithms-sparse-nlmap-solver-module">EMToolKit.algorithms.sparse_nlmap_solver module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-EMToolKit.algorithms">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/GALLERY_HEADER.html">Example Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href=".auto_examples/add_two.html">Adding Two Numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/example_notebook.html">Multi-Instrument Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -82,6 +85,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">EMToolKit</a></li>
           <li class="breadcrumb-item"><a href="EMToolKit.html">EMToolKit package</a></li>
       <li class="breadcrumb-item active">EMToolKit.algorithms package</li>
       <li class="wy-breadcrumbs-aside">
@@ -105,7 +109,7 @@
 <span id="emtoolkit-algorithms-simple-reg-dem-module"></span><h2>EMToolKit.algorithms.simple_reg_dem module<a class="headerlink" href="#module-EMToolKit.algorithms.simple_reg_dem" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem.simple_reg_dem">
-<span class="sig-prename descclassname"><span class="pre">EMToolKit.algorithms.simple_reg_dem.</span></span><span class="sig-name descname"><span class="pre">simple_reg_dem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptimes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tresps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kcon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">0.5]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drv_con</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi2_th</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem.html#simple_reg_dem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem.simple_reg_dem" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">simple_reg_dem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptimes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tresps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kcon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">0.5]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drv_con</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi2_th</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem.html#simple_reg_dem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem.simple_reg_dem" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </section>
@@ -118,8 +122,23 @@
 <section id="emtoolkit-algorithms-simple-reg-dem-wrapper-parallel-module">
 <h2>EMToolKit.algorithms.simple_reg_dem_wrapper_parallel module<a class="headerlink" href="#emtoolkit-algorithms-simple-reg-dem-wrapper-parallel-module" title="Link to this heading"></a></h2>
 </section>
-<section id="emtoolkit-algorithms-sparse-em-module">
-<h2>EMToolKit.algorithms.sparse_em module<a class="headerlink" href="#emtoolkit-algorithms-sparse-em-module" title="Link to this heading"></a></h2>
+<section id="module-EMToolKit.algorithms.sparse_em">
+<span id="emtoolkit-algorithms-sparse-em-module"></span><h2>EMToolKit.algorithms.sparse_em module<a class="headerlink" href="#module-EMToolKit.algorithms.sparse_em" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_em.simplex">
+<span class="sig-name descname"><span class="pre">simplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zequation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_em.html#simplex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_em.simplex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_em.sparse_em_init">
+<span class="sig-name descname"><span class="pre">sparse_em_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trlogt_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tresp_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases_sigmas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">differential</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases_powers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_lgtaxis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_em.html#sparse_em_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_em.sparse_em_init" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_em.sparse_em_solve">
+<span class="sig-name descname"><span class="pre">sparse_em_solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptimes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zfac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolfac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmbuff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptive_tolfac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsfac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_em.html#sparse_em_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_em.sparse_em_solve" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
 <section id="emtoolkit-algorithms-sparse-em-wrapper-module">
 <h2>EMToolKit.algorithms.sparse_em_wrapper module<a class="headerlink" href="#emtoolkit-algorithms-sparse-em-wrapper-module" title="Link to this heading"></a></h2>
