@@ -2,5 +2,8 @@ sphinx
 sphinx-rtd-theme
 sphinx-autodoc-typehints
 sphinx-gallery
+sphinx-hoverxref
 nbsphinx
+nbsphinx-link
 ipython
+pandoc==2.3

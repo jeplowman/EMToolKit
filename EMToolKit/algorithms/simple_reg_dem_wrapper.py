@@ -47,8 +47,8 @@ def simple_reg_dem_wrapper(datasequence,wrapargs=None):
 def autoloading_simple_reg_dem_wrapper(datasequence, data_dir="../.data/default/", recalc_simple=False, wrapargs=None):
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
-    if wrapargs is not None:
-        prepend = wrapargs.get("prepend", '')
+
+    prepend = wrapargs.get("prepend", '') if wrapargs is not None else ''
 
     pk_file = os.path.join(data_dir, f'{prepend}simple_reg_demsequence.pkl')
 

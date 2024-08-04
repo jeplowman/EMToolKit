@@ -9,6 +9,7 @@ data
 *.rst
 !index.rst
 gen_modules/
+.auto_examples
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
