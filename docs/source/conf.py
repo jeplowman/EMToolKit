@@ -26,14 +26,25 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = []
 
-# html_theme = 'sphinx_rtd_theme'
-html_theme = 'furo'
+html_theme = 'sphinx_rtd_theme'
+# html_theme = 'sphinxdoc'
+# html_theme = 'furo'
 html_static_path = ['_static']
+
+html_theme_options = {
+    'collapse_navigation': False,
+    'sticky_navigation': True,
+    'titles_only': True,  # This makes the sidebar only show titles
+}
+
+nbsphinx_allow_errors = True
 
 # Configure sphinx-gallery
 sphinx_gallery_conf = {
     'examples_dirs': ['examples'],  # paths to your notebooks and example scripts
-    'gallery_dirs': ['../build/auto_examples'],  # paths to where to save generated output
+    # 'gallery_dirs': ['../build/auto_examples'],  # paths to where to save generated output
+    'gallery_dirs': ['../build/html/examples'],  # paths to where to save generated output
+    # 'gallery_dirs': ['examples'],  # paths to where to save generated output
     'filename_pattern': r'.*\.(ipynb|py)$',  # Match both .py and .ipynb files
     'within_subsection_order': 'FileNameSortKey',  # Order examples by file name
     # 'default_thumb_file': 'path/to/default_thumbnail.png',  # Optional: set a default thumbnail
@@ -64,7 +75,7 @@ sphinx_gallery_conf = {
     'remove_config_comments': True,  # Remove comments from config files
 }
 
-import os
+import os, subprocess
 print(f"Sphinx root directory: {os.path.abspath(os.path.dirname(__file__))}\n")
 
 def run_apidoc(_):

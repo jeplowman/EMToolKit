@@ -1,4 +1,4 @@
-# examples/plot_add_numbers.py
+# examples/add_two.py
 
 """
 Adding Two Numbers
