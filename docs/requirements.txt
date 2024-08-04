@@ -8,3 +8,9 @@ nbsphinx-link
 ipython
 pandoc==2.3
 matplotlib
+
+sunpy
+astropy
+scipy
+numba
+tqdm
