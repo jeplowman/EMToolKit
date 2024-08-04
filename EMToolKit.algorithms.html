@@ -113,8 +113,100 @@
 <dd></dd></dl>
 
 </section>
-<section id="emtoolkit-algorithms-simple-reg-dem-parallel-module">
-<h2>EMToolKit.algorithms.simple_reg_dem_parallel module<a class="headerlink" href="#emtoolkit-algorithms-simple-reg-dem-parallel-module" title="Link to this heading"></a></h2>
+<section id="module-EMToolKit.algorithms.simple_reg_dem_parallel">
+<span id="emtoolkit-algorithms-simple-reg-dem-parallel-module"></span><h2>EMToolKit.algorithms.simple_reg_dem_parallel module<a class="headerlink" href="#module-EMToolKit.algorithms.simple_reg_dem_parallel" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_parallel.precompute_matrices">
+<span class="sig-name descname"><span class="pre">precompute_matrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptimes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tresps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drv_con</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_parallel.html#precompute_matrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_parallel.precompute_matrices" title="Link to this definition"></a></dt>
+<dd><p>Precomputes matrices and vectors required for regularized differential emission measure.</p>
+<p>Parameters:
+- data: The observed data array.
+- errors: The uncertainties associated with the data.
+- exptimes: Exposure times for each observation.
+- logt: Logarithm of temperature bins.
+- tresps: Temperature response functions.
+- drv_con: Drive constant for regularization.</p>
+<p>Returns:
+- nt_ones: Array of ones of size nt.
+- nx, ny: Dimensions of the data array.
+- Bij: Matrix used in regularization.
+- Rij: Matrix mapping coefficients to data.
+- Dij: Matrix used in regularization.
+- regmat: Regularization matrix.
+- rvec: Sum of Rij across axis=1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_parallel.process_pixel">
+<span class="sig-name descname"><span class="pre">process_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rij</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regmat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rvec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nt_ones</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kcon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drv_con</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi2_th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_parallel.html#process_pixel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_parallel.process_pixel" title="Link to this definition"></a></dt>
+<dd><p>Processes a single pixel (i, j) in a dataset to compute its differential emission measure (DEM) and chi-squared value.</p>
+<p>Parameters:
+- i, j: Indices of the pixel in the data array.
+- data: The observed data array.
+- errors: The uncertainties associated with the data.
+- Rij: Matrix mapping coefficients to data.
+- regmat: Regularization matrix.
+- rvec: Sum of Rij across axis=1.
+- nt_ones: Array of ones of size nt.
+- kmax: Maximum number of iterations.
+- kcon: Convergence criterion based on the number of iterations.
+- steps: Step sizes for the iterative method.
+- drv_con: Drive constant for regularization.
+- chi2_th: Chi-squared threshold for stopping criterion.
+- tol: Tolerance for convergence criterion.</p>
+<p>Returns:
+- i, j: Indices of the processed pixel.
+- dem_pixel: Computed DEM value for the pixel.
+- chi2_pixel: Computed chi-squared value for the pixel.</p>
+<p>Notes:
+- The function skips pixels with NaN values in data or errors.
+- If the Cholesky factorization fails, the iteration breaks early.
+- The function employs an iterative method to adjust the DEM based on the observed data, errors, and a regularization term.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem">
+<span class="sig-name descname"><span class="pre">simple_reg_dem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doParallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_parallel.html#simple_reg_dem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem" title="Link to this definition"></a></dt>
+<dd><p>Wrapper function to call the serial or parallel version of the simple regularized DEM computation.</p>
+<p>Accepts the same parameters as simple_reg_dem_serial and simple_reg_dem_parallel.</p>
+<p>Returns:
+- dems: Computed DEM values, a 3D array (nx, ny, nt).
+- chi2: Computed chi-squared values for each pixel, a 2D array (nx, ny).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_parallel">
+<span class="sig-name descname"><span class="pre">simple_reg_dem_parallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptimes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tresps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kcon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">0.5]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drv_con</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi2_th</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_parallel.html#simple_reg_dem_parallel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_parallel" title="Link to this definition"></a></dt>
+<dd><p>Perform a parallel computation of differential emission measure (DEM) and chi-squared values
+for observational data against a set of response functions using multiple processes.</p>
+<p>Parameters are the same as in simple_reg_dem_serial.</p>
+<p>Returns:
+- dems: Computed DEM values, a 3D array (nx, ny, nt).
+- chi2: Computed chi-squared values for each pixel, a 2D array (nx, ny).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_serial">
+<span class="sig-name descname"><span class="pre">simple_reg_dem_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exptimes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tresps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kcon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">0.5]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drv_con</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi2_th</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_parallel.html#simple_reg_dem_serial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_serial" title="Link to this definition"></a></dt>
+<dd><p>Perform a serial computation of differential emission measure (DEM) and chi-squared values
+for observational data against a set of response functions.</p>
+<p>Parameters:
+- data: Observed data, a 3D array (nx, ny, nd).
+- errors: Uncertainties in the observed data, same shape as data.
+- exptimes: Exposure times for each observation, 1D array of length nd.
+- logt: Logarithm of temperature bins, 1D array.
+- tresps: Temperature response functions, 2D array (nt, nd).
+- kmax: Maximum number of iterations for the fitting process.
+- kcon: Minimum number of iterations before convergence can be considered.
+- steps: Step sizes to use in the fitting iterations, list of two floats.
+- drv_con: Drive constant for the regularization term.
+- chi2_th: Threshold chi-squared value for stopping the iterations.
+- tol: Tolerance for convergence.</p>
+<p>Returns:
+- dems: Computed DEM values, a 3D array (nx, ny, nt).
+- chi2: Computed chi-squared values for each pixel, a 2D array (nx, ny).</p>
+</dd></dl>
+
 </section>
 <section id="emtoolkit-algorithms-simple-reg-dem-wrapper-module">
 <h2>EMToolKit.algorithms.simple_reg_dem_wrapper module<a class="headerlink" href="#emtoolkit-algorithms-simple-reg-dem-wrapper-module" title="Link to this heading"></a></h2>
@@ -143,11 +235,53 @@
 <section id="emtoolkit-algorithms-sparse-em-wrapper-module">
 <h2>EMToolKit.algorithms.sparse_em_wrapper module<a class="headerlink" href="#emtoolkit-algorithms-sparse-em-wrapper-module" title="Link to this heading"></a></h2>
 </section>
-<section id="emtoolkit-algorithms-sparse-nlmap-dem-wrapper-module">
-<h2>EMToolKit.algorithms.sparse_nlmap_dem_wrapper module<a class="headerlink" href="#emtoolkit-algorithms-sparse-nlmap-dem-wrapper-module" title="Link to this heading"></a></h2>
+<section id="module-EMToolKit.algorithms.sparse_nlmap_dem_wrapper">
+<span id="emtoolkit-algorithms-sparse-nlmap-dem-wrapper-module"></span><h2>EMToolKit.algorithms.sparse_nlmap_dem_wrapper module<a class="headerlink" href="#module-EMToolKit.algorithms.sparse_nlmap_dem_wrapper" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_nlmap_dem_wrapper.minmax">
+<span class="sig-name descname"><span class="pre">minmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_nlmap_dem_wrapper.html#minmax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_nlmap_dem_wrapper.minmax" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_nlmap_dem_wrapper.process_data_element">
+<span class="sig-name descname"><span class="pre">process_data_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_nlmap_dem_wrapper.html#process_data_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_nlmap_dem_wrapper.process_data_element" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sparse_nlmap_dem_wrap_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_nlmap_dem_wrapper.html#sparse_nlmap_dem_wrap_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object.compute_dem">
+<span class="sig-name descname"><span class="pre">compute_dem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_nlmap_dem_wrapper.html#sparse_nlmap_dem_wrap_object.compute_dem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object.compute_dem" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrapper">
+<span class="sig-name descname"><span class="pre">sparse_nlmap_dem_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_nlmap_dem_wrapper.html#sparse_nlmap_dem_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrapper" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
-<section id="emtoolkit-algorithms-sparse-nlmap-solver-module">
-<h2>EMToolKit.algorithms.sparse_nlmap_solver module<a class="headerlink" href="#emtoolkit-algorithms-sparse-nlmap-solver-module" title="Link to this heading"></a></h2>
+<section id="module-EMToolKit.algorithms.sparse_nlmap_solver">
+<span id="emtoolkit-algorithms-sparse-nlmap-solver-module"></span><h2>EMToolKit.algorithms.sparse_nlmap_solver module<a class="headerlink" href="#module-EMToolKit.algorithms.sparse_nlmap_solver" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nlmap_operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_nlmap_solver.html#nlmap_operator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">LinearOperator</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regmat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_drvvec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wgtvec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_map_drvvec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float32'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_fac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_nlmap_solver.html#nlmap_operator.setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator.setup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_nlmap_solver.solve">
+<span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amat0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_fac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfunc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ifunc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regmat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">silent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sqrmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regfunc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dregfunc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iregfunc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adapt_lam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">niter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float32'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precompute_ata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatguess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi2_th</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_outer_Av</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_chi2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-15</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_nlmap_solver.html#solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_nlmap_solver.solve" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
 <section id="module-EMToolKit.algorithms">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-EMToolKit.algorithms" title="Link to this heading"></a></h2>
