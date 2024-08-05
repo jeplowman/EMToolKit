@@ -102,8 +102,80 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="emtoolkit-algorithms-multi-inst-dem-wrapper-module">
-<h2>EMToolKit.algorithms.multi_inst_dem_wrapper module<a class="headerlink" href="#emtoolkit-algorithms-multi-inst-dem-wrapper-module" title="Link to this heading"></a></h2>
+<section id="module-EMToolKit.algorithms.multi_inst_dem_wrapper">
+<span id="emtoolkit-algorithms-multi-inst-dem-wrapper-module"></span><h2>EMToolKit.algorithms.multi_inst_dem_wrapper module<a class="headerlink" href="#module-EMToolKit.algorithms.multi_inst_dem_wrapper" title="Link to this heading"></a></h2>
+<p>This module provides a wrapper for Differential Emission Measure (DEM) analysis
+using multiple instruments. It includes functions for reprojecting data with
+uncertainties and plotting the results.</p>
+<dl class="simple">
+<dt>Functions:</dt><dd><p>multi_inst_simple_dem_wrapper: Wraps simple DEM analysis for multiple instruments.
+reproject_with_uncertainties: Reprojects a sequence of maps to the smallest map.
+plot_reprojected: Plots reprojected maps and their uncertainties.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.multi_inst_dem_wrapper.aia_color_table">
+<span class="sig-name descname"><span class="pre">aia_color_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wave</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/multi_inst_dem_wrapper.html#aia_color_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.multi_inst_dem_wrapper.aia_color_table" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.multi_inst_dem_wrapper.multi_inst_simple_dem_wrapper">
+<span class="sig-name descname"><span class="pre">multi_inst_simple_dem_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doPlot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dat_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'../.data/default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recalc_simple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/multi_inst_dem_wrapper.html#multi_inst_simple_dem_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.multi_inst_dem_wrapper.multi_inst_simple_dem_wrapper" title="Link to this definition"></a></dt>
+<dd><p>Perform simple DEM analysis using multiple instruments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasequence</strong> (<em>NDCubeSequence</em>) – Sequence of data cubes for multiple instruments.</p></li>
+<li><p><strong>wrapargs</strong> (<em>dict</em>) – Arguments for the DEM wrapper.</p></li>
+<li><p><strong>doPlot</strong> (<em>bool</em>) – Whether to plot the reprojected data immediately.</p></li>
+<li><p><strong>dat_dir</strong> (<em>str</em>) – Directory for data storage.</p></li>
+<li><p><strong>recalc_simple</strong> (<em>bool</em>) – Whether to recalculate simple DEM.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Resulting DEM analysis.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDCubeSequence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.multi_inst_dem_wrapper.plot_reprojected">
+<span class="sig-name descname"><span class="pre">plot_reprojected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">downprojected_sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coarsest_cube</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/multi_inst_dem_wrapper.html#plot_reprojected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.multi_inst_dem_wrapper.plot_reprojected" title="Link to this definition"></a></dt>
+<dd><p>Plot the reprojected maps and their uncertainties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>downprojected_sequence</strong> (<em>NDCubeSequence</em>) – Sequence of reprojected data cubes.</p></li>
+<li><p><strong>nan_mask</strong> (<em>numpy.ndarray</em>) – Mask for NaN values.</p></li>
+<li><p><strong>coarsest_cube</strong> (<em>NDCube</em>) – Coarsest data cube for comparison.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.multi_inst_dem_wrapper.reproject_with_uncertainties">
+<span class="sig-name descname"><span class="pre">reproject_with_uncertainties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/multi_inst_dem_wrapper.html#reproject_with_uncertainties"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.multi_inst_dem_wrapper.reproject_with_uncertainties" title="Link to this definition"></a></dt>
+<dd><p>Reproject a sequence of maps to the smallest map with uncertainties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasequence</strong> (<em>NDCubeSequence</em>) – Sequence of data cubes for multiple instruments.</p></li>
+<li><p><strong>nan_level</strong> (<em>float</em>) – Threshold level for NaN masking.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reprojected data sequence, NaN mask, and coarsest cube.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-EMToolKit.algorithms.simple_reg_dem">
 <span id="emtoolkit-algorithms-simple-reg-dem-module"></span><h2>EMToolKit.algorithms.simple_reg_dem module<a class="headerlink" href="#module-EMToolKit.algorithms.simple_reg_dem" title="Link to this heading"></a></h2>
@@ -208,11 +280,31 @@ for observational data against a set of response functions.</p>
 </dd></dl>
 
 </section>
-<section id="emtoolkit-algorithms-simple-reg-dem-wrapper-module">
-<h2>EMToolKit.algorithms.simple_reg_dem_wrapper module<a class="headerlink" href="#emtoolkit-algorithms-simple-reg-dem-wrapper-module" title="Link to this heading"></a></h2>
+<section id="module-EMToolKit.algorithms.simple_reg_dem_wrapper">
+<span id="emtoolkit-algorithms-simple-reg-dem-wrapper-module"></span><h2>EMToolKit.algorithms.simple_reg_dem_wrapper module<a class="headerlink" href="#module-EMToolKit.algorithms.simple_reg_dem_wrapper" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper">
+<span class="sig-name descname"><span class="pre">autoloading_simple_reg_dem_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'../.data/default/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recalc_simple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_wrapper.html#autoloading_simple_reg_dem_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_wrapper.simple_reg_dem_wrapper">
+<span class="sig-name descname"><span class="pre">simple_reg_dem_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_wrapper.html#simple_reg_dem_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_wrapper.simple_reg_dem_wrapper" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
-<section id="emtoolkit-algorithms-simple-reg-dem-wrapper-parallel-module">
-<h2>EMToolKit.algorithms.simple_reg_dem_wrapper_parallel module<a class="headerlink" href="#emtoolkit-algorithms-simple-reg-dem-wrapper-parallel-module" title="Link to this heading"></a></h2>
+<section id="module-EMToolKit.algorithms.simple_reg_dem_wrapper_parallel">
+<span id="emtoolkit-algorithms-simple-reg-dem-wrapper-parallel-module"></span><h2>EMToolKit.algorithms.simple_reg_dem_wrapper_parallel module<a class="headerlink" href="#module-EMToolKit.algorithms.simple_reg_dem_wrapper_parallel" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.autoloading_simple_reg_dem_wrapper">
+<span class="sig-name descname"><span class="pre">autoloading_simple_reg_dem_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'../'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recalc_simple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_wrapper_parallel.html#autoloading_simple_reg_dem_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.autoloading_simple_reg_dem_wrapper" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.simple_reg_dem_wrapper">
+<span class="sig-name descname"><span class="pre">simple_reg_dem_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_wrapper_parallel.html#simple_reg_dem_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.simple_reg_dem_wrapper" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
 <section id="module-EMToolKit.algorithms.sparse_em">
 <span id="emtoolkit-algorithms-sparse-em-module"></span><h2>EMToolKit.algorithms.sparse_em module<a class="headerlink" href="#module-EMToolKit.algorithms.sparse_em" title="Link to this heading"></a></h2>
@@ -232,8 +324,18 @@ for observational data against a set of response functions.</p>
 <dd></dd></dl>
 
 </section>
-<section id="emtoolkit-algorithms-sparse-em-wrapper-module">
-<h2>EMToolKit.algorithms.sparse_em_wrapper module<a class="headerlink" href="#emtoolkit-algorithms-sparse-em-wrapper-module" title="Link to this heading"></a></h2>
+<section id="module-EMToolKit.algorithms.sparse_em_wrapper">
+<span id="emtoolkit-algorithms-sparse-em-wrapper-module"></span><h2>EMToolKit.algorithms.sparse_em_wrapper module<a class="headerlink" href="#module-EMToolKit.algorithms.sparse_em_wrapper" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper">
+<span class="sig-name descname"><span class="pre">autoloading_sparse_em_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'../.data/default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recalc_sparse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_em_wrapper.html#autoloading_sparse_em_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper">
+<span class="sig-name descname"><span class="pre">sparse_em_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_em_wrapper.html#sparse_em_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
 <section id="module-EMToolKit.algorithms.sparse_nlmap_dem_wrapper">
 <span id="emtoolkit-algorithms-sparse-nlmap-dem-wrapper-module"></span><h2>EMToolKit.algorithms.sparse_nlmap_dem_wrapper module<a class="headerlink" href="#module-EMToolKit.algorithms.sparse_nlmap_dem_wrapper" title="Link to this heading"></a></h2>
