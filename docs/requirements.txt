@@ -14,3 +14,4 @@ astropy
 scipy
 numba
 tqdm
+ndcube
