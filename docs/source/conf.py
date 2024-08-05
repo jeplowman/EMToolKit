@@ -103,12 +103,20 @@ import subprocess
 
 def run_apidoc(app):
     """Generate .rst files for the Sphinx documentation and build HTML output."""
+    # Check if we are already in a Sphinx build process
+    if os.environ.get('SPHINX_APIDOC_RUNNING') == '1':
+        print("Skipping sphinx-apidoc because it is already running.")
+        return
+
     # Check if a specific command-line argument is passed
     if 'skip-apidoc' in app.config.sphinx_run_options:
         print("Skipping sphinx-apidoc because skip-apidoc flag was set.")
         return
 
     try:
+        # Set an environment variable to indicate that sphinx-apidoc is running
+        os.environ['SPHINX_APIDOC_RUNNING'] = '1'
+
         source_dir = os.path.abspath('EMToolKit/')  # Path to your source code
         output_dir = os.path.abspath('docs/source/')  # Path to save generated .rst files
         html_dir = os.path.abspath("docs/build/html")  # Path to save the built HTML
@@ -123,6 +131,9 @@ def run_apidoc(app):
         print(f"sphinx-apidoc or sphinx-build failed with exit code {e.returncode}")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
+    finally:
+        # Unset the environment variable after the process is complete
+        os.environ.pop('SPHINX_APIDOC_RUNNING', None)
 
 def setup(app):
     app.add_config_value('sphinx_run_options', [], 'env')
