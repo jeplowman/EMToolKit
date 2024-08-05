@@ -98,32 +98,32 @@ sphinx_gallery_conf = {
 # print(f"Environment: {get_environment_name()}")
 # print("")
 
-# import os
-# import subprocess
+import os
+import subprocess
 
-# def run_apidoc(app):
-#     """Generate .rst files for the Sphinx documentation and build HTML output."""
-#     # Check if a specific command-line argument is passed
-#     if 'skip-apidoc' in app.config.sphinx_run_options:
-#         print("Skipping sphinx-apidoc because skip-apidoc flag was set.")
-#         return
+def run_apidoc(app):
+    """Generate .rst files for the Sphinx documentation and build HTML output."""
+    # Check if a specific command-line argument is passed
+    if 'skip-apidoc' in app.config.sphinx_run_options:
+        print("Skipping sphinx-apidoc because skip-apidoc flag was set.")
+        return
 
-#     try:
-#         source_dir = os.path.abspath('EMToolKit/')  # Path to your source code
-#         output_dir = os.path.abspath('docs/source/')  # Path to save generated .rst files
-#         html_dir = os.path.abspath("docs/build/html")  # Path to save the built HTML
+    try:
+        source_dir = os.path.abspath('EMToolKit/')  # Path to your source code
+        output_dir = os.path.abspath('docs/source/')  # Path to save generated .rst files
+        html_dir = os.path.abspath("docs/build/html")  # Path to save the built HTML
 
-#         # Run sphinx-apidoc to generate .rst files
-#         subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
+        # Run sphinx-apidoc to generate .rst files
+        subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
 
-#         # Run sphinx-build to generate HTML files
-#         subprocess.check_call(['sphinx-build', '-b', 'html', output_dir, html_dir])
+        # Run sphinx-build to generate HTML files
+        subprocess.check_call(['sphinx-build', '-b', 'html', output_dir, html_dir])
 
-#     except subprocess.CalledProcessError as e:
-#         print(f"sphinx-apidoc or sphinx-build failed with exit code {e.returncode}")
-#     except Exception as e:
-#         print(f"An unexpected error occurred: {e}")
+    except subprocess.CalledProcessError as e:
+        print(f"sphinx-apidoc or sphinx-build failed with exit code {e.returncode}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
 
-# def setup(app):
-#     app.add_config_value('sphinx_run_options', [], 'env')
-#     app.connect('builder-inited', run_apidoc)
+def setup(app):
+    app.add_config_value('sphinx_run_options', [], 'env')
+    app.connect('builder-inited', run_apidoc)
