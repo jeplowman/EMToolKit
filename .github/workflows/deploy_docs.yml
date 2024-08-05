@@ -34,6 +34,12 @@ jobs:
     - name: Build documentation
       run: sphinx-build -v -b html docs/source/ docs/build/html
 
+    - name: Upload documentation as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: documentation
+        path: docs/build/html
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
