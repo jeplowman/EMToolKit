@@ -7,9 +7,43 @@ build:
 
 sphinx:
   configuration: docs/source/conf.py
+  extensions:
+    - sphinx.ext.autodoc
+    - sphinx.ext.napoleon
+    - sphinx.ext.todo
+    - sphinx.ext.viewcode
+    - nbsphinx  # For Jupyter Notebooks
+    - sphinx_toggleprompt  # For interactive prompts
+    - sphinx.ext.autosummary  # For automatic summary tables
+  build:
+    options:
+      - "-b html -E -a docs/source docs/build/html"
 
 python:
   install:
     - method: pip
       path: .
     - requirements: docs/requirements.txt
+  dependencies:
+    - numpy==1.24.0
+    - matplotlib==3.7.0
+    - pandas==1.5.3
+    - ndcube==2.0.0
+    - holoviews==1.15.0
+    - ipywidgets==8.0.4
+
+environment:
+  PYTHONPATH: ".:${PYTHONPATH}"
+  SPHINXOPTS: "-W -n -T"  # Customize Sphinx options
+
+testing:
+  pytest:
+    - "tests"
+  linting:
+    - flake8
+
+scripts:
+  before_install:
+    - "echo Starting build process..."
+  after_success:
+    - "echo Build completed successfully!"

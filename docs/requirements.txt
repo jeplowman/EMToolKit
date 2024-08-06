@@ -3,6 +3,7 @@ sphinx-rtd-theme
 sphinx-autodoc-typehints
 sphinx-gallery
 sphinx-hoverxref
+sphinx-toggleprompt
 nbsphinx
 nbsphinx-link
 ipython
@@ -11,7 +12,8 @@ matplotlib
 
 sunpy
 astropy
-scipy
+scipy[all]
 numba
 tqdm
 ndcube
+lxml
