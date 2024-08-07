@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMToolKit.algorithms.multi_inst_dem_wrapper &mdash; EMToolKit 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EMToolKit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">EMToolKit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.html">EMToolKit package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.algorithms.html">EMToolKit.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../.auto_examples/add_two.html">Adding Two Numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/example_notebook.html">Multi-Instrument Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EMToolKit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">EMToolKit.algorithms.multi_inst_dem_wrapper</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for EMToolKit.algorithms.multi_inst_dem_wrapper</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides a wrapper for Differential Emission Measure (DEM) analysis</span>
+<span class="sd">using multiple instruments. It includes functions for reprojecting data with</span>
+<span class="sd">uncertainties and plotting the results.</span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    multi_inst_simple_dem_wrapper: Wraps simple DEM analysis for multiple instruments.</span>
+<span class="sd">    reproject_with_uncertainties: Reprojects a sequence of maps to the smallest map.</span>
+<span class="sd">    plot_reprojected: Plots reprojected maps and their uncertainties.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">ndcube</span> <span class="kn">import</span> <span class="n">NDCube</span><span class="p">,</span> <span class="n">NDCubeSequence</span>
+<span class="kn">from</span> <span class="nn">astropy.nddata</span> <span class="kn">import</span> <span class="n">StdDevUncertainty</span>
+
+<span class="kn">from</span> <span class="nn">ndcube</span> <span class="kn">import</span> <span class="n">NDCube</span><span class="p">,</span> <span class="n">NDCubeSequence</span><span class="p">,</span> <span class="n">NDCollection</span>
+<span class="kn">from</span> <span class="nn">sunpy.visualization.colormaps.color_tables</span> <span class="kn">import</span> <span class="n">aia_color_table</span><span class="p">,</span> <span class="n">xrt_color_table</span>
+<span class="kn">from</span> <span class="nn">astropy.nddata</span> <span class="kn">import</span> <span class="n">StdDevUncertainty</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.algorithms.simple_reg_dem_wrapper</span> <span class="kn">import</span> <span class="n">autoloading_simple_reg_dem_wrapper</span>
+
+<div class="viewcode-block" id="multi_inst_simple_dem_wrapper">
+<a class="viewcode-back" href="../../../EMToolKit.algorithms.html#EMToolKit.algorithms.multi_inst_dem_wrapper.multi_inst_simple_dem_wrapper">[docs]</a>
+<span class="k">def</span> <span class="nf">multi_inst_simple_dem_wrapper</span><span class="p">(</span><span class="n">datasequence</span><span class="p">,</span> <span class="n">wrapargs</span><span class="o">=</span><span class="p">{},</span> <span class="n">doPlot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dat_dir</span><span class="o">=</span><span class="s2">&quot;../.data/default&quot;</span><span class="p">,</span> <span class="n">recalc_simple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform simple DEM analysis using multiple instruments.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        datasequence (NDCubeSequence): Sequence of data cubes for multiple instruments.</span>
+<span class="sd">        wrapargs (dict): Arguments for the DEM wrapper.</span>
+<span class="sd">        doPlot (bool): Whether to plot the reprojected data immediately.</span>
+<span class="sd">        dat_dir (str): Directory for data storage.</span>
+<span class="sd">        recalc_simple (bool): Whether to recalculate simple DEM.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        NDCubeSequence: Resulting DEM analysis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">downprojected_sequence</span><span class="p">,</span> <span class="n">nan_mask</span><span class="p">,</span> <span class="n">coarsest_cube</span> <span class="o">=</span> <span class="n">reproject_with_uncertainties</span><span class="p">(</span><span class="n">datasequence</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">doPlot</span><span class="p">:</span>
+        <span class="n">plot_reprojected</span><span class="p">(</span><span class="n">downprojected_sequence</span><span class="p">,</span> <span class="n">nan_mask</span><span class="p">,</span> <span class="n">coarsest_cube</span><span class="p">)</span>
+
+    <span class="c1"># print(&quot;Performing simple DEM...&quot;)</span>
+    <span class="n">wrapargs</span><span class="p">[</span><span class="s2">&quot;prepend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;multi_inst_&quot;</span>
+
+    <span class="k">return</span> <span class="n">autoloading_simple_reg_dem_wrapper</span><span class="p">(</span><span class="n">datasequence</span><span class="p">,</span> <span class="n">dat_dir</span><span class="p">,</span> <span class="n">wrapargs</span><span class="o">=</span><span class="n">wrapargs</span><span class="p">,</span> <span class="n">recalc_simple</span><span class="o">=</span><span class="n">recalc_simple</span><span class="p">)</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="reproject_with_uncertainties">
+<a class="viewcode-back" href="../../../EMToolKit.algorithms.html#EMToolKit.algorithms.multi_inst_dem_wrapper.reproject_with_uncertainties">[docs]</a>
+<span class="k">def</span> <span class="nf">reproject_with_uncertainties</span><span class="p">(</span><span class="n">datasequence</span><span class="p">,</span> <span class="n">nan_level</span><span class="o">=-</span><span class="mi">50</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reproject a sequence of maps to the smallest map with uncertainties.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        datasequence (NDCubeSequence): Sequence of data cubes for multiple instruments.</span>
+<span class="sd">        nan_level (float): Threshold level for NaN masking.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: Reprojected data sequence, NaN mask, and coarsest cube.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reprojecting all maps to smallest map...&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="c1"># Find the map with the largest pixel scale</span>
+    <span class="n">sz_min</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">coarsest_cube</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">datasequence</span><span class="p">:</span>
+        <span class="n">sz</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;CDELT1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">seq</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;CDELT2&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">sz</span> <span class="o">&gt;=</span> <span class="n">sz_min</span><span class="p">:</span>
+            <span class="n">sz_min</span> <span class="o">=</span> <span class="n">sz</span>
+            <span class="n">coarsest_cube</span> <span class="o">=</span> <span class="n">seq</span>
+
+    <span class="k">if</span> <span class="n">coarsest_cube</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No coarsest cube found in the sequence&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Pull out the fine Sequence</span>
+    <span class="n">fine_sequence</span> <span class="o">=</span> <span class="n">NDCubeSequence</span><span class="p">([</span><span class="n">mp</span> <span class="k">for</span> <span class="n">mp</span> <span class="ow">in</span> <span class="n">datasequence</span> <span class="k">if</span> <span class="n">mp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">coarsest_cube</span><span class="p">],</span> <span class="n">meta</span><span class="o">=</span><span class="n">datasequence</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
+
+    <span class="c1"># Reproject the fine maps to the coarse map shape</span>
+    <span class="n">downprojected_sequence</span> <span class="o">=</span> <span class="n">NDCubeSequence</span><span class="p">([</span><span class="n">mp</span><span class="o">.</span><span class="n">reproject_to</span><span class="p">(</span><span class="n">coarsest_cube</span><span class="o">.</span><span class="n">wcs</span><span class="p">)</span> <span class="k">for</span> <span class="n">mp</span> <span class="ow">in</span> <span class="n">fine_sequence</span><span class="p">],</span> <span class="n">meta</span><span class="o">=</span><span class="n">datasequence</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
+
+    <span class="c1"># Compute factor to scale the uncertainties by the area ratio</span>
+    <span class="n">orig_area</span> <span class="o">=</span> <span class="n">fine_sequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">fine_sequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">new_area</span> <span class="o">=</span> <span class="n">downprojected_sequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">downprojected_sequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">area_ratio_rt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">new_area</span> <span class="o">/</span> <span class="n">orig_area</span><span class="p">)</span>
+
+    <span class="c1"># print(f&quot;Original area: {orig_area}, New area: {new_area}, Area ratio root: {area_ratio_rt}&quot;)</span>
+
+    <span class="c1"># Reproject and scale the uncertainties</span>
+    <span class="n">uncertainties</span> <span class="o">=</span> <span class="p">[</span><span class="n">StdDevUncertainty</span><span class="p">(</span>
+        <span class="n">NDCube</span><span class="p">(</span><span class="n">area_ratio_rt</span> <span class="o">*</span> <span class="n">mp</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">wcs</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span><span class="o">.</span>
+        <span class="n">reproject_to</span><span class="p">(</span><span class="n">coarsest_cube</span><span class="o">.</span><span class="n">wcs</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+    <span class="p">)</span> <span class="k">for</span> <span class="n">mp</span> <span class="ow">in</span> <span class="n">fine_sequence</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">I</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">downprojected_sequence</span><span class="p">)):</span>
+        <span class="n">downprojected_sequence</span><span class="p">[</span><span class="n">I</span><span class="p">]</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">uncertainties</span><span class="p">[</span><span class="n">I</span><span class="p">]</span>
+
+    <span class="c1"># Combine the reprojected fine maps with the coarse map</span>
+    <span class="n">nan_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">uncertainties</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">array</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">cube</span> <span class="ow">in</span> <span class="n">downprojected_sequence</span><span class="p">:</span>
+        <span class="n">nan_mask</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">cube</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">cube</span><span class="o">.</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">nan_level</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">full_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">cube</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">nan_mask</span> <span class="k">for</span> <span class="n">cube</span> <span class="ow">in</span> <span class="n">downprojected_sequence</span><span class="p">]</span>
+    <span class="n">full_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coarsest_cube</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">nan_mask</span><span class="p">)</span>
+    <span class="n">datasequence</span> <span class="o">=</span> <span class="n">NDCubeSequence</span><span class="p">(</span><span class="n">full_list</span><span class="p">,</span> <span class="n">common_axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="n">datasequence</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reprojected successfully!&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">datasequence</span><span class="p">,</span> <span class="n">nan_mask</span><span class="p">,</span> <span class="n">coarsest_cube</span></div>
+
+
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">from</span> <span class="nn">ndcube</span> <span class="kn">import</span> <span class="n">NDCubeSequence</span>
+
+<div class="viewcode-block" id="plot_reprojected">
+<a class="viewcode-back" href="../../../EMToolKit.algorithms.html#EMToolKit.algorithms.multi_inst_dem_wrapper.plot_reprojected">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_reprojected</span><span class="p">(</span><span class="n">downprojected_sequence</span><span class="p">,</span> <span class="n">nan_mask</span><span class="p">,</span> <span class="n">coarsest_cube</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the reprojected maps and their uncertainties.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        downprojected_sequence (NDCubeSequence): Sequence of reprojected data cubes.</span>
+<span class="sd">        nan_mask (numpy.ndarray): Mask for NaN values.</span>
+<span class="sd">        coarsest_cube (NDCube): Coarsest data cube for comparison.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">aia_reproj_map</span> <span class="ow">in</span> <span class="n">downprojected_sequence</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+        <span class="c1"># Apply NaN mask to the data</span>
+        <span class="n">coarsest_data_masked</span> <span class="o">=</span> <span class="n">coarsest_cube</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">nan_mask</span>
+        <span class="n">aia_data_masked</span> <span class="o">=</span> <span class="n">aia_reproj_map</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">nan_mask</span>
+        <span class="n">aia_uncertainty_masked</span> <span class="o">=</span> <span class="n">aia_reproj_map</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">array</span> <span class="o">*</span> <span class="n">nan_mask</span>
+
+        <span class="c1"># Create axes with WCS projection</span>
+        <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">coarsest_cube</span><span class="o">.</span><span class="n">wcs</span><span class="p">)</span>
+        <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">coarsest_cube</span><span class="o">.</span><span class="n">wcs</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Plot the coarsest cube data</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">coarsest_data_masked</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Get wavelength for the AIA map</span>
+        <span class="n">wave</span> <span class="o">=</span> <span class="n">aia_reproj_map</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;wavelnth&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">angstrom</span>
+
+        <span class="c1"># Overlay the AIA reprojected data</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">aia_data_masked</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Plot the uncertainties</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">aia_uncertainty_masked</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;plasma&quot;</span><span class="p">)</span>
+
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;AIA </span><span class="si">{</span><span class="n">wave</span><span class="si">}</span><span class="s1"> overlaid on Coarsest Cube</span><span class="se">\n</span><span class="s1">Shape: </span><span class="si">{</span><span class="n">aia_reproj_map</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Uncertainty</span><span class="se">\n</span><span class="s1">Shape: </span><span class="si">{</span><span class="n">aia_reproj_map</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<span class="c1"># Helper function for color table (customize or replace with your actual function)</span>
+<div class="viewcode-block" id="aia_color_table">
+<a class="viewcode-back" href="../../../EMToolKit.algorithms.html#EMToolKit.algorithms.multi_inst_dem_wrapper.aia_color_table">[docs]</a>
+<span class="k">def</span> <span class="nf">aia_color_table</span><span class="p">(</span><span class="n">wave</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;inferno&#39;</span></div>
+
+
+<span class="c1"># Example function call</span>
+<span class="c1"># plot_reprojected(downprojected_sequence, nan_mask, coarsest_cube)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMToolKit.schemas.element_grid &mdash; EMToolKit 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EMToolKit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">EMToolKit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.html">EMToolKit package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.algorithms.html">EMToolKit.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../.auto_examples/add_two.html">Adding Two Numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/example_notebook.html">Multi-Instrument Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EMToolKit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">EMToolKit.schemas.element_grid</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for EMToolKit.schemas.element_grid</h1><div class="highlight"><pre>
+<span></span><span class="c1"># This element_grid class builds on coord_grid to specify a grid of basis or detector</span>
+<span class="c1"># elements (e.g., the spatial response functions of an imaging detector, including</span>
+<span class="c1"># their pixel boxes and PSF). It is the exemplar class for the source and detector</span>
+<span class="c1"># objects used by get_sparse_response_matrix.</span>
+<span class="c1"># The primary methods of these objects are as follows:</span>
+<span class="c1">#    elements: Returns the properties of the element(s) at address i.</span>
+<span class="c1">#              When called as [elms,vals,pnts] = some_element_grid.elements(i),</span>
+<span class="c1">#              must return the following:</span>
+<span class="c1">#                  pnts: The coordinate points at which the these elements are non-zero,</span>
+<span class="c1">#                        in the element_grid&#39;s coordinate frame. Dimensions should be</span>
+<span class="c1">#                        npts by ndim, where ndim is the dimensionality of the</span>
+<span class="c1">#                        source coordinate system.</span>
+<span class="c1">#                  vals: The values of the elements&#39; &#39;basis&#39; function(s) at</span>
+<span class="c1">#                        those coordinates. Dimensions are npts.</span>
+<span class="c1">#                  elms: Indices of the element(s) corresponding to each of those</span>
+<span class="c1">#                        point/value pairs. Most often these will all be the same as i,</span>
+<span class="c1">#                        but they don&#39;t have to be. Dimensions are npts.</span>
+<span class="c1">#    response: Returns the response of the elements to a delta function source at a given</span>
+<span class="c1">#              point in the element_grid&#39;s coordinate frame. When called as</span>
+<span class="c1">#              [vals,elms] = detector.response(point), must return the following:</span>
+<span class="c1">#                  elms: The indices of every element in the grid which has a non-zero</span>
+<span class="c1">#                        response to a delta function source at the given point.</span>
+<span class="c1">#                  vals: The values of each of those responses. Same dimensions as elms.</span>
+<span class="c1">#</span>
+<span class="c1"># The objects also have the following attributes which are intended for external use:</span>
+<span class="c1">#    coords: Information about the coordinate system of the output of elements and</span>
+<span class="c1">#            the input to response. Implemented as an instance of coordgrid.</span>
+<span class="c1">#    nelm:   The number of elements in the element_grid, as well as the number</span>
+<span class="c1">#            of unique element id/indices.</span>
+<span class="c1">#    nadr:   The number of element addresses in the element grid. These are</span>
+<span class="c1">#            how the elements are accessed via the elements method. In</span>
+<span class="c1">#            basic use these will be the same as the element indices,</span>
+<span class="c1">#            but there are use cases where other addressing modes are</span>
+<span class="c1">#            desired. The addresses are generally expected to be positive integers.</span>
+<span class="c1"># Elements are addressed by a single index apiece, but</span>
+<span class="c1"># this is trivial to multiplex under the hood using, for instance,</span>
+<span class="c1"># i = i0*nj*nk+j0*nk+k0. Numpy&#39;s ravel_index, unravel_multi_index, and</span>
+<span class="c1"># flatten functions provide exactly this functionality. The intention of this class</span>
+<span class="c1"># is to implement the functionalite needed by get_sparse_response_matrix for typical</span>
+<span class="c1"># detector arrays e.g., 2D imagers or 3D spectrographs, as well as for gridded arrays</span>
+<span class="c1"># of source elements. It should be fairly powerful and extensible.</span>
+
+<span class="c1"># There is an issue with rounding and floating point jitter for aligned grids that</span>
+<span class="c1"># share some ratios in their spacing. We add this small offset when discretizing</span>
+<span class="c1"># grid indices to avoid this, which is a bit of a hack...</span>
+<span class="n">tiny</span> <span class="o">=</span> <span class="mf">1.0e-4</span>
+<span class="c1"># On a related note, there are some intrinsic issues with even nsubgrid, which</span>
+<span class="c1"># can produce subpixel shifts in certain situations. To see why this is the case</span>
+<span class="c1"># consider convolution by a boxcar kernel with an even width: Such kernels are</span>
+<span class="c1"># intrinsically asymmetric... Recommend setting det_subgrid_fac to an odd</span>
+<span class="c1"># number over 1.</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.schemas</span> <span class="kn">import</span> <span class="n">util</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.schemas.util</span> <span class="kn">import</span> <span class="n">multivec_matmul</span><span class="p">,</span> <span class="n">rindices</span><span class="p">,</span> <span class="n">ftp</span><span class="p">,</span> <span class="n">btp</span>
+
+<div class="viewcode-block" id="element_grid">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid">[docs]</a>
+<span class="k">class</span> <span class="nc">element_grid</span><span class="p">:</span>
+    <span class="c1"># Set up the elements. Required inputs:</span>
+    <span class="c1">#     grid: A coord_grid.</span>
+    <span class="c1">#     parms: Parameters or anything else used to evaluate the response function.</span>
+    <span class="c1">#     func: The response function evaluator.</span>
+    <span class="c1"># Optional inputs:</span>
+    <span class="c1">#     footprint: How far away from the input point to evaluate the response functions,</span>
+    <span class="c1">#                in grid points. Default: at least 21 points.</span>
+    <span class="c1">#     stencil_thold: In addition to the footprint, a stencil is computed to</span>
+    <span class="c1">#                    determine which grid points to use evaluate around the input point.</span>
+    <span class="c1">#                    An initial check of the response function (with evaluation point</span>
+    <span class="c1">#                    at the origin) is made, and points falling below this threshold are</span>
+    <span class="c1">#                    omitted. Would probably be better to check the stencil for every</span>
+    <span class="c1">#                    element&#39;s location, although that would be slower... Default: .0005</span>
+    <span class="c1">#     nsubgrid: To take into accound subgrid-scale effects, evaluate the response/basis functions.</span>
+    <span class="c1">#               at this multiple of the grid scale. Default: 3</span>
+    <span class="c1">#     thold: Final threshold for keeping points when evaluating the response/basis functions.</span>
+    <span class="c1">#            Default: 0.005.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">parms</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stencil_thold</span><span class="o">=</span><span class="mf">5.0e-4</span><span class="p">,</span> <span class="n">nsubgrid</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">thold</span><span class="o">=</span><span class="mf">0.005</span><span class="p">):</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">thold</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">thold</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">parms</span><span class="p">,</span> <span class="n">func</span><span class="p">]</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nelm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsubgrid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">nsubgrid</span><span class="p">,</span><span class="n">grid</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">shape</span><span class="p">)]</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">subgrid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_grid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">grid</span><span class="o">.</span><span class="n">subgrid</span><span class="p">(</span><span class="n">fac</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nsubgrid</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_eval_grid</span><span class="p">()]</span>
+        <span class="c1"># Generate the stencil:</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">footprint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span> <span class="n">fpoffset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">nsubgrid</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">fpoffset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">footprint</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nsubgrid</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">nsubgrid</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stencil</span> <span class="o">=</span> <span class="p">(</span><span class="n">rindices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsubgrid</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">fpoffset</span><span class="p">)</span> <span class="o">-</span> <span class="n">fpoffset</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">nsubgrid</span><span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">origin</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stencil</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">vals</span> <span class="o">&gt;=</span> <span class="n">stencil_thold</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">ftp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stencil</span><span class="p">))])</span><span class="o">.</span><span class="n">T</span>
+        <span class="c1"># Set the number of addresses:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nadr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nadr</span><span class="p">()</span>
+    <span class="c1"># Standard grid for evaluating the response/basis functions is the same as the</span>
+    <span class="c1"># subgrid. Note: indices for the eval_grid are assumed to be the same as the subgrid.</span>
+<div class="viewcode-block" id="element_grid.get_eval_grid">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid.get_eval_grid">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_eval_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">subgrid</span><span class="p">(</span><span class="n">fac</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nsubgrid</span><span class="p">)</span></div>
+
+    <span class="c1"># Standard assumption is number of addresses is same as number of elements:</span>
+<div class="viewcode-block" id="element_grid.get_nadr">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid.get_nadr">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_nadr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nelm</span></div>
+
+    <span class="c1"># Evaluate the source/basis function at a given point</span>
+<div class="viewcode-block" id="element_grid.evaluate">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid.evaluate">[docs]</a>
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="n">subpt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subgrid</span><span class="o">.</span><span class="n">inds</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="c1"># Find where the point is relative to the subgrid</span>
+        <span class="c1"># Find the stencil evaluation indices (which are registered to the subgrid)</span>
+        <span class="c1"># in the vicinity of this point.</span>
+        <span class="n">subinds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stencil</span><span class="o">+</span><span class="n">subpt</span><span class="o">+</span><span class="n">tiny</span><span class="p">)</span>
+        <span class="c1"># Get the coordinates of these evaluation indices in the evaluation coordinate frame</span>
+        <span class="c1"># and the subgrid coordinates:</span>
+        <span class="p">[</span><span class="n">eval_coords</span><span class="p">,</span> <span class="n">output_coords</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_grid</span><span class="o">.</span><span class="n">coords</span><span class="p">(</span><span class="n">subinds</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">subgrid</span><span class="o">.</span><span class="n">coords</span><span class="p">(</span><span class="n">subinds</span><span class="p">)]</span>
+        <span class="c1"># Compute the response of these evaluation points to the input point, and their</span>
+        <span class="c1"># coordinates:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_grid</span><span class="o">.</span><span class="n">coords</span><span class="p">(</span><span class="n">subpt</span><span class="p">),</span> <span class="n">eval_coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parms</span><span class="p">),</span> <span class="n">output_coords</span></div>
+
+    <span class="c1"># Return the elements addressed by a given index:</span>
+<div class="viewcode-block" id="element_grid.elements">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid.elements">[docs]</a>
+    <span class="k">def</span> <span class="nf">elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">index</span><span class="p">):</span>
+        <span class="c1"># Map the address to a coordinate and run the element_grid&#39;s evaluator:</span>
+        <span class="p">[</span><span class="n">vals</span><span class="p">,</span><span class="n">coords</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">coords</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">dims</span><span class="p">))))</span>
+        <span class="c1"># Return the result, element index is same as input address:</span>
+        <span class="k">return</span> <span class="n">index</span><span class="o">+</span><span class="mi">0</span><span class="o">*</span><span class="n">vals</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="n">vals</span><span class="p">,</span> <span class="n">coords</span></div>
+
+    <span class="c1"># Run the evaluator for the given point and compute the output value and indices to flatinds:</span>
+<div class="viewcode-block" id="element_grid.response">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid.response">[docs]</a>
+    <span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">point</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">flatinds</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">point</span><span class="p">),</span> <span class="n">thold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">thold</span><span class="p">)</span></div>
+</div>
+
+
+<span class="c1"># The detector grid is a straight implementation of the base class:</span>
+<div class="viewcode-block" id="detector_grid">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.element_grid.detector_grid">[docs]</a>
+<span class="k">class</span> <span class="nc">detector_grid</span><span class="p">(</span><span class="n">element_grid</span><span class="p">):</span> <span class="k">pass</span></div>
+
+
+<span class="c1"># The source grid is the same as the base class except that the evaluation grid for</span>
+<span class="c1"># the source basis functions is a subgrid consisting of indices rather than using a</span>
+<span class="c1"># physically dimensioned coordinate system. We use a fun trick with coord_grid&#39;s</span>
+<span class="c1"># identify and subgrid methods to create this.</span>
+<div class="viewcode-block" id="source_grid">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.element_grid.source_grid">[docs]</a>
+<span class="k">class</span> <span class="nc">source_grid</span><span class="p">(</span><span class="n">element_grid</span><span class="p">):</span>
+<div class="viewcode-block" id="source_grid.get_eval_grid">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.element_grid.source_grid.get_eval_grid">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_eval_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">identity</span><span class="p">()</span><span class="o">.</span><span class="n">subgrid</span><span class="p">(</span><span class="n">fac</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nsubgrid</span><span class="p">)</span></div>
+</div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
