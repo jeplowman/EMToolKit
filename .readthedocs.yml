@@ -13,7 +13,3 @@ python:
     - method: pip
       path: .  # If your repository contains a Python package, install it
     - requirements: docs/requirements.txt  # Install additional dependencies
-
-environment:
-  PYTHONPATH: ".:${PYTHONPATH}"
-  SPHINXOPTS: "-W -n -T"  # Customize Sphinx options if needed
