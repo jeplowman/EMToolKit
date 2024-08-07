@@ -14,14 +14,6 @@ python:
       path: .  # If your repository contains a Python package, install it
     - requirements: docs/requirements.txt  # Install additional dependencies
 
-  dependencies:
-    - numpy==1.24.0
-    - matplotlib==3.7.0
-    - pandas==1.5.3
-    - ndcube==2.0.0
-    - holoviews==1.15.0
-    - ipywidgets==8.0.4
-
 environment:
   PYTHONPATH: ".:${PYTHONPATH}"
   SPHINXOPTS: "-W -n -T"  # Customize Sphinx options if needed
