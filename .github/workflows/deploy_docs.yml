@@ -49,5 +49,5 @@ jobs:
 
     - name: Trigger Read the Docs build
       run: |
-        curl -X POST -d '' "https://readthedocs.org/api/v2/webhook/<project_name>/github/" \
+        curl -X POST -d '' "https://readthedocs.org/api/v2/webhook/EMToolKit/github/" \
         -H "Authorization: token ${{ secrets.RTD_API_TOKEN }}"

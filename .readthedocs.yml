@@ -7,14 +7,6 @@ build:
 
 sphinx:
   configuration: docs/source/conf.py
-  extensions:
-    - sphinx.ext.autodoc
-    - sphinx.ext.napoleon
-    - sphinx.ext.todo
-    - sphinx.ext.viewcode
-    - nbsphinx  # For Jupyter Notebooks
-    - sphinx_toggleprompt  # For interactive prompts
-    - sphinx.ext.autosummary  # For automatic summary tables
   build:
     options:
       - "-b html -E -a docs/source docs/build/html"
