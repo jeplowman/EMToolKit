@@ -10,11 +10,13 @@ ipython
 pandoc==2.3
 matplotlib
 
-sunpy
+sunpy[all]
 astropy
-scipy[all]
+scipy
 numba
 tqdm
 ndcube
 lxml
 zeep
+drms
+memory-profiler
