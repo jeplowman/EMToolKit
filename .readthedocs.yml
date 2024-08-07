@@ -6,16 +6,14 @@ build:
     python: "3.10"
 
 sphinx:
-  configuration: docs/source/conf.py
-  build:
-    options:
-      - "-b html -E -a docs/source docs/build/html"
+  configuration: docs/source/conf.py  # Path to your Sphinx configuration file
 
 python:
   install:
     - method: pip
-      path: .
-    - requirements: docs/requirements.txt
+      path: .  # If your repository contains a Python package, install it
+    - requirements: docs/requirements.txt  # Install additional dependencies
+
   dependencies:
     - numpy==1.24.0
     - matplotlib==3.7.0
@@ -26,16 +24,4 @@ python:
 
 environment:
   PYTHONPATH: ".:${PYTHONPATH}"
-  SPHINXOPTS: "-W -n -T"  # Customize Sphinx options
-
-testing:
-  pytest:
-    - "tests"
-  linting:
-    - flake8
-
-scripts:
-  before_install:
-    - "echo Starting build process..."
-  after_success:
-    - "echo Build completed successfully!"
+  SPHINXOPTS: "-W -n -T"  # Customize Sphinx options if needed
