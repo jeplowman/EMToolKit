@@ -46,3 +46,8 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: docs/build/html
         publish_branch: gh-pages
+
+    - name: Trigger Read the Docs build
+      run: |
+        curl -X POST -d '' "https://readthedocs.org/api/v2/webhook/<project_name>/github/" \
+        -H "Authorization: token ${{ secrets.RTD_API_TOKEN }}"
