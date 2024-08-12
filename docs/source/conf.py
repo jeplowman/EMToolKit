@@ -76,7 +76,7 @@ def run_apidoc(app):
     try:
         os.environ['SPHINX_APIDOC_RUNNING'] = '1'
 
-        source_dir = os.path.abspath('../EMToolKit/')
+        source_dir = os.path.abspath('../EMToolKit/EMToolKit/')
         output_dir = os.path.abspath('docs/source/')
         html_dir = os.path.abspath("docs/build/html")
 
