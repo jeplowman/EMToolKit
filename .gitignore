@@ -6,9 +6,9 @@ EMToolKit.egg-info
 .data
 data
 .vscode
-*.rst
-!index.rst
-!GALLERY_HEADER.rst
+# *.rst
+# !index.rst
+# !GALLERY_HEADER.rst
 gen_modules/
 .auto_examples
 

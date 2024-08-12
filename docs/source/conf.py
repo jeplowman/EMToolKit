@@ -44,21 +44,22 @@ nbsphinx_allow_errors = True
 
 # Configure sphinx-gallery
 sphinx_gallery_conf = {
-    'examples_dirs': ['examples'],  # paths to your notebooks and example scripts
-    'gallery_dirs': ['.auto_examples'],  # paths to where to save generated output
+    # 'examples_dirs': ['examples'],  # paths to your notebooks and example scripts
+    # 'gallery_dirs': ['.auto_examples'],  # paths to where to save generated output
+    'examples_dirs': [os.path.abspath('./examples')],
+    'gallery_dirs': [os.path.abspath('./.auto_examples')],
     'filename_pattern': r'.*\.(ipynb|py)$',  # Match both .py and .ipynb files
-    'within_subsection_order': 'FileNameSortKey',  # Order examples by file name
     'capture_repr': ('_repr_html_', '__repr__'),  # Capture HTML representations
     'image_scrapers': ('matplotlib',),  # Specify scrapers for image output
     'doc_module': ('EMToolKit',),  # Document the EMToolKit module
-    'reference_url': {
-        'EMToolKit': "https://github.com/jeplowman/EMToolKit/tree/main",
-    },
+    # 'reference_url': {
+    #     'EMToolKit': "https://github.com/jeplowman/EMToolKit/tree/main",
+    # },
     'backreferences_dir': 'gen_modules/backreferences',  # Path for backreferences
     'show_memory': True,  # Show memory usage
     'download_all_examples': True,  # Allow downloading all examples in a zip file
     'thumbnail_size': (400, 280),  # Set the size of thumbnails
-    'min_reported_time': 0,  # Report all examples, regardless of runtime
+    'min_reported_time': 1,  # Report all examples, regardless of runtime
     'line_numbers': True,  # Show line numbers in code blocks
     'remove_config_comments': True,  # Remove comments from config files
 }
@@ -76,7 +77,7 @@ def run_apidoc(app):
     try:
         os.environ['SPHINX_APIDOC_RUNNING'] = '1'
 
-        source_dir = os.path.abspath('../EMToolKit/EMToolKit/')
+        source_dir = os.path.abspath('../../EMToolKit/')
         output_dir = os.path.abspath('docs/source/')
         html_dir = os.path.abspath("docs/build/html")
 

@@ -1,0 +1,166 @@
+.
+├── CITATION.cff
+├── EMToolKit
+│   ├── EMToolKit.py
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── EMToolKit.cpython-310.pyc
+│   │   ├── EMToolKit.cpython-39.pyc
+│   │   ├── __init__.cpython-310.pyc
+│   │   ├── __init__.cpython-39.pyc
+│   │   ├── util.cpython-310.pyc
+│   │   └── util.cpython-39.pyc
+│   ├── algorithms
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-310.pyc
+│   │   │   ├── __init__.cpython-39.pyc
+│   │   │   ├── multi_inst_dem_wrapper.cpython-310.pyc
+│   │   │   ├── multi_inst_dem_wrapper.cpython-39.pyc
+│   │   │   ├── simple_reg_dem.cpython-310.pyc
+│   │   │   ├── simple_reg_dem.cpython-39.pyc
+│   │   │   ├── simple_reg_dem_parallel.cpython-310.pyc
+│   │   │   ├── simple_reg_dem_parallel.cpython-39.pyc
+│   │   │   ├── simple_reg_dem_wrapper.cpython-310.pyc
+│   │   │   ├── simple_reg_dem_wrapper.cpython-39.pyc
+│   │   │   ├── simple_reg_dem_wrapper_parallel.cpython-310.pyc
+│   │   │   ├── simple_reg_dem_wrapper_parallel.cpython-39.pyc
+│   │   │   ├── sparse_em.cpython-310.pyc
+│   │   │   ├── sparse_em.cpython-39.pyc
+│   │   │   ├── sparse_em_wrapper.cpython-310.pyc
+│   │   │   ├── sparse_em_wrapper.cpython-39.pyc
+│   │   │   ├── sparse_nlmap_dem_wrapper.cpython-310.pyc
+│   │   │   ├── sparse_nlmap_dem_wrapper.cpython-39.pyc
+│   │   │   ├── sparse_nlmap_solver.cpython-310.pyc
+│   │   │   └── sparse_nlmap_solver.cpython-39.pyc
+│   │   ├── multi_inst_dem_wrapper.py
+│   │   ├── simple_reg_dem.py
+│   │   ├── simple_reg_dem_parallel.py
+│   │   ├── simple_reg_dem_wrapper.py
+│   │   ├── simple_reg_dem_wrapper_parallel.py
+│   │   ├── sparse_em.py
+│   │   ├── sparse_em_wrapper.py
+│   │   ├── sparse_nlmap_dem_wrapper.py
+│   │   └── sparse_nlmap_solver.py
+│   ├── instruments
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-310.pyc
+│   │   │   ├── __init__.cpython-39.pyc
+│   │   │   ├── aia.cpython-310.pyc
+│   │   │   ├── aia.cpython-39.pyc
+│   │   │   ├── xrt.cpython-310.pyc
+│   │   │   └── xrt.cpython-39.pyc
+│   │   ├── aia.py
+│   │   └── xrt.py
+│   ├── schemas
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-310.pyc
+│   │   │   ├── __init__.cpython-39.pyc
+│   │   │   ├── basic_schemas.cpython-310.pyc
+│   │   │   ├── basic_schemas.cpython-39.pyc
+│   │   │   ├── basic_transforms.cpython-310.pyc
+│   │   │   ├── basic_transforms.cpython-39.pyc
+│   │   │   ├── coord_grid.cpython-310.pyc
+│   │   │   ├── coord_grid.cpython-39.pyc
+│   │   │   ├── element_functions.cpython-310.pyc
+│   │   │   ├── element_functions.cpython-39.pyc
+│   │   │   ├── element_grid.cpython-310.pyc
+│   │   │   ├── element_grid.cpython-39.pyc
+│   │   │   ├── element_source_responses.cpython-310.pyc
+│   │   │   ├── element_source_responses.cpython-39.pyc
+│   │   │   ├── operators.cpython-310.pyc
+│   │   │   ├── operators.cpython-39.pyc
+│   │   │   ├── util.cpython-310.pyc
+│   │   │   └── util.cpython-39.pyc
+│   │   ├── basic_schemas.py
+│   │   ├── basic_transforms.py
+│   │   ├── coord_grid.py
+│   │   ├── element_functions.py
+│   │   ├── element_grid.py
+│   │   ├── element_source_responses.py
+│   │   ├── operators.py
+│   │   └── util.py
+│   ├── util.py
+│   └── visualization
+│       ├── __init__.py
+│       ├── __pycache__
+│       │   ├── __init__.cpython-310.pyc
+│       │   ├── __init__.cpython-39.pyc
+│       │   ├── dashboard.cpython-310.pyc
+│       │   └── dashboard.cpython-39.pyc
+│       ├── dashboard.py
+│       └── testing.ipynb
+├── EMToolKit.egg-info
+│   ├── PKG-INFO
+│   ├── SOURCES.txt
+│   ├── dependency_links.txt
+│   └── top_level.txt
+├── LICENSE
+├── README.md
+├── directory_structure.txt
+├── docs
+│   ├── Makefile
+│   ├── build
+│   │   ├── doctrees
+│   │   │   ├── EMToolKit.algorithms.doctree
+│   │   │   ├── EMToolKit.doctree
+│   │   │   ├── EMToolKit.instruments.doctree
+│   │   │   ├── EMToolKit.schemas.doctree
+│   │   │   ├── EMToolKit.visualization.doctree
+│   │   │   ├── environment.pickle
+│   │   │   ├── examples
+│   │   │   ├── index.doctree
+│   │   │   ├── modules.doctree
+│   │   │   ├── nbsphinx
+│   │   │   └── sg_execution_times.doctree
+│   │   └── html
+│   │       ├── EMToolKit.algorithms.html
+│   │       ├── EMToolKit.html
+│   │       ├── EMToolKit.instruments.html
+│   │       ├── EMToolKit.schemas.html
+│   │       ├── EMToolKit.visualization.html
+│   │       ├── _downloads
+│   │       ├── _images
+│   │       ├── _modules
+│   │       ├── _sources
+│   │       ├── _static
+│   │       ├── examples
+│   │       ├── genindex.html
+│   │       ├── index.html
+│   │       ├── modules.html
+│   │       ├── objects.inv
+│   │       ├── py-modindex.html
+│   │       ├── search.html
+│   │       ├── searchindex.js
+│   │       └── sg_execution_times.html
+│   ├── make.bat
+│   ├── requirements.txt
+│   └── source
+│       ├── EMToolKit.algorithms.rst
+│       ├── EMToolKit.instruments.rst
+│       ├── EMToolKit.rst
+│       ├── EMToolKit.schemas.rst
+│       ├── EMToolKit.visualization.rst
+│       ├── _static
+│       ├── _templates
+│       ├── conf.py
+│       ├── examples
+│       │   ├── EMToolKit_example_07252010.ipynb
+│       │   ├── EMToolKit_example_multi_instrument.ipynb
+│       │   ├── GALLERY_HEADER.rst
+│       │   ├── add_two.py
+│       │   └── example_notebook.ipynb
+│       ├── gen_modules
+│       │   └── backreferences
+│       ├── index.rst
+│       ├── modules.rst
+│       └── sg_execution_times.rst
+├── environment.yml
+├── pyproject.toml
+├── requirements-dev.lock
+├── requirements.lock
+└── setup.py.bkk
+
+30 directories, 134 files
