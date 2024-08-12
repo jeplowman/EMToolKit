@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMToolKit.schemas.operators &mdash; EMToolKit 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/toggleprompt.js?v=5801b3bb"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EMToolKit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">EMToolKit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.html">EMToolKit package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.algorithms.html">EMToolKit.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../.auto_examples/add_two.html">Adding Two Numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/example_notebook.html">Multi-Instrument Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EMToolKit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">EMToolKit.schemas.operators</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for EMToolKit.schemas.operators</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">resource</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1">#from processify import processify</span>
+
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">LinearOperator</span>
+
+<span class="c1"># These objects compute the forward operator for a combined spatial and temperature</span>
+<span class="c1"># (DEM) forward problem, along with it&#39;s transpose. Given a proposed solution</span>
+<span class="c1"># vector (e.g., an [T, x, y] cube) in both temperature and space (dimensioned </span>
+<span class="c1"># [ntemp, nx, ny] or [ntemp, nx*ny]) the forward operator computes the data vector,</span>
+<span class="c1"># which has arranged as a flat vector [d0_0, d0_1, ... d0_n0, d1_0, d1_1, ... d1_n1,</span>
+<span class="c1"># ... dm_0, dm_1, ... dm_nm], where the data is organized into m &#39;channels&#39;, all</span>
+<span class="c1"># with the same temperature response function (e.g., the EUV channels in AIA). The</span>
+<span class="c1"># number of data elements in each channel (n0, ..., nm) need not all be the same.</span>
+<span class="c1">#</span>
+<span class="c1"># The transpose of the forward operator acts on a data vector; it gives the sum of</span>
+<span class="c1"># all of the spatio-thermal response functions in the forward operator, weighted by</span>
+<span class="c1"># their values in the data vector. For example, a pixel in AIA 171 has a response</span>
+<span class="c1"># function that consists of a spatial PSF (plus pixelization) which responds spatially to</span>
+<span class="c1"># a small neighborhood of the source cube and a temperature response function</span>
+<span class="c1"># which responds thermally according to the 171 temperature response functions.</span>
+<span class="c1"># If the transpose operates on a data vector with only that pixel and channel &#39;lit up&#39;,</span>
+<span class="c1"># The output is a cube in the source space with the spatial response function of</span>
+<span class="c1"># that pixel lit according to the PSF at the temperatures 171 responds to. All other</span>
+<span class="c1"># source cube elements will be zero.</span>
+<span class="c1">#</span>
+<span class="c1"># The outputs of the forward and transpose operations are flattened since that&#39;s what</span>
+<span class="c1"># the solvers expect.</span>
+<div class="viewcode-block" id="multi_instrument_linear_operator">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.operators.multi_instrument_linear_operator">[docs]</a>
+<span class="k">class</span> <span class="nc">multi_instrument_linear_operator</span><span class="p">(</span><span class="n">LinearOperator</span><span class="p">):</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operators</span><span class="p">,</span> <span class="n">wrapargs</span><span class="o">=</span><span class="p">{}):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rm_timer</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lm_timer</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nchans</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">operators</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">operators</span> <span class="o">=</span> <span class="n">operators</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">outrange_lo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nchans</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">outrange_hi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nchans</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nb_temp</span> <span class="o">=</span> <span class="n">operators</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nb_temp</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nb_spat</span> <span class="o">=</span> <span class="n">operators</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nb_spat</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">norms</span> <span class="o">=</span> <span class="n">wrapargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;norms&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nchans</span><span class="p">))</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nchans</span><span class="p">):</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">outrange_lo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outrange_hi</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">outrange_hi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outrange_lo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">operators</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">operators</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">nb_temp</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nb_temp</span> <span class="ow">or</span> <span class="n">operators</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">nb_spat</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nb_spat</span><span class="p">):</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: multi_instrument_linear_operator inputs have differing dimensions.&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ndat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outrange_hi</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nsrc</span> <span class="o">=</span> <span class="n">operators</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ndat</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nsrc</span><span class="p">]</span>
+		
+	<span class="k">def</span> <span class="nf">_matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rightvec_in</span><span class="p">):</span>
+		<span class="n">tstart</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+		<span class="n">outvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndat</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nchans</span><span class="p">):</span>
+			<span class="n">outvec</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">outrange_lo</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="bp">self</span><span class="o">.</span><span class="n">outrange_hi</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operators</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">rightvec_in</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">norms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rm_timer</span> <span class="o">+=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">tstart</span>
+		<span class="k">return</span> <span class="n">outvec</span>
+		
+	<span class="k">def</span> <span class="nf">_rmatvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">leftvec_in</span><span class="p">):</span>
+		<span class="n">tstart</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+		<span class="n">outvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nsrc</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nchans</span><span class="p">):</span>
+			<span class="n">outvec</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operators</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">leftvec_in</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">outrange_lo</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="bp">self</span><span class="o">.</span><span class="n">outrange_hi</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">norms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lm_timer</span> <span class="o">+=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">tstart</span>
+		<span class="k">return</span> <span class="n">outvec</span></div>
+
+
+
+<span class="c1"># This represents a forward operator where the spatial and thermal response</span>
+<span class="c1"># separable. Most imagers with a fixed EUV channel are like this, although</span>
+<span class="c1"># the diffraction spikes in AIA break it slightly. If the temperatures</span>
+<span class="c1"># are input (in the &#39;temps&#39; keyword), this version assumes that tresp is a </span>
+<span class="c1"># conventional tabulated temperature response function and that &#39;temps&#39; lists</span>
+<span class="c1"># the corresponding temperatures as inputs. It then assumes the temperature</span>
+<span class="c1"># basis elements are &#39;spike&#39; functions as in Plowman &amp; Caspi 2020. This is needed</span>
+<span class="c1"># to be consistent with the derivative-based regularization operators found</span>
+<span class="c1"># elsewhere in this code. If the &#39;temps&#39; keyword is not supplied, tresp is </span>
+<span class="c1"># assumed to have the basis elements already rolled into it (supplying </span>
+<span class="c1"># a raw temperature response function this way will be like a top hat &#39;bin&#39;</span>
+<span class="c1"># function but will be missing the bin width unless that is premultipied).</span>
+<span class="c1"># The spatial response matrix must be input separately; it can be computed</span>
+<span class="c1"># using the element function framework used for the SPICE PSF correction.</span>
+<div class="viewcode-block" id="single_instrument_linear_operator_separable">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.operators.single_instrument_linear_operator_separable">[docs]</a>
+<span class="k">class</span> <span class="nc">single_instrument_linear_operator_separable</span><span class="p">(</span><span class="n">LinearOperator</span><span class="p">):</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sresp</span><span class="p">,</span> <span class="n">tresp</span><span class="p">,</span> <span class="n">temps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exptime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nb_spat</span> <span class="o">=</span> <span class="n">sresp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nb_temp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nchans</span> <span class="o">=</span> <span class="n">tresp</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="mi">1</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">sresp</span> <span class="o">=</span> <span class="n">sresp</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">tresp</span> <span class="o">=</span> <span class="n">tresp</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nsrc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nb_spat</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_temp</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">sresp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">nsrc</span><span class="p">]</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">tresp</span><span class="o">.</span><span class="n">ndim</span><span class="o">==</span><span class="mi">1</span><span class="p">):</span> <span class="n">tresp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tresp</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">temps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+			<span class="n">nt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">temps</span><span class="p">)</span>
+			<span class="n">nt_ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">nt</span><span class="p">)</span>
+			<span class="n">dT</span> <span class="o">=</span> <span class="n">temps</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">nt</span><span class="p">]</span><span class="o">-</span><span class="n">temps</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nt</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">exptime</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span> <span class="n">exptime</span> <span class="o">=</span> <span class="mf">1.0</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">exptime</span><span class="p">)):</span> <span class="n">exptimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">exptime</span><span class="p">])</span>
+			<span class="k">else</span><span class="p">:</span> <span class="n">exptimes</span> <span class="o">=</span> <span class="n">exptime</span>
+			<span class="p">[</span><span class="n">dTleft</span><span class="p">,</span> <span class="n">dTright</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">dT</span><span class="p">,</span><span class="mi">0</span><span class="p">])),</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">dT</span><span class="p">]))]</span>
+			<span class="n">Bij</span> <span class="o">=</span> <span class="p">((</span><span class="n">dTleft</span><span class="o">+</span><span class="n">dTright</span><span class="p">)</span><span class="o">*</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">dTright</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">dTleft</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="mf">6.0</span>
+			<span class="c1"># This is from the multidimensional version. For a single temperature response</span>
+			<span class="c1"># it can be simplified; left here because it&#39;s not important enough to spool up</span>
+			<span class="c1"># and bugfix right now.</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">Rij</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">((</span><span class="n">tresp</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">nt_ones</span><span class="p">,</span><span class="n">exptimes</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">Bij</span><span class="p">)</span> <span class="c1"># Matrix mapping coefficents to data</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">Rij</span> <span class="o">=</span> <span class="n">tresp</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Rij</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rij</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+		<span class="c1"># This makes Rij the right shape for numpy to expand it</span>
+		<span class="c1"># when multiplied by another vector on the left.</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Rij_expanded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Rij</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> 
+
+	<span class="c1"># Multiply on the right of the operator (the conventional forward way):</span>
+	<span class="k">def</span> <span class="nf">_matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rightvec_in</span><span class="p">):</span>
+		<span class="n">rightvec</span> <span class="o">=</span> <span class="n">rightvec_in</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_temp</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_spat</span><span class="p">])</span>		
+		<span class="n">outvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_spat</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_temp</span><span class="p">):</span>
+			<span class="n">outvec</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rij</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">rightvec</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sresp</span><span class="o">*</span><span class="n">outvec</span>
+
+	<span class="c1"># Multiply a vector on the left of the operator (the transpose): </span>
+	<span class="k">def</span> <span class="nf">_rmatvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">leftvec_in</span><span class="p">):</span>
+		<span class="k">return</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">sresp</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">leftvec_in</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Rij_expanded</span><span class="p">[:,:])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
+
+
+
+<span class="c1"># The regularization operators shown below do not need a distinct</span>
+<span class="c1"># left multiplication method since the regularization is assumed to be</span>
+<span class="c1"># symmetric. Regularizations map from the source coefficient space</span>
+<span class="c1"># back to the source coefficient space, whereas the forward operator</span>
+<span class="c1"># maps from source coefficient space to data number space. The ATA matrix</span>
+<span class="c1"># that&#39;s part of the chi squared formulation turns the forward operator</span>
+<span class="c1"># into an operator that maps source coefficients to source coefficients --</span>
+<span class="c1"># it multiplies the transpose of the forward operator by the forward</span>
+<span class="c1"># operator, which is why the transpose is needed. The ATA matrix is not</span>
+<span class="c1"># explicitly computed, however, since it is much larger than its</span>
+<span class="c1"># component parts.</span>
+
+<span class="c1">## This wraps a regularization matrix for use by the sparse nlmap solver.</span>
+<span class="c1">#class reg_operator_wrapper(LinearOperator):</span>
+<span class="c1">#	def __init__(self,regmat):</span>
+<span class="c1">#		self.regmat=regmat</span>
+<span class="c1">#		self.shape=regmat.shape</span>
+<span class="c1">#		self.dtype=regmat.dtype</span>
+<span class="c1">#</span>
+<span class="c1">#	def _matvec(self,vec):</span>
+<span class="c1">#		outvec = self.regmat*vec</span>
+<span class="c1">#		return outvec</span>
+
+<span class="c1"># This wrapper is for sparse_d2_partial_matrix with post-factor:		</span>
+<div class="viewcode-block" id="reg_operator_postfac_wrapper">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.operators.reg_operator_postfac_wrapper">[docs]</a>
+<span class="k">class</span> <span class="nc">reg_operator_postfac_wrapper</span><span class="p">(</span><span class="n">LinearOperator</span><span class="p">):</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">operator</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">operator</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span>
+
+	<span class="k">def</span> <span class="nf">_matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">vec</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">vec</span>
+        
+	<span class="k">def</span> <span class="nf">_rmatvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">vec</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">vec</span></div>
+
+
+<span class="c1"># This computes the regularization matrix for minimizing the derivative along</span>
+<span class="c1"># a spatial direction, like the temperature derivative matrix in Plowman &amp; Caspi 2020.</span>
+<span class="c1"># This version uses a diagonal sparse matrix format which should be more space efficient.</span>
+<span class="c1"># The use_postfactor argument allows the matrix to be split into a post factor part and</span>
+<span class="c1"># the actual matrix. This can lead to further space savings if the values of the matrix</span>
+<span class="c1"># are all the same. However it returns the two pieces rather than the single matrix</span>
+<span class="c1"># so the outputs need to be treated differently. Changing this behavior would require</span>
+<span class="c1"># implementing the output as a full sparse matrix object including the glue to</span>
+<span class="c1"># work with numpy/scipy&#39;s operator overloading.</span>
+<div class="viewcode-block" id="sparse_d2_partial_matrix">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.operators.sparse_d2_partial_matrix">[docs]</a>
+<span class="k">def</span> <span class="nf">sparse_d2_partial_matrix</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">nd</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">drv_con</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">use_postfactor</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+	<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">diags</span><span class="p">,</span> <span class="n">csr_matrix</span>
+
+	<span class="k">if</span><span class="p">(</span><span class="n">use_postfactor</span><span class="o">==</span><span class="kc">True</span><span class="p">):</span> <span class="n">dtype_internal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">use_postfactor</span><span class="o">==</span><span class="kc">False</span><span class="p">):</span> <span class="n">dtype_internal</span> <span class="o">=</span> <span class="n">dtype</span>
+    
+	<span class="n">npt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">steps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span> <span class="n">steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+	<span class="c1"># Easiest way to update all elements by a specified axis</span>
+	<span class="c1"># which is not know ahead of time is to transpose it so the axis comes</span>
+	<span class="c1"># first, update that way, then transpose back.</span>
+	<span class="n">tparg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dims</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+	<span class="n">tparg</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="n">tparg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">tparg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">axis</span>
+
+	<span class="c1"># Diagonal terms:</span>
+	<span class="n">diagvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype_internal</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">tparg</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">dims</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">use_postfactor</span><span class="p">):</span>
+			<span class="n">diagvec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+			<span class="n">diagvec</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">diagvec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+			<span class="n">diagvec</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">diagvec</span> <span class="o">=</span> <span class="n">diagvec</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">tparg</span><span class="p">)</span>
+	
+	<span class="n">diagvec</span> <span class="o">=</span> <span class="n">diagvec</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+	<span class="n">offdiagvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">tparg</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">use_postfactor</span><span class="o">==</span><span class="kc">False</span><span class="p">):</span> <span class="n">offdiagvec</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="n">steps</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">use_postfactor</span><span class="o">==</span><span class="kc">True</span><span class="p">):</span> <span class="n">offdiagvec</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+	<span class="n">offdiagvec</span> <span class="o">=</span> <span class="n">offdiagvec</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">tparg</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    
+	<span class="k">if</span><span class="p">(</span><span class="n">axis</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="n">axis</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+	<span class="k">else</span><span class="p">:</span> <span class="n">offset</span> <span class="o">=</span> <span class="mi">1</span>
+
+	<span class="n">output_matrix</span> <span class="o">=</span> <span class="n">diags</span><span class="p">((</span><span class="n">diagvec</span><span class="p">,</span><span class="n">offdiagvec</span><span class="p">,</span><span class="n">offdiagvec</span><span class="p">),</span> <span class="n">offsets</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">offset</span><span class="p">,</span><span class="n">offset</span><span class="p">),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">npt</span><span class="p">,</span><span class="n">npt</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_internal</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;dia&#39;</span><span class="p">)</span>
+    
+	<span class="k">if</span><span class="p">(</span><span class="n">use_postfactor</span><span class="p">):</span>
+		<span class="n">output</span> <span class="o">=</span> <span class="n">output_matrix</span><span class="p">,(</span><span class="n">nd</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span><span class="o">*</span><span class="n">drv_con</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">steps</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">reg_operator_postfac_wrapper</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">output_matrix</span><span class="o">*</span><span class="n">nd</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span><span class="o">*</span><span class="n">drv_con</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

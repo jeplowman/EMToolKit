@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMToolKit.instruments.aia &mdash; EMToolKit 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/toggleprompt.js?v=5801b3bb"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EMToolKit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">EMToolKit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.html">EMToolKit package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.algorithms.html">EMToolKit.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../.auto_examples/add_two.html">Adding Two Numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/example_notebook.html">Multi-Instrument Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EMToolKit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">EMToolKit.instruments.aia</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for EMToolKit.instruments.aia</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sunpy.map</span> <span class="kn">import</span> <span class="n">Map</span>
+<span class="kn">from</span> <span class="nn">ndcube</span> <span class="kn">import</span> <span class="n">NDCube</span><span class="p">,</span> <span class="n">NDCubeSequence</span><span class="p">,</span> <span class="n">NDCollection</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
+<span class="kn">from</span> <span class="nn">astropy.nddata</span> <span class="kn">import</span> <span class="n">StdDevUncertainty</span>
+
+<span class="n">AIA_TEMPERATURE_RESPONSE_TABLE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+		<span class="p">[</span><span class="mf">7.40163203e-29</span><span class="p">,</span> <span class="mf">1.46072515e-26</span><span class="p">,</span> <span class="mf">5.34888608e-26</span><span class="p">,</span> <span class="mf">8.50682605e-26</span><span class="p">,</span> <span class="mf">2.03073186e-26</span><span class="p">,</span> <span class="mf">3.35720499e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">1.40367160e-28</span><span class="p">,</span> <span class="mf">2.45282476e-26</span><span class="p">,</span> <span class="mf">5.69953432e-26</span><span class="p">,</span> <span class="mf">7.63243171e-26</span><span class="p">,</span> <span class="mf">1.69626905e-26</span><span class="p">,</span> <span class="mf">2.63732660e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">2.34619332e-28</span><span class="p">,</span> <span class="mf">3.55303726e-26</span><span class="p">,</span> <span class="mf">8.99381587e-26</span><span class="p">,</span> <span class="mf">8.00857294e-26</span><span class="p">,</span> <span class="mf">1.61667405e-26</span><span class="p">,</span> <span class="mf">2.65194161e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">3.50314745e-28</span><span class="p">,</span> <span class="mf">4.59075911e-26</span><span class="p">,</span> <span class="mf">1.69634100e-25</span><span class="p">,</span> <span class="mf">8.95460085e-26</span><span class="p">,</span> <span class="mf">1.65561573e-26</span><span class="p">,</span> <span class="mf">2.97594545e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">4.78271991e-28</span><span class="p">,</span> <span class="mf">5.36503515e-26</span><span class="p">,</span> <span class="mf">3.12477095e-25</span><span class="p">,</span> <span class="mf">9.96536550e-26</span><span class="p">,</span> <span class="mf">1.75607919e-26</span><span class="p">,</span> <span class="mf">3.35107900e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">6.12070853e-28</span><span class="p">,</span> <span class="mf">5.68444094e-26</span><span class="p">,</span> <span class="mf">5.24806168e-25</span><span class="p">,</span> <span class="mf">1.08520987e-25</span><span class="p">,</span> <span class="mf">1.91638109e-26</span><span class="p">,</span> <span class="mf">3.66488663e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">7.55587098e-28</span><span class="p">,</span> <span class="mf">5.47222296e-26</span><span class="p">,</span> <span class="mf">7.88759175e-25</span><span class="p">,</span> <span class="mf">1.16018001e-25</span><span class="p">,</span> <span class="mf">2.13919425e-26</span><span class="p">,</span> <span class="mf">3.86907993e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">9.17523861e-28</span><span class="p">,</span> <span class="mf">4.81119761e-26</span><span class="p">,</span> <span class="mf">1.05392610e-24</span><span class="p">,</span> <span class="mf">1.23253858e-25</span><span class="p">,</span> <span class="mf">2.41030560e-26</span><span class="p">,</span> <span class="mf">3.98249755e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">1.08989852e-27</span><span class="p">,</span> <span class="mf">3.85959059e-26</span><span class="p">,</span> <span class="mf">1.24465730e-24</span><span class="p">,</span> <span class="mf">1.33290059e-25</span><span class="p">,</span> <span class="mf">2.69021271e-26</span><span class="p">,</span> <span class="mf">4.00495098e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">1.24045630e-27</span><span class="p">,</span> <span class="mf">2.80383406e-26</span><span class="p">,</span> <span class="mf">1.28593896e-24</span><span class="p">,</span> <span class="mf">1.53051294e-25</span><span class="p">,</span> <span class="mf">2.93365234e-26</span><span class="p">,</span> <span class="mf">3.88113016e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">1.32502623e-27</span><span class="p">,</span> <span class="mf">1.83977650e-26</span><span class="p">,</span> <span class="mf">1.14316216e-24</span><span class="p">,</span> <span class="mf">1.96447388e-25</span><span class="p">,</span> <span class="mf">3.18854130e-26</span><span class="p">,</span> <span class="mf">3.62558008e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">1.31341529e-27</span><span class="p">,</span> <span class="mf">1.11182849e-26</span><span class="p">,</span> <span class="mf">8.56234347e-25</span><span class="p">,</span> <span class="mf">2.81167898e-25</span><span class="p">,</span> <span class="mf">3.70341037e-26</span><span class="p">,</span> <span class="mf">3.33826036e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">1.20609026e-27</span><span class="p">,</span> <span class="mf">6.50748885e-27</span><span class="p">,</span> <span class="mf">5.28341859e-25</span><span class="p">,</span> <span class="mf">4.06492781e-25</span><span class="p">,</span> <span class="mf">4.99880175e-26</span><span class="p">,</span> <span class="mf">3.04882976e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">1.04215049e-27</span><span class="p">,</span> <span class="mf">3.96843481e-27</span><span class="p">,</span> <span class="mf">2.62971839e-25</span><span class="p">,</span> <span class="mf">5.18462720e-25</span><span class="p">,</span> <span class="mf">7.85106324e-26</span><span class="p">,</span> <span class="mf">2.71070234e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">9.10286530e-28</span><span class="p">,</span> <span class="mf">2.61876319e-27</span><span class="p">,</span> <span class="mf">1.06118152e-25</span><span class="p">,</span> <span class="mf">5.21700296e-25</span><span class="p">,</span> <span class="mf">1.24919334e-25</span><span class="p">,</span> <span class="mf">2.50715036e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">8.66408740e-28</span><span class="p">,</span> <span class="mf">1.85525324e-27</span><span class="p">,</span> <span class="mf">4.07695483e-26</span><span class="p">,</span> <span class="mf">3.80438138e-25</span><span class="p">,</span> <span class="mf">1.66057469e-25</span><span class="p">,</span> <span class="mf">2.81207972e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">7.91289650e-28</span><span class="p">,</span> <span class="mf">1.39717024e-27</span><span class="p">,</span> <span class="mf">2.52503209e-26</span><span class="p">,</span> <span class="mf">1.89390887e-25</span><span class="p">,</span> <span class="mf">1.57937960e-25</span><span class="p">,</span> <span class="mf">3.70484370e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">5.79545741e-28</span><span class="p">,</span> <span class="mf">1.11504283e-27</span><span class="p">,</span> <span class="mf">2.46082719e-26</span><span class="p">,</span> <span class="mf">6.76946014e-26</span><span class="p">,</span> <span class="mf">1.03164467e-25</span><span class="p">,</span> <span class="mf">4.56853237e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">3.76980809e-28</span><span class="p">,</span> <span class="mf">9.38169611e-28</span><span class="p">,</span> <span class="mf">1.99231167e-26</span><span class="p">,</span> <span class="mf">2.29005173e-26</span><span class="p">,</span> <span class="mf">5.22396021e-26</span><span class="p">,</span> <span class="mf">4.79107749e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">3.07180587e-28</span><span class="p">,</span> <span class="mf">8.24801234e-28</span><span class="p">,</span> <span class="mf">1.03293005e-26</span><span class="p">,</span> <span class="mf">1.04739857e-26</span><span class="p">,</span> <span class="mf">2.40915758e-26</span><span class="p">,</span> <span class="mf">4.45474563e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">3.80396260e-28</span><span class="p">,</span> <span class="mf">7.43331919e-28</span><span class="p">,</span> <span class="mf">3.95012736e-27</span><span class="p">,</span> <span class="mf">7.10153621e-27</span><span class="p">,</span> <span class="mf">1.12964568e-26</span><span class="p">,</span> <span class="mf">3.86954529e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">5.90602903e-28</span><span class="p">,</span> <span class="mf">6.74537063e-28</span><span class="p">,</span> <span class="mf">1.80531856e-27</span><span class="p">,</span> <span class="mf">6.11725282e-27</span><span class="p">,</span> <span class="mf">5.94188041e-27</span><span class="p">,</span> <span class="mf">3.22466361e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">9.44297921e-28</span><span class="p">,</span> <span class="mf">6.14495760e-28</span><span class="p">,</span> <span class="mf">1.34240926e-27</span><span class="p">,</span> <span class="mf">5.72716914e-27</span><span class="p">,</span> <span class="mf">3.88586017e-27</span><span class="p">,</span> <span class="mf">2.60315761e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">1.44620154e-27</span><span class="p">,</span> <span class="mf">5.70805277e-28</span><span class="p">,</span> <span class="mf">1.22599436e-27</span><span class="p">,</span> <span class="mf">5.81269453e-27</span><span class="p">,</span> <span class="mf">3.15819472e-27</span><span class="p">,</span> <span class="mf">2.03714253e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">2.07453706e-27</span><span class="p">,</span> <span class="mf">5.61219786e-28</span><span class="p">,</span> <span class="mf">1.05241421e-27</span><span class="p">,</span> <span class="mf">6.32309411e-27</span><span class="p">,</span> <span class="mf">2.71019768e-27</span><span class="p">,</span> <span class="mf">1.53754765e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">2.75538782e-27</span><span class="p">,</span> <span class="mf">6.31981777e-28</span><span class="p">,</span> <span class="mf">8.14794974e-28</span><span class="p">,</span> <span class="mf">6.39019697e-27</span><span class="p">,</span> <span class="mf">2.11642133e-27</span><span class="p">,</span> <span class="mf">1.11256462e-27</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">3.34721420e-27</span><span class="p">,</span> <span class="mf">9.19747307e-28</span><span class="p">,</span> <span class="mf">6.22671197e-28</span><span class="p">,</span> <span class="mf">5.43856741e-27</span><span class="p">,</span> <span class="mf">1.48862847e-27</span><span class="p">,</span> <span class="mf">7.71472387e-28</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">3.65940611e-27</span><span class="p">,</span> <span class="mf">1.76795732e-27</span><span class="p">,</span> <span class="mf">5.15934126e-28</span><span class="p">,</span> <span class="mf">4.02432562e-27</span><span class="p">,</span> <span class="mf">1.02304623e-27</span><span class="p">,</span> <span class="mf">5.25924670e-28</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">3.52350628e-27</span><span class="p">,</span> <span class="mf">3.77985446e-27</span><span class="p">,</span> <span class="mf">4.75354344e-28</span><span class="p">,</span> <span class="mf">2.82301679e-27</span><span class="p">,</span> <span class="mf">7.31784516e-28</span><span class="p">,</span> <span class="mf">3.94053508e-28</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">2.91029046e-27</span><span class="p">,</span> <span class="mf">7.43166191e-27</span><span class="p">,</span> <span class="mf">4.74903304e-28</span><span class="p">,</span> <span class="mf">2.11704426e-27</span><span class="p">,</span> <span class="mf">5.53478904e-28</span><span class="p">,</span> <span class="mf">3.84310717e-28</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">2.00104132e-27</span><span class="p">,</span> <span class="mf">1.19785603e-26</span><span class="p">,</span> <span class="mf">4.78687900e-28</span><span class="p">,</span> <span class="mf">2.23337165e-27</span><span class="p">,</span> <span class="mf">4.46856485e-28</span><span class="p">,</span> <span class="mf">4.58924041e-28</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">1.11792532e-27</span><span class="p">,</span> <span class="mf">1.48234676e-26</span><span class="p">,</span> <span class="mf">4.55829373e-28</span><span class="p">,</span> <span class="mf">3.97858677e-27</span><span class="p">,</span> <span class="mf">3.92863480e-28</span><span class="p">,</span> <span class="mf">5.15941951e-28</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">5.06298440e-28</span><span class="p">,</span> <span class="mf">1.36673114e-26</span><span class="p">,</span> <span class="mf">4.07150741e-28</span><span class="p">,</span> <span class="mf">7.95264076e-27</span><span class="p">,</span> <span class="mf">3.72931301e-28</span><span class="p">,</span> <span class="mf">4.64395852e-28</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">1.98518377e-28</span><span class="p">,</span> <span class="mf">9.61047146e-27</span><span class="p">,</span> <span class="mf">3.57245583e-28</span><span class="p">,</span> <span class="mf">1.28401071e-26</span><span class="p">,</span> <span class="mf">3.65339284e-28</span><span class="p">,</span> <span class="mf">3.28256715e-28</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">8.04488438e-29</span><span class="p">,</span> <span class="mf">5.61209353e-27</span><span class="p">,</span> <span class="mf">3.20550268e-28</span><span class="p">,</span> <span class="mf">1.62347002e-26</span><span class="p">,</span> <span class="mf">3.55630868e-28</span><span class="p">,</span> <span class="mf">1.96954455e-28</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">4.22436839e-29</span><span class="p">,</span> <span class="mf">3.04779780e-27</span><span class="p">,</span> <span class="mf">2.95165454e-28</span><span class="p">,</span> <span class="mf">1.72337033e-26</span><span class="p">,</span> <span class="mf">3.40535153e-28</span><span class="p">,</span> <span class="mf">1.12675591e-28</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">3.04428119e-29</span><span class="p">,</span> <span class="mf">1.69378976e-27</span><span class="p">,</span> <span class="mf">2.76040754e-28</span><span class="p">,</span> <span class="mf">1.64931273e-26</span><span class="p">,</span> <span class="mf">3.22463539e-28</span><span class="p">,</span> <span class="mf">6.77096153e-29</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">2.64974316e-29</span><span class="p">,</span> <span class="mf">1.02113491e-27</span><span class="p">,</span> <span class="mf">2.60329069e-28</span><span class="p">,</span> <span class="mf">1.49059780e-26</span><span class="p">,</span> <span class="mf">3.03925227e-28</span><span class="p">,</span> <span class="mf">4.49240089e-29</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">2.48278975e-29</span><span class="p">,</span> <span class="mf">6.82223774e-28</span><span class="p">,</span> <span class="mf">2.46810279e-28</span><span class="p">,</span> <span class="mf">1.30615389e-26</span><span class="p">,</span> <span class="mf">2.86214839e-28</span><span class="p">,</span> <span class="mf">3.30827404e-29</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">2.38426184e-29</span><span class="p">,</span> <span class="mf">5.02099099e-28</span><span class="p">,</span> <span class="mf">2.34850846e-28</span><span class="p">,</span> <span class="mf">1.12339098e-26</span><span class="p">,</span> <span class="mf">2.69680531e-28</span><span class="p">,</span> <span class="mf">2.65114499e-29</span><span class="p">],</span>
+		<span class="p">[</span><span class="mf">2.30756823e-29</span><span class="p">,</span> <span class="mf">3.99377760e-28</span><span class="p">,</span> <span class="mf">2.24072357e-28</span><span class="p">,</span> <span class="mf">9.54159826e-27</span><span class="p">,</span> <span class="mf">2.54348518e-28</span><span class="p">,</span> <span class="mf">2.25550937e-29</span><span class="p">]</span>
+	<span class="p">])</span>
+
+<span class="n">AIA_TEMPERATURES</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.5</span> <span class="p">,</span> <span class="mf">5.55</span><span class="p">,</span> <span class="mf">5.6</span> <span class="p">,</span> <span class="mf">5.65</span><span class="p">,</span> <span class="mf">5.7</span> <span class="p">,</span> <span class="mf">5.75</span><span class="p">,</span> <span class="mf">5.8</span> <span class="p">,</span> <span class="mf">5.85</span><span class="p">,</span> <span class="mf">5.9</span> <span class="p">,</span> <span class="mf">5.95</span><span class="p">,</span> <span class="mf">6.</span><span class="p">,</span>
+					<span class="mf">6.05</span><span class="p">,</span> <span class="mf">6.1</span> <span class="p">,</span> <span class="mf">6.15</span><span class="p">,</span> <span class="mf">6.2</span> <span class="p">,</span> <span class="mf">6.25</span><span class="p">,</span> <span class="mf">6.3</span> <span class="p">,</span> <span class="mf">6.35</span><span class="p">,</span> <span class="mf">6.4</span> <span class="p">,</span> <span class="mf">6.45</span><span class="p">,</span> <span class="mf">6.5</span> <span class="p">,</span>
+					<span class="mf">6.55</span><span class="p">,</span> <span class="mf">6.6</span> <span class="p">,</span> <span class="mf">6.65</span><span class="p">,</span> <span class="mf">6.7</span> <span class="p">,</span> <span class="mf">6.75</span><span class="p">,</span> <span class="mf">6.8</span> <span class="p">,</span> <span class="mf">6.85</span><span class="p">,</span> <span class="mf">6.9</span> <span class="p">,</span> <span class="mf">6.95</span><span class="p">,</span> <span class="mf">7.</span>  <span class="p">,</span>
+					<span class="mf">7.05</span><span class="p">,</span> <span class="mf">7.1</span> <span class="p">,</span> <span class="mf">7.15</span><span class="p">,</span> <span class="mf">7.2</span> <span class="p">,</span> <span class="mf">7.25</span><span class="p">,</span> <span class="mf">7.3</span> <span class="p">,</span> <span class="mf">7.35</span><span class="p">,</span> <span class="mf">7.4</span> <span class="p">,</span> <span class="mf">7.45</span><span class="p">,</span> <span class="mf">7.5</span> <span class="p">])</span>
+
+
+<span class="c1"># Load AIA data from a set of paths and return the appropriate</span>
+<span class="c1"># arguments for use in an EMToolKit DataSequence -- a list</span>
+<span class="c1"># of SunPy maps, corresponding errors, the log temperature</span>
+<span class="c1"># axes for the temperature response functions and the temperature</span>
+<span class="c1"># response functions themselves:</span>
+<div class="viewcode-block" id="load_from_paths">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.load_from_paths">[docs]</a>
+<span class="k">def</span> <span class="nf">load_from_paths</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span><span class="n">xl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">yl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">dx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">dy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">refindex</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+	<span class="n">refmap</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="n">refindex</span><span class="p">])</span><span class="c1">#.rotate(order=3)</span>
+	<span class="n">refmap</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="n">refindex</span><span class="p">])</span><span class="c1">#.rotate(order=3)</span>
+	<span class="n">nocrop</span> <span class="o">=</span> <span class="p">(</span><span class="n">xl</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">yl</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">nocrop</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+		<span class="n">blc</span><span class="o">=</span><span class="n">SkyCoord</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span><span class="n">yl</span><span class="p">,</span><span class="n">frame</span><span class="o">=</span><span class="n">refmap</span><span class="o">.</span><span class="n">coordinate_frame</span><span class="p">)</span>
+		<span class="n">trc</span><span class="o">=</span><span class="n">SkyCoord</span><span class="p">(</span><span class="n">xl</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span><span class="n">yl</span><span class="o">+</span><span class="n">dy</span><span class="p">,</span><span class="n">frame</span><span class="o">=</span><span class="n">refmap</span><span class="o">.</span><span class="n">coordinate_frame</span><span class="p">)</span>
+
+	<span class="n">maps</span><span class="o">=</span><span class="p">[]</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)):</span>
+		<span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Map</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span><span class="c1">#.rotate(order=3))</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">nocrop</span><span class="o">==</span><span class="kc">False</span><span class="p">):</span> <span class="n">maps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">maps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">submap</span><span class="p">(</span><span class="n">blc</span><span class="p">,</span><span class="n">top_right</span><span class="o">=</span><span class="n">trc</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">maps</span></div>
+
+
+<span class="c1"># Given a set up AIA SunPy Maps, return the appropriate arguments for use</span>
+<span class="c1"># as an EMToolKit data sequence -- the selection of maps appropriate for</span>
+<span class="c1"># DEMs (EUV not including 304), corresponding errors, temperature response</span>
+<span class="c1"># functions and corresponding (log) temperature arrays</span>
+<div class="viewcode-block" id="aia_wrapper">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.aia_wrapper">[docs]</a>
+<span class="k">def</span> <span class="nf">aia_wrapper</span><span class="p">(</span><span class="n">maps_in</span><span class="p">,</span> <span class="n">temperature_array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+	<span class="p">[</span><span class="n">maps</span><span class="p">,</span><span class="n">logts</span><span class="p">,</span><span class="n">tresps</span><span class="p">,</span><span class="n">errs</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[],[],[]]</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">maps_in</span><span class="p">)):</span>
+		<span class="n">current_map</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">maps_in</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="c1">#.rotate(order=3)</span>
+		<span class="k">if</span><span class="p">(</span><span class="ow">not</span><span class="p">(</span><span class="s1">&#39;detector&#39;</span> <span class="ow">in</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">)):</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;AIA&#39;</span>
+		<span class="p">[</span><span class="n">logt</span><span class="p">,</span><span class="n">tresp</span><span class="p">]</span> <span class="o">=</span> <span class="n">aia_temperature_response</span><span class="p">(</span><span class="n">current_map</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">)</span>
+		<span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tresp</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">)):</span>
+			<span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_map</span><span class="p">)</span>
+			<span class="n">errs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">estimate_aia_error</span><span class="p">(</span><span class="n">current_map</span><span class="p">)))</span>
+			<span class="n">logts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logt</span><span class="p">)</span>
+			<span class="n">tresps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tresp</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">maps</span><span class="p">,</span><span class="n">errs</span><span class="p">,</span><span class="n">logts</span><span class="p">,</span><span class="n">tresps</span></div>
+
+
+<span class="c1"># These are placeholder methods pending temperature response functions</span>
+<span class="c1"># being added to AIApy. error estimates are included for the initial</span>
+<span class="c1"># version as well, although I believe they&#39;re already in the initial version</span>
+<div class="viewcode-block" id="estimate_aia_error">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.estimate_aia_error">[docs]</a>
+<span class="k">def</span> <span class="nf">estimate_aia_error</span><span class="p">(</span><span class="n">map_in</span><span class="p">):</span>
+	<span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;wave_str&#39;</span><span class="p">]</span>
+	<span class="n">refchannels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;AIA94_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA131_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA171_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA193_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA211_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA304_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA335_THIN&#39;</span><span class="p">])</span>
+	<span class="n">refg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.128</span><span class="p">,</span><span class="mf">1.523</span><span class="p">,</span><span class="mf">1.168</span><span class="p">,</span><span class="mf">1.024</span><span class="p">,</span><span class="mf">0.946</span><span class="p">,</span><span class="mf">0.658</span><span class="p">,</span><span class="mf">0.596</span><span class="p">])</span>
+	<span class="n">refn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.14</span><span class="p">,</span><span class="mf">1.18</span><span class="p">,</span><span class="mf">1.15</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.14</span><span class="p">,</span><span class="mf">1.18</span><span class="p">])</span>
+	<span class="n">sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">map_in</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+	<span class="n">dnpp</span> <span class="o">=</span> <span class="n">refg</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">refchannels</span> <span class="o">==</span> <span class="n">channel</span><span class="p">)]</span>
+	<span class="n">rdn</span> <span class="o">=</span> <span class="n">refn</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">refchannels</span> <span class="o">==</span> <span class="n">channel</span><span class="p">)]</span>
+	<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">map_in</span><span class="o">.</span><span class="n">data</span><span class="o">*</span><span class="n">dnpp</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="n">rdn</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="aia_temperature_response">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.aia_temperature_response">[docs]</a>
+<span class="k">def</span> <span class="nf">aia_temperature_response</span><span class="p">(</span><span class="n">map_in</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+    <span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;wave_str&#39;</span><span class="p">]</span>
+    <span class="n">refchannels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;AIA94_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA131_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA171_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA193_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA211_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA335_THIN&#39;</span><span class="p">])</span>
+
+    <span class="n">tresp_table</span> <span class="o">=</span> <span class="n">AIA_TEMPERATURE_RESPONSE_TABLE</span>
+
+    <span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span> <span class="o">=</span> <span class="n">interpolate_table</span><span class="p">(</span><span class="n">tresp_table</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">refchannels</span> <span class="o">==</span> <span class="n">channel</span><span class="p">)]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="interpolate_table">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.interpolate_table">[docs]</a>
+<span class="k">def</span> <span class="nf">interpolate_table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+    <span class="n">logt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>
+    <span class="n">new_logt</span> <span class="o">=</span> <span class="n">temperature_array</span>
+
+    <span class="n">interpolated_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">new_logt</span><span class="p">),</span> <span class="n">table</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">interpolated_table</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">new_logt</span><span class="p">,</span> <span class="n">logt</span><span class="p">,</span> <span class="n">table</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">new_logt</span><span class="p">,</span> <span class="n">interpolated_table</span></div>
+
+
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">from</span> <span class="nn">sunpy.net</span> <span class="kn">import</span> <span class="n">Fido</span><span class="p">,</span> <span class="n">attrs</span> <span class="k">as</span> <span class="n">a</span>
+<span class="kn">from</span> <span class="nn">sunpy.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+<span class="kn">from</span> <span class="nn">astropy.time</span> <span class="kn">import</span> <span class="n">Time</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.util</span> <span class="kn">import</span> <span class="n">list_fits_files</span>
+
+
+<div class="viewcode-block" id="download_sdo_data">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.download_sdo_data">[docs]</a>
+<span class="k">def</span> <span class="nf">download_sdo_data</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">redownload</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+	<span class="n">folder_name</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+	<span class="n">sdo_data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;.data&quot;</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">)</span>  <span class="c1"># Place to put data files. You&#39;ll need to change it or create these subdirectories</span>
+
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">):</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">)</span>
+
+	<span class="n">paths</span> <span class="o">=</span> <span class="n">list_fits_files</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">,</span> <span class="s1">&#39;aia&#39;</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span><span class="si">}</span><span class="s2"> aia images on disk.&quot;</span><span class="p">)</span>
+
+
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">6</span> <span class="ow">or</span> <span class="n">redownload</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching for images from </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+		<span class="n">passbands</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">94</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="mi">193</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span> <span class="mi">335</span><span class="p">])</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">angstrom</span>
+
+		<span class="c1"># Combine the wavelength queries using the | operator</span>
+		<span class="n">wavelength_query</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">Wavelength</span><span class="p">(</span><span class="n">passbands</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">passbands</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+			<span class="n">wavelength_query</span> <span class="o">|=</span> <span class="n">a</span><span class="o">.</span><span class="n">Wavelength</span><span class="p">(</span><span class="n">band</span><span class="p">)</span>
+
+		<span class="n">qry</span> <span class="o">=</span> <span class="n">Fido</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">TimeRange</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="mf">11.5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)),</span> <span class="n">a</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s1">&#39;AIA&#39;</span><span class="p">),</span> <span class="n">wavelength_query</span><span class="p">)</span>
+
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloading images...&quot;</span><span class="p">)</span>
+		<span class="n">Fido</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">qry</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">sdo_data_dir</span><span class="p">,</span> <span class="n">max_conn</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">passbands</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+
+	<span class="n">paths</span> <span class="o">=</span> <span class="n">list_fits_files</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">,</span> <span class="s2">&quot;aia&quot;</span><span class="p">)</span>
+
+
+	<span class="k">return</span> <span class="n">paths</span><span class="p">,</span> <span class="n">sdo_data_dir</span></div>
+
+
+<span class="c1"># Example usage:</span>
+<span class="c1"># base_path = &quot;/your/base/path/&quot;</span>
+<span class="c1"># date = &#39;2012/07/11 18:54:00&#39;</span>
+<span class="c1"># download_sdo_data(base_path, date, redownload=True)  # Set redownload to True to force download</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

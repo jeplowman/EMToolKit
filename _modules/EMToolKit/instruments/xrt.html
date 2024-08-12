@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMToolKit.instruments.xrt &mdash; EMToolKit 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/toggleprompt.js?v=5801b3bb"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EMToolKit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">EMToolKit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.html">EMToolKit package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.algorithms.html">EMToolKit.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../.auto_examples/add_two.html">Adding Two Numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/example_notebook.html">Multi-Instrument Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EMToolKit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">EMToolKit.instruments.xrt</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for EMToolKit.instruments.xrt</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sunpy.map</span> <span class="kn">import</span> <span class="n">Map</span>
+<span class="kn">from</span> <span class="nn">ndcube</span> <span class="kn">import</span> <span class="n">NDCube</span><span class="p">,</span> <span class="n">NDCubeSequence</span><span class="p">,</span> <span class="n">NDCollection</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
+<span class="kn">from</span> <span class="nn">astropy.nddata</span> <span class="kn">import</span> <span class="n">StdDevUncertainty</span>
+
+<span class="c1"># The code here is only a prototype/placeholder!</span>
+
+<span class="c1"># Given a set of XRT SunPy Maps, return the appropriate arguments for use</span>
+<span class="c1"># as an EMToolKit data sequence -- the selection of maps appropriate for</span>
+<span class="c1"># DEMs, corresponding errors, temperature response</span>
+<span class="c1"># functions and corresponding (log) temperature arrays</span>
+<div class="viewcode-block" id="xrt_wrapper">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.xrt.xrt_wrapper">[docs]</a>
+<span class="k">def</span> <span class="nf">xrt_wrapper</span><span class="p">(</span><span class="n">maps_in</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+	<span class="p">[</span><span class="n">maps</span><span class="p">,</span><span class="n">logts</span><span class="p">,</span><span class="n">tresps</span><span class="p">,</span><span class="n">errs</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[],[],[]]</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">maps_in</span><span class="p">)):</span>
+		<span class="n">current_map</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">maps_in</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="c1">#.rotate(order=3)</span>
+		<span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span>
+		<span class="k">if</span><span class="p">(</span><span class="ow">not</span><span class="p">(</span><span class="s1">&#39;detector&#39;</span> <span class="ow">in</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">)):</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;XRT&#39;</span>
+		<span class="p">[</span><span class="n">logt</span><span class="p">,</span><span class="n">tresp</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrt_temperature_response</span><span class="p">(</span><span class="n">current_map</span><span class="p">,</span> <span class="n">temperature_array</span><span class="o">=</span><span class="n">temperature_array</span><span class="p">)</span>
+		<span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tresp</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">)):</span>
+			<span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_map</span><span class="p">)</span>
+			<span class="n">errs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">estimate_xrt_error</span><span class="p">(</span><span class="n">current_map</span><span class="p">)))</span>
+			<span class="n">logts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logt</span><span class="p">)</span>
+			<span class="n">tresps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tresp</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">maps</span><span class="p">,</span><span class="n">errs</span><span class="p">,</span><span class="n">logts</span><span class="p">,</span><span class="n">tresps</span></div>
+
+
+<div class="viewcode-block" id="estimate_xrt_error">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.xrt.estimate_xrt_error">[docs]</a>
+<span class="k">def</span> <span class="nf">estimate_xrt_error</span><span class="p">(</span><span class="n">map_in</span><span class="p">):</span>
+	<span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Open&#39;</span> <span class="ow">and</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Ti_poly&#39;</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate XRT error is a prototype and only empirically estimates Open Ti-poly uncertainties&quot;</span><span class="p">)</span>
+	<span class="k">return</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">map_in</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">*</span><span class="mi">25</span> <span class="o">+</span> <span class="mi">25</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span></div>
+
+
+
+
+
+
+<div class="viewcode-block" id="xrt_temperature_response">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.xrt.xrt_temperature_response">[docs]</a>
+<span class="k">def</span> <span class="nf">xrt_temperature_response</span><span class="p">(</span><span class="n">map_in</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+	<span class="kn">import</span> <span class="nn">xrtpy</span>
+	<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+	<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+	<span class="c1"># The real temperature response functions are found here:</span>
+	<span class="c1"># https://xrtpy.readthedocs.io/en/stable/notebooks/computing_functions/temperature_response.html</span>
+
+	<span class="c1"># Available channels: &quot;Al-mesh&quot;, &quot;Al-poly&quot;, &quot;C-poly&quot;, &quot;Ti-poly&quot;, &quot;Be-thin&quot;, &quot;Be-med&quot;, &quot;Al-med&quot;, &quot;Al-thick&quot;, &quot;Be-thick&quot; , &quot;Al-poly/Al-mesh&quot;, &quot;Al-poly/Ti-poly&quot;, &quot;Al-poly/Al-thick&quot;, &quot;Al-poly/Be-thick&quot; , &quot;C-poly/Ti-poly&quot;</span>
+
+	<span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span>
+	<span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Open/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAP FILTER IS : &quot;</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
+	<span class="nb">filter</span> <span class="o">=</span> <span class="n">channel</span>
+	<span class="n">date_time</span> <span class="o">=</span> <span class="s2">&quot;2007-09-22T21:59:59&quot;</span>
+	<span class="n">Temperature_Response_Fundamental</span> <span class="o">=</span> <span class="n">xrtpy</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">TemperatureResponseFundamental</span><span class="p">(</span>
+		<span class="nb">filter</span><span class="p">,</span> <span class="n">date_time</span><span class="p">,</span> <span class="n">abundance_model</span><span class="o">=</span><span class="s2">&quot;Photospheric&quot;</span>
+	<span class="p">)</span>
+	<span class="n">temperature_response</span> <span class="o">=</span> <span class="n">Temperature_Response_Fundamental</span><span class="o">.</span><span class="n">temperature_response</span><span class="p">()</span>
+	<span class="n">CHIANTI_temperature</span> <span class="o">=</span> <span class="n">Temperature_Response_Fundamental</span><span class="o">.</span><span class="n">CHIANTI_temperature</span>
+	<span class="n">log_CHIANTI_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">CHIANTI_temperature</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+	<span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span> <span class="o">=</span> <span class="n">interp1d_logt</span><span class="p">(</span><span class="n">log_CHIANTI_temperature</span><span class="p">,</span> <span class="n">temperature_response</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">)</span>
+	<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+	<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+	<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">tresp</span><span class="p">))</span>
+	<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">logt</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">tresp</span><span class="p">))</span>
+	<span class="k">return</span> <span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span></div>
+
+
+
+<div class="viewcode-block" id="xrt_temperature_response_old">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.xrt.xrt_temperature_response_old">[docs]</a>
+<span class="k">def</span> <span class="nf">xrt_temperature_response_old</span><span class="p">(</span><span class="n">map_in</span><span class="p">,</span> <span class="n">step_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+	<span class="kn">import</span> <span class="nn">xrtpy</span>
+	<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+	<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+	<span class="c1"># The real temperature response functions are found here:</span>
+	<span class="c1"># https://xrtpy.readthedocs.io/en/stable/notebooks/computing_functions/temperature_response.html</span>
+
+	<span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span>
+	<span class="n">refchannels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;Open_Ti_poly&#39;</span><span class="p">])</span>
+
+	<span class="n">logt_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="mf">6.8</span><span class="p">,</span> <span class="mf">6.95</span><span class="p">,</span> <span class="mf">7.1</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.35</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">])</span>
+	<span class="c1"># This preliminary temperature response for the XRT open/Ti-poly channel is from visually reading off</span>
+	<span class="c1"># The figure at http://solar.physics.montana.edu/takeda/xrt_response/comp_xre2_Tipol.png</span>
+	<span class="n">tresp_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">15.</span><span class="p">],</span> <span class="p">[</span><span class="mf">16.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">15.</span><span class="p">],</span> <span class="p">[</span><span class="mf">7.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.5</span><span class="p">]])</span><span class="o">*</span><span class="mf">1.0e-26</span>
+
+	<span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span> <span class="o">=</span> <span class="n">interpolate_table</span><span class="p">(</span><span class="n">logt_table</span><span class="p">,</span> <span class="n">tresp_table</span><span class="p">,</span> <span class="n">step_size</span><span class="p">)</span>
+	<span class="n">resp_out</span> <span class="o">=</span> <span class="n">tresp</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">refchannels</span> <span class="o">==</span> <span class="n">channel</span><span class="p">)]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+	<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">logt</span><span class="p">,</span> <span class="n">resp_out</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+	<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+	<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">resp_out</span><span class="p">))</span>
+	<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">logt</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">resp_out</span><span class="p">))</span>
+	<span class="k">return</span> <span class="n">logt</span><span class="p">,</span> <span class="n">resp_out</span></div>
+
+
+
+<div class="viewcode-block" id="interp1d_logt">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.xrt.interp1d_logt">[docs]</a>
+<span class="k">def</span> <span class="nf">interp1d_logt</span><span class="p">(</span><span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+	<span class="n">new_tresp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">temperature_array</span><span class="p">,</span> <span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">temperature_array</span><span class="p">,</span> <span class="n">new_tresp</span></div>
+
+
+
+<div class="viewcode-block" id="interpolate_table">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.xrt.interpolate_table">[docs]</a>
+<span class="k">def</span> <span class="nf">interpolate_table</span><span class="p">(</span><span class="n">logt</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">step_size</span><span class="p">):</span>
+    <span class="n">new_logt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">logt</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">logt</span><span class="p">)</span> <span class="o">+</span> <span class="n">step_size</span><span class="p">,</span> <span class="n">step_size</span><span class="p">)</span>
+
+    <span class="n">interpolated_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">new_logt</span><span class="p">),</span> <span class="n">table</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">interpolated_table</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">new_logt</span><span class="p">,</span> <span class="n">logt</span><span class="p">,</span> <span class="n">table</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">new_logt</span><span class="p">,</span> <span class="n">interpolated_table</span></div>
+
+
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">from</span> <span class="nn">sunpy.net</span> <span class="kn">import</span> <span class="n">Fido</span><span class="p">,</span> <span class="n">attrs</span> <span class="k">as</span> <span class="n">a</span>
+<span class="kn">from</span> <span class="nn">sunpy.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+<span class="kn">from</span> <span class="nn">astropy.time</span> <span class="kn">import</span> <span class="n">Time</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.util</span> <span class="kn">import</span> <span class="n">list_fits_files</span>
+
+
+<div class="viewcode-block" id="download_xrt_data">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.xrt.download_xrt_data">[docs]</a>
+<span class="k">def</span> <span class="nf">download_xrt_data</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">redownload</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+	<span class="n">folder_name</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+	<span class="n">xrt_data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;.data&quot;</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">xrt_data_dir</span><span class="p">):</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">xrt_data_dir</span><span class="p">)</span>
+
+	<span class="n">paths</span> <span class="o">=</span> <span class="n">list_fits_files</span><span class="p">(</span><span class="n">xrt_data_dir</span><span class="p">,</span> <span class="s1">&#39;xrt&#39;</span><span class="p">)</span>
+
+	<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span><span class="si">}</span><span class="s2"> xrt images on disk.&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">redownload</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching for XRT images from </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+		<span class="n">qry</span> <span class="o">=</span> <span class="n">Fido</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">TimeRange</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)),</span> <span class="n">a</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s1">&#39;XRT&#39;</span><span class="p">))</span>
+		<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Downloading XRT images...&quot;</span><span class="p">)</span>
+		<span class="n">Fido</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">qry</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">xrt_data_dir</span><span class="p">,</span> <span class="n">max_conn</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+	<span class="n">paths</span> <span class="o">=</span> <span class="n">list_fits_files</span><span class="p">(</span><span class="n">xrt_data_dir</span><span class="p">,</span> <span class="s1">&#39;xrt&#39;</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">paths</span><span class="p">,</span> <span class="n">xrt_data_dir</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

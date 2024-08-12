@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMToolKit.schemas.coord_grid &mdash; EMToolKit 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/toggleprompt.js?v=5801b3bb"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EMToolKit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">EMToolKit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.html">EMToolKit package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.algorithms.html">EMToolKit.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../.auto_examples/add_two.html">Adding Two Numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/example_notebook.html">Multi-Instrument Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EMToolKit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">EMToolKit.schemas.coord_grid</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for EMToolKit.schemas.coord_grid</h1><div class="highlight"><pre>
+<span></span><span class="c1"># There is an issue with rounding and floating point jitter for aligned grids that</span>
+<span class="c1"># share some ratios in their spacing. We add this small offset when discretizing</span>
+<span class="c1"># grid indices to avoid this, which is a bit of a hack...</span>
+<span class="n">tiny</span> <span class="o">=</span> <span class="mf">1.0e-4</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.schemas.util</span> <span class="kn">import</span> <span class="n">multivec_matmul</span><span class="p">,</span> <span class="n">rindices</span><span class="p">,</span> <span class="n">ftp</span><span class="p">,</span> <span class="n">btp</span>
+
+<span class="c1"># This implements the notion of a grid of coordinate points that are meant to be indexed by integers.</span>
+<span class="c1"># The basic class includes implementation for an affine (linear transformation) grid, but more general</span>
+<span class="c1"># coordinate systems will not be hard to extend. The transformation from the indices into the coordinate</span>
+<span class="c1"># points here should be reversible or the inds and flatinds methods will not work.</span>
+<div class="viewcode-block" id="coord_grid">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid">[docs]</a>
+<span class="k">class</span> <span class="nc">coord_grid</span><span class="p">:</span>
+    <span class="c1"># Set up the grid. Inputs:</span>
+    <span class="c1">#    dims: The dimensions of the source grid, a 1-D array containing [nx0,nx1,...]</span>
+    <span class="c1">#    origin: The location of the center of the [0,0,...] pixel in the grid</span>
+    <span class="c1">#    fwd: The information needed to define the forward transformation (i.e., from</span>
+    <span class="c1">#         indices to coordinates), in addition to the origin. For the affine</span>
+    <span class="c1">#         transformation, this is an nd by nd matrix, where nd is the number of dimensions.</span>
+    <span class="c1">#    inv: The information needed to define the inverse transformation (i.e., from</span>
+    <span class="c1">#         coordinates to indices). Optional -- For the base (affine) implementation, this is</span>
+    <span class="c1">#         computed from fwd using np.linalg.inv.</span>
+    <span class="c1">#    frame: Information about the coordinate frame. Not used by the coord_grid itself, but</span>
+    <span class="c1">#           may be used by other routines that want to transform between grids.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">fwd</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">inv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">fwd</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">inv</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">dims</span><span class="p">,</span><span class="n">origin</span><span class="p">,</span><span class="n">fwd</span><span class="p">,</span><span class="n">inv</span><span class="p">,</span><span class="n">frame</span><span class="p">]</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">inv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_inv</span><span class="p">()</span>
+    <span class="c1"># Routine to set up the parameters of the grid inverse (from coordinates to indices)</span>
+    <span class="c1"># operation. This default assumes an affine transformation and uses the matrix inverse.</span>
+<div class="viewcode-block" id="coord_grid.get_inv">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.get_inv">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fwd</span><span class="p">)</span></div>
+
+    <span class="c1"># Get a grid that&#39;s clocked to this grid, but is higher resolution by an integer factor.</span>
+<div class="viewcode-block" id="coord_grid.subgrid">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.subgrid">[docs]</a>
+    <span class="k">def</span> <span class="nf">subgrid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">fac</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">coord_grid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">*</span><span class="n">fac</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">(</span><span class="mf">0.5</span><span class="o">/</span><span class="n">fac</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="mf">0.0</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">fwd</span><span class="o">/</span><span class="n">fac</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span></div>
+
+    <span class="c1"># Get the identify grid for this grid -- i.e., it maps indices to themselves. Indices are coordinates</span>
+    <span class="c1"># too, ya know! Pairs well with subgrid.</span>
+<div class="viewcode-block" id="coord_grid.identity">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.identity">[docs]</a>
+    <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="n">coord_grid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span><span class="mf">0.0</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.0</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">)))</span></div>
+
+    <span class="c1"># Returns indices given a set of coordinates. Does no discretize for various reasons.</span>
+    <span class="c1"># Order is reversed, and the inv operator transposed, due to how numpy array broadcasting</span>
+    <span class="c1"># and matrix operations interact. Because coords returns coordinates reference to the</span>
+    <span class="c1"># centers of the grid elements, discretization of these indices should be done with</span>
+    <span class="c1"># rounding, not flooring (see flatinds). The domain of each grid element extends</span>
+    <span class="c1"># 0.5 grid spacings to each side.</span>
+<div class="viewcode-block" id="coord_grid.inds">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.inds">[docs]</a>
+    <span class="k">def</span> <span class="nf">inds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">coords</span><span class="p">):</span> <span class="k">return</span> <span class="n">multivec_matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inv</span><span class="p">,</span><span class="n">coords</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span></div>
+
+    <span class="c1"># Returns coordinates given a set of indices. Coordinates returned for an integer index</span>
+    <span class="c1"># are for the center of the grid element, not its corner.</span>
+<div class="viewcode-block" id="coord_grid.coords">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.coords">[docs]</a>
+    <span class="k">def</span> <span class="nf">coords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">inds</span><span class="p">):</span> <span class="k">return</span> <span class="n">multivec_matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fwd</span><span class="p">,</span> <span class="n">inds</span><span class="p">)</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span></div>
+
+    <span class="c1"># Returns the &#39;flattened&#39; indices given a set of coordinates. Does discretize (because it has to).</span>
+    <span class="c1"># Also discards out-of-bounds points. Because of this, there&#39;s an accompanying vals array that can</span>
+    <span class="c1"># be used to account for the discarding.</span>
+<div class="viewcode-block" id="coord_grid.flatinds">
+<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.flatinds">[docs]</a>
+    <span class="k">def</span> <span class="nf">flatinds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">vals</span><span class="p">,</span><span class="n">coords</span><span class="p">,</span><span class="n">thold</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="p">[</span><span class="n">inds</span><span class="p">,</span> <span class="n">keeps</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inds</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span><span class="o">+</span><span class="n">tiny</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)),</span> <span class="n">vals</span><span class="o">&gt;</span><span class="n">thold</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">)):</span> <span class="n">keeps</span> <span class="o">*=</span> <span class="p">(</span><span class="n">inds</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">inds</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">vals</span><span class="p">[</span><span class="n">keeps</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel_multi_index</span><span class="p">(</span><span class="n">inds</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;clip&#39;</span><span class="p">)[</span><span class="n">keeps</span><span class="p">]</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
