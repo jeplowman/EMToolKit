@@ -1,7 +1,7 @@
 # EMToolKit
 
 
-Repository for EMToolKit project for computing Solar Differential Emission Measures in Python. Explore a comprehensive suite of tools designed for electromagnetic analysis and visualization.
+[Repository for EMToolKit project](https://github.com/jeplowman/EMToolKit) for computing Solar Differential Emission Measures in Python. Explore a comprehensive suite of tools designed for electromagnetic analysis and visualization.
 
 <a href="https://emtoolkit.readthedocs.io/en/latest/?badge=latest" target="_blank">
     <img src="https://readthedocs.org/projects/emtoolkit/badge/?version=latest" alt="Documentation Status">
