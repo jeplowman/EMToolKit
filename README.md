@@ -1,6 +1,12 @@
 # EMToolKit
 
+
 Repository for EMToolKit project for computing Solar Differential Emission Measures in Python.
+
+
+<a href="https://emtoolkit.readthedocs.io/en/latest/?badge=latest" target="_blank">
+    <img src="https://readthedocs.org/projects/emtoolkit/badge/?version=latest" alt="Documentation Status">
+</a>
 
 To run the example notebook, you'll need Python set up with Sunpy, Numpy, Astropy, and the latest version of NDCube (see [NDCube Installation Guide](https://docs.sunpy.org/projects/ndcube/en/latest/installation.html)). After that, the example should work with the existing directory structure. Let me know if not, of course!
 
