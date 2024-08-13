@@ -11,7 +11,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
   <!--[if lt IE 9]>
@@ -53,7 +53,19 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">EMToolKit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../EMToolKit.html">EMToolKit package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../EMToolKit.algorithms.html">EMToolKit.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="GALLERY_HEADER.html">Example Gallery</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../.auto_examples/add_two.html">Adding Two Numbers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="example_notebook.html">Multi-Instrument Method</a></li>
@@ -93,7 +105,7 @@
 <section id="Import-Statements">
 <h2>Import Statements<a class="headerlink" href="#Import-Statements" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># %pip install astropy scipy ipympl ndcube numba xrtpy sunpy</span>
@@ -143,7 +155,7 @@
 <style>:root { --jp-notebook-max-width: 100% !important; }</style></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># These flags tell the program not to recalculate the data if it has already been calculated</span>
@@ -157,7 +169,7 @@
 <section id="Download-the-Imagery">
 <h2>Download the Imagery<a class="headerlink" href="#Download-the-Imagery" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">EMToolKit.instruments.aia</span> <span class="kn">import</span> <span class="n">download_sdo_data</span>
@@ -182,7 +194,7 @@ Found 1 xrt images on disk.
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xrtpy</span>
@@ -213,7 +225,7 @@ Found 1 xrt images on disk.
 <section id="Load-and-Crop-the-Imagery">
 <h2>Load and Crop the Imagery<a class="headerlink" href="#Load-and-Crop-the-Imagery" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">EMToolKit.instruments.aia</span> <span class="kn">import</span> <span class="n">load_from_paths</span><span class="p">,</span> <span class="n">aia_wrapper</span>
@@ -263,7 +275,7 @@ MAP FILTER IS :  Ti_poly
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1c578dc600e94bbcbd91783a928cbb25", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bf4abb9fe3aa497bbd7f52ff4df35787", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
@@ -275,7 +287,7 @@ MAP FILTER IS :  Ti_poly
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trlogts</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
@@ -293,7 +305,7 @@ MAP FILTER IS :  Ti_poly
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalizing the response functions makes them much easier for the solver to handle.</span>
@@ -304,7 +316,7 @@ MAP FILTER IS :  Ti_poly
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make data sequence from AIA &amp; XRT data:</span>
@@ -317,7 +329,7 @@ MAP FILTER IS :  Ti_poly
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># datasequence[0].meta</span>
@@ -325,7 +337,7 @@ MAP FILTER IS :  Ti_poly
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show some of the AIA channels and their temperature responses for illustration:</span>
@@ -362,13 +374,13 @@ MAP FILTER IS :  Ti_poly
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ef8b08b4b6364c068bae69c1ae339d90", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "31554a4b0e4a4845adb986b2945de728", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="Compute-the-Differential-Emission-Measure">
 <h2>Compute the Differential Emission Measure<a class="headerlink" href="#Compute-the-Differential-Emission-Measure" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">EMToolKit.algorithms.multi_inst_dem_wrapper</span> <span class="kn">import</span> <span class="n">multi_inst_simple_dem_wrapper</span>
@@ -400,7 +412,7 @@ Loading simple_reg_demsequence from ../.data/default/multi_inst_simple_reg_demse
 <section id="Run-the-Dashboard">
 <h2>Run the Dashboard<a class="headerlink" href="#Run-the-Dashboard" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the most recent version from the tool kit:</span>
@@ -416,7 +428,7 @@ Loading simple_reg_demsequence from ../.data/default/multi_inst_simple_reg_demse
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the dashboard:</span>
@@ -429,19 +441,19 @@ Loading simple_reg_demsequence from ../.data/default/multi_inst_simple_reg_demse
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "03a60711782241629654f1c134cecd27", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a72983794fb648c9881446fe7dad60f2", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "682bfc57a2a34f7b9301e3662d9bfc3c", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fe9f6bbfbde44bed9489399575fd1c46", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1aebef697a9b4cfbb1df1e9e67b90996", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "973f44ca7e4a4c9fa9da4bfc3fcb9adb", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
