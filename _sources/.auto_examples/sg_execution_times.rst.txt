@@ -34,4 +34,4 @@ Computation times
      - Mem (MB)
    * - :ref:`sphx_glr_.auto_examples_add_two.py` (``add_two.py``)
      - 00:00.042
-     - 107.6
+     - 107.8

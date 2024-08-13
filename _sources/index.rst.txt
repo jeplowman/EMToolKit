@@ -24,7 +24,7 @@ Module Details
 Get detailed information about each module. Click on any module below to learn more about its functions and how to use them.
 
 .. .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :titlesonly:
 
    Algorithms <EMToolKit.algorithms>
