@@ -9,10 +9,9 @@
 
 Documentation Mirror: [https://jeplowman.github.io/EMToolKit/](https://jeplowman.github.io/EMToolKit/)
 
-[![Documentation Status](https://readthedocs.org/projects/emtoolkit/badge/?version=latest)](https://emtoolkit.readthedocs.io/en/latest/?badge=latest)
+To run the [example notebook](docs/source/examples/EMToolKit_example_multi_instrument.ipynb), you'll need Python set up with Sunpy, Numpy, Astropy, and the latest version of NDCube (see [NDCube Installation Guide](https://docs.sunpy.org/projects/ndcube/en/latest/installation.html)). After that, the example should work with the existing directory structure. Let me know if not, of course!
 
-
-To run the example notebook, you'll need Python set up with Sunpy, Numpy, Astropy, and the latest version of NDCube (see [NDCube Installation Guide](https://docs.sunpy.org/projects/ndcube/en/latest/installation.html)). After that, the example should work with the existing directory structure. Let me know if not, of course!
+If you just want to see a static version of the example notebook, check out [EMToolKit_example_multi_instrument.ipynb](docs/source/examples/EMToolKit_example_multi_instrument.ipynb)
 
 
 ## Additional Information
@@ -21,10 +20,3 @@ To run the example notebook, you'll need Python set up with Sunpy, Numpy, Astrop
 - **License**: This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 - **Troubleshooting**: If you encounter any issues during the setup, please refer to the project's issue tracker or documentation.
 
-### Example Notebook
-
-To run the example notebook, ensure your environment includes the necessary dependencies (Sunpy, Numpy, Astropy, and NDCube). Follow the installation instructions provided above. If the example does not work as expected, please let us know.
-
----
-
-By following these instructions, you should be able to set up the development environment for EMToolKit on both Linux and macOS. If you have any questions or need further assistance, feel free to reach out!

@@ -25,13 +25,10 @@ extensions = [
     'nbsphinx',
     'sphinx.ext.mathjax',
     'sphinx_toggleprompt',
-    'sphinx.ext.autosummary',
 ]
 
 autosummary_generate = True  # Turn on autosummary
 autosummary_imported_members = True
-
-autosummary_generate = True
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -49,17 +46,12 @@ nbsphinx_allow_errors = True
 
 # Configure sphinx-gallery
 sphinx_gallery_conf = {
-    # 'examples_dirs': ['examples'],  # paths to your notebooks and example scripts
-    # 'gallery_dirs': ['.auto_examples'],  # paths to where to save generated output
     'examples_dirs': [os.path.abspath('./examples')],
     'gallery_dirs': [os.path.abspath('./.auto_examples')],
     'filename_pattern': r'.*\.(ipynb|py)$',  # Match both .py and .ipynb files
     'capture_repr': ('_repr_html_', '__repr__'),  # Capture HTML representations
     'image_scrapers': ('matplotlib',),  # Specify scrapers for image output
     'doc_module': ('EMToolKit',),  # Document the EMToolKit module
-    # 'reference_url': {
-    #     'EMToolKit': "https://github.com/jeplowman/EMToolKit/tree/main",
-    # },
     'backreferences_dir': 'gen_modules/backreferences',  # Path for backreferences
     'show_memory': True,  # Show memory usage
     'download_all_examples': True,  # Allow downloading all examples in a zip file
@@ -82,7 +74,7 @@ def run_apidoc(app):
     try:
         os.environ['SPHINX_APIDOC_RUNNING'] = '1'
 
-        source_dir = os.path.abspath('../../EMToolKit/')
+        source_dir = os.path.abspath('EMToolKit/')
         output_dir = os.path.abspath('docs/source/')
         html_dir = os.path.abspath("docs/build/html")
 
@@ -98,22 +90,4 @@ def run_apidoc(app):
 
 def setup(app):
     app.add_config_value('sphinx_run_options', [], 'env')
-    app.connect('builder-inited', run_apidoc)
-
-def run_apidoc(_):
-    """Generate .rst files for the Sphinx documentation."""
-    try:
-        source_dir = os.path.abspath('../../EMToolKit/EMToolKit')  # Adjust the path as necessary
-        output_dir = os.path.abspath('docs/source')
-        subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
-    except subprocess.CalledProcessError as e:
-        print("sphinx-apidoc failed with exit code", e.returncode)
-        try:
-            source_dir = os.path.abspath('../EMToolKit/EMToolKit')  # Adjust the path as necessary
-            output_dir = os.path.abspath('docs/source')
-            subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
-        except Exception as e:
-            raise e
-
-def setup(app):
     app.connect('builder-inited', run_apidoc)

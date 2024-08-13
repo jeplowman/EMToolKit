@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:01.901** total execution time for 1 file **from all galleries**:
+**00:01.844** total execution time for 1 file **from all galleries**:
 
 .. container::
 
@@ -33,5 +33,5 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_.auto_examples_add_two.py` (``examples/add_two.py``)
-     - 00:01.901
-     - 95.0
+     - 00:01.844
+     - 100.4
