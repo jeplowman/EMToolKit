@@ -15,6 +15,7 @@ Dive into the various modules that make up EMToolKit. Each module is designed to
 
 .. toctree::
    :maxdepth: 1
+   :maxdepth: 1
 
    modules
 

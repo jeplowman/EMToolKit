@@ -2,6 +2,7 @@ import os
 import sys
 import subprocess
 
+# Add the project root to the Python path
 sys.path.insert(0, os.path.abspath('../../'))
 print(sys.path)
 print()
@@ -14,6 +15,7 @@ add_module_names = False
 
 # List of Sphinx extensions
 extensions = [
+    'sphinx.ext.autosummary',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'sphinx.ext.todo',
@@ -25,6 +27,9 @@ extensions = [
     'sphinx_toggleprompt',
     'sphinx.ext.autosummary',
 ]
+
+autosummary_generate = True  # Turn on autosummary
+autosummary_imported_members = True
 
 autosummary_generate = True
 
@@ -93,4 +98,22 @@ def run_apidoc(app):
 
 def setup(app):
     app.add_config_value('sphinx_run_options', [], 'env')
+    app.connect('builder-inited', run_apidoc)
+
+def run_apidoc(_):
+    """Generate .rst files for the Sphinx documentation."""
+    try:
+        source_dir = os.path.abspath('../../EMToolKit/EMToolKit')  # Adjust the path as necessary
+        output_dir = os.path.abspath('docs/source')
+        subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
+    except subprocess.CalledProcessError as e:
+        print("sphinx-apidoc failed with exit code", e.returncode)
+        try:
+            source_dir = os.path.abspath('../EMToolKit/EMToolKit')  # Adjust the path as necessary
+            output_dir = os.path.abspath('docs/source')
+            subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
+        except Exception as e:
+            raise e
+
+def setup(app):
     app.connect('builder-inited', run_apidoc)

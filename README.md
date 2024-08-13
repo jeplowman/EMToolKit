@@ -9,6 +9,9 @@
 
 Documentation Mirror: [https://jeplowman.github.io/EMToolKit/](https://jeplowman.github.io/EMToolKit/)
 
+[![Documentation Status](https://readthedocs.org/projects/emtoolkit/badge/?version=latest)](https://emtoolkit.readthedocs.io/en/latest/?badge=latest)
+
+
 To run the example notebook, you'll need Python set up with Sunpy, Numpy, Astropy, and the latest version of NDCube (see [NDCube Installation Guide](https://docs.sunpy.org/projects/ndcube/en/latest/installation.html)). After that, the example should work with the existing directory structure. Let me know if not, of course!
 
 
