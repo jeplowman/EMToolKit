@@ -52,10 +52,11 @@ class dashboard_object(object):
     def __init__(self, em_collection, **kwargs):
 
         self.emc = em_collection
+        self.emc.precompute_interpolations()
         self.first = em_collection.collection[em_collection.collection['models'][0]][0]
 
-        rt0,gt0,bt0 = kwargs.get('rtemp',5.6), kwargs.get('gtemp',6.1), kwargs.get('btemp',6.6)
-        sg0 = 0.5*np.mean(np.sort([rt0,gt0,bt0])[1:]-np.sort([rt0,gt0,bt0])[0:-1])
+        rt0,gt0,bt0 = kwargs.get('rtemp',6.0), kwargs.get('gtemp',6.2), kwargs.get('btemp',6.4)
+        sg0 = 0.15 #0.5*np.mean(np.sort([rt0,gt0,bt0])[1:]-np.sort([rt0,gt0,bt0])[0:-1])
         self.the_normalization = kwargs.get('normalization',"none")
 
         [nx,ny] = em_collection.collection[em_collection.collection['models'][0]][0].data.shape
@@ -144,7 +145,7 @@ class dashboard_object(object):
         self.demlines.append(self.ax3.plot(tt, dd, color=f"C{NC}", label=thelabel)[0])
 
     def get_dem_at(self, ix, iy):
-		
+
         [ptlogt, ptdem] = self.emc.compute_dem(ix, iy, logt=self.logt, algorithm=self.the_algorithm)
         return 10*ptlogt, ptdem/1.0e28
 
@@ -285,10 +286,13 @@ class dashboard_object(object):
         temperatures = dems[0][0]
 
         if self.the_normalization == "area":
+            print("Normalizing to the Sum")
             func = np.sum
         elif self.the_normalization == "max":
             func = np.max
+            print("Normalizing to the Max")
         elif self.the_normalization == "none":
+            print("No Normalization")
             func = lambda x: 1
 
         the_map = np.stack([dem[1]/func(dem[1]) for dem in dems]).T
