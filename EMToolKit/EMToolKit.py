@@ -65,8 +65,7 @@ def dem_model(coeffs, logts, bases, coord_info, algorithm, wrapper, meta=None, w
 class em_collection:
     def __init__(self, datasequence):
         self.collection = NDCollection([("data", datasequence), ("models", [])])
-        self.precomputed_interpolations = {}
-        # self.precompute_interpolations()
+        self.precomputed_interpolations = None
 
     def data(self):
         return self.collection['data']
@@ -86,20 +85,22 @@ class em_collection:
         if 'models' not in self.collection:
             self.collection['models'] = []
         self.collection['models'].append(algorithm_name)
-        self.precompute_interpolations()
 
     def precompute_interpolations(self): #TODO call this function at the correct time!
-        """Precompute interpolation functions for all components."""
-        print("Precomputing...", end="")
+        """Precompute interpolation functions for all pixels."""
+        if self.precomputed_interpolations is None:
+            self.precomputed_interpolations = {}
         for algorithm in self.collection['models']:
-            model = self.collection[algorithm]
-            interpolations = []
-            for component in model:
-                complogt = component.meta.get('LOGT', component.meta.get('logt'))
-                compbasis = component.meta.get('BASIS', component.meta.get('basis'))
-                interp_func = interp1d(complogt, compbasis, fill_value=0.0, bounds_error=False)
-                interpolations.append(interp_func)
-            self.precomputed_interpolations[algorithm] = interpolations
+            if algorithm not in self.precomputed_interpolations.keys():
+                print(f"Precomputing {algorithm}", end="\n")
+                model = self.collection[algorithm]
+                interpolations = []
+                for component in model:
+                    complogt = component.meta.get('LOGT', component.meta.get('logt'))
+                    compbasis = component.meta.get('BASIS', component.meta.get('basis'))
+                    interp_func = interp1d(complogt, compbasis, fill_value=0.0, bounds_error=False)
+                    interpolations.append(interp_func)
+                self.precomputed_interpolations[algorithm] = interpolations
 
     def compute_dem(self, i, j, logt=None, algorithm=None):
         if algorithm is None:
@@ -143,6 +144,8 @@ class em_collection:
             channels = ['SYNTHDATA' + str(i) for i in range(ndata)]
         model = self.collection[algorithm]
         [synthmaps, syntherrs] = [[], []]
+        self.precompute_interpolations()
+
         for i in range(ndata):
             synthdata = np.zeros(model[0].data[ilo:ihi, jlo:jhi].shape)
             syntherrs.append(UnknownUncertainty(np.zeros(model[0].data.shape) - 1))

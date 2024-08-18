@@ -52,7 +52,6 @@ class dashboard_object(object):
     def __init__(self, em_collection, **kwargs):
 
         self.emc = em_collection
-        self.emc.precompute_interpolations()
         self.first = em_collection.collection[em_collection.collection['models'][0]][0]
 
         rt0,gt0,bt0 = kwargs.get('rtemp',6.0), kwargs.get('gtemp',6.2), kwargs.get('btemp',6.4)
@@ -102,6 +101,7 @@ class dashboard_object(object):
     def display(self, debug=False):
         ui, out = self.displays(debug)
         display(ui,out)
+        print("Click on the image to populate the dashboard")
 
     def widgwrap(self, rtemp, gtemp, btemp, sigma, algorithm, rng, mouseover):
         if self.uninitialized:
