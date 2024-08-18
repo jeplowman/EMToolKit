@@ -106,55 +106,121 @@
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">EMToolKit.EMToolKit</span> <span class="k">as</span> <span class="nn">emtk</span>
 
-<span class="c1"># Need to implement passing wrapargs to the sparse_em routines...</span>
+
 <div class="viewcode-block" id="sparse_em_wrapper">
 <a class="viewcode-back" href="../../../EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper">[docs]</a>
 <span class="k">def</span> <span class="nf">sparse_em_wrapper</span><span class="p">(</span><span class="n">datasequence</span><span class="p">,</span> <span class="n">wrapargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-	<span class="n">nc</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">datasequence</span><span class="p">)</span>
-	<span class="p">[</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
-	<span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">datasequence</span><span class="p">:</span>
-		<span class="p">[</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">seq</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">nx</span><span class="p">]),</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">seq</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">ny</span><span class="p">])]</span>
-	<span class="n">logt</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;logt&#39;</span><span class="p">]</span>
-	<span class="n">datacube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">nc</span><span class="p">])</span>
-	<span class="n">errscube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">nc</span><span class="p">])</span>
-	<span class="p">[</span><span class="n">trlogts</span><span class="p">,</span><span class="n">tresps</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[]]</span>
-	<span class="n">exptimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nc</span><span class="p">)</span>
-	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nc</span><span class="p">):</span>
-		<span class="n">datacube</span><span class="p">[:,:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nx</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="n">ny</span><span class="p">]</span>
-		<span class="n">errscube</span><span class="p">[:,:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nx</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="n">ny</span><span class="p">]</span>
-		<span class="n">tresps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tresp&#39;</span><span class="p">])</span>
-		<span class="n">trlogts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;logt&#39;</span><span class="p">])</span>
-		<span class="n">exptimes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;exptime&#39;</span><span class="p">]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for the sparse regularized Differential Emission Measure (DEM) calculation.</span>
 
-	<span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">lgtaxis</span><span class="p">,</span> <span class="n">basis_funcs</span><span class="p">,</span> <span class="n">bases_sigmas</span><span class="p">]</span> <span class="o">=</span> <span class="n">sparse_em_init</span><span class="p">(</span><span class="n">trlogts</span><span class="p">,</span> <span class="n">tresps</span><span class="p">,</span> <span class="n">differential</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-	<span class="n">coeffs</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">sparse_em_solve</span><span class="p">(</span><span class="n">datacube</span><span class="p">,</span> <span class="n">errscube</span><span class="p">,</span> <span class="n">exptimes</span><span class="p">,</span> <span class="n">Dict</span><span class="p">)</span>
-	<span class="n">coeffs</span> <span class="o">=</span> <span class="n">coeffs</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">coeffs</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
+<span class="sd">    This function prepares input data and passes it to the `sparse_em_init` and `sparse_em_solve`</span>
+<span class="sd">    algorithms. It processes the input data to ensure that all input maps have consistent dimensions,</span>
+<span class="sd">    extracts the necessary metadata, and then calls the DEM calculation.</span>
 
-	<span class="p">[</span><span class="n">nchannels</span><span class="p">,</span><span class="n">nb</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="o">.</span><span class="n">shape</span>
-	<span class="n">wcs</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wcs</span>
-	<span class="n">logts</span> <span class="o">=</span> <span class="n">nb</span><span class="o">*</span><span class="p">[</span><span class="n">lgtaxis</span><span class="p">]</span>
-	<span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">coeffs</span><span class="p">),</span><span class="n">logts</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="n">basis_funcs</span><span class="p">),</span><span class="n">wcs</span><span class="p">,</span><span class="s1">&#39;sparse_em&#39;</span></div>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    datasequence : NDCubeSequence</span>
+<span class="sd">        A sequence of data cubes containing the observations. Each cube should contain</span>
+<span class="sd">        2D spatial data with associated uncertainties and metadata.</span>
+<span class="sd">    wrapargs : dict, optional</span>
+<span class="sd">        Additional arguments to pass to the initialization routines of the `sparse_em` functions.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of numpy.ndarray</span>
+<span class="sd">        The calculated DEM coefficients for each temperature bin.</span>
+<span class="sd">    list of numpy.ndarray</span>
+<span class="sd">        The temperature bins used in the calculation.</span>
+<span class="sd">    list of numpy.ndarray</span>
+<span class="sd">        The basis functions for the temperature bins.</span>
+<span class="sd">    WCS</span>
+<span class="sd">        World Coordinate System (WCS) information from the input data.</span>
+<span class="sd">    str</span>
+<span class="sd">        A string identifier for the DEM method used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Determine the smallest data cube dimensions in the sequence</span>
+    <span class="n">nc</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">datasequence</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">datasequence</span><span class="p">:</span>
+        <span class="p">[</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">seq</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nx</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">seq</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ny</span><span class="p">])]</span>
+
+    <span class="n">logt</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;logt&#39;</span><span class="p">]</span>  <span class="c1"># Temperature bins</span>
+    <span class="n">datacube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nc</span><span class="p">])</span>  <span class="c1"># Data cube for storing observations</span>
+    <span class="n">errscube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nc</span><span class="p">])</span>  <span class="c1"># Data cube for storing uncertainties</span>
+    <span class="n">trlogts</span><span class="p">,</span> <span class="n">tresps</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>  <span class="c1"># Temperature response functions and temperature bins</span>
+    <span class="n">exptimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nc</span><span class="p">)</span>  <span class="c1"># Exposure times</span>
+
+    <span class="c1"># Fill the data, uncertainty, and metadata arrays</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nc</span><span class="p">):</span>
+        <span class="n">datacube</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nx</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">ny</span><span class="p">]</span>
+        <span class="n">errscube</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nx</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">ny</span><span class="p">]</span>
+        <span class="n">tresps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tresp&#39;</span><span class="p">])</span>
+        <span class="n">trlogts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;logt&#39;</span><span class="p">])</span>
+        <span class="n">exptimes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;exptime&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Initialize and solve the sparse EM problem</span>
+    <span class="n">Dict</span><span class="p">,</span> <span class="n">lgtaxis</span><span class="p">,</span> <span class="n">basis_funcs</span><span class="p">,</span> <span class="n">bases_sigmas</span> <span class="o">=</span> <span class="n">sparse_em_init</span><span class="p">(</span><span class="n">trlogts</span><span class="p">,</span> <span class="n">tresps</span><span class="p">,</span> <span class="n">differential</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">coeffs</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">sparse_em_solve</span><span class="p">(</span><span class="n">datacube</span><span class="p">,</span> <span class="n">errscube</span><span class="p">,</span> <span class="n">exptimes</span><span class="p">,</span> <span class="n">Dict</span><span class="p">)</span>
+
+    <span class="c1"># Sparse_em_solve puts the temperature axis last. Transpose so it&#39;s the first:</span>
+    <span class="n">coeffs</span> <span class="o">=</span> <span class="n">coeffs</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">coeffs</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">nchannels</span><span class="p">,</span> <span class="n">nb</span> <span class="o">=</span> <span class="n">Dict</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">wcs</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wcs</span>  <span class="c1"># WCS information from the first cube</span>
+    <span class="n">logts</span> <span class="o">=</span> <span class="n">nb</span> <span class="o">*</span> <span class="p">[</span><span class="n">lgtaxis</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">coeffs</span><span class="p">),</span> <span class="n">logts</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">basis_funcs</span><span class="p">),</span> <span class="n">wcs</span><span class="p">,</span> <span class="s1">&#39;sparse_em&#39;</span></div>
+
 
 
 <div class="viewcode-block" id="autoloading_sparse_em_wrapper">
 <a class="viewcode-back" href="../../../EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper">[docs]</a>
-<span class="k">def</span> <span class="nf">autoloading_sparse_em_wrapper</span><span class="p">(</span><span class="n">datasequence</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="s2">&quot;../.data/default&quot;</span><span class="p">,</span> <span class="n">recalc_sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-	<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">data_dir</span><span class="p">):</span>
-		<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">autoloading_sparse_em_wrapper</span><span class="p">(</span><span class="n">datasequence</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="s2">&quot;.data/default&quot;</span><span class="p">,</span> <span class="n">recalc_sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function that calculates or loads a precomputed sparse regularized DEM.</span>
 
-	<span class="n">pk_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;sparse_em_demsequence.pkl&#39;</span><span class="p">)</span>
+<span class="sd">    This function first checks if a precomputed DEM exists in the specified directory. If not,</span>
+<span class="sd">    it calculates the DEM using `sparse_em_wrapper`, saves the result, and returns it.</span>
 
-	<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">pk_file</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">recalc_sparse</span><span class="p">:</span>
-		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pk_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-			<span class="p">(</span><span class="n">sparse_em_demsequence</span><span class="p">,</span> <span class="n">spars_out</span><span class="p">)</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-	<span class="k">else</span><span class="p">:</span>
-		<span class="n">tstart</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-		<span class="n">spars_out</span> <span class="o">=</span> <span class="n">sparse_em_wrapper</span><span class="p">(</span><span class="n">datasequence</span><span class="p">)</span>
-		<span class="n">sparse_em_demsequence</span> <span class="o">=</span> <span class="n">emtk</span><span class="o">.</span><span class="n">dem_model</span><span class="p">(</span><span class="o">*</span><span class="n">spars_out</span><span class="p">,</span> <span class="n">sparse_em_wrapper</span><span class="p">)</span>
-		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sparse method took&#39;</span><span class="p">,</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">tstart</span><span class="p">)</span>
-		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pk_file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-			<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">((</span><span class="n">sparse_em_demsequence</span><span class="p">,</span> <span class="n">spars_out</span><span class="p">),</span> <span class="n">file</span><span class="p">)</span>
-	<span class="k">return</span> <span class="n">sparse_em_demsequence</span><span class="p">,</span> <span class="n">spars_out</span></div>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    datasequence : NDCubeSequence</span>
+<span class="sd">        A sequence of data cubes containing the observations. Each cube should contain</span>
+<span class="sd">        2D spatial data with associated uncertainties and metadata.</span>
+<span class="sd">    data_dir : str, optional</span>
+<span class="sd">        The directory where the DEM result will be saved or loaded from. Default is &quot;../.data/default&quot;.</span>
+<span class="sd">    recalc_sparse : bool, optional</span>
+<span class="sd">        If True, the DEM will be recalculated even if a precomputed result exists. Default is False.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    emtk.dem_model</span>
+<span class="sd">        The DEM model generated from the input data.</span>
+<span class="sd">    tuple</span>
+<span class="sd">        The output from the `sparse_em_wrapper` function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create the directory if it does not exist</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">data_dir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
+
+    <span class="n">pk_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;sparse_em_demsequence.pkl&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Load or calculate the DEM sequence</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">pk_file</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">recalc_sparse</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Loading sparse_em_demsequence from </span><span class="si">{</span><span class="n">pk_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pk_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">sparse_em_demsequence</span><span class="p">,</span> <span class="n">spars_out</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tstart</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">spars_out</span> <span class="o">=</span> <span class="n">sparse_em_wrapper</span><span class="p">(</span><span class="n">datasequence</span><span class="p">)</span>
+        <span class="n">sparse_em_demsequence</span> <span class="o">=</span> <span class="n">emtk</span><span class="o">.</span><span class="n">dem_model</span><span class="p">(</span><span class="o">*</span><span class="n">spars_out</span><span class="p">,</span> <span class="n">sparse_em_wrapper</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sparse method took&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tstart</span><span class="p">)</span>
+
+        <span class="c1"># Save the DEM sequence to a file</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pk_file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">((</span><span class="n">sparse_em_demsequence</span><span class="p">,</span> <span class="n">spars_out</span><span class="p">),</span> <span class="n">file</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sparse_em_demsequence</span><span class="p">,</span> <span class="n">spars_out</span></div>
 
 </pre></div>
 

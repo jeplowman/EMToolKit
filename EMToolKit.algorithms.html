@@ -285,13 +285,57 @@ for observational data against a set of response functions.</p>
 <span id="emtoolkit-algorithms-simple-reg-dem-wrapper-module"></span><h2>EMToolKit.algorithms.simple_reg_dem_wrapper module<a class="headerlink" href="#module-EMToolKit.algorithms.simple_reg_dem_wrapper" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper">
-<span class="sig-name descname"><span class="pre">autoloading_simple_reg_dem_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'../.data/default/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recalc_simple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_wrapper.html#autoloading_simple_reg_dem_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">autoloading_simple_reg_dem_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.data/default/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recalc_simple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_wrapper.html#autoloading_simple_reg_dem_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper" title="Link to this definition"></a></dt>
+<dd><p>Wrapper function that calculates or loads a precomputed simple regularized DEM.</p>
+<p>This function first checks if a precomputed DEM exists in the specified directory. If not,
+it calculates the DEM using <cite>simple_reg_dem_wrapper</cite>, saves the result, and returns it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasequence</strong> (<em>NDCubeSequence</em>) – A sequence of data cubes containing the observations. Each cube should contain
+2D spatial data with associated uncertainties and metadata.</p></li>
+<li><p><strong>data_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – The directory where the DEM result will be saved or loaded from. Default is “.data/default/”.</p></li>
+<li><p><strong>recalc_simple</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the DEM will be recalculated even if a precomputed result exists. Default is False.</p></li>
+<li><p><strong>wrapargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional arguments to pass to the initialization routines of the <cite>simple_reg_dem_wrapper</cite> function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>emtk.dem_model</em> – The DEM model generated from the input data.</p></li>
+<li><p><em>tuple</em> – The output from the <cite>simple_reg_dem_wrapper</cite> function.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.algorithms.simple_reg_dem_wrapper.simple_reg_dem_wrapper">
 <span class="sig-name descname"><span class="pre">simple_reg_dem_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/simple_reg_dem_wrapper.html#simple_reg_dem_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.simple_reg_dem_wrapper.simple_reg_dem_wrapper" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Wrapper function for the simple regularized Differential Emission Measure (DEM) calculation.</p>
+<p>This function prepares input data and passes it to the <cite>simple_reg_dem</cite> algorithm.
+It processes the input data to ensure that all input maps have consistent dimensions,
+extracts the necessary metadata, and then calls the DEM calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasequence</strong> (<em>NDCubeSequence</em>) – A sequence of data cubes containing the observations. Each cube should contain
+2D spatial data with associated uncertainties and metadata.</p></li>
+<li><p><strong>wrapargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional arguments to pass to the initialization routines of the <cite>simple_reg_dem</cite> function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>list of numpy.ndarray</em> – The calculated DEM coefficients for each temperature bin.</p></li>
+<li><p><em>list of numpy.ndarray</em> – The temperature bins used in the calculation.</p></li>
+<li><p><em>list of numpy.ndarray</em> – The basis functions for the temperature bins.</p></li>
+<li><p><em>WCS</em> – World Coordinate System (WCS) information from the input data.</p></li>
+<li><p><em>str</em> – A string identifier for the DEM method used.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-EMToolKit.algorithms.simple_reg_dem_wrapper_parallel">
@@ -329,13 +373,56 @@ for observational data against a set of response functions.</p>
 <span id="emtoolkit-algorithms-sparse-em-wrapper-module"></span><h2>EMToolKit.algorithms.sparse_em_wrapper module<a class="headerlink" href="#module-EMToolKit.algorithms.sparse_em_wrapper" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper">
-<span class="sig-name descname"><span class="pre">autoloading_sparse_em_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'../.data/default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recalc_sparse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_em_wrapper.html#autoloading_sparse_em_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">autoloading_sparse_em_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.data/default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recalc_sparse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_em_wrapper.html#autoloading_sparse_em_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper" title="Link to this definition"></a></dt>
+<dd><p>Wrapper function that calculates or loads a precomputed sparse regularized DEM.</p>
+<p>This function first checks if a precomputed DEM exists in the specified directory. If not,
+it calculates the DEM using <cite>sparse_em_wrapper</cite>, saves the result, and returns it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasequence</strong> (<em>NDCubeSequence</em>) – A sequence of data cubes containing the observations. Each cube should contain
+2D spatial data with associated uncertainties and metadata.</p></li>
+<li><p><strong>data_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – The directory where the DEM result will be saved or loaded from. Default is “../.data/default”.</p></li>
+<li><p><strong>recalc_sparse</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the DEM will be recalculated even if a precomputed result exists. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>emtk.dem_model</em> – The DEM model generated from the input data.</p></li>
+<li><p><em>tuple</em> – The output from the <cite>sparse_em_wrapper</cite> function.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper">
 <span class="sig-name descname"><span class="pre">sparse_em_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/algorithms/sparse_em_wrapper.html#sparse_em_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Wrapper function for the sparse regularized Differential Emission Measure (DEM) calculation.</p>
+<p>This function prepares input data and passes it to the <cite>sparse_em_init</cite> and <cite>sparse_em_solve</cite>
+algorithms. It processes the input data to ensure that all input maps have consistent dimensions,
+extracts the necessary metadata, and then calls the DEM calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasequence</strong> (<em>NDCubeSequence</em>) – A sequence of data cubes containing the observations. Each cube should contain
+2D spatial data with associated uncertainties and metadata.</p></li>
+<li><p><strong>wrapargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional arguments to pass to the initialization routines of the <cite>sparse_em</cite> functions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>list of numpy.ndarray</em> – The calculated DEM coefficients for each temperature bin.</p></li>
+<li><p><em>list of numpy.ndarray</em> – The temperature bins used in the calculation.</p></li>
+<li><p><em>list of numpy.ndarray</em> – The basis functions for the temperature bins.</p></li>
+<li><p><em>WCS</em> – World Coordinate System (WCS) information from the input data.</p></li>
+<li><p><em>str</em> – A string identifier for the DEM method used.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-EMToolKit.algorithms.sparse_nlmap_dem_wrapper">

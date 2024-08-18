@@ -105,7 +105,7 @@
 <section id="Import-Statements">
 <h2>Import Statements<a class="headerlink" href="#Import-Statements" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># %pip install astropy scipy ipympl ndcube numba xrtpy sunpy</span>
@@ -155,7 +155,7 @@
 <style>:root { --jp-notebook-max-width: 100% !important; }</style></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># These flags tell the program not to recalculate the data if it has already been calculated</span>
@@ -169,7 +169,7 @@
 <section id="Download-the-Imagery">
 <h2>Download the Imagery<a class="headerlink" href="#Download-the-Imagery" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">EMToolKit.instruments.aia</span> <span class="kn">import</span> <span class="n">download_sdo_data</span>
@@ -194,7 +194,7 @@ Found 1 xrt images on disk.
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xrtpy</span>
@@ -225,7 +225,7 @@ Found 1 xrt images on disk.
 <section id="Load-and-Crop-the-Imagery">
 <h2>Load and Crop the Imagery<a class="headerlink" href="#Load-and-Crop-the-Imagery" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">EMToolKit.instruments.aia</span> <span class="kn">import</span> <span class="n">load_from_paths</span><span class="p">,</span> <span class="n">aia_wrapper</span>
@@ -243,10 +243,6 @@ Found 1 xrt images on disk.
 
 <span class="p">[</span><span class="n">maps</span><span class="p">,</span><span class="n">errs</span><span class="p">,</span><span class="n">trlogts</span><span class="p">,</span><span class="n">tresps</span><span class="p">]</span> <span class="o">=</span> <span class="n">aia_wrapper</span><span class="p">(</span><span class="n">aiamaps</span><span class="p">,</span> <span class="n">temperature_array</span><span class="o">=</span><span class="n">temperature_array</span><span class="p">)</span>
 
-<span class="c1"># maps[0].data[30:50, :] = -40</span>
-<span class="c1"># maps[0].data[55:75, :] = -60</span>
-<span class="c1"># maps[0].peek()</span>
-
 <span class="c1"># Load the XRT Image ###</span>
     <span class="c1"># We&#39;re loading these separately so that we can apply an offset to the XRT data -- there appears</span>
     <span class="c1"># to be a significant misalignment based on manual inspection and testing:</span>
@@ -255,11 +251,14 @@ Found 1 xrt images on disk.
 <span class="n">xrtmap</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;crval1&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">xrt_offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 <span class="n">xrtmap</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;crval2&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">xrt_offsets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 <span class="p">[</span><span class="n">xrtmaps</span><span class="p">,</span><span class="n">xrterrs</span><span class="p">,</span><span class="n">xrt_trlogts</span><span class="p">,</span><span class="n">xrt_tresps</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrt_wrapper</span><span class="p">([</span><span class="n">xrtmap</span><span class="p">],</span> <span class="n">temperature_array</span><span class="o">=</span><span class="n">temperature_array</span><span class="p">)</span>
-<span class="c1"># Append the XRT data to the AIA data</span>
-<span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrtmaps</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">errs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrterrs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">trlogts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrt_trlogts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">tresps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrt_tresps</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># # Append the XRT data to the AIA data</span>
+<span class="n">use_xrt</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">if</span> <span class="n">use_xrt</span><span class="p">:</span>
+    <span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrtmaps</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">errs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrterrs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">trlogts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrt_trlogts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">tresps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrt_tresps</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <br/></pre></div>
 </div>
 </div>
@@ -275,7 +274,7 @@ MAP FILTER IS :  Ti_poly
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bf4abb9fe3aa497bbd7f52ff4df35787", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3492e1c1690d42aa8e48f7cee36c6fbd", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
@@ -286,26 +285,8 @@ MAP FILTER IS :  Ti_poly
 &lt;class &#39;numpy.ndarray&#39;&gt; &lt;class &#39;numpy.ndarray&#39;&gt;
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trlogts</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trlogts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-80
-80
-</pre></div></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalizing the response functions makes them much easier for the solver to handle.</span>
@@ -316,7 +297,7 @@ MAP FILTER IS :  Ti_poly
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make data sequence from AIA &amp; XRT data:</span>
@@ -324,12 +305,12 @@ MAP FILTER IS :  Ti_poly
 
 <span class="c1"># Create em_collection with data sequence:</span>
 <span class="n">em_collection</span> <span class="o">=</span> <span class="n">emtk</span><span class="o">.</span><span class="n">em_collection</span><span class="p">(</span><span class="n">datasequence</span><span class="p">)</span>
-<span class="n">em_collection_HQ</span> <span class="o">=</span> <span class="n">emtk</span><span class="o">.</span><span class="n">em_collection</span><span class="p">(</span><span class="n">datasequence</span><span class="p">)</span>
+<span class="c1"># em_collection_HQ = emtk.em_collection(datasequence)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># datasequence[0].meta</span>
@@ -337,7 +318,7 @@ MAP FILTER IS :  Ti_poly
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show some of the AIA channels and their temperature responses for illustration:</span>
@@ -374,13 +355,13 @@ MAP FILTER IS :  Ti_poly
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "31554a4b0e4a4845adb986b2945de728", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b2323bbde6174159ba0e360e0794d301", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="Compute-the-Differential-Emission-Measure">
 <h2>Compute the Differential Emission Measure<a class="headerlink" href="#Compute-the-Differential-Emission-Measure" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">EMToolKit.algorithms.multi_inst_dem_wrapper</span> <span class="kn">import</span> <span class="n">multi_inst_simple_dem_wrapper</span>
@@ -396,7 +377,7 @@ MAP FILTER IS :  Ti_poly
                                     <span class="p">)</span>
 <span class="c1"># multi_coeffs, multi_logts, multi_bases, multi_coords, multi_algorithm = multi_out</span>
 <span class="n">em_collection</span><span class="o">.</span><span class="n">add_model</span><span class="p">(</span><span class="n">multi_em_demsequence</span><span class="p">)</span>
-</pre></div>
+<br/></pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -405,14 +386,14 @@ MAP FILTER IS :  Ti_poly
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Reprojecting all maps to smallest map...Reprojected successfully!
-Loading simple_reg_demsequence from ../.data/default/multi_inst_simple_reg_demsequence.pkl
+Loading simple_reg_demsequence from ../.data/default/simple_reg_demsequence.pkl
 </pre></div></div>
 </div>
 </section>
 <section id="Run-the-Dashboard">
 <h2>Run the Dashboard<a class="headerlink" href="#Run-the-Dashboard" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the most recent version from the tool kit:</span>
@@ -428,7 +409,7 @@ Loading simple_reg_demsequence from ../.data/default/multi_inst_simple_reg_demse
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the dashboard:</span>
@@ -441,19 +422,40 @@ Loading simple_reg_demsequence from ../.data/default/multi_inst_simple_reg_demse
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a72983794fb648c9881446fe7dad60f2", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f5f69e4aba144692b10796adb01096c4", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fe9f6bbfbde44bed9489399575fd1c46", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e57f298df21b4343be0f38dab4e135f6", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Click on the image to populate the dashboard
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9951b1716e8c40378e0a4e551c6d3c6b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "973f44ca7e4a4c9fa9da4bfc3fcb9adb", "version_major": 2, "version_minor": 0}</script></div>
+<div class="highlight"><pre>
+No Normalization
+No Normalization
+No Normalization
+No Normalization
+No Normalization
+No Normalization
+</pre></div></div>
 </div>
 </section>
 </section>
