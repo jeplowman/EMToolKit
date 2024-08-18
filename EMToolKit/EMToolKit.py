@@ -86,9 +86,11 @@ class em_collection:
         if 'models' not in self.collection:
             self.collection['models'] = []
         self.collection['models'].append(algorithm_name)
+        self.precompute_interpolations()
 
-    def precompute_interpolations(self):
+    def precompute_interpolations(self): #TODO call this function at the correct time!
         """Precompute interpolation functions for all components."""
+        print("Precomputing...", end="")
         for algorithm in self.collection['models']:
             model = self.collection[algorithm]
             interpolations = []
@@ -149,8 +151,8 @@ class em_collection:
             synthmap.meta['ALGORITHM'] = algorithm
             synthmap.meta['CHANNEL'] = channels[i]
             datainterp = interp1d(logts[i], tresps[i], fill_value=0.0, bounds_error=False)
-            for component in model:
-                basisinterp = self.precomputed_interpolations[algorithm][model.index(component)]
+            for ind, component in enumerate(model):
+                basisinterp = self.precomputed_interpolations[algorithm][ind] #[model.index(component)]
                 logt = np.unique(np.hstack([component.meta['LOGT'], logts[i]]))
                 coupling = trapezoid(datainterp(logt) * basisinterp(logt), x=logt)
                 synthdata += coupling * component.data[ilo:ihi, jlo:jhi]
