@@ -1,7 +1,10 @@
-EMToolKit
-=========
+.. EMToolKit
+.. =========
 
-.. toctree::
-   :maxdepth: 4
+.. These are words.
 
-   EMToolKit
+.. .. toctree::
+..    :maxdepth: 4
+..    :titlesonly:
+
+..    EMToolKit

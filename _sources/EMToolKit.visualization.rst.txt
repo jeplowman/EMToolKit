@@ -1,8 +1,6 @@
 EMToolKit.visualization package
 ===============================
 
-Submodules
-----------
 
 EMToolKit.visualization.dashboard module
 ----------------------------------------

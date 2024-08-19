@@ -22,6 +22,7 @@
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/toggleprompt.js?v=5801b3bb"></script>
+        <script src="../../../_static/open_external_links_in_new_tab.js?v=ce535536"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -48,14 +49,11 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">EMToolKit</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.html">EMToolKit package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.algorithms.html">EMToolKit.algorithms package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../EMToolKit.html">EMToolKit package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.instruments.html">Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.schemas.html">Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.visualization.html">Visualization</a></li>
 </ul>
 </li>
 </ul>
@@ -336,8 +334,8 @@
                 <span class="n">i</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
                 <span class="n">j</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">iy</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">ny</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">drawing</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">update_slice_curve</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>  <span class="c1"># Function to draw/update the Bezier curve</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">init_dem_line</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">update_slice_curve</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>  <span class="c1"># Function to draw/update the Bezier curve</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">init_dem_line</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">update_slice_map</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s1">&#39;button_press_event&#39;</span><span class="p">,</span> <span class="n">on_click</span><span class="p">)</span>
@@ -428,13 +426,13 @@
         <span class="n">temperatures</span> <span class="o">=</span> <span class="n">dems</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">the_normalization</span> <span class="o">==</span> <span class="s2">&quot;area&quot;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Normalizing to the Sum&quot;</span><span class="p">)</span>
+            <span class="c1"># print(&quot;Normalizing to the Sum&quot;)</span>
             <span class="n">func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">the_normalization</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">:</span>
             <span class="n">func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Normalizing to the Max&quot;</span><span class="p">)</span>
+            <span class="c1"># print(&quot;Normalizing to the Max&quot;)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">the_normalization</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No Normalization&quot;</span><span class="p">)</span>
+            <span class="c1"># print(&quot;No Normalization&quot;)</span>
             <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span>
 
         <span class="n">the_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">dem</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">func</span><span class="p">(</span><span class="n">dem</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">dem</span> <span class="ow">in</span> <span class="n">dems</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>

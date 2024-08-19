@@ -23,12 +23,13 @@
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/toggleprompt.js?v=5801b3bb"></script>
+        <script src="_static/open_external_links_in_new_tab.js?v=ce535536"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="EMToolKit.algorithms package" href="EMToolKit.algorithms.html" />
-    <link rel="prev" title="EMToolKit" href="modules.html" /> 
+    <link rel="prev" title="Welcome to EMToolKit’s Documentation" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,14 +52,11 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">EMToolKit</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">EMToolKit package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html">EMToolKit.algorithms package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html">EMToolKit.instruments package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.visualization.html">EMToolKit.visualization package</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">EMToolKit package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EMToolKit.instruments.html">Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html">Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EMToolKit.visualization.html">Visualization</a></li>
 </ul>
 </li>
 </ul>
@@ -86,7 +84,6 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">EMToolKit</a></li>
       <li class="breadcrumb-item active">EMToolKit package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/EMToolKit.rst.txt" rel="nofollow"> View page source</a>
@@ -99,234 +96,27 @@
              
   <section id="emtoolkit-package">
 <h1>EMToolKit package<a class="headerlink" href="#emtoolkit-package" title="Link to this heading"></a></h1>
+<p>These top-level modules provide access to the EMToolKit engine.</p>
 <section id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="EMToolKit.algorithms.html">EMToolKit.algorithms package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#module-EMToolKit.algorithms.multi_inst_dem_wrapper">EMToolKit.algorithms.multi_inst_dem_wrapper module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.multi_inst_dem_wrapper.aia_color_table"><code class="docutils literal notranslate"><span class="pre">aia_color_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.multi_inst_dem_wrapper.multi_inst_simple_dem_wrapper"><code class="docutils literal notranslate"><span class="pre">multi_inst_simple_dem_wrapper()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.multi_inst_dem_wrapper.plot_reprojected"><code class="docutils literal notranslate"><span class="pre">plot_reprojected()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.multi_inst_dem_wrapper.reproject_with_uncertainties"><code class="docutils literal notranslate"><span class="pre">reproject_with_uncertainties()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#module-EMToolKit.algorithms.simple_reg_dem">EMToolKit.algorithms.simple_reg_dem module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.simple_reg_dem.simple_reg_dem"><code class="docutils literal notranslate"><span class="pre">simple_reg_dem()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#module-EMToolKit.algorithms.simple_reg_dem_parallel">EMToolKit.algorithms.simple_reg_dem_parallel module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.simple_reg_dem_parallel.precompute_matrices"><code class="docutils literal notranslate"><span class="pre">precompute_matrices()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.simple_reg_dem_parallel.process_pixel"><code class="docutils literal notranslate"><span class="pre">process_pixel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem"><code class="docutils literal notranslate"><span class="pre">simple_reg_dem()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_parallel"><code class="docutils literal notranslate"><span class="pre">simple_reg_dem_parallel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_serial"><code class="docutils literal notranslate"><span class="pre">simple_reg_dem_serial()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#module-EMToolKit.algorithms.simple_reg_dem_wrapper">EMToolKit.algorithms.simple_reg_dem_wrapper module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper"><code class="docutils literal notranslate"><span class="pre">autoloading_simple_reg_dem_wrapper()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.simple_reg_dem_wrapper.simple_reg_dem_wrapper"><code class="docutils literal notranslate"><span class="pre">simple_reg_dem_wrapper()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#module-EMToolKit.algorithms.simple_reg_dem_wrapper_parallel">EMToolKit.algorithms.simple_reg_dem_wrapper_parallel module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.autoloading_simple_reg_dem_wrapper"><code class="docutils literal notranslate"><span class="pre">autoloading_simple_reg_dem_wrapper()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.simple_reg_dem_wrapper"><code class="docutils literal notranslate"><span class="pre">simple_reg_dem_wrapper()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#module-EMToolKit.algorithms.sparse_em">EMToolKit.algorithms.sparse_em module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_em.simplex"><code class="docutils literal notranslate"><span class="pre">simplex()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_em.sparse_em_init"><code class="docutils literal notranslate"><span class="pre">sparse_em_init()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_em.sparse_em_solve"><code class="docutils literal notranslate"><span class="pre">sparse_em_solve()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#module-EMToolKit.algorithms.sparse_em_wrapper">EMToolKit.algorithms.sparse_em_wrapper module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper"><code class="docutils literal notranslate"><span class="pre">autoloading_sparse_em_wrapper()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper"><code class="docutils literal notranslate"><span class="pre">sparse_em_wrapper()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#module-EMToolKit.algorithms.sparse_nlmap_dem_wrapper">EMToolKit.algorithms.sparse_nlmap_dem_wrapper module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_nlmap_dem_wrapper.minmax"><code class="docutils literal notranslate"><span class="pre">minmax()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_nlmap_dem_wrapper.process_data_element"><code class="docutils literal notranslate"><span class="pre">process_data_element()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object"><code class="docutils literal notranslate"><span class="pre">sparse_nlmap_dem_wrap_object</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object.compute_dem"><code class="docutils literal notranslate"><span class="pre">sparse_nlmap_dem_wrap_object.compute_dem()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrapper"><code class="docutils literal notranslate"><span class="pre">sparse_nlmap_dem_wrapper()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#module-EMToolKit.algorithms.sparse_nlmap_solver">EMToolKit.algorithms.sparse_nlmap_solver module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator"><code class="docutils literal notranslate"><span class="pre">nlmap_operator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator.setup"><code class="docutils literal notranslate"><span class="pre">nlmap_operator.setup()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.html#EMToolKit.algorithms.sparse_nlmap_solver.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html#module-EMToolKit.algorithms">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="EMToolKit.instruments.html">EMToolKit.instruments package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.instruments.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.instruments.html#module-EMToolKit.instruments.aia">EMToolKit.instruments.aia module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.aia.aia_temperature_response"><code class="docutils literal notranslate"><span class="pre">aia_temperature_response()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.aia.aia_wrapper"><code class="docutils literal notranslate"><span class="pre">aia_wrapper()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.aia.download_sdo_data"><code class="docutils literal notranslate"><span class="pre">download_sdo_data()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.aia.estimate_aia_error"><code class="docutils literal notranslate"><span class="pre">estimate_aia_error()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.aia.interpolate_table"><code class="docutils literal notranslate"><span class="pre">interpolate_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.aia.load_from_paths"><code class="docutils literal notranslate"><span class="pre">load_from_paths()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.instruments.html#module-EMToolKit.instruments.xrt">EMToolKit.instruments.xrt module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.xrt.download_xrt_data"><code class="docutils literal notranslate"><span class="pre">download_xrt_data()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.xrt.estimate_xrt_error"><code class="docutils literal notranslate"><span class="pre">estimate_xrt_error()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.xrt.interp1d_logt"><code class="docutils literal notranslate"><span class="pre">interp1d_logt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.xrt.interpolate_table"><code class="docutils literal notranslate"><span class="pre">interpolate_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.xrt.xrt_temperature_response"><code class="docutils literal notranslate"><span class="pre">xrt_temperature_response()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.xrt.xrt_temperature_response_old"><code class="docutils literal notranslate"><span class="pre">xrt_temperature_response_old()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.html#EMToolKit.instruments.xrt.xrt_wrapper"><code class="docutils literal notranslate"><span class="pre">xrt_wrapper()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.instruments.html#module-EMToolKit.instruments">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="EMToolKit.schemas.html">EMToolKit.schemas package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html#module-EMToolKit.schemas.basic_schemas">EMToolKit.schemas.basic_schemas module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_schemas.basic_detector"><code class="docutils literal notranslate"><span class="pre">basic_detector</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_schemas.basic_detector.fwdop"><code class="docutils literal notranslate"><span class="pre">basic_detector.fwdop()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_schemas.basic_source"><code class="docutils literal notranslate"><span class="pre">basic_source</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_schemas.basic_source.is_same"><code class="docutils literal notranslate"><span class="pre">basic_source.is_same()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html#module-EMToolKit.schemas.basic_transforms">EMToolKit.schemas.basic_transforms module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_transforms.fits_transform"><code class="docutils literal notranslate"><span class="pre">fits_transform</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_transforms.fits_transform.coord2index"><code class="docutils literal notranslate"><span class="pre">fits_transform.coord2index()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_transforms.fits_transform.index2coord"><code class="docutils literal notranslate"><span class="pre">fits_transform.index2coord()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_transforms.generic_transform"><code class="docutils literal notranslate"><span class="pre">generic_transform</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_transforms.generic_transform.init_transform"><code class="docutils literal notranslate"><span class="pre">generic_transform.init_transform()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_transforms.generic_transform.transform"><code class="docutils literal notranslate"><span class="pre">generic_transform.transform()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.basic_transforms.trivialframe"><code class="docutils literal notranslate"><span class="pre">trivialframe</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html#module-EMToolKit.schemas.coord_grid">EMToolKit.schemas.coord_grid module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid"><code class="docutils literal notranslate"><span class="pre">coord_grid</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.coords"><code class="docutils literal notranslate"><span class="pre">coord_grid.coords()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.flatinds"><code class="docutils literal notranslate"><span class="pre">coord_grid.flatinds()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.get_inv"><code class="docutils literal notranslate"><span class="pre">coord_grid.get_inv()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.identity"><code class="docutils literal notranslate"><span class="pre">coord_grid.identity()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.inds"><code class="docutils literal notranslate"><span class="pre">coord_grid.inds()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.coord_grid.coord_grid.subgrid"><code class="docutils literal notranslate"><span class="pre">coord_grid.subgrid()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html#module-EMToolKit.schemas.element_functions">EMToolKit.schemas.element_functions module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_functions.bin_function"><code class="docutils literal notranslate"><span class="pre">bin_function()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_functions.flattop_guassian_psf"><code class="docutils literal notranslate"><span class="pre">flattop_guassian_psf()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_functions.get_2d_cov"><code class="docutils literal notranslate"><span class="pre">get_2d_cov()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_functions.get_3d_cov"><code class="docutils literal notranslate"><span class="pre">get_3d_cov()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_functions.nd_gaussian_psf"><code class="docutils literal notranslate"><span class="pre">nd_gaussian_psf()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_functions.nd_powgaussian_psf"><code class="docutils literal notranslate"><span class="pre">nd_powgaussian_psf()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_functions.nd_voigt_psf"><code class="docutils literal notranslate"><span class="pre">nd_voigt_psf()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_functions.spice_spectrograph_psf"><code class="docutils literal notranslate"><span class="pre">spice_spectrograph_psf()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_functions.spike_function"><code class="docutils literal notranslate"><span class="pre">spike_function()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html#module-EMToolKit.schemas.element_grid">EMToolKit.schemas.element_grid module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_grid.detector_grid"><code class="docutils literal notranslate"><span class="pre">detector_grid</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid"><code class="docutils literal notranslate"><span class="pre">element_grid</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid.elements"><code class="docutils literal notranslate"><span class="pre">element_grid.elements()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid.evaluate"><code class="docutils literal notranslate"><span class="pre">element_grid.evaluate()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid.get_eval_grid"><code class="docutils literal notranslate"><span class="pre">element_grid.get_eval_grid()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid.get_nadr"><code class="docutils literal notranslate"><span class="pre">element_grid.get_nadr()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_grid.element_grid.response"><code class="docutils literal notranslate"><span class="pre">element_grid.response()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_grid.source_grid"><code class="docutils literal notranslate"><span class="pre">source_grid</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_grid.source_grid.get_eval_grid"><code class="docutils literal notranslate"><span class="pre">source_grid.get_eval_grid()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html#module-EMToolKit.schemas.element_source_responses">EMToolKit.schemas.element_source_responses module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.element_source_responses.element_source_responses"><code class="docutils literal notranslate"><span class="pre">element_source_responses()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html#module-EMToolKit.schemas.operators">EMToolKit.schemas.operators module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.operators.multi_instrument_linear_operator"><code class="docutils literal notranslate"><span class="pre">multi_instrument_linear_operator</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.operators.reg_operator_postfac_wrapper"><code class="docutils literal notranslate"><span class="pre">reg_operator_postfac_wrapper</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.operators.single_instrument_linear_operator_separable"><code class="docutils literal notranslate"><span class="pre">single_instrument_linear_operator_separable</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.operators.sparse_d2_partial_matrix"><code class="docutils literal notranslate"><span class="pre">sparse_d2_partial_matrix()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html#module-EMToolKit.schemas.util">EMToolKit.schemas.util module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.util.as_dict"><code class="docutils literal notranslate"><span class="pre">as_dict()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.util.bindown"><code class="docutils literal notranslate"><span class="pre">bindown()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.util.bindown2"><code class="docutils literal notranslate"><span class="pre">bindown2()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.util.binup"><code class="docutils literal notranslate"><span class="pre">binup()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.util.btp"><code class="docutils literal notranslate"><span class="pre">btp()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.util.ftp"><code class="docutils literal notranslate"><span class="pre">ftp()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.util.get_mask_errs"><code class="docutils literal notranslate"><span class="pre">get_mask_errs()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.util.masked_median_filter"><code class="docutils literal notranslate"><span class="pre">masked_median_filter()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.util.multivec_matmul"><code class="docutils literal notranslate"><span class="pre">multivec_matmul()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.html#EMToolKit.schemas.util.rindices"><code class="docutils literal notranslate"><span class="pre">rindices()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.schemas.html#module-EMToolKit.schemas">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="EMToolKit.visualization.html">EMToolKit.visualization package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.visualization.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.visualization.html#module-EMToolKit.visualization.dashboard">EMToolKit.visualization.dashboard module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object"><code class="docutils literal notranslate"><span class="pre">dashboard_object</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.add_control_point"><code class="docutils literal notranslate"><span class="pre">dashboard_object.add_control_point()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.create_figure"><code class="docutils literal notranslate"><span class="pre">dashboard_object.create_figure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.display"><code class="docutils literal notranslate"><span class="pre">dashboard_object.display()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.displays"><code class="docutils literal notranslate"><span class="pre">dashboard_object.displays()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.enable_buttons"><code class="docutils literal notranslate"><span class="pre">dashboard_object.enable_buttons()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.get_dem_at"><code class="docutils literal notranslate"><span class="pre">dashboard_object.get_dem_at()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.init_buttons"><code class="docutils literal notranslate"><span class="pre">dashboard_object.init_buttons()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.init_dem_line"><code class="docutils literal notranslate"><span class="pre">dashboard_object.init_dem_line()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.init_figure"><code class="docutils literal notranslate"><span class="pre">dashboard_object.init_figure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.init_interactivity"><code class="docutils literal notranslate"><span class="pre">dashboard_object.init_interactivity()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.init_mouseover_line"><code class="docutils literal notranslate"><span class="pre">dashboard_object.init_mouseover_line()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.interpolate_slice_points"><code class="docutils literal notranslate"><span class="pre">dashboard_object.interpolate_slice_points()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.make_slice_ticks"><code class="docutils literal notranslate"><span class="pre">dashboard_object.make_slice_ticks()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.remove_slice_ticks"><code class="docutils literal notranslate"><span class="pre">dashboard_object.remove_slice_ticks()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.reset_buttons"><code class="docutils literal notranslate"><span class="pre">dashboard_object.reset_buttons()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_bezier_curve"><code class="docutils literal notranslate"><span class="pre">dashboard_object.update_bezier_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_curve"><code class="docutils literal notranslate"><span class="pre">dashboard_object.update_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_figure"><code class="docutils literal notranslate"><span class="pre">dashboard_object.update_figure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_slice_curve"><code class="docutils literal notranslate"><span class="pre">dashboard_object.update_slice_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_slice_map"><code class="docutils literal notranslate"><span class="pre">dashboard_object.update_slice_map()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_spline_curve"><code class="docutils literal notranslate"><span class="pre">dashboard_object.update_spline_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.widgwrap"><code class="docutils literal notranslate"><span class="pre">dashboard_object.widgwrap()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dem_color_table"><code class="docutils literal notranslate"><span class="pre">dem_color_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dummy_meta"><code class="docutils literal notranslate"><span class="pre">dummy_meta()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="EMToolKit.visualization.html#module-EMToolKit.visualization">Module contents</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="EMToolKit.algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EMToolKit.instruments.html">Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EMToolKit.schemas.html">Schemas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EMToolKit.visualization.html">Visualization</a></li>
 </ul>
 </div>
-</section>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
+<p><strong>Algorithms</strong>
+This is where the various inversion methods are hosted.</p>
+<p><strong>Instruments</strong>
+These wrappers assist in procuring and preparing the images.</p>
+<p><strong>Schemas</strong>
+Description of Schemas (if needed).</p>
+<p><strong>Visualization</strong>
+This module hosts the dashboard and other visualizations.</p>
 <section id="module-EMToolKit.EMToolKit">
-<span id="emtoolkit-emtoolkit-module"></span><h2>EMToolKit.EMToolKit module<a class="headerlink" href="#module-EMToolKit.EMToolKit" title="Link to this heading"></a></h2>
+<span id="emtoolkit-module"></span><h3>EMToolKit module<a class="headerlink" href="#module-EMToolKit.EMToolKit" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.EMToolKit.dem_model">
 <span class="sig-name descname"><span class="pre">dem_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coeffs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrapargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/EMToolKit.html#dem_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.EMToolKit.dem_model" title="Link to this definition"></a></dt>
@@ -335,8 +125,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="EMToolKit.EMToolKit.em_collection">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">em_collection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasequence</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/EMToolKit.html#em_collection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.EMToolKit.em_collection" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
+<dd><dl class="py method">
 <dt class="sig sig-object py" id="EMToolKit.EMToolKit.em_collection.add_model">
 <span class="sig-name descname"><span class="pre">add_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelsequence</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/EMToolKit.html#em_collection.add_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.EMToolKit.em_collection.add_model" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -380,8 +169,9 @@
 <dd></dd></dl>
 
 </section>
+</section>
 <section id="module-EMToolKit.util">
-<span id="emtoolkit-util-module"></span><h2>EMToolKit.util module<a class="headerlink" href="#module-EMToolKit.util" title="Link to this heading"></a></h2>
+<span id="util-module"></span><h2>util module<a class="headerlink" href="#module-EMToolKit.util" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.util.calc_resids">
 <span class="sig-name descname"><span class="pre">calc_resids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">synthdata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">em_collection</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/util.html#calc_resids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.util.calc_resids" title="Link to this definition"></a></dt>
@@ -408,16 +198,13 @@
 <dd></dd></dl>
 
 </section>
-<section id="module-EMToolKit">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-EMToolKit" title="Link to this heading"></a></h2>
-</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="modules.html" class="btn btn-neutral float-left" title="EMToolKit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to EMToolKit’s Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="EMToolKit.algorithms.html" class="btn btn-neutral float-right" title="EMToolKit.algorithms package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

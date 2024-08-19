@@ -1,9 +1,6 @@
 EMToolKit.instruments package
 =============================
 
-Submodules
-----------
-
 EMToolKit.instruments.aia module
 --------------------------------
 
@@ -16,14 +13,6 @@ EMToolKit.instruments.xrt module
 --------------------------------
 
 .. automodule:: EMToolKit.instruments.xrt
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: EMToolKit.instruments
    :members:
    :undoc-members:
    :show-inheritance:
