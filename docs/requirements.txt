@@ -10,6 +10,8 @@ nbsphinx-link
 ipython
 pandoc==2.3
 matplotlib
+myst-parser
+esbonio>=0.12.0
 
 sunpy[all]
 astropy

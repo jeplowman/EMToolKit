@@ -122,3 +122,5 @@ $RECYCLE.BIN/
 
 # Jupyter Notebooks
 .ipynb_checkpoints/
+
+esbonio.*

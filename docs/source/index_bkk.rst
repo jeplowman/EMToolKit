@@ -3,6 +3,10 @@ Welcome to EMToolKit's Documentation
 
 Explore the EMToolKit, a comprehensive suite of tools designed for electromagnetic analysis and visualization.
 
+Contents
+________
+
+To get started, explore the key sections of this documentation:
 
 Modules Overview
 ----------------
@@ -19,7 +23,7 @@ Module Details
 
 Get detailed information about each module. Click on any module below to learn more about its functions and how to use them.
 
-.. toctree::
+.. .. toctree::
    :maxdepth: 2
    :titlesonly:
 

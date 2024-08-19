@@ -15,6 +15,7 @@ add_module_names = False
 
 # List of Sphinx extensions
 extensions = [
+    'myst_parser',
     'sphinx.ext.autosummary',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
@@ -25,6 +26,12 @@ extensions = [
     'nbsphinx',
     'sphinx.ext.mathjax',
     'sphinx_toggleprompt',
+]
+
+myst_enable_extensions = [
+    "amsmath",  # Enable AMS LaTeX extensions
+    "dollarmath",  # Enable parsing of $ syntax for inline math
+    "deflist",  # Enable definition lists
 ]
 
 autosummary_generate = True  # Turn on autosummary
@@ -43,6 +50,11 @@ html_theme_options = {
 }
 
 nbsphinx_allow_errors = True
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
 
 # Configure sphinx-gallery
 sphinx_gallery_conf = {

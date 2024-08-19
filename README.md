@@ -1,22 +1,31 @@
 # EMToolKit
 
+[![Documentation Status](https://readthedocs.org/projects/emtoolkit/badge/?version=latest)](https://emtoolkit.readthedocs.io/en/latest/?badge=latest)
 
-[Repository for EMToolKit project](https://github.com/jeplowman/EMToolKit) for computing Solar Differential Emission Measures in Python. Explore a comprehensive suite of tools designed for electromagnetic analysis and visualization.
+Welcome to the [EMToolKit](https://github.com/jeplowman/EMToolKit) repository, a suite of tools for computing Solar Differential Emission Measures (DEM) in Python. This toolkit is designed for photometric analysis and visualization, tailored for solar physics research and applications.
 
-<a href="https://emtoolkit.readthedocs.io/en/latest/?badge=latest" target="_blank">
-    <img src="https://readthedocs.org/projects/emtoolkit/badge/?version=latest" alt="Documentation Status">
-</a>
+## User Installation
 
-Documentation Mirror: [https://jeplowman.github.io/EMToolKit/](https://jeplowman.github.io/EMToolKit/)
+To use EMToolKit effectively, you will need to set up a python environment with specific dependencies and configurations. For now, please refer to the [Development Guide](develop.md) for detailed instructions on how to install and configure the necessary tools and libraries.
 
-To run the [example notebook](docs/source/examples/EMToolKit_example_multi_instrument.ipynb), you'll need Python set up with Sunpy, Numpy, Astropy, and the latest version of NDCube (see [NDCube Installation Guide](https://docs.sunpy.org/projects/ndcube/en/latest/installation.html)). After that, the example should work with the existing directory structure. Let me know if not, of course!
+### Documentation
 
-If you just want to see a static version of the example notebook, check out [EMToolKit_example_multi_instrument.ipynb](docs/source/examples/EMToolKit_example_multi_instrument.ipynb)
+Once EMToolKit is installed, check out the
+
+- **Official Documentation**: [ReadTheDocs](https://emtoolkit.readthedocs.io/en/latest/?badge=latest)
+or the  **Documentation Mirror**: [GitHub Pages](https://jeplowman.github.io/EMToolKit/)
+
+## Contributing
+
+### Developer Environment
+To set up a development environment for EMToolKit, please refer to the [Development Guide](develop.md).
+
+Contributions are welcome! Please see the [contribute](contribute.md) file for details on how to get involved.
+
+
 
 
 ## Additional Information
 
-- **Contributing**: Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for more details.
 - **License**: This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-- **Troubleshooting**: If you encounter any issues during the setup, please refer to the project's issue tracker or documentation.
-
+- **Troubleshooting**: If you encounter any issues, please refer to the [issue tracker](https://github.com/jeplowman/EMToolKit/issues) or consult the [documentation](https://emtoolkit.readthedocs.io/en/latest/?badge=latest).
