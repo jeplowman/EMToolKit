@@ -1,7 +1,7 @@
 Welcome to EMToolKit's Documentation
 =====================================
 
-Explore the EMToolKit, a comprehensive suite of tools designed for electromagnetic analysis and visualization.
+Explore the `EMToolKit <https://github.com/jeplowman/EMToolKit?tab=readme-ov-file#emtoolkit>`_, a suite of DEM tools designed for extracting temperature information from a collection of intensity measurements of solar plasma.
 
 
 Modules Overview
@@ -10,23 +10,11 @@ Modules Overview
 Dive into the various modules that make up EMToolKit. Each module is designed to handle specific aspects of electromagnetic analysis, from algorithms to visualization.
 
 .. toctree::
-   :maxdepth: 1
-
-   modules
-
-Module Details
---------------
-
-Get detailed information about each module. Click on any module below to learn more about its functions and how to use them.
-
-.. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :titlesonly:
 
-   Algorithms <EMToolKit.algorithms>
-   Instruments <EMToolKit.instruments>
-   Schemas <EMToolKit.schemas>
-   Visualization <EMToolKit.visualization>
+   EMToolKit
+
 
 Example Gallery
 ---------------

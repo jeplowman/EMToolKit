@@ -1,19 +1,16 @@
 import os
 import sys
-import subprocess
+import logging
 
-# Add the project root to the Python path
-sys.path.insert(0, os.path.abspath('../../'))
-print(sys.path)
-print()
+# Add the project root to the Python path dynamically
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
+# Basic project information
 project = 'EMToolKit'
 author = 'Joseph Plowman'
 release = '0.1.0'
 
-add_module_names = False
-
-# List of Sphinx extensions
+# Sphinx extensions
 extensions = [
     'myst_parser',
     'sphinx.ext.autosummary',
@@ -28,78 +25,62 @@ extensions = [
     'sphinx_toggleprompt',
 ]
 
+add_module_names = False
+
+# MyST parser extensions
 myst_enable_extensions = [
-    "amsmath",  # Enable AMS LaTeX extensions
-    "dollarmath",  # Enable parsing of $ syntax for inline math
-    "deflist",  # Enable definition lists
+    "amsmath",
+    "dollarmath",
+    "deflist",
 ]
 
-autosummary_generate = True  # Turn on autosummary
+# Autosummary settings
+autosummary_generate = True
 autosummary_imported_members = True
 
+# Paths and templates
 templates_path = ['_templates']
 exclude_patterns = []
-
-html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
+# HTML theme and options
+html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
     'collapse_navigation': False,
     'sticky_navigation': True,
-    'titles_only': True,  # This makes the sidebar only show titles
+    'titles_only': True,
 }
 
+# nbsphinx settings
 nbsphinx_allow_errors = True
 
+# Source suffixes for reStructuredText and Markdown
 source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
 }
 
-# Configure sphinx-gallery
+# Sphinx-Gallery configuration
 sphinx_gallery_conf = {
     'examples_dirs': [os.path.abspath('./examples')],
     'gallery_dirs': [os.path.abspath('./.auto_examples')],
-    'filename_pattern': r'.*\.(ipynb|py)$',  # Match both .py and .ipynb files
-    'capture_repr': ('_repr_html_', '__repr__'),  # Capture HTML representations
-    'image_scrapers': ('matplotlib',),  # Specify scrapers for image output
-    'doc_module': ('EMToolKit',),  # Document the EMToolKit module
-    'backreferences_dir': 'gen_modules/backreferences',  # Path for backreferences
-    'show_memory': True,  # Show memory usage
-    'download_all_examples': True,  # Allow downloading all examples in a zip file
-    'thumbnail_size': (400, 280),  # Set the size of thumbnails
-    'min_reported_time': 1,  # Report all examples, regardless of runtime
-    'line_numbers': True,  # Show line numbers in code blocks
-    'remove_config_comments': True,  # Remove comments from config files
+    'filename_pattern': r'.*\.(ipynb|py)$',
+    'capture_repr': ('_repr_html_', '__repr__'),
+    'image_scrapers': ('matplotlib',),
+    'doc_module': ('EMToolKit',),
+    'backreferences_dir': 'gen_modules/backreferences',
+    'show_memory': True,
+    'download_all_examples': True,
+    'thumbnail_size': (400, 280),
+    'min_reported_time': 1,
+    'line_numbers': True,
+    'remove_config_comments': True,
 }
 
-def run_apidoc(app):
-    """Generate .rst files for the Sphinx documentation and build HTML output."""
-    if os.environ.get('SPHINX_APIDOC_RUNNING') == '1':
-        print("Skipping sphinx-apidoc because it is already running.")
-        return
-
-    if 'skip-apidoc' in app.config.sphinx_run_options:
-        print("Skipping sphinx-apidoc because skip-apidoc flag was set.")
-        return
-
-    try:
-        os.environ['SPHINX_APIDOC_RUNNING'] = '1'
-
-        source_dir = os.path.abspath('EMToolKit/')
-        output_dir = os.path.abspath('docs/source/')
-        html_dir = os.path.abspath("docs/build/html")
-
-        subprocess.check_call(['sphinx-apidoc', '-o', output_dir, source_dir])
-        subprocess.check_call(['sphinx-build', '-b', 'html', output_dir, html_dir])
-
-    except subprocess.CalledProcessError as e:
-        print(f"sphinx-apidoc or sphinx-build failed with exit code {e.returncode}")
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-    finally:
-        os.environ.pop('SPHINX_APIDOC_RUNNING', None)
-
+# Setup function to add JS files
 def setup(app):
-    app.add_config_value('sphinx_run_options', [], 'env')
-    app.connect('builder-inited', run_apidoc)
+    try:
+        app.add_js_file('open_external_links_in_new_tab.js')
+        logging.info("Added JavaScript file for external links.")
+    except Exception as e:
+        logging.error(f"Error adding JS file: {e}")
