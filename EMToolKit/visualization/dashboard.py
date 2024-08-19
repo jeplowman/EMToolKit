@@ -206,8 +206,8 @@ class dashboard_object(object):
                 i = min(max(ix, 0), nx-1)
                 j = min(max(iy, 0), ny-1)
                 if self.drawing:
-                    self.update_slice_curve(i, j)  # Function to draw/update the Bezier curve
-                self.init_dem_line(i, j)
+                    self.update_slice_curve(i,j)  # Function to draw/update the Bezier curve
+                self.init_dem_line(i,j)
                 self.update_slice_map()
 
         self.fig.canvas.mpl_connect('button_press_event', on_click)
@@ -286,13 +286,13 @@ class dashboard_object(object):
         temperatures = dems[0][0]
 
         if self.the_normalization == "area":
-            print("Normalizing to the Sum")
+            # print("Normalizing to the Sum")
             func = np.sum
         elif self.the_normalization == "max":
             func = np.max
-            print("Normalizing to the Max")
+            # print("Normalizing to the Max")
         elif self.the_normalization == "none":
-            print("No Normalization")
+            # print("No Normalization")
             func = lambda x: 1
 
         the_map = np.stack([dem[1]/func(dem[1]) for dem in dems]).T
