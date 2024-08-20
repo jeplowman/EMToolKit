@@ -7,6 +7,7 @@
   <title>EMToolKit.visualization package &mdash; EMToolKit 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -23,6 +24,8 @@
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/toggleprompt.js?v=5801b3bb"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
         <script src="_static/open_external_links_in_new_tab.js?v=ce535536"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -51,7 +54,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="EMToolKit.html">EMToolKit package</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html">Algorithms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="EMToolKit.instruments.html">Instruments</a></li>
@@ -62,12 +66,17 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples/GALLERY_HEADER.html">Example Gallery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href=".auto_examples/add_two.html">Adding Two Numbers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/example_notebook.html">Multi-Instrument Method</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">EMToolKit Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Ways to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Android_EMToolKit_Setup.html">Android Setup for Running EMToolKit on JupyterLab</a></li>
 </ul>
 
         </div>
@@ -101,7 +110,7 @@
 <span id="emtoolkit-visualization-dashboard-module"></span><h2>EMToolKit.visualization.dashboard module<a class="headerlink" href="#module-EMToolKit.visualization.dashboard" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="EMToolKit.visualization.dashboard.dashboard_object">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dashboard_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">em_collection</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/visualization/dashboard.html#dashboard_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.visualization.dashboard.dashboard_object" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">EMToolKit.visualization.dashboard.</span></span><span class="sig-name descname"><span class="pre">dashboard_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">em_collection</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/visualization/dashboard.html#dashboard_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.visualization.dashboard.dashboard_object" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="EMToolKit.visualization.dashboard.dashboard_object.add_control_point">
@@ -217,12 +226,12 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.visualization.dashboard.dem_color_table">
-<span class="sig-name descname"><span class="pre">dem_color_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctlogts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">81</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/visualization/dashboard.html#dem_color_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.visualization.dashboard.dem_color_table" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.visualization.dashboard.</span></span><span class="sig-name descname"><span class="pre">dem_color_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctlogts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">81</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/visualization/dashboard.html#dem_color_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.visualization.dashboard.dem_color_table" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.visualization.dashboard.dummy_meta">
-<span class="sig-name descname"><span class="pre">dummy_meta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/visualization/dashboard.html#dummy_meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.visualization.dashboard.dummy_meta" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.visualization.dashboard.</span></span><span class="sig-name descname"><span class="pre">dummy_meta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/visualization/dashboard.html#dummy_meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.visualization.dashboard.dummy_meta" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </section>

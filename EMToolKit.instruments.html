@@ -7,6 +7,7 @@
   <title>EMToolKit.instruments package &mdash; EMToolKit 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -23,6 +24,8 @@
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/toggleprompt.js?v=5801b3bb"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
         <script src="_static/open_external_links_in_new_tab.js?v=ce535536"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -51,7 +54,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="EMToolKit.html">EMToolKit package</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html">Algorithms</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Instruments</a></li>
@@ -62,12 +66,17 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples/GALLERY_HEADER.html">Example Gallery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href=".auto_examples/add_two.html">Adding Two Numbers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/example_notebook.html">Multi-Instrument Method</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">EMToolKit Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Ways to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Android_EMToolKit_Setup.html">Android Setup for Running EMToolKit on JupyterLab</a></li>
 </ul>
 
         </div>
@@ -101,32 +110,32 @@
 <span id="emtoolkit-instruments-aia-module"></span><h2>EMToolKit.instruments.aia module<a class="headerlink" href="#module-EMToolKit.instruments.aia" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.aia_temperature_response">
-<span class="sig-name descname"><span class="pre">aia_temperature_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#aia_temperature_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.aia_temperature_response" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">aia_temperature_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#aia_temperature_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.aia_temperature_response" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.aia_wrapper">
-<span class="sig-name descname"><span class="pre">aia_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#aia_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.aia_wrapper" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">aia_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#aia_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.aia_wrapper" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.download_sdo_data">
-<span class="sig-name descname"><span class="pre">download_sdo_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redownload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#download_sdo_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.download_sdo_data" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">download_sdo_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redownload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#download_sdo_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.download_sdo_data" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.estimate_aia_error">
-<span class="sig-name descname"><span class="pre">estimate_aia_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#estimate_aia_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.estimate_aia_error" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">estimate_aia_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#estimate_aia_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.estimate_aia_error" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.interpolate_table">
-<span class="sig-name descname"><span class="pre">interpolate_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#interpolate_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.interpolate_table" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">interpolate_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#interpolate_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.interpolate_table" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.load_from_paths">
-<span class="sig-name descname"><span class="pre">load_from_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refindex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#load_from_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.load_from_paths" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">load_from_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refindex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#load_from_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.load_from_paths" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </section>
@@ -134,37 +143,37 @@
 <span id="emtoolkit-instruments-xrt-module"></span><h2>EMToolKit.instruments.xrt module<a class="headerlink" href="#module-EMToolKit.instruments.xrt" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.xrt.download_xrt_data">
-<span class="sig-name descname"><span class="pre">download_xrt_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redownload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#download_xrt_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.download_xrt_data" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.xrt.</span></span><span class="sig-name descname"><span class="pre">download_xrt_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redownload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#download_xrt_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.download_xrt_data" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.xrt.estimate_xrt_error">
-<span class="sig-name descname"><span class="pre">estimate_xrt_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#estimate_xrt_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.estimate_xrt_error" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.xrt.</span></span><span class="sig-name descname"><span class="pre">estimate_xrt_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#estimate_xrt_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.estimate_xrt_error" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.xrt.interp1d_logt">
-<span class="sig-name descname"><span class="pre">interp1d_logt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tresp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#interp1d_logt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.interp1d_logt" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.xrt.</span></span><span class="sig-name descname"><span class="pre">interp1d_logt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tresp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#interp1d_logt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.interp1d_logt" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.xrt.interpolate_table">
-<span class="sig-name descname"><span class="pre">interpolate_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#interpolate_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.interpolate_table" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.xrt.</span></span><span class="sig-name descname"><span class="pre">interpolate_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#interpolate_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.interpolate_table" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.xrt.xrt_temperature_response">
-<span class="sig-name descname"><span class="pre">xrt_temperature_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#xrt_temperature_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.xrt_temperature_response" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.xrt.</span></span><span class="sig-name descname"><span class="pre">xrt_temperature_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#xrt_temperature_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.xrt_temperature_response" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.xrt.xrt_temperature_response_old">
-<span class="sig-name descname"><span class="pre">xrt_temperature_response_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#xrt_temperature_response_old"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.xrt_temperature_response_old" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.xrt.</span></span><span class="sig-name descname"><span class="pre">xrt_temperature_response_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#xrt_temperature_response_old"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.xrt_temperature_response_old" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.xrt.xrt_wrapper">
-<span class="sig-name descname"><span class="pre">xrt_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#xrt_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.xrt_wrapper" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.xrt.</span></span><span class="sig-name descname"><span class="pre">xrt_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/xrt.html#xrt_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.xrt.xrt_wrapper" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </section>

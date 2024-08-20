@@ -7,6 +7,7 @@
   <title>Welcome to EMToolKit’s Documentation &mdash; EMToolKit 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -23,6 +24,8 @@
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/toggleprompt.js?v=5801b3bb"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
         <script src="_static/open_external_links_in_new_tab.js?v=ce535536"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -52,7 +55,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="EMToolKit.html">EMToolKit package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html">Algorithms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="EMToolKit.instruments.html">Instruments</a></li>
@@ -63,12 +67,17 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples/GALLERY_HEADER.html">Example Gallery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href=".auto_examples/add_two.html">Adding Two Numbers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/example_notebook.html">Multi-Instrument Method</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">EMToolKit Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Ways to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Android_EMToolKit_Setup.html">Android Setup for Running EMToolKit on JupyterLab</a></li>
 </ul>
 
         </div>
@@ -98,10 +107,8 @@
   <section id="welcome-to-emtoolkit-s-documentation">
 <h1>Welcome to EMToolKit’s Documentation<a class="headerlink" href="#welcome-to-emtoolkit-s-documentation" title="Link to this heading"></a></h1>
 <p>Explore the <a class="reference external" href="https://github.com/jeplowman/EMToolKit?tab=readme-ov-file#emtoolkit">EMToolKit</a>, a suite of DEM tools designed for extracting temperature information from a collection of intensity measurements of solar plasma.</p>
-<section id="modules-overview">
-<h2>Modules Overview<a class="headerlink" href="#modules-overview" title="Link to this heading"></a></h2>
-<p>Dive into the various modules that make up EMToolKit. Each module is designed to handle specific aspects of electromagnetic analysis, from algorithms to visualization.</p>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="EMToolKit.html">EMToolKit package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html">Algorithms</a></li>
@@ -112,7 +119,7 @@
 </li>
 </ul>
 </div>
-</section>
+<p>Dive into the various modules that make up EMToolKit. Each module is designed to handle specific aspects of electromagnetic analysis, from algorithms to visualization.</p>
 <section id="example-gallery">
 <h2>Example Gallery<a class="headerlink" href="#example-gallery" title="Link to this heading"></a></h2>
 <p>See EMToolKit in action through real-world examples. These examples will guide you through using the toolkit for various tasks and applications.</p>
@@ -130,6 +137,35 @@
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">EMToolKit Development Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#dev-installation">Dev Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#macos">macOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#android">Android</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Ways to Contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#updating-dependencies">Updating Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#mobile-development">Mobile Development</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Android_EMToolKit_Setup.html">Android Setup for Running EMToolKit on JupyterLab</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Android_EMToolKit_Setup.html#install-f-droid">1. Install F-Droid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Android_EMToolKit_Setup.html#install-termux">2. Install Termux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Android_EMToolKit_Setup.html#install-pip-git-and-other-dependencies">3. Install Pip, Git, and Other Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Android_EMToolKit_Setup.html#clone-the-repository">4. Clone the Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Android_EMToolKit_Setup.html#install-jupyterlab">5. Install JupyterLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Android_EMToolKit_Setup.html#set-up-and-run-jupyterlab">6. Set Up and Run JupyterLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Android_EMToolKit_Setup.html#access-jupyterlab-in-chrome">7. Access JupyterLab in Chrome</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Android_EMToolKit_Setup.html#running-the-emtoolkit-software">8. Running the EMToolKit Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Android_EMToolKit_Setup.html#stopping-jupyterlab">9. Stopping JupyterLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Android_EMToolKit_Setup.html#optional-install-the-github-app">10. (Optional) Install the GitHub App</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 </section>
 

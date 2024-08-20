@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to EMToolKit’s Documentation &mdash; EMToolKit 0.1.0 documentation</title>
+  <title>EMToolKit Development Guide &mdash; EMToolKit 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -23,13 +24,15 @@
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/toggleprompt.js?v=5801b3bb"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
         <script src="_static/open_external_links_in_new_tab.js?v=ce535536"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Ways to Contribute" href="contribute.html" />
+    <link rel="prev" title="EMToolKit Dashboard Example" href="examples/EMToolKit_example_07252010.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,7 +54,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="EMToolKit.html">EMToolKit package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html">Algorithms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="EMToolKit.instruments.html">Instruments</a></li>
@@ -62,12 +66,17 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples/GALLERY_HEADER.html">Example Gallery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href=".auto_examples/add_two.html">Adding Two Numbers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/example_notebook.html">Multi-Instrument Method</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">EMToolKit Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Ways to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Android_EMToolKit_Setup.html">Android Setup for Running EMToolKit on JupyterLab</a></li>
 </ul>
 
         </div>
@@ -84,9 +93,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Welcome to EMToolKit’s Documentation</li>
+      <li class="breadcrumb-item active">EMToolKit Development Guide</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index_bkk.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/develop.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -94,47 +103,55 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="welcome-to-emtoolkit-s-documentation">
-<h1>Welcome to EMToolKit’s Documentation<a class="headerlink" href="#welcome-to-emtoolkit-s-documentation" title="Link to this heading"></a></h1>
-<p>Explore the EMToolKit, a comprehensive suite of tools designed for electromagnetic analysis and visualization.</p>
-<section id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Link to this heading"></a></h2>
-<p>To get started, explore the key sections of this documentation:</p>
-<section id="modules-overview">
-<h3>Modules Overview<a class="headerlink" href="#modules-overview" title="Link to this heading"></a></h3>
-<p>Dive into the various modules that make up EMToolKit. Each module is designed to handle specific aspects of electromagnetic analysis, from algorithms to visualization.</p>
-<div class="toctree-wrapper compound">
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="emtoolkit-development-guide">
+<h1>EMToolKit Development Guide<a class="headerlink" href="#emtoolkit-development-guide" title="Link to this heading"></a></h1>
+<section id="dev-installation">
+<h2>Dev Installation<a class="headerlink" href="#dev-installation" title="Link to this heading"></a></h2>
+<p>By following these instructions, you should be able to set up the development environment for EMToolKit on your preferred operating system. If you have any questions or need further assistance, feel free to reach out.</p>
 </section>
-<section id="module-details">
-<h3>Module Details<a class="headerlink" href="#module-details" title="Link to this heading"></a></h3>
-<p>Get detailed information about each module. Click on any module below to learn more about its functions and how to use them.</p>
-</section>
-<section id="example-gallery">
-<h3>Example Gallery<a class="headerlink" href="#example-gallery" title="Link to this heading"></a></h3>
-<p>See EMToolKit in action through real-world examples. These examples will guide you through using the toolkit for various tasks and applications.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="examples/GALLERY_HEADER.html">Example Gallery</a></li>
-</ul>
-</div>
-</section>
-<section id="additional-resources">
-<h3>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading"></a></h3>
-<p>Quickly find specific information using the following indices and search tools:</p>
+<section id="macos">
+<h2>macOS<a class="headerlink" href="#macos" title="Link to this heading"></a></h2>
+<p>This is the most stable development platform currently.</p>
+<ol class="arabic">
+<li><p><strong>Install Conda</strong>:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><p>If Conda is not already installed, follow the instructions on the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html">Conda installation page</a>.</p></li>
 </ul>
+</li>
+<li><p><strong>Clone the Repository</strong>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/jeplowman/EMToolKit.git
+<span class="nb">cd</span><span class="w"> </span>EMToolKit
+</pre></div>
+</div>
+</li>
+<li><p><strong>Create and Activate the Conda Environment</strong>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+conda<span class="w"> </span>activate<span class="w"> </span>EMToolKit_env
+</pre></div>
+</div>
+</li>
+<li><p><strong>Install the Package in Editable Mode</strong>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+</ol>
 </section>
+<hr class="docutils" />
+<section id="android">
+<h2>Android<a class="headerlink" href="#android" title="Link to this heading"></a></h2>
+<p>If you’re interested in improving the mobile version of the dashboard, start here!
+Check out the <a class="reference internal" href="Android_EMToolKit_Setup.html"><span class="std std-doc">Android Setup</span></a> page for more information about developing for the mobile version of the app.</p>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples/EMToolKit_example_07252010.html" class="btn btn-neutral float-left" title="EMToolKit Dashboard Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="contribute.html" class="btn btn-neutral float-right" title="Ways to Contribute" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
