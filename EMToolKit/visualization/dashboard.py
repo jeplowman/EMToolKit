@@ -133,7 +133,7 @@ class dashboard_object(object):
         self.ax5 = self.fig.add_subplot(spec[-2:, 2]) # 2D DEM Image (length, temperature)
         spec.tight_layout(self.fig,pad=1.5,rect=(0.01,0,1,1))
 
-    def init_dem_line(self, ix, iy):
+    def init_dem_lineplot(self, ix, iy):
         NC = self.count
         self.crosshairs.append(self.ax2.plot([ix], [iy], marker='+', color=f"C{NC}", markersize=25)[0])
         self.count += 1
@@ -147,6 +147,7 @@ class dashboard_object(object):
     def get_dem_at(self, ix, iy):
 
         [ptlogt, ptdem] = self.emc.compute_dem(ix, iy, logt=self.logt, algorithm=self.the_algorithm)
+        # return np.ones_like(ptdem)*ix, np.ones_like(ptdem)*ix
         return 10*ptlogt, ptdem/1.0e28
 
     def init_mouseover_line(self):
@@ -205,9 +206,9 @@ class dashboard_object(object):
                 ix, iy = int(event.xdata), int(event.ydata)
                 i = min(max(ix, 0), nx-1)
                 j = min(max(iy, 0), ny-1)
-                if self.drawing:
-                    self.update_slice_curve(i,j)  # Function to draw/update the Bezier curve
-                self.init_dem_line(i,j)
+
+                self.update_slice_curve(i,j)  # Function to draw/update the Bezier curve
+                self.init_dem_lineplot(i,j)
                 self.update_slice_map()
 
         self.fig.canvas.mpl_connect('button_press_event', on_click)
@@ -223,7 +224,7 @@ class dashboard_object(object):
 
                     if ix >= 0 and ix < xlen and iy >= 0 and iy < ylen:  # Check if ix and iy are within the bounds
                         self.crosshair_mouseover.set_data([ix],[iy])
-                        self.demplot_mouseover.set_data(*self.get_dem_at(iy, ix))
+                        self.demplot_mouseover.set_data(*self.get_dem_at(ix, iy))  #THIS MIGHT NEED A TRANSPOSE
             elif(self.demplot_mouseover is not None):
                 self.demplot_mouseover.remove()
                 self.crosshair_mouseover.remove()
