@@ -5,6 +5,8 @@ sphinx-autodoc-typehints
 sphinx-gallery
 sphinx-hoverxref
 sphinx-toggleprompt
+sphinx-copybutton
+sphinx-design
 nbsphinx
 nbsphinx-link
 ipython

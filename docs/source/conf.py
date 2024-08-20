@@ -12,25 +12,20 @@ author = 'Joseph Plowman'
 release = '0.1.0'
 
 # Sphinx extensions
-# extensions = [
-#     'myst_parser',  # If you need Markdown support
-#     # 'sphinx.ext.autosummary',
-#     'sphinx.ext.autodoc',
-#     # 'sphinx.ext.napoleon',
-#     # 'sphinx.ext.todo',
-#     'sphinx.ext.viewcode',
-#     # 'sphinx_autodoc_typehints',
-#     # 'sphinx_gallery.gen_gallery',  # For handling Python scripts
-#     'nbsphinx',  # For handling Jupyter Notebooks
-#     # 'sphinx.ext.mathjax',
-#     # 'sphinx_toggleprompt',
-# ]
 extensions = [
     'nbsphinx',  # To process Jupyter Notebooks
     'sphinx.ext.autodoc',  # To generate documentation from .py docstrings
     'sphinx.ext.viewcode',  # To add links to highlighted source code
     'sphinx_gallery.gen_gallery',  # To handle Python scripts as gallery examples
     'myst_parser',  # If you need Markdown support
+    'sphinx.ext.autosummary',  # Automatic API summaries
+    'sphinx.ext.napoleon',  # Support for Google/NumPy style docstrings
+    'sphinx.ext.todo',  # TODO directives
+    'sphinx_autodoc_typehints',  # Include type hints in documentation
+    'sphinx.ext.mathjax',  # Render LaTeX equations
+    'sphinx_toggleprompt',  # Toggle prompts in code blocks
+    'sphinx_copybutton',    # Copy button in each cell
+    'sphinx.ext.githubpages'    # Make github pages work correctly
 ]
 add_module_names = False
 
@@ -40,6 +35,8 @@ myst_enable_extensions = [
     "dollarmath",
     "deflist",
 ]
+
+todo_include_todos = True
 
 # Autosummary settings
 autosummary_generate = True
@@ -60,6 +57,7 @@ html_theme_options = {
 
 # nbsphinx settings
 nbsphinx_allow_errors = True
+nbsphinx_execute = 'always'  # Always execute the notebooks
 
 source_suffix = {
     '.rst': 'restructuredtext',
