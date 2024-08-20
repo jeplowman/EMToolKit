@@ -1,11 +1,12 @@
 Example Gallery
-================
+===============
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Contents
+   :maxdepth: 2
+   :caption: Example Gallery
 
-   ../.auto_examples/add_two
+   ../build/
+   auto_examples/index
    ./example_notebook
    ./EMToolKit_example_multi_instrument
    ./EMToolKit_example_07252010

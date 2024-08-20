@@ -1,6 +1,7 @@
 
 # EMToolKit Development Guide
 
+## Dev Installation
 By following these instructions, you should be able to set up the development environment for EMToolKit on your preferred operating system. If you have any questions or need further assistance, feel free to reach out.
 
 ## macOS
