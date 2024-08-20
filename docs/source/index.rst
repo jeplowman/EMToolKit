@@ -3,6 +3,11 @@ Welcome to EMToolKit's Documentation
 
 Explore the `EMToolKit <https://github.com/jeplowman/EMToolKit?tab=readme-ov-file#emtoolkit>`_, a suite of DEM tools designed for extracting temperature information from a collection of intensity measurements of solar plasma.
 
+.. image:: https://readthedocs.org/projects/emtoolkit/badge/?version=latest
+   :target: https://emtoolkit.readthedocs.io/en/latest/?badge=latest
+
+.. image:: https://mybinder.org/badge_logo.svg
+ :target: https://mybinder.org/v2/gh/jeplowman/EMToolKit/develop
 
 .. Modules Overview
 .. ----------------

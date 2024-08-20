@@ -1,6 +1,7 @@
 name: EMToolkit_env_minimal
 channels:
   - defaults
+  - conda_forge
 dependencies:
   - python>=3.10
   - pip
