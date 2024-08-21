@@ -5,8 +5,7 @@
    "id": "1c3b2076",
    "metadata": {},
    "source": [
-    "# EMToolKit Dashboard Example\n",
-    "## Multi-Instrument Method"
+    "# Single Instrument Dashboard"
    ]
   },
   {
@@ -37,7 +36,7 @@
     }
    ],
    "source": [
-    "#%pip install astropy scipy ipympl ndcube numba xrtpy sunpy\n",
+    "#%pip install astropy scipy ipympl ndcube numba xrtpy sunpy lxml drms zeep\n",
     "from IPython.display import display, HTML\n",
     "display(HTML(\"<style>:root { --jp-notebook-max-width: 100% !important; }</style>\"))\n",
     "\n",
@@ -192,7 +191,7 @@
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "2ee734e5cbe14db68dddef0d381e7fc7",
+       "model_id": "3af19c3c5a4c4a5d99dba7f3393cd932",
        "version_major": 2,
        "version_minor": 0
       },
@@ -309,14 +308,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 12,
    "id": "c17d4f30",
    "metadata": {},
    "outputs": [
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "9bb23dde81e74ee19665f403e1276da0",
+       "model_id": "7f5ffe570e304f85acf41430112d1afb",
        "version_major": 2,
        "version_minor": 0
       },
@@ -330,7 +329,7 @@
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "f78a655dad6e4a3d886ab1e8e0765ce9",
+       "model_id": "d69be21b571341ada55f3622a621b068",
        "version_major": 2,
        "version_minor": 0
       },
@@ -351,7 +350,7 @@
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "d1c926730d294500b6f8ed5124c88d26",
+       "model_id": "e1cb7a1cee58419e9525b29478a6fc42",
        "version_major": 2,
        "version_minor": 0
       },

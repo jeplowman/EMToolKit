@@ -53,7 +53,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../EMToolKit.html">EMToolKit package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../EMToolKit.html">EMToolKit package description</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../EMToolKit.algorithms.html">Algorithms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../EMToolKit.instruments.html">Instruments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../EMToolKit.schemas.html">Schemas</a></li>
@@ -63,9 +63,8 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/example_notebook.html">Multi-Instrument Method</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Method Main</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/EMToolKit_example_07252010.html">EMToolKit Dashboard Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/EMToolKit_example_07252010.html">Single Instrument Dashboard</a></li>
 </ul>
 </li>
 </ul>
@@ -211,7 +210,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">precomputed_interpolations</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">algorithm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="p">[</span><span class="s1">&#39;models&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">algorithm</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">precomputed_interpolations</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precomputing </span><span class="si">{</span><span class="n">algorithm</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="c1"># print(f&quot;Precomputing {algorithm}&quot;, end=&quot;\n&quot;)</span>
                 <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="p">[</span><span class="n">algorithm</span><span class="p">]</span>
                 <span class="n">interpolations</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">model</span><span class="p">:</span>

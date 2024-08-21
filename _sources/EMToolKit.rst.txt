@@ -1,5 +1,5 @@
-EMToolKit package
-#################
+EMToolKit package description
+#############################
 
 These top-level modules provide access to the EMToolKit engine.
 
