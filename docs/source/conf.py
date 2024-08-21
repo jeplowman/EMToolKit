@@ -58,7 +58,9 @@ todo_include_todos = True  # Include TODOs in the generated documentation
 templates_path = ['_templates']  # Path to custom templates
 exclude_patterns = []  # Patterns to exclude from the build
 html_static_path = ['_static']  # Path to static files
-
+html_css_files = [
+    'resizing.css',
+]
 # -------------------------------------------------------------------------
 # HTML Theme and Options
 # -------------------------------------------------------------------------
@@ -92,20 +94,20 @@ sphinx_gallery_conf = {
     'examples_dirs': './examples',  # Path to example scripts
     'gallery_dirs': '../build/auto_examples',  # Output directory for the gallery
     'filename_pattern': r'.*\.py$',  # Only match Python scripts
+
     # Uncomment the following if you need to handle .ipynb files as well
-    # 'filename_pattern': r'.*\.(ipynb|py)$',
-    # Additional configuration options (e.g., thumbnail size, line numbers)
-    # 'capture_repr': ('_repr_html_', '__repr__'),
-    # 'image_scrapers': ('matplotlib',),
-    # 'doc_module': ('EMToolKit',),
-    # 'backreferences_dir': '../build/gen_modules/backreferences',
-    # 'show_memory': True,
-    # 'download_all_examples': True,
-    # 'thumbnail_size': (400, 280),
-    # 'min_reported_time': 1,
-    # 'line_numbers': True,
-    # 'remove_config_comments': True,
-    # 'within_subsection_order': FileNameSortKey,
+    # 'filename_pattern': r'.*\.(ipynb|py)$',  # Match both .py and .ipynb files
+    # 'capture_repr': ('_repr_html_', '__repr__'),  # Capture specific representations (e.g., HTML) from the examples
+    'image_scrapers': ('matplotlib',),  # Tools to extract images from the example scripts (e.g., matplotlib)
+    'doc_module': ('EMToolKit',),  # Module for which to generate documentation links in the examples
+    # 'backreferences_dir': '../build/gen_modules/backreferences',  # Directory to store backreference files (for linking example code to the docstrings)
+    # 'show_memory': True,  # Show memory usage in the gallery output
+    # 'download_all_examples': True,  # Provide a download link for all examples as a zip file
+    # 'thumbnail_size': (400, 280),  # Size of thumbnails in the gallery
+    # 'min_reported_time': 1,  # Minimum time (in seconds) for a script to be reported in the timing summary
+    # 'line_numbers': True,  # Include line numbers in the rendered code blocks
+    # 'remove_config_comments': True,  # Remove comments from config code blocks in the gallery
+    # 'within_subsection_order': FileNameSortKey,  # Order examples within a subsection by filename
 }
 
 # -------------------------------------------------------------------------
