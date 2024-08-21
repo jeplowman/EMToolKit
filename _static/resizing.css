@@ -1,0 +1,9 @@
+/* Widen the main content area */
+.wy-nav-content {
+    max-width: 100%;
+    /* Allow the content area to expand to the full width of the container */
+    width: 90%;
+    /* Adjust this percentage to your preference */
+    margin-left: auto;
+    margin-right: auto;
+}
