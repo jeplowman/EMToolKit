@@ -30,5 +30,4 @@ This is the most stable development platform currently.
 ---
 
 ## Android
-If you're interested in improving the mobile version of the dashboard, start here!
 Check out the [Android Setup](Android_EMToolKit_Setup.md) page for more information about developing for the mobile version of the app.

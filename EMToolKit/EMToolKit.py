@@ -92,7 +92,7 @@ class em_collection:
             self.precomputed_interpolations = {}
         for algorithm in self.collection['models']:
             if algorithm not in self.precomputed_interpolations.keys():
-                print(f"Precomputing {algorithm}", end="\n")
+                # print(f"Precomputing {algorithm}", end="\n")
                 model = self.collection[algorithm]
                 interpolations = []
                 for component in model:

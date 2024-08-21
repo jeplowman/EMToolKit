@@ -12,3 +12,6 @@ dependencies:
     - numba>=0.60.0
     - xrtpy>=0.4.0
     - sunpy>=4.1.5
+    - lxml
+    - drms>=0.7.1
+    - zeep>=4.1.0

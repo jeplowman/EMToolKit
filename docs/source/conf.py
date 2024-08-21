@@ -73,7 +73,7 @@ html_theme_options = {
 # nbsphinx Configuration (for Jupyter Notebooks)
 # -------------------------------------------------------------------------
 nbsphinx_allow_errors = True  # Allow errors in notebook execution
-nbsphinx_execute = 'always'  # Always execute notebooks during the build
+nbsphinx_execute = 'never'  # execute notebooks during the build
 
 # -------------------------------------------------------------------------
 # Source Suffixes

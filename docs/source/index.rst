@@ -28,9 +28,18 @@ Example Gallery
 See EMToolKit in action through real-world examples. These examples will guide you through using the toolkit for various tasks and applications.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    examples/GALLERY_HEADER
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contribution Guides
+
+   develop
+
+   contribute
+   Android_EMToolKit_Setup
 
 Additional Resources
 ---------------------
@@ -40,12 +49,3 @@ Quickly find specific information using the following indices and search tools:
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contribution Guides
-
-   develop
-   contribute
-   Android_EMToolKit_Setup
-
