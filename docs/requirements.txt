@@ -8,8 +8,10 @@ sphinx-toggleprompt
 sphinx-copybutton
 sphinx-design
 nbsphinx
+nbconvert
 nbsphinx-link
 ipython
+ipywidgets
 pandoc==2.3
 matplotlib
 myst-parser
