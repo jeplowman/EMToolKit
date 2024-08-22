@@ -1,79 +1,34 @@
 # EMToolKit
 
-Repository for EMToolKit project for computing Solar Differential Emission Measures in Python.
-
 [![Documentation Status](https://readthedocs.org/projects/emtoolkit/badge/?version=latest)](https://emtoolkit.readthedocs.io/en/latest/?badge=latest)
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jeplowman/EMToolKit/develop)
 
-To run the example notebook, you'll need Python set up with Sunpy, Numpy, Astropy, and the latest version of NDCube (see [NDCube Installation Guide](https://docs.sunpy.org/projects/ndcube/en/latest/installation.html)). After that, the example should work with the existing directory structure. Let me know if not, of course!
+Welcome to the [EMToolKit](https://github.com/jeplowman/EMToolKit) repository, a suite of tools for computing Solar Differential Emission Measures (DEM) in Python. This toolkit is designed for photometric analysis and visualization, tailored for solar physics research and applications.
 
-## Installation Instructions for Development
+## User Installation
 
-### Prerequisites
+To use EMToolKit effectively, you will need to set up a python environment with specific dependencies and configurations. For now, please refer to the [Development Guide](develop.md) for detailed instructions on how to install and configure the necessary tools and libraries.
 
-- Ensure Pip and Conda are installed.
+### Documentation
+To get started right away, check out the [Example Notebooks](docs/build/html/examples/GALLERY_HEADER.html)
 
-### Linux
+We also have
+- **Official Documentation**: [ReadTheDocs](https://emtoolkit.readthedocs.io/en/latest/?badge=latest)
+or the  **Documentation Mirror**: [GitHub Pages](https://jeplowman.github.io/EMToolKit/)
 
-1. **Install Pip and Conda**:
-    ```sh
-    sudo apt-get install pip
 
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    bash Miniconda3-latest-Linux-x86_64.sh
-    source ~/.bashrc
-    conda init
-    ```
+## Contributing
 
-2. **Create and Activate the Conda Environment**:
-    ```sh
-    conda create --name EMToolKit_env
-    conda activate EMToolKit_env
-    ```
+### Developer Environment
+To set up a development environment for EMToolKit, please refer to the [Development Guide](develop.md).
 
-3. **Install the Package**:
-    ```sh
-    pip install -e .
-    ```
+Contributions are welcome! Please see the [contribute](contribute.md) file for details on how to get involved.
 
-### macOS
 
-1. **Install Conda and Create a Blank Environment**:
 
-    - Install Conda (if not already installed):
-      Follow the instructions on the [Conda installation page](https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html).
-
-2. **Clone the Repository**:
-    ```sh
-    git clone https://github.com/jeplowman/EMToolKit.git
-    cd EMToolKit
-    ```
-
-3. **Create and Activate the Conda Environment**:
-    ```sh
-    conda env create -f environment.yml
-    conda activate EMToolKit_env
-    ```
-
-4. **Install the Package in Editable Mode**:
-    ```sh
-    pip install -e .
-    ```
-
-## Usage
-
-Once the environment is set up, you can start using the toolkit as described in the project documentation.
 
 ## Additional Information
 
-- **Contributing**: Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for more details.
 - **License**: This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-- **Troubleshooting**: If you encounter any issues during the setup, please refer to the project's issue tracker or documentation.
-
-### Example Notebook
-
-To run the example notebook, ensure your environment includes the necessary dependencies (Sunpy, Numpy, Astropy, and NDCube). Follow the installation instructions provided above. If the example does not work as expected, please let us know.
-
----
-
-By following these instructions, you should be able to set up the development environment for EMToolKit on both Linux and macOS. If you have any questions or need further assistance, feel free to reach out!
+- **Troubleshooting**: If you encounter any issues, please refer to the [issue tracker](https://github.com/jeplowman/EMToolKit/issues) or consult the [documentation](https://emtoolkit.readthedocs.io/en/latest/?badge=latest).

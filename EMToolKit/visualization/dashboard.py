@@ -54,9 +54,9 @@ class dashboard_object(object):
         self.emc = em_collection
         self.first = em_collection.collection[em_collection.collection['models'][0]][0]
 
-        rt0,gt0,bt0 = kwargs.get('rtemp',5.6), kwargs.get('gtemp',6.1), kwargs.get('btemp',6.6)
-        sg0 = 0.5*np.mean(np.sort([rt0,gt0,bt0])[1:]-np.sort([rt0,gt0,bt0])[0:-1])
-        self.the_normalization = kwargs.get('normalization',"none")
+        rt0,gt0,bt0 = kwargs.get('rtemp',6.0), kwargs.get('gtemp',6.2), kwargs.get('btemp',6.4)
+        sg0 = 0.15 #0.5*np.mean(np.sort([rt0,gt0,bt0])[1:]-np.sort([rt0,gt0,bt0])[0:-1])
+        self.the_normalization = kwargs.get('normalization',"area")
 
         [nx,ny] = em_collection.collection[em_collection.collection['models'][0]][0].data.shape
 
@@ -101,6 +101,7 @@ class dashboard_object(object):
     def display(self, debug=False):
         ui, out = self.displays(debug)
         display(ui,out)
+        print("Click on the image to populate the dashboard")
 
     def widgwrap(self, rtemp, gtemp, btemp, sigma, algorithm, rng, mouseover):
         if self.uninitialized:
@@ -132,7 +133,7 @@ class dashboard_object(object):
         self.ax5 = self.fig.add_subplot(spec[-2:, 2]) # 2D DEM Image (length, temperature)
         spec.tight_layout(self.fig,pad=1.5,rect=(0.01,0,1,1))
 
-    def init_dem_line(self, ix, iy):
+    def init_dem_lineplot(self, ix, iy):
         NC = self.count
         self.crosshairs.append(self.ax2.plot([ix], [iy], marker='+', color=f"C{NC}", markersize=25)[0])
         self.count += 1
@@ -144,8 +145,9 @@ class dashboard_object(object):
         self.demlines.append(self.ax3.plot(tt, dd, color=f"C{NC}", label=thelabel)[0])
 
     def get_dem_at(self, ix, iy):
-		
+
         [ptlogt, ptdem] = self.emc.compute_dem(ix, iy, logt=self.logt, algorithm=self.the_algorithm)
+        # return np.ones_like(ptdem)*ix, np.ones_like(ptdem)*ix
         return 10*ptlogt, ptdem/1.0e28
 
     def init_mouseover_line(self):
@@ -204,9 +206,9 @@ class dashboard_object(object):
                 ix, iy = int(event.xdata), int(event.ydata)
                 i = min(max(ix, 0), nx-1)
                 j = min(max(iy, 0), ny-1)
-                if self.drawing:
-                    self.update_slice_curve(i, j)  # Function to draw/update the Bezier curve
-                self.init_dem_line(i, j)
+
+                self.update_slice_curve(i,j)  # Function to draw/update the Bezier curve
+                self.init_dem_lineplot(i,j)
                 self.update_slice_map()
 
         self.fig.canvas.mpl_connect('button_press_event', on_click)
@@ -222,7 +224,7 @@ class dashboard_object(object):
 
                     if ix >= 0 and ix < xlen and iy >= 0 and iy < ylen:  # Check if ix and iy are within the bounds
                         self.crosshair_mouseover.set_data([ix],[iy])
-                        self.demplot_mouseover.set_data(*self.get_dem_at(iy, ix))
+                        self.demplot_mouseover.set_data(*self.get_dem_at(ix, iy))  #THIS MIGHT NEED A TRANSPOSE
             elif(self.demplot_mouseover is not None):
                 self.demplot_mouseover.remove()
                 self.crosshair_mouseover.remove()
@@ -285,10 +287,13 @@ class dashboard_object(object):
         temperatures = dems[0][0]
 
         if self.the_normalization == "area":
+            # print("Normalizing to the Sum")
             func = np.sum
         elif self.the_normalization == "max":
             func = np.max
+            # print("Normalizing to the Max")
         elif self.the_normalization == "none":
+            # print("No Normalization")
             func = lambda x: 1
 
         the_map = np.stack([dem[1]/func(dem[1]) for dem in dems]).T

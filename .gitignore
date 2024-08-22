@@ -5,9 +5,12 @@ EMToolKit/visualization/dashboard_gpt.py
 EMToolKit.egg-info
 .data
 data
-.vscode
-*.rst
-!index.rst
+.vscode/
+# *.rst
+# !index.rst
+# !GALLERY_HEADER.rst
+gen_modules/
+.auto_examples
 !GALLERY_HEADER.rst
 gen_modules/
 .auto_examples
@@ -119,3 +122,5 @@ $RECYCLE.BIN/
 
 # Jupyter Notebooks
 .ipynb_checkpoints/
+
+esbonio.*

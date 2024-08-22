@@ -59,5 +59,5 @@ def list_fits_files(sdo_data_dir, find=None):
     paths = [os.path.join(sdo_data_dir, path) for path in os.listdir(sdo_data_dir)
             if os.path.isfile(os.path.join(sdo_data_dir, path)) and ".fits" in path]
     if find is not None:
-        paths = [path for path in paths if find in path]
+        paths = [path for path in paths if find in path or find.casefold() in path.casefold()]
     return paths

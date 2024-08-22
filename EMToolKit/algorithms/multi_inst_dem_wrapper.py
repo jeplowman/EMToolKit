@@ -22,7 +22,7 @@ from sunpy.visualization.colormaps.color_tables import aia_color_table, xrt_colo
 from astropy.nddata import StdDevUncertainty
 from EMToolKit.algorithms.simple_reg_dem_wrapper import autoloading_simple_reg_dem_wrapper
 
-def multi_inst_simple_dem_wrapper(datasequence, wrapargs={}, doPlot=False, dat_dir=".data/default", recalc_simple=False):
+def multi_inst_simple_dem_wrapper(datasequence, wrapargs={}, doPlot=False, dat_dir="../.data/default", recalc_simple=False):
     """
     Perform simple DEM analysis using multiple instruments.
 

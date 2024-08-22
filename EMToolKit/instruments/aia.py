@@ -3,6 +3,13 @@ from sunpy.map import Map
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
+import os
+import numpy as np
+import astropy.units as u
+from sunpy.net import Fido, attrs as a
+from sunpy.time import TimeRange
+from astropy.time import Time
+from EMToolKit.util import list_fits_files
 
 AIA_TEMPERATURE_RESPONSE_TABLE = np.array([
 		[7.40163203e-29, 1.46072515e-26, 5.34888608e-26, 8.50682605e-26, 2.03073186e-26, 3.35720499e-27],
@@ -54,57 +61,140 @@ AIA_TEMPERATURES = np.array([5.5 , 5.55, 5.6 , 5.65, 5.7 , 5.75, 5.8 , 5.85, 5.9
 					7.05, 7.1 , 7.15, 7.2 , 7.25, 7.3 , 7.35, 7.4 , 7.45, 7.5 ])
 
 
-# Load AIA data from a set of paths and return the appropriate
-# arguments for use in an EMToolKit DataSequence -- a list
-# of SunPy maps, corresponding errors, the log temperature
-# axes for the temperature response functions and the temperature
-# response functions themselves:
-def load_from_paths(paths,xl=None,yl=None,dx=None,dy=None,refindex=0):
-	refmap = Map(paths[refindex])#.rotate(order=3)
-	refmap = Map(paths[refindex])#.rotate(order=3)
-	nocrop = (xl is None or yl is None or dx is None or dy is None)
-	if(nocrop == False):
-		blc=SkyCoord(xl,yl,frame=refmap.coordinate_frame)
-		trc=SkyCoord(xl+dx,yl+dy,frame=refmap.coordinate_frame)
+def download_sdo_data(base_path, date, redownload=False):
+    """
+    Downloads SDO data for a specified date, or retrieves it from disk if already available.
 
-	maps=[]
-	for i in range(0,len(paths)):
-		maps.append(Map(paths[i]))#.rotate(order=3))
-		if(nocrop==False): maps[i] = maps[i].submap(blc,top_right=trc)
-	return maps
+    Args:
+        base_path (str): The base directory where data should be stored.
+        date (str): The date for which to download SDO data.
+        redownload (bool, optional): If True, forces a re-download of the data even if it exists on disk. Defaults to False.
 
-# Given a set up AIA SunPy Maps, return the appropriate arguments for use
-# as an EMToolKit data sequence -- the selection of maps appropriate for
-# DEMs (EUV not including 304), corresponding errors, temperature response
-# functions and corresponding (log) temperature arrays
+    Returns:
+        tuple: A tuple containing the paths to the downloaded data files and the directory where they are stored.
+    """
+    folder_name = date.replace("/", "_").replace(" ", "_").replace(":", "_")
+    sdo_data_dir = os.path.join(base_path, ".data", folder_name)  # Place to put data files.
+
+    if not os.path.exists(sdo_data_dir):
+        os.makedirs(sdo_data_dir)
+
+    paths = list_fits_files(sdo_data_dir, 'aia')
+    print(f"Found {len(paths)} AIA images on disk.")
+
+    if len(paths) < 6 or redownload:
+        print(f"Searching for images from {date}...")
+        passbands = np.array([94, 131, 171, 193, 211, 335]) * u.angstrom
+
+        # Combine the wavelength queries using the | operator
+        wavelength_query = a.Wavelength(passbands[0])
+        for band in passbands[1:]:
+            wavelength_query |= a.Wavelength(band)
+
+        qry = Fido.search(a.Time(TimeRange(date, 11.5 * u.s)), a.Instrument('AIA'), wavelength_query)
+
+        print("Downloading images...")
+        Fido.fetch(qry, path=sdo_data_dir, max_conn=len(passbands) + 3)
+
+    paths = list_fits_files(sdo_data_dir, "aia")
+
+    return paths, sdo_data_dir
+
+
+def load_from_paths(paths, xl=None, yl=None, dx=None, dy=None, refindex=0):
+    """
+    Loads AIA data from a set of file paths and returns the necessary arguments
+    for use in an EMToolKit DataSequence. This includes a list of SunPy maps,
+    corresponding errors, the logarithmic temperature axes for the temperature
+    response functions, and the temperature response functions themselves.
+
+    Args:
+        paths (list): List of file paths to AIA data.
+        xl (float, optional): X-coordinate of the lower left corner for cropping. Defaults to None.
+        yl (float, optional): Y-coordinate of the lower left corner for cropping. Defaults to None.
+        dx (float, optional): Width of the region to crop. Defaults to None.
+        dy (float, optional): Height of the region to crop. Defaults to None.
+        refindex (int, optional): Index of the reference map in the paths list. Defaults to 0.
+
+    Returns:
+        list: A list of SunPy maps after optional cropping.
+    """
+    refmap = Map(paths[refindex])
+    nocrop = (xl is None or yl is None or dx is None or dy is None)
+    if not nocrop:
+        blc = SkyCoord(xl, yl, frame=refmap.coordinate_frame)
+        trc = SkyCoord(xl + dx, yl + dy, frame=refmap.coordinate_frame)
+
+    maps = []
+    for i in range(len(paths)):
+        maps.append(Map(paths[i]))
+        if not nocrop:
+            maps[i] = maps[i].submap(blc, top_right=trc)
+    return maps
+
+
 def aia_wrapper(maps_in, temperature_array=None):
-	[maps,logts,tresps,errs] = [[],[],[],[]]
-	for i in range(0,len(maps_in)):
-		current_map = copy.deepcopy(maps_in[i])#.rotate(order=3)
-		if(not('detector' in current_map.meta)): current_map.meta['detector'] = 'AIA'
-		[logt,tresp] = aia_temperature_response(current_map, temperature_array)
-		if(len(tresp) == len(logt)):
-			maps.append(current_map)
-			errs.append(StdDevUncertainty(estimate_aia_error(current_map)))
-			logts.append(logt)
-			tresps.append(tresp)
-	return maps,errs,logts,tresps
+    """
+    Processes a set of AIA SunPy maps and returns the necessary arguments for
+    use in an EMToolKit DataSequence. This includes selecting maps appropriate
+    for DEMs (excluding 304 Å), computing corresponding errors, and retrieving
+    temperature response functions and logarithmic temperature arrays.
 
-# These are placeholder methods pending temperature response functions
-# being added to AIApy. error estimates are included for the initial
-# version as well, although I believe they're already in the initial version
+    Args:
+        maps_in (list): A list of input AIA SunPy maps.
+        temperature_array (array-like, optional): An array of temperatures for calculating
+        the temperature response functions. Defaults to None.
+
+    Returns:
+        tuple: A tuple containing the processed maps, their uncertainties,
+        logarithmic temperature values, and temperature response functions.
+    """
+    maps, logts, tresps, errs = [], [], [], []
+    for i in range(len(maps_in)):
+        current_map = copy.deepcopy(maps_in[i])
+        if 'detector' not in current_map.meta:
+            current_map.meta['detector'] = 'AIA'
+        logt, tresp = aia_temperature_response(current_map, temperature_array)
+        if len(tresp) == len(logt):
+            maps.append(current_map)
+            errs.append(StdDevUncertainty(estimate_aia_error(current_map)))
+            logts.append(logt)
+            tresps.append(tresp)
+    return maps, errs, logts, tresps
+
+
 def estimate_aia_error(map_in):
-	channel = map_in.meta['detector']+map_in.meta['wave_str']
-	refchannels=np.array(['AIA94_THIN', 'AIA131_THIN', 'AIA171_THIN', 'AIA193_THIN', 'AIA211_THIN', 'AIA304_THIN', 'AIA335_THIN'])
-	refg = np.array([2.128,1.523,1.168,1.024,0.946,0.658,0.596])
-	refn = np.array([1.14,1.18,1.15,1.2,1.2,1.14,1.18])
-	sigmas = np.zeros(map_in.data.shape)
-	dnpp = refg[np.where(refchannels == channel)]
-	rdn = refn[np.where(refchannels == channel)]
-	return np.sqrt(np.clip(map_in.data*dnpp,0.0,None) + rdn**2)
+    """
+    Estimates the error in AIA data based on the detector and wavelength channel.
+
+    Args:
+        map_in (sunpy.map.Map): The input AIA map.
+
+    Returns:
+        numpy.ndarray: An array representing the estimated error for each pixel in the map.
+    """
+    channel = map_in.meta['detector'] + map_in.meta['wave_str']
+    refchannels = np.array(['AIA94_THIN', 'AIA131_THIN', 'AIA171_THIN', 'AIA193_THIN', 'AIA211_THIN', 'AIA304_THIN', 'AIA335_THIN'])
+    refg = np.array([2.128, 1.523, 1.168, 1.024, 0.946, 0.658, 0.596])
+    refn = np.array([1.14, 1.18, 1.15, 1.2, 1.2, 1.14, 1.18])
+    sigmas = np.zeros(map_in.data.shape)
+    dnpp = refg[np.where(refchannels == channel)]
+    rdn = refn[np.where(refchannels == channel)]
+    return np.sqrt(np.clip(map_in.data * dnpp, 0.0, None) + rdn ** 2)
 
 
 def aia_temperature_response(map_in, temperature_array):
+    """
+    Computes the temperature response function for a given AIA map and a specified temperature array.
+
+    Args:
+        map_in (sunpy.map.Map): The input AIA map.
+        temperature_array (array-like): An array of temperatures for calculating the response.
+
+    Returns:
+        tuple: A tuple containing the logarithmic temperature values and the corresponding
+        temperature response function.
+    """
     channel = map_in.meta['detector'] + map_in.meta['wave_str']
     refchannels = np.array(['AIA94_THIN', 'AIA131_THIN', 'AIA171_THIN', 'AIA193_THIN', 'AIA211_THIN', 'AIA335_THIN'])
 
@@ -116,6 +206,16 @@ def aia_temperature_response(map_in, temperature_array):
 
 
 def interpolate_table(table, temperature_array):
+    """
+    Interpolates a given temperature response table to match a specified temperature array.
+
+    Args:
+        table (numpy.ndarray): The input temperature response table.
+        temperature_array (array-like): The array of temperatures for interpolation.
+
+    Returns:
+        tuple: A tuple containing the new logarithmic temperature values and the interpolated table.
+    """
     logt = np.linspace(5.5, 7.5, num=len(table))
     new_logt = temperature_array
 
@@ -127,46 +227,3 @@ def interpolate_table(table, temperature_array):
     return new_logt, interpolated_table
 
 
-import os
-import numpy as np
-import astropy.units as u
-from sunpy.net import Fido, attrs as a
-from sunpy.time import TimeRange
-from astropy.time import Time
-from EMToolKit.util import list_fits_files
-
-
-def download_sdo_data(base_path, date, redownload=False):
-	folder_name = date.replace("/", "_").replace(" ", "_").replace(":", "_")
-	sdo_data_dir = os.path.join(base_path, "data", folder_name)  # Place to put data files. You'll need to change it or create these subdirectories
-
-	if not os.path.exists(sdo_data_dir):
-		os.makedirs(sdo_data_dir)
-
-	paths = list_fits_files(sdo_data_dir, 'aia')
-	print(f"Found {len(paths)} aia images on disk.")
-
-
-	if len(paths) < 6 or redownload:
-		print(f"Searching for images from {date}...")
-		passbands = np.array([94, 131, 171, 193, 211, 335]) * u.angstrom
-
-		# Combine the wavelength queries using the | operator
-		wavelength_query = a.Wavelength(passbands[0])
-		for band in passbands[1:]:
-			wavelength_query |= a.Wavelength(band)
-
-		qry = Fido.search(a.Time(TimeRange(date, 11.5 * u.s)), a.Instrument('AIA'), wavelength_query)
-
-		print("Downloading images...")
-		Fido.fetch(qry, path=sdo_data_dir, max_conn=len(passbands) + 3)
-
-	paths = list_fits_files(sdo_data_dir, "aia")
-
-
-	return paths, sdo_data_dir
-
-# Example usage:
-# base_path = "/your/base/path/"
-# date = '2012/07/11 18:54:00'
-# download_sdo_data(base_path, date, redownload=True)  # Set redownload to True to force download
