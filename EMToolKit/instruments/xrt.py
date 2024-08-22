@@ -3,14 +3,36 @@ from sunpy.map import Map
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
-
-# The code here is only a prototype/placeholder!
+import xrtpy
+import matplotlib.pyplot as plt
+import os
+import numpy as np
+import astropy.units as u
+from sunpy.net import Fido, attrs as a
+from sunpy.time import TimeRange
+from astropy.time import Time
+from EMToolKit.util import list_fits_files
 
 # Given a set of XRT SunPy Maps, return the appropriate arguments for use
 # as an EMToolKit data sequence -- the selection of maps appropriate for
 # DEMs, corresponding errors, temperature response
 # functions and corresponding (log) temperature arrays
 def xrt_wrapper(maps_in, temperature_array):
+	"""
+	Processes a list of XRT maps and computes their temperature responses.
+	This function returns the modified maps along with their associated uncertainties and temperature response data.
+
+	Args:
+		maps_in (list): A list of input maps to be processed.
+		temperature_array (array-like): An array of temperatures used for calculating the temperature response.
+
+	Returns:
+		tuple: A tuple containing the processed maps, their uncertainties, logarithmic temperature values, and temperature responses.
+
+	Raises:
+		ValueError: If the input maps are not compatible with the temperature array.
+	"""
+
 	[maps,logts,tresps,errs] = [[],[],[],[]]
 	for i in range(0,len(maps_in)):
 		current_map = copy.deepcopy(maps_in[i])#.rotate(order=3)
@@ -31,25 +53,39 @@ def estimate_xrt_error(map_in):
 	return ((np.abs(map_in.data.astype(np.float32))*25 + 25**2)**0.5)
 
 
-
-
-
 def xrt_temperature_response(map_in, temperature_array):
-	import xrtpy
-	import matplotlib.pyplot as plt
-	import numpy as np
+	"""
+	This Python function calculates the temperature response for a given filter channel using xrtpy
+	library and plots the response curve.
+
+	Args:
+		map_in: `map_in` is likely a variable representing some input data or a map used in the function
+		`xrt_temperature_response`. It seems to have a `meta` attribute that contains keys like `'ec_fw1_'`
+		and `'ec_fw2_'`. These keys are used to construct the `channel
+		temperature_array: The `temperature_array` parameter in the `xrt_temperature_response` function is
+		an array that contains the temperature values for which you want to calculate the temperature
+		response. This array will be used as input to interpolate the temperature response values obtained
+		from the `Temperature_Response_Fundamental` object.
+
+	Returns:
+		The function `xrt_temperature_response` returns two arrays `logt` and `tresp`, which represent the
+	logarithm of CHIANTI temperature values and the corresponding temperature response values,
+	respectively.
+	"""
+
 	# The real temperature response functions are found here:
 	# https://xrtpy.readthedocs.io/en/stable/notebooks/computing_functions/temperature_response.html
 
-	# Available channels: "Al-mesh", "Al-poly", "C-poly", "Ti-poly", "Be-thin", "Be-med", "Al-med", "Al-thick", "Be-thick" , "Al-poly/Al-mesh", "Al-poly/Ti-poly", "Al-poly/Al-thick", "Al-poly/Be-thick" , "C-poly/Ti-poly"
+	# Available channels: "Al-mesh", "Al-poly", "C-poly", "Ti-poly", "Be-thin", "Be-med", "Al-med", "Al-thick",
+ 	# "Be-thick" , "Al-poly/Al-mesh", "Al-poly/Ti-poly", "Al-poly/Al-thick", "Al-poly/Be-thick" , "C-poly/Ti-poly"
 
 	channel = map_in.meta['ec_fw1_']+'/'+map_in.meta['ec_fw2_']
 	channel = channel.replace("Open/", "")
 	print("MAP FILTER IS : ", channel)
-	filter = channel
+	filt = channel
 	date_time = "2007-09-22T21:59:59"
 	Temperature_Response_Fundamental = xrtpy.response.TemperatureResponseFundamental(
-		filter, date_time, abundance_model="Photospheric"
+		filt, date_time, abundance_model="Photospheric"
 	)
 	temperature_response = Temperature_Response_Fundamental.temperature_response()
 	CHIANTI_temperature = Temperature_Response_Fundamental.CHIANTI_temperature
@@ -62,55 +98,23 @@ def xrt_temperature_response(map_in, temperature_array):
 	return logt, tresp
 
 
-def xrt_temperature_response_old(map_in, step_size=0.2):
-	import xrtpy
-	import matplotlib.pyplot as plt
-	import numpy as np
-	# The real temperature response functions are found here:
-	# https://xrtpy.readthedocs.io/en/stable/notebooks/computing_functions/temperature_response.html
-
-	channel = map_in.meta['ec_fw1_']+'_'+map_in.meta['ec_fw2_']
-	refchannels = np.array(['Open_Ti_poly'])
-
-	logt_table = np.array([5.5, 6.0, 6.2, 6.4, 6.5, 6.6, 6.8, 6.95, 7.1, 7.2, 7.35, 7.5])
-	# This preliminary temperature response for the XRT open/Ti-poly channel is from visually reading off
-	# The figure at http://solar.physics.montana.edu/takeda/xrt_response/comp_xre2_Tipol.png
-	tresp_table = np.array([[0.0], [0.5], [1.0], [2.0], [4.0], [6.0], [15.], [16.5], [15.], [7.0], [4.5], [3.5]])*1.0e-26
-
-	logt, tresp = interpolate_table(logt_table, tresp_table, step_size)
-	resp_out = tresp[:,np.where(refchannels == channel)].flatten()
-
-	plt.plot(logt, resp_out, 'r')
-	plt.show()
-
-	print(len(logt), len(resp_out))
-	print(type(logt), type(resp_out))
-	return logt, resp_out
-
-
 def interp1d_logt(logt, tresp, temperature_array):
+	"""
+	Interpolates the temperature response values for a given set of logarithmic temperature values.
+	This function maps the temperature response to the specified temperature array using linear interpolation.
+
+	Args:
+		logt (array-like): An array of logarithmic temperature values.
+		tresp (array-like): An array of temperature response values corresponding to the logarithmic temperatures.
+		temperature_array (array-like): The array of temperatures for which the response is to be interpolated.
+
+	Returns:
+		tuple: A tuple containing the input temperature array and the interpolated temperature response values.
+	"""
+
 	new_tresp = np.interp(temperature_array, logt, tresp)
 	return temperature_array, new_tresp
 
-
-def interpolate_table(logt, table, step_size):
-    new_logt = np.arange(np.min(logt), np.max(logt) + step_size, step_size)
-
-    interpolated_table = np.zeros((len(new_logt), table.shape[1]))
-
-    for i in range(table.shape[1]):
-        interpolated_table[:, i] = np.interp(new_logt, logt, table[:, i])
-
-    return new_logt, interpolated_table
-
-
-import os
-import numpy as np
-import astropy.units as u
-from sunpy.net import Fido, attrs as a
-from sunpy.time import TimeRange
-from astropy.time import Time
-from EMToolKit.util import list_fits_files
 
 
 def download_xrt_data(base_path, date, redownload=False):

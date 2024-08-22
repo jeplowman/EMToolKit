@@ -18,5 +18,17 @@
         "titleBar.inactiveBackground": "#96857899",
         "titleBar.inactiveForeground": "#15202b99"
     },
-    "peacock.color": "#968578"
+    "peacock.color": "#968578",
+    "docwriter.style": "Google",
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "docstring.heading",
+                "settings": {
+                    "foreground": "#9365ff", // Dark gray color
+                    "fontStyle": "bold" // Optional: keeps the text bold
+                }
+            }
+        ]
+    }
 }
