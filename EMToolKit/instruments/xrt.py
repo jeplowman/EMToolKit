@@ -132,9 +132,9 @@ def download_xrt_data(base_path, date, redownload=False):
 		try:
 			print(f"Searching for XRT images from {date}...")
 			qry = Fido.search(a.Time(TimeRange(date, 4 * u.s)), a.Instrument('XRT'))
-			print(f"Downloading XRT images...")
+			print("Downloading XRT images...")
 			Fido.fetch(qry, path=xrt_data_dir, max_conn=3)
 		except ConnectionError:
-			print(f"No internet connection, continuing without xrt")
+			print("No internet connection, continuing without xrt")
 		paths = list_fits_files(xrt_data_dir, 'xrt')
 	return paths, xrt_data_dir
