@@ -59,18 +59,15 @@ def xrt_temperature_response(map_in, temperature_array):
 	library and plots the response curve.
 
 	Args:
-		map_in: `map_in` is likely a variable representing some input data or a map used in the function
-		`xrt_temperature_response`. It seems to have a `meta` attribute that contains keys like `'ec_fw1_'`
-		and `'ec_fw2_'`. These keys are used to construct the `channel
+		map_in: The sunpy map to get the channel information from
 		temperature_array: The `temperature_array` parameter in the `xrt_temperature_response` function is
 		an array that contains the temperature values for which you want to calculate the temperature
 		response. This array will be used as input to interpolate the temperature response values obtained
 		from the `Temperature_Response_Fundamental` object.
 
 	Returns:
-		The function `xrt_temperature_response` returns two arrays `logt` and `tresp`, which represent the
-	logarithm of CHIANTI temperature values and the corresponding temperature response values,
-	respectively.
+		logt: the logarithm of CHIANTI temperature values
+  		tresp: the corresponding temperature response values
 	"""
 
 	# The real temperature response functions are found here:

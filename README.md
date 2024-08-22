@@ -11,11 +11,12 @@ Welcome to the [EMToolKit](https://github.com/jeplowman/EMToolKit) repository, a
 To use EMToolKit effectively, you will need to set up a python environment with specific dependencies and configurations. For now, please refer to the [Development Guide](develop.md) for detailed instructions on how to install and configure the necessary tools and libraries.
 
 ### Documentation
+To get started right away, check out the [Example Notebooks](docs/build/html/examples/GALLERY_HEADER.html)
 
-Once EMToolKit is installed, check out the
-
+We also have
 - **Official Documentation**: [ReadTheDocs](https://emtoolkit.readthedocs.io/en/latest/?badge=latest)
 or the  **Documentation Mirror**: [GitHub Pages](https://jeplowman.github.io/EMToolKit/)
+
 
 ## Contributing
 

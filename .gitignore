@@ -5,7 +5,7 @@ EMToolKit/visualization/dashboard_gpt.py
 EMToolKit.egg-info
 .data
 data
-.vscode
+.vscode/
 # *.rst
 # !index.rst
 # !GALLERY_HEADER.rst
