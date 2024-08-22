@@ -107,6 +107,13 @@
 <span class="kn">from</span> <span class="nn">ndcube</span> <span class="kn">import</span> <span class="n">NDCube</span><span class="p">,</span> <span class="n">NDCubeSequence</span><span class="p">,</span> <span class="n">NDCollection</span>
 <span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
 <span class="kn">from</span> <span class="nn">astropy.nddata</span> <span class="kn">import</span> <span class="n">StdDevUncertainty</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">from</span> <span class="nn">sunpy.net</span> <span class="kn">import</span> <span class="n">Fido</span><span class="p">,</span> <span class="n">attrs</span> <span class="k">as</span> <span class="n">a</span>
+<span class="kn">from</span> <span class="nn">sunpy.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+<span class="kn">from</span> <span class="nn">astropy.time</span> <span class="kn">import</span> <span class="n">Time</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.util</span> <span class="kn">import</span> <span class="n">list_fits_files</span>
 
 <span class="n">AIA_TEMPERATURE_RESPONSE_TABLE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
 		<span class="p">[</span><span class="mf">7.40163203e-29</span><span class="p">,</span> <span class="mf">1.46072515e-26</span><span class="p">,</span> <span class="mf">5.34888608e-26</span><span class="p">,</span> <span class="mf">8.50682605e-26</span><span class="p">,</span> <span class="mf">2.03073186e-26</span><span class="p">,</span> <span class="mf">3.35720499e-27</span><span class="p">],</span>
@@ -158,68 +165,154 @@
 					<span class="mf">7.05</span><span class="p">,</span> <span class="mf">7.1</span> <span class="p">,</span> <span class="mf">7.15</span><span class="p">,</span> <span class="mf">7.2</span> <span class="p">,</span> <span class="mf">7.25</span><span class="p">,</span> <span class="mf">7.3</span> <span class="p">,</span> <span class="mf">7.35</span><span class="p">,</span> <span class="mf">7.4</span> <span class="p">,</span> <span class="mf">7.45</span><span class="p">,</span> <span class="mf">7.5</span> <span class="p">])</span>
 
 
-<span class="c1"># Load AIA data from a set of paths and return the appropriate</span>
-<span class="c1"># arguments for use in an EMToolKit DataSequence -- a list</span>
-<span class="c1"># of SunPy maps, corresponding errors, the log temperature</span>
-<span class="c1"># axes for the temperature response functions and the temperature</span>
-<span class="c1"># response functions themselves:</span>
+<div class="viewcode-block" id="download_sdo_data">
+<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.download_sdo_data">[docs]</a>
+<span class="k">def</span> <span class="nf">download_sdo_data</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">redownload</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Downloads SDO data for a specified date, or retrieves it from disk if already available.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        base_path (str): The base directory where data should be stored.</span>
+<span class="sd">        date (str): The date for which to download SDO data.</span>
+<span class="sd">        redownload (bool, optional): If True, forces a re-download of the data even if it exists on disk. Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: A tuple containing the paths to the downloaded data files and the directory where they are stored.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">folder_name</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+    <span class="n">sdo_data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;.data&quot;</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">)</span>  <span class="c1"># Place to put data files.</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">)</span>
+
+    <span class="n">paths</span> <span class="o">=</span> <span class="n">list_fits_files</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">,</span> <span class="s1">&#39;aia&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span><span class="si">}</span><span class="s2"> AIA images on disk.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">6</span> <span class="ow">or</span> <span class="n">redownload</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching for images from </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="n">passbands</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">94</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="mi">193</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span> <span class="mi">335</span><span class="p">])</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">angstrom</span>
+
+        <span class="c1"># Combine the wavelength queries using the | operator</span>
+        <span class="n">wavelength_query</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">Wavelength</span><span class="p">(</span><span class="n">passbands</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">passbands</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">wavelength_query</span> <span class="o">|=</span> <span class="n">a</span><span class="o">.</span><span class="n">Wavelength</span><span class="p">(</span><span class="n">band</span><span class="p">)</span>
+
+        <span class="n">qry</span> <span class="o">=</span> <span class="n">Fido</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">TimeRange</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="mf">11.5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)),</span> <span class="n">a</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s1">&#39;AIA&#39;</span><span class="p">),</span> <span class="n">wavelength_query</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloading images...&quot;</span><span class="p">)</span>
+        <span class="n">Fido</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">qry</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">sdo_data_dir</span><span class="p">,</span> <span class="n">max_conn</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">passbands</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="n">paths</span> <span class="o">=</span> <span class="n">list_fits_files</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">,</span> <span class="s2">&quot;aia&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">paths</span><span class="p">,</span> <span class="n">sdo_data_dir</span></div>
+
+
+
 <div class="viewcode-block" id="load_from_paths">
 <a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.load_from_paths">[docs]</a>
-<span class="k">def</span> <span class="nf">load_from_paths</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span><span class="n">xl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">yl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">dx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">dy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">refindex</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-	<span class="n">refmap</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="n">refindex</span><span class="p">])</span><span class="c1">#.rotate(order=3)</span>
-	<span class="n">refmap</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="n">refindex</span><span class="p">])</span><span class="c1">#.rotate(order=3)</span>
-	<span class="n">nocrop</span> <span class="o">=</span> <span class="p">(</span><span class="n">xl</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">yl</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
-	<span class="k">if</span><span class="p">(</span><span class="n">nocrop</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
-		<span class="n">blc</span><span class="o">=</span><span class="n">SkyCoord</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span><span class="n">yl</span><span class="p">,</span><span class="n">frame</span><span class="o">=</span><span class="n">refmap</span><span class="o">.</span><span class="n">coordinate_frame</span><span class="p">)</span>
-		<span class="n">trc</span><span class="o">=</span><span class="n">SkyCoord</span><span class="p">(</span><span class="n">xl</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span><span class="n">yl</span><span class="o">+</span><span class="n">dy</span><span class="p">,</span><span class="n">frame</span><span class="o">=</span><span class="n">refmap</span><span class="o">.</span><span class="n">coordinate_frame</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">load_from_paths</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">xl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refindex</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads AIA data from a set of file paths and returns the necessary arguments</span>
+<span class="sd">    for use in an EMToolKit DataSequence. This includes a list of SunPy maps,</span>
+<span class="sd">    corresponding errors, the logarithmic temperature axes for the temperature</span>
+<span class="sd">    response functions, and the temperature response functions themselves.</span>
 
-	<span class="n">maps</span><span class="o">=</span><span class="p">[]</span>
-	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)):</span>
-		<span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Map</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span><span class="c1">#.rotate(order=3))</span>
-		<span class="k">if</span><span class="p">(</span><span class="n">nocrop</span><span class="o">==</span><span class="kc">False</span><span class="p">):</span> <span class="n">maps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">maps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">submap</span><span class="p">(</span><span class="n">blc</span><span class="p">,</span><span class="n">top_right</span><span class="o">=</span><span class="n">trc</span><span class="p">)</span>
-	<span class="k">return</span> <span class="n">maps</span></div>
+<span class="sd">    Args:</span>
+<span class="sd">        paths (list): List of file paths to AIA data.</span>
+<span class="sd">        xl (float, optional): X-coordinate of the lower left corner for cropping. Defaults to None.</span>
+<span class="sd">        yl (float, optional): Y-coordinate of the lower left corner for cropping. Defaults to None.</span>
+<span class="sd">        dx (float, optional): Width of the region to crop. Defaults to None.</span>
+<span class="sd">        dy (float, optional): Height of the region to crop. Defaults to None.</span>
+<span class="sd">        refindex (int, optional): Index of the reference map in the paths list. Defaults to 0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A list of SunPy maps after optional cropping.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">refmap</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="n">refindex</span><span class="p">])</span>
+    <span class="n">nocrop</span> <span class="o">=</span> <span class="p">(</span><span class="n">xl</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">yl</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">nocrop</span><span class="p">:</span>
+        <span class="n">blc</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">yl</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">refmap</span><span class="o">.</span><span class="n">coordinate_frame</span><span class="p">)</span>
+        <span class="n">trc</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">xl</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">yl</span> <span class="o">+</span> <span class="n">dy</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">refmap</span><span class="o">.</span><span class="n">coordinate_frame</span><span class="p">)</span>
+
+    <span class="n">maps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)):</span>
+        <span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Map</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">nocrop</span><span class="p">:</span>
+            <span class="n">maps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">maps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">submap</span><span class="p">(</span><span class="n">blc</span><span class="p">,</span> <span class="n">top_right</span><span class="o">=</span><span class="n">trc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">maps</span></div>
 
 
-<span class="c1"># Given a set up AIA SunPy Maps, return the appropriate arguments for use</span>
-<span class="c1"># as an EMToolKit data sequence -- the selection of maps appropriate for</span>
-<span class="c1"># DEMs (EUV not including 304), corresponding errors, temperature response</span>
-<span class="c1"># functions and corresponding (log) temperature arrays</span>
+
 <div class="viewcode-block" id="aia_wrapper">
 <a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.aia_wrapper">[docs]</a>
 <span class="k">def</span> <span class="nf">aia_wrapper</span><span class="p">(</span><span class="n">maps_in</span><span class="p">,</span> <span class="n">temperature_array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-	<span class="p">[</span><span class="n">maps</span><span class="p">,</span><span class="n">logts</span><span class="p">,</span><span class="n">tresps</span><span class="p">,</span><span class="n">errs</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[],[],[]]</span>
-	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">maps_in</span><span class="p">)):</span>
-		<span class="n">current_map</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">maps_in</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="c1">#.rotate(order=3)</span>
-		<span class="k">if</span><span class="p">(</span><span class="ow">not</span><span class="p">(</span><span class="s1">&#39;detector&#39;</span> <span class="ow">in</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">)):</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;AIA&#39;</span>
-		<span class="p">[</span><span class="n">logt</span><span class="p">,</span><span class="n">tresp</span><span class="p">]</span> <span class="o">=</span> <span class="n">aia_temperature_response</span><span class="p">(</span><span class="n">current_map</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">)</span>
-		<span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tresp</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">)):</span>
-			<span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_map</span><span class="p">)</span>
-			<span class="n">errs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">estimate_aia_error</span><span class="p">(</span><span class="n">current_map</span><span class="p">)))</span>
-			<span class="n">logts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logt</span><span class="p">)</span>
-			<span class="n">tresps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tresp</span><span class="p">)</span>
-	<span class="k">return</span> <span class="n">maps</span><span class="p">,</span><span class="n">errs</span><span class="p">,</span><span class="n">logts</span><span class="p">,</span><span class="n">tresps</span></div>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Processes a set of AIA SunPy maps and returns the necessary arguments for</span>
+<span class="sd">    use in an EMToolKit DataSequence. This includes selecting maps appropriate</span>
+<span class="sd">    for DEMs (excluding 304 Å), computing corresponding errors, and retrieving</span>
+<span class="sd">    temperature response functions and logarithmic temperature arrays.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        maps_in (list): A list of input AIA SunPy maps.</span>
+<span class="sd">        temperature_array (array-like, optional): An array of temperatures for calculating</span>
+<span class="sd">        the temperature response functions. Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: A tuple containing the processed maps, their uncertainties,</span>
+<span class="sd">        logarithmic temperature values, and temperature response functions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">maps</span><span class="p">,</span> <span class="n">logts</span><span class="p">,</span> <span class="n">tresps</span><span class="p">,</span> <span class="n">errs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">maps_in</span><span class="p">)):</span>
+        <span class="n">current_map</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">maps_in</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="s1">&#39;detector&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">:</span>
+            <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;AIA&#39;</span>
+        <span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span> <span class="o">=</span> <span class="n">aia_temperature_response</span><span class="p">(</span><span class="n">current_map</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tresp</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">):</span>
+            <span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_map</span><span class="p">)</span>
+            <span class="n">errs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">estimate_aia_error</span><span class="p">(</span><span class="n">current_map</span><span class="p">)))</span>
+            <span class="n">logts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logt</span><span class="p">)</span>
+            <span class="n">tresps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tresp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">maps</span><span class="p">,</span> <span class="n">errs</span><span class="p">,</span> <span class="n">logts</span><span class="p">,</span> <span class="n">tresps</span></div>
 
 
-<span class="c1"># These are placeholder methods pending temperature response functions</span>
-<span class="c1"># being added to AIApy. error estimates are included for the initial</span>
-<span class="c1"># version as well, although I believe they&#39;re already in the initial version</span>
+
 <div class="viewcode-block" id="estimate_aia_error">
 <a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.estimate_aia_error">[docs]</a>
 <span class="k">def</span> <span class="nf">estimate_aia_error</span><span class="p">(</span><span class="n">map_in</span><span class="p">):</span>
-	<span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;wave_str&#39;</span><span class="p">]</span>
-	<span class="n">refchannels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;AIA94_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA131_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA171_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA193_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA211_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA304_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA335_THIN&#39;</span><span class="p">])</span>
-	<span class="n">refg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.128</span><span class="p">,</span><span class="mf">1.523</span><span class="p">,</span><span class="mf">1.168</span><span class="p">,</span><span class="mf">1.024</span><span class="p">,</span><span class="mf">0.946</span><span class="p">,</span><span class="mf">0.658</span><span class="p">,</span><span class="mf">0.596</span><span class="p">])</span>
-	<span class="n">refn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.14</span><span class="p">,</span><span class="mf">1.18</span><span class="p">,</span><span class="mf">1.15</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.14</span><span class="p">,</span><span class="mf">1.18</span><span class="p">])</span>
-	<span class="n">sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">map_in</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-	<span class="n">dnpp</span> <span class="o">=</span> <span class="n">refg</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">refchannels</span> <span class="o">==</span> <span class="n">channel</span><span class="p">)]</span>
-	<span class="n">rdn</span> <span class="o">=</span> <span class="n">refn</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">refchannels</span> <span class="o">==</span> <span class="n">channel</span><span class="p">)]</span>
-	<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">map_in</span><span class="o">.</span><span class="n">data</span><span class="o">*</span><span class="n">dnpp</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="n">rdn</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Estimates the error in AIA data based on the detector and wavelength channel.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        map_in (sunpy.map.Map): The input AIA map.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: An array representing the estimated error for each pixel in the map.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;wave_str&#39;</span><span class="p">]</span>
+    <span class="n">refchannels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;AIA94_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA131_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA171_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA193_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA211_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA304_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA335_THIN&#39;</span><span class="p">])</span>
+    <span class="n">refg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.128</span><span class="p">,</span> <span class="mf">1.523</span><span class="p">,</span> <span class="mf">1.168</span><span class="p">,</span> <span class="mf">1.024</span><span class="p">,</span> <span class="mf">0.946</span><span class="p">,</span> <span class="mf">0.658</span><span class="p">,</span> <span class="mf">0.596</span><span class="p">])</span>
+    <span class="n">refn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.14</span><span class="p">,</span> <span class="mf">1.18</span><span class="p">,</span> <span class="mf">1.15</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.14</span><span class="p">,</span> <span class="mf">1.18</span><span class="p">])</span>
+    <span class="n">sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">map_in</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">dnpp</span> <span class="o">=</span> <span class="n">refg</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">refchannels</span> <span class="o">==</span> <span class="n">channel</span><span class="p">)]</span>
+    <span class="n">rdn</span> <span class="o">=</span> <span class="n">refn</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">refchannels</span> <span class="o">==</span> <span class="n">channel</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">map_in</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">dnpp</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="n">rdn</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="aia_temperature_response">
 <a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.aia_temperature_response">[docs]</a>
 <span class="k">def</span> <span class="nf">aia_temperature_response</span><span class="p">(</span><span class="n">map_in</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the temperature response function for a given AIA map and a specified temperature array.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        map_in (sunpy.map.Map): The input AIA map.</span>
+<span class="sd">        temperature_array (array-like): An array of temperatures for calculating the response.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: A tuple containing the logarithmic temperature values and the corresponding</span>
+<span class="sd">        temperature response function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;wave_str&#39;</span><span class="p">]</span>
     <span class="n">refchannels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;AIA94_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA131_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA171_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA193_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA211_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA335_THIN&#39;</span><span class="p">])</span>
 
@@ -234,6 +327,16 @@
 <div class="viewcode-block" id="interpolate_table">
 <a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.interpolate_table">[docs]</a>
 <span class="k">def</span> <span class="nf">interpolate_table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interpolates a given temperature response table to match a specified temperature array.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        table (numpy.ndarray): The input temperature response table.</span>
+<span class="sd">        temperature_array (array-like): The array of temperatures for interpolation.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: A tuple containing the new logarithmic temperature values and the interpolated table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="p">))</span>
     <span class="n">new_logt</span> <span class="o">=</span> <span class="n">temperature_array</span>
 
@@ -246,52 +349,6 @@
 
 
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
-<span class="kn">from</span> <span class="nn">sunpy.net</span> <span class="kn">import</span> <span class="n">Fido</span><span class="p">,</span> <span class="n">attrs</span> <span class="k">as</span> <span class="n">a</span>
-<span class="kn">from</span> <span class="nn">sunpy.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
-<span class="kn">from</span> <span class="nn">astropy.time</span> <span class="kn">import</span> <span class="n">Time</span>
-<span class="kn">from</span> <span class="nn">EMToolKit.util</span> <span class="kn">import</span> <span class="n">list_fits_files</span>
-
-
-<div class="viewcode-block" id="download_sdo_data">
-<a class="viewcode-back" href="../../../EMToolKit.instruments.html#EMToolKit.instruments.aia.download_sdo_data">[docs]</a>
-<span class="k">def</span> <span class="nf">download_sdo_data</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">redownload</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-	<span class="n">folder_name</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
-	<span class="n">sdo_data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;.data&quot;</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">)</span>  <span class="c1"># Place to put data files. You&#39;ll need to change it or create these subdirectories</span>
-
-	<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">):</span>
-		<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">)</span>
-
-	<span class="n">paths</span> <span class="o">=</span> <span class="n">list_fits_files</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">,</span> <span class="s1">&#39;aia&#39;</span><span class="p">)</span>
-	<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span><span class="si">}</span><span class="s2"> aia images on disk.&quot;</span><span class="p">)</span>
-
-
-	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">6</span> <span class="ow">or</span> <span class="n">redownload</span><span class="p">:</span>
-		<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching for images from </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
-		<span class="n">passbands</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">94</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="mi">193</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span> <span class="mi">335</span><span class="p">])</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">angstrom</span>
-
-		<span class="c1"># Combine the wavelength queries using the | operator</span>
-		<span class="n">wavelength_query</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">Wavelength</span><span class="p">(</span><span class="n">passbands</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-		<span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">passbands</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-			<span class="n">wavelength_query</span> <span class="o">|=</span> <span class="n">a</span><span class="o">.</span><span class="n">Wavelength</span><span class="p">(</span><span class="n">band</span><span class="p">)</span>
-
-		<span class="n">qry</span> <span class="o">=</span> <span class="n">Fido</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">TimeRange</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="mf">11.5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)),</span> <span class="n">a</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s1">&#39;AIA&#39;</span><span class="p">),</span> <span class="n">wavelength_query</span><span class="p">)</span>
-
-		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloading images...&quot;</span><span class="p">)</span>
-		<span class="n">Fido</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">qry</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">sdo_data_dir</span><span class="p">,</span> <span class="n">max_conn</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">passbands</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
-
-	<span class="n">paths</span> <span class="o">=</span> <span class="n">list_fits_files</span><span class="p">(</span><span class="n">sdo_data_dir</span><span class="p">,</span> <span class="s2">&quot;aia&quot;</span><span class="p">)</span>
-
-
-	<span class="k">return</span> <span class="n">paths</span><span class="p">,</span> <span class="n">sdo_data_dir</span></div>
-
-
-<span class="c1"># Example usage:</span>
-<span class="c1"># base_path = &quot;/your/base/path/&quot;</span>
-<span class="c1"># date = &#39;2012/07/11 18:54:00&#39;</span>
-<span class="c1"># download_sdo_data(base_path, date, redownload=True)  # Set redownload to True to force download</span>
 </pre></div>
 
            </div>

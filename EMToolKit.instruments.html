@@ -112,32 +112,133 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.aia_temperature_response">
 <span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">aia_temperature_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#aia_temperature_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.aia_temperature_response" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Computes the temperature response function for a given AIA map and a specified temperature array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>map_in</strong> (<em>sunpy.map.Map</em>) – The input AIA map.</p></li>
+<li><p><strong>temperature_array</strong> (<em>array-like</em>) – An array of temperatures for calculating the response.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the logarithmic temperature values and the corresponding
+temperature response function.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.aia_wrapper">
 <span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">aia_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#aia_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.aia_wrapper" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Processes a set of AIA SunPy maps and returns the necessary arguments for
+use in an EMToolKit DataSequence. This includes selecting maps appropriate
+for DEMs (excluding 304 Å), computing corresponding errors, and retrieving
+temperature response functions and logarithmic temperature arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maps_in</strong> (<em>list</em>) – A list of input AIA SunPy maps.</p></li>
+<li><p><strong>temperature_array</strong> (<em>array-like</em><em>, </em><em>optional</em>) – An array of temperatures for calculating</p></li>
+<li><p><strong>None.</strong> (<em>the temperature response functions. Defaults to</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the processed maps, their uncertainties,
+logarithmic temperature values, and temperature response functions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.download_sdo_data">
 <span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">download_sdo_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redownload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#download_sdo_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.download_sdo_data" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Downloads SDO data for a specified date, or retrieves it from disk if already available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_path</strong> (<em>str</em>) – The base directory where data should be stored.</p></li>
+<li><p><strong>date</strong> (<em>str</em>) – The date for which to download SDO data.</p></li>
+<li><p><strong>redownload</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, forces a re-download of the data even if it exists on disk. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the paths to the downloaded data files and the directory where they are stored.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.estimate_aia_error">
 <span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">estimate_aia_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#estimate_aia_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.estimate_aia_error" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Estimates the error in AIA data based on the detector and wavelength channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>map_in</strong> (<em>sunpy.map.Map</em>) – The input AIA map.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array representing the estimated error for each pixel in the map.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.interpolate_table">
 <span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">interpolate_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#interpolate_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.interpolate_table" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Interpolates a given temperature response table to match a specified temperature array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<em>numpy.ndarray</em>) – The input temperature response table.</p></li>
+<li><p><strong>temperature_array</strong> (<em>array-like</em>) – The array of temperatures for interpolation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the new logarithmic temperature values and the interpolated table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="EMToolKit.instruments.aia.load_from_paths">
 <span class="sig-prename descclassname"><span class="pre">EMToolKit.instruments.aia.</span></span><span class="sig-name descname"><span class="pre">load_from_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refindex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EMToolKit/instruments/aia.html#load_from_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.instruments.aia.load_from_paths" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Loads AIA data from a set of file paths and returns the necessary arguments
+for use in an EMToolKit DataSequence. This includes a list of SunPy maps,
+corresponding errors, the logarithmic temperature axes for the temperature
+response functions, and the temperature response functions themselves.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>paths</strong> (<em>list</em>) – List of file paths to AIA data.</p></li>
+<li><p><strong>xl</strong> (<em>float</em><em>, </em><em>optional</em>) – X-coordinate of the lower left corner for cropping. Defaults to None.</p></li>
+<li><p><strong>yl</strong> (<em>float</em><em>, </em><em>optional</em>) – Y-coordinate of the lower left corner for cropping. Defaults to None.</p></li>
+<li><p><strong>dx</strong> (<em>float</em><em>, </em><em>optional</em>) – Width of the region to crop. Defaults to None.</p></li>
+<li><p><strong>dy</strong> (<em>float</em><em>, </em><em>optional</em>) – Height of the region to crop. Defaults to None.</p></li>
+<li><p><strong>refindex</strong> (<em>int</em><em>, </em><em>optional</em>) – Index of the reference map in the paths list. Defaults to 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of SunPy maps after optional cropping.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="emtoolkit-instruments-xrt-module">
