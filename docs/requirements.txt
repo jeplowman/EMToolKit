@@ -2,6 +2,7 @@ sphinx
 sphinx-rtd-theme
 sphinx-autobuild
 sphinx-autodoc-typehints
+sphinx-automodapi
 sphinx-gallery
 sphinx-hoverxref
 sphinx-toggleprompt
