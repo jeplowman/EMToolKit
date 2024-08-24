@@ -115,19 +115,14 @@ sphinx_gallery_conf = {
 # Setup Function to Add Custom JavaScript Files
 # -------------------------------------------------------------------------
 
-from sphinx.ext.autodoc import ModuleDocumenter
-
-class NoIndexModuleDocumenter(ModuleDocumenter):
-    option_spec = ModuleDocumenter.option_spec.copy()
-    option_spec['noindex'] = lambda x: True
-
 def setup(app):
     try:
         app.add_js_file('open_external_links_in_new_tab.js')
         logging.info("Added JavaScript file for external links.")
     except Exception as e:
         logging.error(f"Error adding JS file: {e}")
-    app.add_autodocumenter(NoIndexModuleDocumenter)
+    # app.add_autodocumenter(NoIndexModuleDocumenter)
 
 # conf.py
+from sphinx.ext.autodoc import ModuleDocumenter
 
