@@ -28,3 +28,4 @@ lxml
 zeep
 drms
 memory-profiler
+xrtpy
