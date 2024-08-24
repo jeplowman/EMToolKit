@@ -6,6 +6,7 @@
   <title>EMToolKit.schemas.util &mdash; EMToolKit 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -55,11 +56,91 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../EMToolKit.html">EMToolKit package description</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.algorithms.html">Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.instruments.html">Instruments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.schemas.html">Schemas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.visualization.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/EMToolKit.html">EMToolKit API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.algorithms.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.aia_color_table.html">aia_color_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.multi_inst_simple_dem_wrapper.html">multi_inst_simple_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.plot_reprojected.html">plot_reprojected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.reproject_with_uncertainties.html">reproject_with_uncertainties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem.simple_reg_dem.html">simple_reg_dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.precompute_matrices.html">precompute_matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.process_pixel.html">process_pixel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem.html">simple_reg_dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_parallel.html">simple_reg_dem_parallel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_serial.html">simple_reg_dem_serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper.html">autoloading_simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper.simple_reg_dem_wrapper.html">simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.autoloading_simple_reg_dem_wrapper.html">autoloading_simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.simple_reg_dem_wrapper.html">simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em.simplex.html">simplex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em.sparse_em_init.html">sparse_em_init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em.sparse_em_solve.html">sparse_em_solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper.html">autoloading_sparse_em_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper.html">sparse_em_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.minmax.html">minmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.process_data_element.html">process_data_element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrapper.html">sparse_nlmap_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object.html">sparse_nlmap_dem_wrap_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_solver.solve.html">solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator.html">nlmap_operator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.instruments.html">Instruments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.aia_temperature_response.html">aia_temperature_response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.aia_wrapper.html">aia_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.download_sdo_data.html">download_sdo_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.estimate_aia_error.html">estimate_aia_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.interpolate_table.html">interpolate_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.load_from_paths.html">load_from_paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.download_xrt_data.html">download_xrt_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.estimate_xrt_error.html">estimate_xrt_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.interp1d_logt.html">interp1d_logt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.xrt_temperature_response.html">xrt_temperature_response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.xrt_wrapper.html">xrt_wrapper</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.schemas.html">Schemas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_schemas.basic_detector.html">basic_detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_schemas.basic_source.html">basic_source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_transforms.fits_transform.html">fits_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_transforms.generic_transform.html">generic_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_transforms.trivialframe.html">trivialframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.coord_grid.coord_grid.html">coord_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.bin_function.html">bin_function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.flattop_guassian_psf.html">flattop_guassian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.get_2d_cov.html">get_2d_cov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.get_3d_cov.html">get_3d_cov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.nd_gaussian_psf.html">nd_gaussian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.nd_powgaussian_psf.html">nd_powgaussian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.nd_voigt_psf.html">nd_voigt_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.spice_spectrograph_psf.html">spice_spectrograph_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.spike_function.html">spike_function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_grid.detector_grid.html">detector_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_grid.element_grid.html">element_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_grid.source_grid.html">source_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_source_responses.element_source_responses.html">element_source_responses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.sparse_d2_partial_matrix.html">sparse_d2_partial_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.multi_instrument_linear_operator.html">multi_instrument_linear_operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.reg_operator_postfac_wrapper.html">reg_operator_postfac_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.single_instrument_linear_operator_separable.html">single_instrument_linear_operator_separable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.as_dict.html">as_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.bindown.html">bindown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.bindown2.html">bindown2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.binup.html">binup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.btp.html">btp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.ftp.html">ftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.get_mask_errs.html">get_mask_errs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.masked_median_filter.html">masked_median_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.multivec_matmul.html">multivec_matmul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.rindices.html">rindices</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.visualization.html">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.visualization.dashboard.dem_color_table.html">dem_color_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.visualization.dashboard.dummy_meta.html">dummy_meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html">dashboard_object</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -107,7 +188,7 @@
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">readsav</span>
 
 <div class="viewcode-block" id="masked_median_filter">
-<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.masked_median_filter">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.schemas.util.masked_median_filter.html#EMToolKit.schemas.util.masked_median_filter">[docs]</a>
 <span class="k">def</span> <span class="nf">masked_median_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">mask</span><span class="p">,</span><span class="n">radius</span><span class="p">,</span><span class="n">footprint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">missing</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span><span class="n">footprint_ind_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 
     <span class="k">if</span><span class="p">(</span><span class="n">footprint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
@@ -168,14 +249,14 @@
 <span class="c1"># here as a very small subroutine rather than spreading it all over the code</span>
 <span class="c1"># for ease of maintenance and explanation. It works for single vectors, too.</span>
 <div class="viewcode-block" id="multivec_matmul">
-<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.multivec_matmul">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.schemas.util.multivec_matmul.html#EMToolKit.schemas.util.multivec_matmul">[docs]</a>
 <span class="k">def</span> <span class="nf">multivec_matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
 
 
 <span class="c1"># Forward rolling transpose, for switching from coordinate dimension last to</span>
 <span class="c1"># coordinate dimension first in multidimensional coordinate arrays:</span>
 <div class="viewcode-block" id="ftp">
-<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.ftp">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.schemas.util.ftp.html#EMToolKit.schemas.util.ftp">[docs]</a>
 <span class="k">def</span> <span class="nf">ftp</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 	<span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span></div>
 
@@ -183,7 +264,7 @@
 <span class="c1"># Backward rolling transpose, for switching from coordinate dimension first to</span>
 <span class="c1"># coordinate dimension last in multidimensional coordinate arrays:</span>
 <div class="viewcode-block" id="btp">
-<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.btp">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.schemas.util.btp.html#EMToolKit.schemas.util.btp">[docs]</a>
 <span class="k">def</span> <span class="nf">btp</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 	<span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></div>
 
@@ -195,21 +276,21 @@
 <span class="c1"># which just shifts the dimensions forward by 1. Very simple, but you can see how</span>
 <span class="c1"># it could get unggkljhly real quick</span>
 <div class="viewcode-block" id="rindices">
-<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.rindices">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.schemas.util.rindices.html#EMToolKit.schemas.util.rindices">[docs]</a>
 <span class="k">def</span> <span class="nf">rindices</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 	<span class="n">ia</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 	<span class="k">return</span> <span class="n">btp</span><span class="p">(</span><span class="n">ia</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="bindown">
-<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.bindown">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.schemas.util.bindown.html#EMToolKit.schemas.util.bindown">[docs]</a>
 <span class="k">def</span> <span class="nf">bindown</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
     <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel_multi_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">n</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span><span class="n">n</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">inds</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">weights</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">minlength</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="bindown2">
-<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.bindown2">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.schemas.util.bindown2.html#EMToolKit.schemas.util.bindown2">[docs]</a>
 <span class="k">def</span> <span class="nf">bindown2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">/</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
     <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel_multi_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">n</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span><span class="n">n</span><span class="p">)</span>
@@ -217,7 +298,7 @@
 
 
 <div class="viewcode-block" id="binup">
-<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.binup">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.schemas.util.binup.html#EMToolKit.schemas.util.binup">[docs]</a>
 <span class="k">def</span> <span class="nf">binup</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">f</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
     <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel_multi_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -225,7 +306,7 @@
 
 
 <div class="viewcode-block" id="as_dict">
-<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.as_dict">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.schemas.util.as_dict.html#EMToolKit.schemas.util.as_dict">[docs]</a>
 <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="n">rec</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; turn a numpy recarray record into a dict. this is mostly useful</span>
 <span class="sd">    just to have a human readable output of a record on the console.</span>
@@ -237,7 +318,7 @@
 
 
 <div class="viewcode-block" id="get_mask_errs">
-<a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.get_mask_errs">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.schemas.util.get_mask_errs.html#EMToolKit.schemas.util.get_mask_errs">[docs]</a>
 <span class="k">def</span> <span class="nf">get_mask_errs</span><span class="p">(</span><span class="n">dat_cube</span><span class="p">,</span> <span class="n">iris_err_fac</span><span class="p">,</span> <span class="n">error_cube</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filt_thold</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
     <span class="n">dat_arr</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dat_cube</span><span class="p">)</span>
     <span class="n">dat_filt</span> <span class="o">=</span> <span class="n">masked_median_filter</span><span class="p">(</span><span class="n">dat_arr</span><span class="p">,(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">dat_arr</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>

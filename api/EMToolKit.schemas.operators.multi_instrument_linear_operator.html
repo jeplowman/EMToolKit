@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>multi_instrument_linear_operator &mdash; EMToolKit 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/resizing.css?v=f6a093c2" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/toggleprompt.js?v=5801b3bb"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script src="../_static/open_external_links_in_new_tab.js?v=ce535536"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="reg_operator_postfac_wrapper" href="EMToolKit.schemas.operators.reg_operator_postfac_wrapper.html" />
+    <link rel="prev" title="sparse_d2_partial_matrix" href="EMToolKit.schemas.operators.sparse_d2_partial_matrix.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            EMToolKit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="EMToolKit.html">EMToolKit API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EMToolKit.algorithms.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.multi_inst_dem_wrapper.aia_color_table.html">aia_color_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.multi_inst_dem_wrapper.multi_inst_simple_dem_wrapper.html">multi_inst_simple_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.multi_inst_dem_wrapper.plot_reprojected.html">plot_reprojected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.multi_inst_dem_wrapper.reproject_with_uncertainties.html">reproject_with_uncertainties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.simple_reg_dem.simple_reg_dem.html">simple_reg_dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.simple_reg_dem_parallel.precompute_matrices.html">precompute_matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.simple_reg_dem_parallel.process_pixel.html">process_pixel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem.html">simple_reg_dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_parallel.html">simple_reg_dem_parallel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_serial.html">simple_reg_dem_serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper.html">autoloading_simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.simple_reg_dem_wrapper.simple_reg_dem_wrapper.html">simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.autoloading_simple_reg_dem_wrapper.html">autoloading_simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.simple_reg_dem_wrapper.html">simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_em.simplex.html">simplex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_em.sparse_em_init.html">sparse_em_init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_em.sparse_em_solve.html">sparse_em_solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper.html">autoloading_sparse_em_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper.html">sparse_em_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_nlmap_dem_wrapper.minmax.html">minmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_nlmap_dem_wrapper.process_data_element.html">process_data_element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrapper.html">sparse_nlmap_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object.html">sparse_nlmap_dem_wrap_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_nlmap_solver.solve.html">solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator.html">nlmap_operator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="EMToolKit.instruments.html">Instruments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.aia.aia_temperature_response.html">aia_temperature_response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.aia.aia_wrapper.html">aia_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.aia.download_sdo_data.html">download_sdo_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.aia.estimate_aia_error.html">estimate_aia_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.aia.interpolate_table.html">interpolate_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.aia.load_from_paths.html">load_from_paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.xrt.download_xrt_data.html">download_xrt_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.xrt.estimate_xrt_error.html">estimate_xrt_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.xrt.interp1d_logt.html">interp1d_logt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.xrt.xrt_temperature_response.html">xrt_temperature_response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.instruments.xrt.xrt_wrapper.html">xrt_wrapper</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="EMToolKit.schemas.html">Schemas</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.basic_schemas.basic_detector.html">basic_detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.basic_schemas.basic_source.html">basic_source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.basic_transforms.fits_transform.html">fits_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.basic_transforms.generic_transform.html">generic_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.basic_transforms.trivialframe.html">trivialframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.coord_grid.coord_grid.html">coord_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_functions.bin_function.html">bin_function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_functions.flattop_guassian_psf.html">flattop_guassian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_functions.get_2d_cov.html">get_2d_cov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_functions.get_3d_cov.html">get_3d_cov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_functions.nd_gaussian_psf.html">nd_gaussian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_functions.nd_powgaussian_psf.html">nd_powgaussian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_functions.nd_voigt_psf.html">nd_voigt_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_functions.spice_spectrograph_psf.html">spice_spectrograph_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_functions.spike_function.html">spike_function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_grid.detector_grid.html">detector_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_grid.element_grid.html">element_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_grid.source_grid.html">source_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.element_source_responses.element_source_responses.html">element_source_responses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.operators.sparse_d2_partial_matrix.html">sparse_d2_partial_matrix</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">multi_instrument_linear_operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.operators.reg_operator_postfac_wrapper.html">reg_operator_postfac_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.operators.single_instrument_linear_operator_separable.html">single_instrument_linear_operator_separable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.util.as_dict.html">as_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.util.bindown.html">bindown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.util.bindown2.html">bindown2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.util.binup.html">binup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.util.btp.html">btp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.util.ftp.html">ftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.util.get_mask_errs.html">get_mask_errs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.util.masked_median_filter.html">masked_median_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.util.multivec_matmul.html">multivec_matmul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.schemas.util.rindices.html">rindices</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="EMToolKit.visualization.html">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.visualization.dashboard.dem_color_table.html">dem_color_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.visualization.dashboard.dummy_meta.html">dummy_meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EMToolKit.visualization.dashboard.dashboard_object.html">dashboard_object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/EMToolKit_example_07252010.html">Single Instrument Dashboard</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../develop.html">EMToolKit Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Ways to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Android_EMToolKit_Setup.html">Android Setup for Running EMToolKit on JupyterLab</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EMToolKit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="EMToolKit.html">EMToolKit API</a></li>
+          <li class="breadcrumb-item"><a href="EMToolKit.schemas.html">EMToolKit.schemas package</a></li>
+      <li class="breadcrumb-item active">multi_instrument_linear_operator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/EMToolKit.schemas.operators.multi_instrument_linear_operator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="multi-instrument-linear-operator">
+<h1>multi_instrument_linear_operator<a class="headerlink" href="#multi-instrument-linear-operator" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="EMToolKit.schemas.operators.multi_instrument_linear_operator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">EMToolKit.schemas.operators.</span></span><span class="sig-name descname"><span class="pre">multi_instrument_linear_operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/EMToolKit/schemas/operators.html#multi_instrument_linear_operator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EMToolKit.schemas.operators.multi_instrument_linear_operator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">LinearOperator</span></code></p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="EMToolKit.schemas.operators.sparse_d2_partial_matrix.html" class="btn btn-neutral float-left" title="sparse_d2_partial_matrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="EMToolKit.schemas.operators.reg_operator_postfac_wrapper.html" class="btn btn-neutral float-right" title="reg_operator_postfac_wrapper" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

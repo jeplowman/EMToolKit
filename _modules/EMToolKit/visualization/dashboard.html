@@ -6,6 +6,7 @@
   <title>EMToolKit.visualization.dashboard &mdash; EMToolKit 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -55,11 +56,91 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../EMToolKit.html">EMToolKit package description</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.algorithms.html">Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.instruments.html">Instruments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.schemas.html">Schemas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../EMToolKit.visualization.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/EMToolKit.html">EMToolKit API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.algorithms.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.aia_color_table.html">aia_color_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.multi_inst_simple_dem_wrapper.html">multi_inst_simple_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.plot_reprojected.html">plot_reprojected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.reproject_with_uncertainties.html">reproject_with_uncertainties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem.simple_reg_dem.html">simple_reg_dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.precompute_matrices.html">precompute_matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.process_pixel.html">process_pixel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem.html">simple_reg_dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_parallel.html">simple_reg_dem_parallel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_serial.html">simple_reg_dem_serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper.html">autoloading_simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper.simple_reg_dem_wrapper.html">simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.autoloading_simple_reg_dem_wrapper.html">autoloading_simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.simple_reg_dem_wrapper.html">simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em.simplex.html">simplex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em.sparse_em_init.html">sparse_em_init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em.sparse_em_solve.html">sparse_em_solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper.html">autoloading_sparse_em_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper.html">sparse_em_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.minmax.html">minmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.process_data_element.html">process_data_element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrapper.html">sparse_nlmap_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object.html">sparse_nlmap_dem_wrap_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_solver.solve.html">solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator.html">nlmap_operator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.instruments.html">Instruments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.aia_temperature_response.html">aia_temperature_response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.aia_wrapper.html">aia_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.download_sdo_data.html">download_sdo_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.estimate_aia_error.html">estimate_aia_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.interpolate_table.html">interpolate_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.load_from_paths.html">load_from_paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.download_xrt_data.html">download_xrt_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.estimate_xrt_error.html">estimate_xrt_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.interp1d_logt.html">interp1d_logt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.xrt_temperature_response.html">xrt_temperature_response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.xrt_wrapper.html">xrt_wrapper</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.schemas.html">Schemas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_schemas.basic_detector.html">basic_detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_schemas.basic_source.html">basic_source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_transforms.fits_transform.html">fits_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_transforms.generic_transform.html">generic_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_transforms.trivialframe.html">trivialframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.coord_grid.coord_grid.html">coord_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.bin_function.html">bin_function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.flattop_guassian_psf.html">flattop_guassian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.get_2d_cov.html">get_2d_cov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.get_3d_cov.html">get_3d_cov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.nd_gaussian_psf.html">nd_gaussian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.nd_powgaussian_psf.html">nd_powgaussian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.nd_voigt_psf.html">nd_voigt_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.spice_spectrograph_psf.html">spice_spectrograph_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.spike_function.html">spike_function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_grid.detector_grid.html">detector_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_grid.element_grid.html">element_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_grid.source_grid.html">source_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_source_responses.element_source_responses.html">element_source_responses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.sparse_d2_partial_matrix.html">sparse_d2_partial_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.multi_instrument_linear_operator.html">multi_instrument_linear_operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.reg_operator_postfac_wrapper.html">reg_operator_postfac_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.single_instrument_linear_operator_separable.html">single_instrument_linear_operator_separable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.as_dict.html">as_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.bindown.html">bindown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.bindown2.html">bindown2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.binup.html">binup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.btp.html">btp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.ftp.html">ftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.get_mask_errs.html">get_mask_errs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.masked_median_filter.html">masked_median_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.multivec_matmul.html">multivec_matmul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.rindices.html">rindices</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.visualization.html">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.visualization.dashboard.dem_color_table.html">dem_color_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.visualization.dashboard.dummy_meta.html">dummy_meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html">dashboard_object</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -117,7 +198,7 @@
 <span class="kn">from</span> <span class="nn">EMToolKit.util</span> <span class="kn">import</span> <span class="n">lognormal_synthetic_channels</span><span class="p">,</span> <span class="n">triangle_basis</span>
 
 <div class="viewcode-block" id="dem_color_table">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dem_color_table">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dem_color_table.html#EMToolKit.visualization.dashboard.dem_color_table">[docs]</a>
 <span class="k">def</span> <span class="nf">dem_color_table</span><span class="p">(</span><span class="n">ctlogts</span><span class="p">,</span><span class="n">sigmin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">sigmax</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">intmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span><span class="n">intmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">81</span><span class="p">):</span>
 
     <span class="kn">from</span> <span class="nn">astropy</span> <span class="kn">import</span> <span class="n">wcs</span>
@@ -141,7 +222,7 @@
 
 
 <div class="viewcode-block" id="dummy_meta">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dummy_meta">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dummy_meta.html#EMToolKit.visualization.dashboard.dummy_meta">[docs]</a>
 <span class="k">def</span> <span class="nf">dummy_meta</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">):</span>
 	<span class="k">return</span> <span class="p">{</span><span class="s1">&#39;CDELT1&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;CDELT2&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;CROTA&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;CRPIX1&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;CRPIX2&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;CRVAL1&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;CRVAL2&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;NAXIS1&#39;</span><span class="p">:</span><span class="n">nx</span><span class="p">,</span><span class="s1">&#39;NAXIS2&#39;</span><span class="p">:</span><span class="n">ny</span><span class="p">,</span><span class="s1">&#39;HGLT_OBS&#39;</span><span class="p">:</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="s1">&#39;HGLN_OBS&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s1">&#39;DSUN_OBS&#39;</span><span class="p">:</span><span class="mf">1.49e11</span><span class="p">,</span>
 			<span class="s1">&#39;CUNIT1&#39;</span><span class="p">:</span><span class="s1">&#39;arcsec&#39;</span><span class="p">,</span><span class="s1">&#39;CUNIT2&#39;</span><span class="p">:</span><span class="s1">&#39;arcsec&#39;</span><span class="p">,</span><span class="s1">&#39;CTYPE1&#39;</span><span class="p">:</span><span class="s1">&#39;HPLN-TAN&#39;</span><span class="p">,</span><span class="s1">&#39;CTYPE2&#39;</span><span class="p">:</span><span class="s1">&#39;HPLT-TAN&#39;</span><span class="p">,</span><span class="s1">&#39;DATE-OBS&#39;</span><span class="p">:</span><span class="s1">&#39;1980-01-01T00:00:00.000&#39;</span><span class="p">,</span><span class="s1">&#39;RSUN_REF&#39;</span><span class="p">:</span><span class="mi">696000000</span><span class="p">}</span></div>
@@ -158,7 +239,7 @@
 <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
 
 <div class="viewcode-block" id="dashboard_object">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object">[docs]</a>
 <span class="k">class</span> <span class="nc">dashboard_object</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">em_collection</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -199,7 +280,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">slice_ticks_list</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="dashboard_object.displays">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.displays">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.displays">[docs]</a>
     <span class="k">def</span> <span class="nf">displays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
         <span class="n">ui0</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">rtemp</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">gtemp</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">btemp</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">])</span> <span class="k">if</span> <span class="n">debug</span> <span class="k">else</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">([])</span>
@@ -214,7 +295,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.display">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.display">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.display">[docs]</a>
     <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">ui</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">displays</span><span class="p">(</span><span class="n">debug</span><span class="p">)</span>
         <span class="n">display</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span><span class="n">out</span><span class="p">)</span>
@@ -222,7 +303,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.widgwrap">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.widgwrap">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.widgwrap">[docs]</a>
     <span class="k">def</span> <span class="nf">widgwrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rtemp</span><span class="p">,</span> <span class="n">gtemp</span><span class="p">,</span> <span class="n">btemp</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">,</span> <span class="n">rng</span><span class="p">,</span> <span class="n">mouseover</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">uninitialized</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">()</span>
@@ -235,7 +316,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.create_figure">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.create_figure">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.create_figure">[docs]</a>
     <span class="k">def</span> <span class="nf">create_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># print(&quot;Creating Dashboard&quot;)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fontsize_prev</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;font.size&#39;</span><span class="p">)</span>
@@ -258,7 +339,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.init_dem_lineplot">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.init_dem_lineplot">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.init_dem_lineplot">[docs]</a>
     <span class="k">def</span> <span class="nf">init_dem_lineplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">):</span>
         <span class="n">NC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">crosshairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">ix</span><span class="p">],</span> <span class="p">[</span><span class="n">iy</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">NC</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">25</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
@@ -272,7 +353,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.get_dem_at">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.get_dem_at">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.get_dem_at">[docs]</a>
     <span class="k">def</span> <span class="nf">get_dem_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">):</span>
 
         <span class="p">[</span><span class="n">ptlogt</span><span class="p">,</span> <span class="n">ptdem</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">emc</span><span class="o">.</span><span class="n">compute_dem</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">,</span> <span class="n">logt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logt</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">the_algorithm</span><span class="p">)</span>
@@ -281,14 +362,14 @@
 
 
 <div class="viewcode-block" id="dashboard_object.init_mouseover_line">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.init_mouseover_line">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.init_mouseover_line">[docs]</a>
     <span class="k">def</span> <span class="nf">init_mouseover_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">crosshair_mouseover</span><span class="p">,</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">demplot_mouseover</span><span class="p">,</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">([],[],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>  <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Offscreen&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="dashboard_object.init_figure">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.init_figure">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.init_figure">[docs]</a>
     <span class="k">def</span> <span class="nf">init_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rtemp</span><span class="p">,</span> <span class="n">gtemp</span><span class="p">,</span> <span class="n">btemp</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">,</span> <span class="n">gfac</span><span class="o">=</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">plt_emmax</span><span class="o">=</span><span class="mf">3.0e27</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="p">[</span><span class="mi">58</span><span class="p">,</span> <span class="mi">68</span><span class="p">],</span> <span class="n">slice_type</span><span class="o">=</span><span class="s2">&quot;spline&quot;</span><span class="p">,</span> <span class="n">mouseover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">the_algorithm</span> <span class="o">=</span> <span class="n">algorithm</span>
@@ -335,7 +416,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.init_interactivity">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.init_interactivity">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.init_interactivity">[docs]</a>
     <span class="k">def</span> <span class="nf">init_interactivity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="p">[</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">nz</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">demimage</span><span class="o">.</span><span class="n">shape</span>
 
@@ -405,7 +486,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.reset_buttons">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.reset_buttons">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.reset_buttons">[docs]</a>
     <span class="k">def</span> <span class="nf">reset_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Reset the &quot;Draw Curve&quot; button properties</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_reset_lines</span><span class="o">.</span><span class="n">button_style</span> <span class="o">=</span> <span class="s1">&#39;info&#39;</span>
@@ -413,7 +494,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.init_buttons">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.init_buttons">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.init_buttons">[docs]</a>
     <span class="k">def</span> <span class="nf">init_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_control</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_reset_lines</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Reset Lines&quot;</span><span class="p">)</span>
@@ -421,13 +502,13 @@
 
 
 <div class="viewcode-block" id="dashboard_object.enable_buttons">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.enable_buttons">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.enable_buttons">[docs]</a>
     <span class="k">def</span> <span class="nf">enable_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">both</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">btn_reset_lines</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
 <div class="viewcode-block" id="dashboard_object.update_slice_map">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_slice_map">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.update_slice_map">[docs]</a>
     <span class="k">def</span> <span class="nf">update_slice_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice_points</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">remove_slice_ticks</span><span class="p">()</span>
@@ -454,7 +535,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.update_slice_curve">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_slice_curve">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.update_slice_curve">[docs]</a>
     <span class="k">def</span> <span class="nf">update_slice_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">the_slice_type</span> <span class="o">==</span> <span class="s2">&quot;bezier&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_bezier_curve</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
@@ -465,7 +546,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.add_control_point">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.add_control_point">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.add_control_point">[docs]</a>
     <span class="k">def</span> <span class="nf">add_control_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">control_points</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">crosshairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
@@ -476,7 +557,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.update_bezier_curve">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_bezier_curve">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.update_bezier_curve">[docs]</a>
     <span class="k">def</span> <span class="nf">update_bezier_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_control_point</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
 
@@ -501,7 +582,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.update_spline_curve">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_spline_curve">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.update_spline_curve">[docs]</a>
     <span class="k">def</span> <span class="nf">update_spline_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_control_point</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
 
@@ -529,7 +610,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.interpolate_slice_points">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.interpolate_slice_points">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.interpolate_slice_points">[docs]</a>
     <span class="k">def</span> <span class="nf">interpolate_slice_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">xp0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">yp0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice_points</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -560,7 +641,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.remove_slice_ticks">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.remove_slice_ticks">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.remove_slice_ticks">[docs]</a>
     <span class="k">def</span> <span class="nf">remove_slice_ticks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice_ticks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">slice_ticks</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
@@ -572,7 +653,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.make_slice_ticks">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.make_slice_ticks">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.make_slice_ticks">[docs]</a>
     <span class="k">def</span> <span class="nf">make_slice_ticks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">pt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slice_points_interpolated</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">ii</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">tick_spacing_value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -585,7 +666,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.update_curve">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_curve">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.update_curve">[docs]</a>
     <span class="k">def</span> <span class="nf">update_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice_points</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">interpolate_slice_points</span><span class="p">()</span>
@@ -600,7 +681,7 @@
 
 
 <div class="viewcode-block" id="dashboard_object.update_figure">
-<a class="viewcode-back" href="../../../EMToolKit.visualization.html#EMToolKit.visualization.dashboard.dashboard_object.update_figure">[docs]</a>
+<a class="viewcode-back" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html#EMToolKit.visualization.dashboard.dashboard_object.update_figure">[docs]</a>
     <span class="k">def</span> <span class="nf">update_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rtemp</span><span class="p">,</span> <span class="n">gtemp</span><span class="p">,</span> <span class="n">btemp</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">,</span> <span class="n">gfac</span><span class="o">=</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">plt_emmax</span><span class="o">=</span><span class="mf">3.0e27</span><span class="p">,</span>
                     <span class="n">rng</span><span class="o">=</span><span class="p">[</span><span class="mi">55</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="n">slice_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mouseover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">normalization</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># Update the plots using the stored handles</span>

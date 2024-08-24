@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMToolKit.instruments.xrt &mdash; EMToolKit 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/resizing.css?v=f6a093c2" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/toggleprompt.js?v=5801b3bb"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../_static/open_external_links_in_new_tab.js?v=ce535536"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            EMToolKit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/EMToolKit.html">EMToolKit API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.algorithms.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.aia_color_table.html">aia_color_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.multi_inst_simple_dem_wrapper.html">multi_inst_simple_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.plot_reprojected.html">plot_reprojected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.multi_inst_dem_wrapper.reproject_with_uncertainties.html">reproject_with_uncertainties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem.simple_reg_dem.html">simple_reg_dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.precompute_matrices.html">precompute_matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.process_pixel.html">process_pixel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem.html">simple_reg_dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_parallel.html">simple_reg_dem_parallel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_serial.html">simple_reg_dem_serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper.html">autoloading_simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper.simple_reg_dem_wrapper.html">simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.autoloading_simple_reg_dem_wrapper.html">autoloading_simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.simple_reg_dem_wrapper.html">simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em.simplex.html">simplex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em.sparse_em_init.html">sparse_em_init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em.sparse_em_solve.html">sparse_em_solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper.html">autoloading_sparse_em_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper.html">sparse_em_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.minmax.html">minmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.process_data_element.html">process_data_element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrapper.html">sparse_nlmap_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object.html">sparse_nlmap_dem_wrap_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_solver.solve.html">solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator.html">nlmap_operator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.instruments.html">Instruments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.aia_temperature_response.html">aia_temperature_response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.aia_wrapper.html">aia_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.download_sdo_data.html">download_sdo_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.estimate_aia_error.html">estimate_aia_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.interpolate_table.html">interpolate_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.aia.load_from_paths.html">load_from_paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.download_xrt_data.html">download_xrt_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.estimate_xrt_error.html">estimate_xrt_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.interp1d_logt.html">interp1d_logt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.xrt_temperature_response.html">xrt_temperature_response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.instruments.xrt.xrt_wrapper.html">xrt_wrapper</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.schemas.html">Schemas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_schemas.basic_detector.html">basic_detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_schemas.basic_source.html">basic_source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_transforms.fits_transform.html">fits_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_transforms.generic_transform.html">generic_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.basic_transforms.trivialframe.html">trivialframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.coord_grid.coord_grid.html">coord_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.bin_function.html">bin_function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.flattop_guassian_psf.html">flattop_guassian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.get_2d_cov.html">get_2d_cov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.get_3d_cov.html">get_3d_cov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.nd_gaussian_psf.html">nd_gaussian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.nd_powgaussian_psf.html">nd_powgaussian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.nd_voigt_psf.html">nd_voigt_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.spice_spectrograph_psf.html">spice_spectrograph_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_functions.spike_function.html">spike_function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_grid.detector_grid.html">detector_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_grid.element_grid.html">element_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_grid.source_grid.html">source_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.element_source_responses.element_source_responses.html">element_source_responses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.sparse_d2_partial_matrix.html">sparse_d2_partial_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.multi_instrument_linear_operator.html">multi_instrument_linear_operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.reg_operator_postfac_wrapper.html">reg_operator_postfac_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.operators.single_instrument_linear_operator_separable.html">single_instrument_linear_operator_separable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.as_dict.html">as_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.bindown.html">bindown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.bindown2.html">bindown2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.binup.html">binup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.btp.html">btp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.ftp.html">ftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.get_mask_errs.html">get_mask_errs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.masked_median_filter.html">masked_median_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.multivec_matmul.html">multivec_matmul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.schemas.util.rindices.html">rindices</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/EMToolKit.visualization.html">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.visualization.dashboard.dem_color_table.html">dem_color_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.visualization.dashboard.dummy_meta.html">dummy_meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/EMToolKit.visualization.dashboard.dashboard_object.html">dashboard_object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">Single Instrument Dashboard</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../develop.html">EMToolKit Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute.html">Ways to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Android_EMToolKit_Setup.html">Android Setup for Running EMToolKit on JupyterLab</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">EMToolKit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">EMToolKit.instruments.xrt</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for EMToolKit.instruments.xrt</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sunpy.map</span> <span class="kn">import</span> <span class="n">Map</span>
+<span class="kn">from</span> <span class="nn">ndcube</span> <span class="kn">import</span> <span class="n">NDCube</span><span class="p">,</span> <span class="n">NDCubeSequence</span><span class="p">,</span> <span class="n">NDCollection</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
+<span class="kn">from</span> <span class="nn">astropy.nddata</span> <span class="kn">import</span> <span class="n">StdDevUncertainty</span>
+<span class="kn">import</span> <span class="nn">xrtpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">from</span> <span class="nn">sunpy.net</span> <span class="kn">import</span> <span class="n">Fido</span><span class="p">,</span> <span class="n">attrs</span> <span class="k">as</span> <span class="n">a</span>
+<span class="kn">from</span> <span class="nn">sunpy.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+<span class="kn">from</span> <span class="nn">astropy.time</span> <span class="kn">import</span> <span class="n">Time</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.util</span> <span class="kn">import</span> <span class="n">list_fits_files</span>
+
+<span class="c1"># Given a set of XRT SunPy Maps, return the appropriate arguments for use</span>
+<span class="c1"># as an EMToolKit data sequence -- the selection of maps appropriate for</span>
+<span class="c1"># DEMs, corresponding errors, temperature response</span>
+<span class="c1"># functions and corresponding (log) temperature arrays</span>
+<div class="viewcode-block" id="xrt_wrapper">
+<a class="viewcode-back" href="../../../api/EMToolKit.instruments.xrt.xrt_wrapper.html#EMToolKit.instruments.xrt.xrt_wrapper">[docs]</a>
+<span class="k">def</span> <span class="nf">xrt_wrapper</span><span class="p">(</span><span class="n">maps_in</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Processes a list of XRT maps and computes their temperature responses.</span>
+<span class="sd">	This function returns the modified maps along with their associated uncertainties and temperature response data.</span>
+
+<span class="sd">	Args:</span>
+<span class="sd">		maps_in (list): A list of input maps to be processed.</span>
+<span class="sd">		temperature_array (array-like): An array of temperatures used for calculating the temperature response.</span>
+
+<span class="sd">	Returns:</span>
+<span class="sd">		tuple: A tuple containing the processed maps, their uncertainties, logarithmic temperature values, and temperature responses.</span>
+
+<span class="sd">	Raises:</span>
+<span class="sd">		ValueError: If the input maps are not compatible with the temperature array.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="p">[</span><span class="n">maps</span><span class="p">,</span><span class="n">logts</span><span class="p">,</span><span class="n">tresps</span><span class="p">,</span><span class="n">errs</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[],[],[]]</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">maps_in</span><span class="p">)):</span>
+		<span class="n">current_map</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">maps_in</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="c1">#.rotate(order=3)</span>
+		<span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span>
+		<span class="k">if</span><span class="p">(</span><span class="ow">not</span><span class="p">(</span><span class="s1">&#39;detector&#39;</span> <span class="ow">in</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">)):</span> <span class="n">current_map</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;XRT&#39;</span>
+		<span class="p">[</span><span class="n">logt</span><span class="p">,</span><span class="n">tresp</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrt_temperature_response</span><span class="p">(</span><span class="n">current_map</span><span class="p">,</span> <span class="n">temperature_array</span><span class="o">=</span><span class="n">temperature_array</span><span class="p">)</span>
+		<span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tresp</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">)):</span>
+			<span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_map</span><span class="p">)</span>
+			<span class="n">errs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StdDevUncertainty</span><span class="p">(</span><span class="n">estimate_xrt_error</span><span class="p">(</span><span class="n">current_map</span><span class="p">)))</span>
+			<span class="n">logts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logt</span><span class="p">)</span>
+			<span class="n">tresps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tresp</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">maps</span><span class="p">,</span><span class="n">errs</span><span class="p">,</span><span class="n">logts</span><span class="p">,</span><span class="n">tresps</span></div>
+
+
+<div class="viewcode-block" id="estimate_xrt_error">
+<a class="viewcode-back" href="../../../api/EMToolKit.instruments.xrt.estimate_xrt_error.html#EMToolKit.instruments.xrt.estimate_xrt_error">[docs]</a>
+<span class="k">def</span> <span class="nf">estimate_xrt_error</span><span class="p">(</span><span class="n">map_in</span><span class="p">):</span>
+	<span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Open&#39;</span> <span class="ow">and</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Ti_poly&#39;</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate XRT error is a prototype and only empirically estimates Open Ti-poly uncertainties&quot;</span><span class="p">)</span>
+	<span class="k">return</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">map_in</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">*</span><span class="mi">25</span> <span class="o">+</span> <span class="mi">25</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="xrt_temperature_response">
+<a class="viewcode-back" href="../../../api/EMToolKit.instruments.xrt.xrt_temperature_response.html#EMToolKit.instruments.xrt.xrt_temperature_response">[docs]</a>
+<span class="k">def</span> <span class="nf">xrt_temperature_response</span><span class="p">(</span><span class="n">map_in</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	This Python function calculates the temperature response for a given filter channel using xrtpy</span>
+<span class="sd">	library and plots the response curve.</span>
+
+<span class="sd">	Args:</span>
+<span class="sd">		map_in: The sunpy map to get the channel information from</span>
+<span class="sd">		temperature_array: The `temperature_array` parameter in the `xrt_temperature_response` function is</span>
+<span class="sd">		an array that contains the temperature values for which you want to calculate the temperature</span>
+<span class="sd">		response. This array will be used as input to interpolate the temperature response values obtained</span>
+<span class="sd">		from the `Temperature_Response_Fundamental` object.</span>
+
+<span class="sd">	Returns:</span>
+<span class="sd">		logt: the logarithm of CHIANTI temperature values</span>
+<span class="sd">  		tresp: the corresponding temperature response values</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="c1"># The real temperature response functions are found here:</span>
+	<span class="c1"># https://xrtpy.readthedocs.io/en/stable/notebooks/computing_functions/temperature_response.html</span>
+
+	<span class="c1"># Available channels: &quot;Al-mesh&quot;, &quot;Al-poly&quot;, &quot;C-poly&quot;, &quot;Ti-poly&quot;, &quot;Be-thin&quot;, &quot;Be-med&quot;, &quot;Al-med&quot;, &quot;Al-thick&quot;,</span>
+ 	<span class="c1"># &quot;Be-thick&quot; , &quot;Al-poly/Al-mesh&quot;, &quot;Al-poly/Ti-poly&quot;, &quot;Al-poly/Al-thick&quot;, &quot;Al-poly/Be-thick&quot; , &quot;C-poly/Ti-poly&quot;</span>
+
+	<span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span>
+	<span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Open/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAP FILTER IS : &quot;</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
+	<span class="n">filt</span> <span class="o">=</span> <span class="n">channel</span>
+	<span class="n">date_time</span> <span class="o">=</span> <span class="s2">&quot;2007-09-22T21:59:59&quot;</span>
+	<span class="n">Temperature_Response_Fundamental</span> <span class="o">=</span> <span class="n">xrtpy</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">TemperatureResponseFundamental</span><span class="p">(</span>
+		<span class="n">filt</span><span class="p">,</span> <span class="n">date_time</span><span class="p">,</span> <span class="n">abundance_model</span><span class="o">=</span><span class="s2">&quot;Photospheric&quot;</span>
+	<span class="p">)</span>
+	<span class="n">temperature_response</span> <span class="o">=</span> <span class="n">Temperature_Response_Fundamental</span><span class="o">.</span><span class="n">temperature_response</span><span class="p">()</span>
+	<span class="n">CHIANTI_temperature</span> <span class="o">=</span> <span class="n">Temperature_Response_Fundamental</span><span class="o">.</span><span class="n">CHIANTI_temperature</span>
+	<span class="n">log_CHIANTI_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">CHIANTI_temperature</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+	<span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span> <span class="o">=</span> <span class="n">interp1d_logt</span><span class="p">(</span><span class="n">log_CHIANTI_temperature</span><span class="p">,</span> <span class="n">temperature_response</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">)</span>
+	<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+	<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+	<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">tresp</span><span class="p">))</span>
+	<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">logt</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">tresp</span><span class="p">))</span>
+	<span class="k">return</span> <span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span></div>
+
+
+
+<div class="viewcode-block" id="interp1d_logt">
+<a class="viewcode-back" href="../../../api/EMToolKit.instruments.xrt.interp1d_logt.html#EMToolKit.instruments.xrt.interp1d_logt">[docs]</a>
+<span class="k">def</span> <span class="nf">interp1d_logt</span><span class="p">(</span><span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Interpolates the temperature response values for a given set of logarithmic temperature values.</span>
+<span class="sd">	This function maps the temperature response to the specified temperature array using linear interpolation.</span>
+
+<span class="sd">	Args:</span>
+<span class="sd">		logt (array-like): An array of logarithmic temperature values.</span>
+<span class="sd">		tresp (array-like): An array of temperature response values corresponding to the logarithmic temperatures.</span>
+<span class="sd">		temperature_array (array-like): The array of temperatures for which the response is to be interpolated.</span>
+
+<span class="sd">	Returns:</span>
+<span class="sd">		tuple: A tuple containing the input temperature array and the interpolated temperature response values.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="n">new_tresp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">temperature_array</span><span class="p">,</span> <span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">temperature_array</span><span class="p">,</span> <span class="n">new_tresp</span></div>
+
+
+
+
+<div class="viewcode-block" id="download_xrt_data">
+<a class="viewcode-back" href="../../../api/EMToolKit.instruments.xrt.download_xrt_data.html#EMToolKit.instruments.xrt.download_xrt_data">[docs]</a>
+<span class="k">def</span> <span class="nf">download_xrt_data</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">redownload</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+	<span class="n">folder_name</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+	<span class="n">xrt_data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;.data&quot;</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">xrt_data_dir</span><span class="p">):</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">xrt_data_dir</span><span class="p">)</span>
+
+	<span class="n">paths</span> <span class="o">=</span> <span class="n">list_fits_files</span><span class="p">(</span><span class="n">xrt_data_dir</span><span class="p">,</span> <span class="s1">&#39;xrt&#39;</span><span class="p">)</span>
+
+	<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span><span class="si">}</span><span class="s2"> xrt images on disk.&quot;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">redownload</span><span class="p">:</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching for XRT images from </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+			<span class="n">qry</span> <span class="o">=</span> <span class="n">Fido</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">Time</span><span class="p">(</span><span class="n">TimeRange</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)),</span> <span class="n">a</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s1">&#39;XRT&#39;</span><span class="p">))</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloading XRT images...&quot;</span><span class="p">)</span>
+			<span class="n">Fido</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">qry</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">xrt_data_dir</span><span class="p">,</span> <span class="n">max_conn</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+		<span class="k">except</span> <span class="ne">ConnectionError</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No internet connection, continuing without xrt&quot;</span><span class="p">)</span>
+		<span class="n">paths</span> <span class="o">=</span> <span class="n">list_fits_files</span><span class="p">(</span><span class="n">xrt_data_dir</span><span class="p">,</span> <span class="s1">&#39;xrt&#39;</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">paths</span><span class="p">,</span> <span class="n">xrt_data_dir</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; EMToolKit 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+      <link rel="stylesheet" type="text/css" href="../_static/resizing.css?v=f6a093c2" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/toggleprompt.js?v=5801b3bb"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script src="../_static/open_external_links_in_new_tab.js?v=ce535536"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            EMToolKit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Package Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/EMToolKit.html">EMToolKit API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/EMToolKit.algorithms.html">Algorithms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.multi_inst_dem_wrapper.aia_color_table.html">aia_color_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.multi_inst_dem_wrapper.multi_inst_simple_dem_wrapper.html">multi_inst_simple_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.multi_inst_dem_wrapper.plot_reprojected.html">plot_reprojected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.multi_inst_dem_wrapper.reproject_with_uncertainties.html">reproject_with_uncertainties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.simple_reg_dem.simple_reg_dem.html">simple_reg_dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.simple_reg_dem_parallel.precompute_matrices.html">precompute_matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.simple_reg_dem_parallel.process_pixel.html">process_pixel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem.html">simple_reg_dem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_parallel.html">simple_reg_dem_parallel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.simple_reg_dem_parallel.simple_reg_dem_serial.html">simple_reg_dem_serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.simple_reg_dem_wrapper.autoloading_simple_reg_dem_wrapper.html">autoloading_simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.simple_reg_dem_wrapper.simple_reg_dem_wrapper.html">simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.autoloading_simple_reg_dem_wrapper.html">autoloading_simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.simple_reg_dem_wrapper_parallel.simple_reg_dem_wrapper.html">simple_reg_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_em.simplex.html">simplex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_em.sparse_em_init.html">sparse_em_init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_em.sparse_em_solve.html">sparse_em_solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_em_wrapper.autoloading_sparse_em_wrapper.html">autoloading_sparse_em_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_em_wrapper.sparse_em_wrapper.html">sparse_em_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.minmax.html">minmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.process_data_element.html">process_data_element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrapper.html">sparse_nlmap_dem_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_nlmap_dem_wrapper.sparse_nlmap_dem_wrap_object.html">sparse_nlmap_dem_wrap_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_nlmap_solver.solve.html">solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.algorithms.sparse_nlmap_solver.nlmap_operator.html">nlmap_operator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/EMToolKit.instruments.html">Instruments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.aia.aia_temperature_response.html">aia_temperature_response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.aia.aia_wrapper.html">aia_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.aia.download_sdo_data.html">download_sdo_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.aia.estimate_aia_error.html">estimate_aia_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.aia.interpolate_table.html">interpolate_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.aia.load_from_paths.html">load_from_paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.xrt.download_xrt_data.html">download_xrt_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.xrt.estimate_xrt_error.html">estimate_xrt_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.xrt.interp1d_logt.html">interp1d_logt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.xrt.xrt_temperature_response.html">xrt_temperature_response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.instruments.xrt.xrt_wrapper.html">xrt_wrapper</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/EMToolKit.schemas.html">Schemas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.basic_schemas.basic_detector.html">basic_detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.basic_schemas.basic_source.html">basic_source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.basic_transforms.fits_transform.html">fits_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.basic_transforms.generic_transform.html">generic_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.basic_transforms.trivialframe.html">trivialframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.coord_grid.coord_grid.html">coord_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_functions.bin_function.html">bin_function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_functions.flattop_guassian_psf.html">flattop_guassian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_functions.get_2d_cov.html">get_2d_cov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_functions.get_3d_cov.html">get_3d_cov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_functions.nd_gaussian_psf.html">nd_gaussian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_functions.nd_powgaussian_psf.html">nd_powgaussian_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_functions.nd_voigt_psf.html">nd_voigt_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_functions.spice_spectrograph_psf.html">spice_spectrograph_psf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_functions.spike_function.html">spike_function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_grid.detector_grid.html">detector_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_grid.element_grid.html">element_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_grid.source_grid.html">source_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.element_source_responses.element_source_responses.html">element_source_responses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.operators.sparse_d2_partial_matrix.html">sparse_d2_partial_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.operators.multi_instrument_linear_operator.html">multi_instrument_linear_operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.operators.reg_operator_postfac_wrapper.html">reg_operator_postfac_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.operators.single_instrument_linear_operator_separable.html">single_instrument_linear_operator_separable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.util.as_dict.html">as_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.util.bindown.html">bindown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.util.bindown2.html">bindown2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.util.binup.html">binup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.util.btp.html">btp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.util.ftp.html">ftp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.util.get_mask_errs.html">get_mask_errs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.util.masked_median_filter.html">masked_median_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.util.multivec_matmul.html">multivec_matmul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.schemas.util.rindices.html">rindices</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/EMToolKit.visualization.html">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.visualization.dashboard.dem_color_table.html">dem_color_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.visualization.dashboard.dummy_meta.html">dummy_meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/EMToolKit.visualization.dashboard.dashboard_object.html">dashboard_object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="GALLERY_HEADER.html">Example Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="EMToolKit_example_multi_instrument.html">Multi-Instrument Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EMToolKit_example_07252010.html">Single Instrument Dashboard</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../develop.html">EMToolKit Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Ways to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Android_EMToolKit_Setup.html">Android Setup for Running EMToolKit on JupyterLab</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">EMToolKit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/EMToolKit_example_multi_instrument_downsampling.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;style&gt;:root { --jp-notebook-max-width: 100% !important; }&lt;/style&gt;&quot;</span><span class="p">))</span>
+
+
+<span class="kn">import</span> <span class="nn">importlib</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">copy</span>
+
+<span class="kn">from</span> <span class="nn">sunpy.map</span> <span class="kn">import</span> <span class="n">Map</span>
+<span class="kn">from</span> <span class="nn">sunpy.net</span> <span class="kn">import</span> <span class="n">Fido</span><span class="p">,</span> <span class="n">vso</span><span class="p">,</span> <span class="n">attrs</span> <span class="k">as</span> <span class="n">a</span>
+<span class="kn">from</span> <span class="nn">sunpy.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+<span class="kn">from</span> <span class="nn">ndcube</span> <span class="kn">import</span> <span class="n">NDCube</span><span class="p">,</span> <span class="n">NDCubeSequence</span><span class="p">,</span> <span class="n">NDCollection</span>
+<span class="kn">from</span> <span class="nn">astropy</span> <span class="kn">import</span> <span class="n">wcs</span>
+
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span> <span class="c1"># Make the fonts in figures big enough for papers</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:[</span><span class="mi">27</span><span class="p">,</span><span class="mi">15</span><span class="p">]})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;image.origin&#39;</span><span class="p">:</span><span class="s1">&#39;lower&#39;</span><span class="p">})</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+
+<span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+
+<span class="kn">import</span> <span class="nn">EMToolKit.EMToolKit</span> <span class="k">as</span> <span class="nn">emtk</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_figure</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.instruments.aia</span> <span class="kn">import</span> <span class="n">load_from_paths</span><span class="p">,</span> <span class="n">aia_wrapper</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.instruments.xrt</span> <span class="kn">import</span> <span class="n">xrt_wrapper</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.algorithms.sparse_em_wrapper</span> <span class="kn">import</span> <span class="n">sparse_em_wrapper</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.algorithms.simple_reg_dem_wrapper</span> <span class="kn">import</span> <span class="n">simple_reg_dem_wrapper</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.algorithms.sparse_nlmap_dem_wrapper</span> <span class="kn">import</span> <span class="n">sparse_nlmap_dem_wrapper</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<style>:root { --jp-notebook-max-width: 100% !important; }</style></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/jplowman/research/solar_physics/projects/EMToolKit/EMToolKit/schemas/util.py:37: NumbaDeprecationWarning: <span class="ansi-bold">The &#39;nopython&#39; keyword argument was not supplied to the &#39;numba.jit&#39; decorator. The implicit default value for this argument is currently False, but it will be changed to True in Numba 0.59.0. See https://numba.readthedocs.io/en/stable/reference/deprecation.html#deprecation-of-object-mode-fall-back-behaviour-when-using-jit for details.</span>
+  @numba.jit(fastmath=True, parallel=True)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">EMToolKit</span>
+<span class="kn">import</span> <span class="nn">EMToolKit.visualization</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">EMToolKit</span><span class="p">)</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">EMToolKit</span><span class="o">.</span><span class="n">visualization</span><span class="p">)</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">EMToolKit</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">dashboard</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">EMToolKit.EMToolKit</span> <span class="k">as</span> <span class="nn">emtk</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_figure</span>
+<span class="n">em_collection</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">daystr</span> <span class="o">=</span> <span class="s1">&#39;20100725&#39;</span>
+<span class="n">date</span><span class="o">=</span><span class="s1">&#39;2010/07/25 17:58:44&#39;</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span><span class="s1">&#39;data&#39;</span><span class="p">,</span><span class="n">daystr</span><span class="p">)</span>
+
+<span class="n">xl</span><span class="p">,</span> <span class="n">yl</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="mi">240</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">,</span> <span class="o">-</span><span class="mi">525</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">,</span> <span class="mi">270</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">,</span> <span class="mi">240</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span>
+<span class="c1">#xl, yl, dx, dy = 240*u.arcsec, -525*u.arcsec, 135*u.arcsec, 120*u.arcsec</span>
+
+<span class="c1"># Commands for initial data download. Comment out once that&#39;s successful.</span>
+<span class="c1"># VSO can sometimes be a bit flakey here, in my experience, may require multiple tries:</span>
+<span class="c1">#paths = []</span>
+<span class="c1">#passbands = np.array([94,131,171,193,211,335])*u.angstrom</span>
+<span class="c1">#for band in passbands:</span>
+<span class="c1">#    qry = Fido.search(a.Time(TimeRange(date,12*u.s)),a.Instrument(&#39;AIA&#39;),a.Wavelength(band))[0,0]</span>
+<span class="c1">#    paths.append(Fido.fetch(qry,path=data_path))</span>
+
+<span class="n">aia94dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_94a_2010_07_25t17_58_44_13z_image_lev1.fits&#39;</span><span class="p">)</span>
+<span class="n">aia131dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_131a_2010_07_25t17_58_45_62z_image_lev1.fits&#39;</span><span class="p">)</span>
+<span class="n">aia171dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_171a_2010_07_25t17_58_36_34z_image_lev1.fits&#39;</span><span class="p">)</span>
+<span class="n">aia193dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_193a_2010_07_25t17_58_43_84z_image_lev1.fits&#39;</span><span class="p">)</span>
+<span class="n">aia211dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_211a_2010_07_25t17_58_36_62z_image_lev1.fits&#39;</span><span class="p">)</span>
+<span class="n">aia335dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_335a_2010_07_25t17_58_39_63z_image_lev1.fits&#39;</span><span class="p">)</span>
+
+<span class="c1"># Hinode data was downloaded directly rather than using Fido since I had trouble getting it the latter way:</span>
+<span class="n">hinode_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;XRT20100725_175844.2.fits&#39;</span><span class="p">)</span>
+
+<span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">aia94dat_path</span><span class="p">,</span> <span class="n">aia131dat_path</span><span class="p">,</span> <span class="n">aia171dat_path</span><span class="p">,</span> <span class="n">aia193dat_path</span><span class="p">,</span> <span class="n">aia211dat_path</span><span class="p">,</span> <span class="n">aia335dat_path</span><span class="p">,</span> <span class="n">hinode_path</span><span class="p">]</span>
+<span class="n">channel_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;AIA94_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA131_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA171_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA193_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA211_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA335_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;XRT&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aiamaps</span> <span class="o">=</span> <span class="n">load_from_paths</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span><span class="n">xl</span><span class="o">=</span><span class="n">xl</span><span class="p">,</span><span class="n">yl</span><span class="o">=</span><span class="n">yl</span><span class="p">,</span><span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span><span class="n">dy</span><span class="o">=</span><span class="n">dy</span><span class="p">)</span>
+<span class="c1"># We&#39;re loading these separately so that we can apply an offset to the XRT data -- there appears</span>
+<span class="c1"># to be a significant misalignment based on manual inspection and testing:</span>
+<span class="c1">#xrt_offsets = [-2*u.arcsec, -11*u.arcsec]</span>
+<span class="c1">#xrt_offsets = [-7*u.arcsec, -23*u.arcsec]</span>
+<span class="n">xrt_offsets</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">]</span>
+<span class="n">xrtmap</span> <span class="o">=</span> <span class="n">load_from_paths</span><span class="p">([[</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span><span class="n">hinode_path</span><span class="p">],</span><span class="n">xl</span><span class="o">=</span><span class="n">xl</span><span class="o">+</span><span class="n">xrt_offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">yl</span><span class="o">=</span><span class="n">yl</span><span class="o">+</span><span class="n">xrt_offsets</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span><span class="n">dy</span><span class="o">=</span><span class="n">dy</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">xrtmap</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;crval1&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">xrt_offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="n">xrtmap</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;crval2&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">xrt_offsets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+
+<span class="p">[</span><span class="n">xrtmaps</span><span class="p">,</span><span class="n">xrterrs</span><span class="p">,</span><span class="n">xrt_trlogts</span><span class="p">,</span><span class="n">xrt_tresps</span><span class="p">]</span> <span class="o">=</span> <span class="n">xrt_wrapper</span><span class="p">([</span><span class="n">xrtmap</span><span class="p">])</span>
+<span class="p">[</span><span class="n">maps</span><span class="p">,</span><span class="n">errs</span><span class="p">,</span><span class="n">trlogts</span><span class="p">,</span><span class="n">tresps</span><span class="p">]</span> <span class="o">=</span> <span class="n">aia_wrapper</span><span class="p">(</span><span class="n">aiamaps</span><span class="p">)</span>
+<span class="n">maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrtmaps</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">errs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrterrs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">trlogts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrt_trlogts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">tresps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xrt_tresps</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">logt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span><span class="mf">7.5</span><span class="p">,</span><span class="mi">41</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">tresps</span><span class="p">)):</span>
+    <span class="n">tresps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">logt</span><span class="p">,</span><span class="n">trlogts</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">tresps</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">trlogts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">logt</span><span class="p">)</span>
+
+<span class="c1"># Normalizing the response functions makes them much easier for the solver to handle.</span>
+<span class="n">datmax_nominal</span> <span class="o">=</span> <span class="mf">1.0e4</span> <span class="c1"># The nominal maximum of the data</span>
+<span class="n">overall_norm</span> <span class="o">=</span> <span class="n">datmax_nominal</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tresps</span><span class="p">))</span>
+<span class="n">norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tresps</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tresps</span><span class="p">))</span><span class="o">/</span><span class="n">overall_norm</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+INFO: Missing metadata for solar radius: assuming the standard radius of the photosphere. [sunpy.map.mapbase]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING: SunpyMetadataWarning: Missing metadata for observer: assuming Earth-based observer.
+For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: hgln_obs,hglt_obs,dsun_obs
+For frame &#39;heliographic_carrington&#39; the following metadata is missing: crlt_obs,crln_obs,dsun_obs
+For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: solar_b0,dsun_obs
+ [sunpy.map.mapbase]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make data sequence from AIA data:</span>
+<span class="n">datasequence</span> <span class="o">=</span> <span class="n">emtk</span><span class="o">.</span><span class="n">em_data</span><span class="p">(</span><span class="n">maps</span><span class="p">,</span><span class="n">errs</span><span class="p">,</span><span class="n">trlogts</span><span class="p">,</span><span class="n">tresps</span><span class="p">)</span>
+
+<span class="c1"># Create em_collection with AIA data:</span>
+<span class="n">em_collection</span> <span class="o">=</span> <span class="n">emtk</span><span class="o">.</span><span class="n">em_collection</span><span class="p">(</span><span class="n">datasequence</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+INFO: Missing metadata for solar radius: assuming the standard radius of the photosphere. [sunpy.map.mapbase]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING: SunpyMetadataWarning: Missing metadata for observer: assuming Earth-based observer.
+For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: hgln_obs,hglt_obs,dsun_obs
+For frame &#39;heliographic_carrington&#39; the following metadata is missing: crlt_obs,crln_obs,dsun_obs
+For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: solar_b0,dsun_obs
+ [sunpy.map.mapbase]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show some of the AIA channels and their temperature responses for illustration:</span>
+<span class="n">plt_emmax</span> <span class="o">=</span> <span class="mf">5.0e28</span>
+<span class="n">gfac</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="mf">2.2</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">maps</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">tresps</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="mi">0</span><span class="p">,</span><span class="n">plt_emmax</span><span class="p">)</span><span class="o">**</span><span class="n">gfac</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;AIA 193 Angstrom&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trlogts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">tresps</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mf">1.0e-27</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;AIA 193 Temperature Response&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (dB Kelvin)&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Response (DN/s/(10$^9$ cm$^{-3})^2$/Mm)&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">maps</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">tresps</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span><span class="mi">0</span><span class="p">,</span><span class="n">plt_emmax</span><span class="p">)</span><span class="o">**</span><span class="n">gfac</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;AIA 335 Angstrom&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trlogts</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">tresps</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mf">1.0e-27</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;AIA 335 Temperature Response&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (dB Kelvin)&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Response (DN/s/(cm$^{-3})^2$/Mm)&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">maps</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">tresps</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span><span class="mi">0</span><span class="p">,</span><span class="n">plt_emmax</span><span class="p">)</span><span class="o">**</span><span class="n">gfac</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;AIA 94 Angstrom&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trlogts</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="n">tresps</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">/</span><span class="mf">1.0e-27</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;AIA 94 Temperature Response&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (dB Kelvin)&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Response (DN/s/(cm$^{-3})^2$/Mm)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[Text(0.5, 1.0, &#39;AIA 94 Temperature Response&#39;),
+ Text(0.5, 0, &#39;Temperature (dB Kelvin)&#39;),
+ Text(0, 0.5, &#39;Response (DN/s/(cm$^{-3})^2$/Mm)&#39;)]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EMToolKit_example_multi_instrument_downsampling_5_1.png" src="../_images/examples_EMToolKit_example_multi_instrument_downsampling_5_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">multi_coeffs</span><span class="p">,</span> <span class="n">multi_logts</span><span class="p">,</span> <span class="n">multi_bases</span><span class="p">,</span> <span class="n">multi_coords</span><span class="p">,</span> <span class="n">multi_algorithm</span><span class="p">,</span> <span class="n">multi_em_wrapper</span> <span class="o">=</span> <span class="n">sparse_nlmap_dem_wrapper</span><span class="p">(</span><span class="n">datasequence</span><span class="p">,</span> <span class="n">wrapargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;norms&#39;</span><span class="p">:</span><span class="n">norms</span><span class="p">,</span> <span class="s1">&#39;overall_norm&#39;</span><span class="p">:</span><span class="n">overall_norm</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+INFO: Missing metadata for solar radius: assuming the standard radius of the photosphere. [sunpy.map.mapbase]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING: SunpyMetadataWarning: Missing metadata for observer: assuming Earth-based observer.
+For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: hgln_obs,hglt_obs,dsun_obs
+For frame &#39;heliographic_carrington&#39; the following metadata is missing: crlt_obs,crln_obs,dsun_obs
+ [sunpy.map.mapbase]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+4.999250215886115 % done after 3.110848903656006 seconds
+9.999017524264564 % done after 6.480065822601318 seconds
+14.998784832643015 % done after 9.653247594833374 seconds
+19.998552141021463 % done after 13.153360843658447 seconds
+24.998319449399915 % done after 16.924364805221558 seconds
+29.998086757778363 % done after 20.763426065444946 seconds
+34.99785406615681 % done after 25.038889169692993 seconds
+39.997621374535264 % done after 28.81321120262146 seconds
+44.997388682913716 % done after 32.9749596118927 seconds
+49.99715599129216 % done after 36.952210903167725 seconds
+54.99692329967061 % done after 40.60025453567505 seconds
+59.996690608049065 % done after 44.56484603881836 seconds
+64.99645791642752 % done after 48.55983114242554 seconds
+69.99622522480595 % done after 52.280149936676025 seconds
+74.9959925331844 % done after 56.31605935096741 seconds
+79.99575984156286 % done after 60.15965175628662 seconds
+84.99552714994131 % done after 65.0708065032959 seconds
+89.99529445831976 % done after 69.23694920539856 seconds
+94.99506176669821 % done after 73.81574368476868 seconds
+99.99482907507667 % done after 77.96471452713013 seconds
+4.999250215886115 % done after 3.954819917678833 seconds
+9.999017524264564 % done after 8.030447006225586 seconds
+14.998784832643015 % done after 11.843273162841797 seconds
+19.998552141021463 % done after 15.828091621398926 seconds
+24.998319449399915 % done after 19.783579349517822 seconds
+29.998086757778363 % done after 24.0409836769104 seconds
+34.99785406615681 % done after 28.567872762680054 seconds
+39.997621374535264 % done after 33.02411890029907 seconds
+44.997388682913716 % done after 37.179752349853516 seconds
+49.99715599129216 % done after 41.08158826828003 seconds
+54.99692329967061 % done after 44.63177299499512 seconds
+59.996690608049065 % done after 48.61902737617493 seconds
+64.99645791642752 % done after 52.64832615852356 seconds
+69.99622522480595 % done after 57.39676642417908 seconds
+74.9959925331844 % done after 63.24455904960632 seconds
+79.99575984156286 % done after 69.62983727455139 seconds
+84.99552714994131 % done after 74.18715476989746 seconds
+89.99529445831976 % done after 78.93065071105957 seconds
+94.99506176669821 % done after 83.20911717414856 seconds
+99.99482907507667 % done after 87.5703444480896 seconds
+4.999250215886115 % done after 4.4067018032073975 seconds
+9.999017524264564 % done after 8.991491794586182 seconds
+14.998784832643015 % done after 13.742652654647827 seconds
+19.998552141021463 % done after 18.292463302612305 seconds
+24.998319449399915 % done after 22.498626947402954 seconds
+29.998086757778363 % done after 26.923829555511475 seconds
+34.99785406615681 % done after 31.3502836227417 seconds
+39.997621374535264 % done after 35.51889228820801 seconds
+44.997388682913716 % done after 40.177979707717896 seconds
+49.99715599129216 % done after 45.0867063999176 seconds
+54.99692329967061 % done after 49.53115439414978 seconds
+59.996690608049065 % done after 55.00101351737976 seconds
+64.99645791642752 % done after 60.86434769630432 seconds
+69.99622522480595 % done after 67.24055314064026 seconds
+74.9959925331844 % done after 74.32497787475586 seconds
+79.99575984156286 % done after 80.79583358764648 seconds
+84.99552714994131 % done after 86.33464884757996 seconds
+89.99529445831976 % done after 90.8029272556305 seconds
+94.99506176669821 % done after 95.16171550750732 seconds
+99.99482907507667 % done after 99.21502995491028 seconds
+4.999250215886115 % done after 3.773562431335449 seconds
+9.999017524264564 % done after 7.7406439781188965 seconds
+14.998784832643015 % done after 11.447117328643799 seconds
+19.998552141021463 % done after 15.40975308418274 seconds
+24.998319449399915 % done after 19.03388738632202 seconds
+29.998086757778363 % done after 23.288485765457153 seconds
+34.99785406615681 % done after 27.435535430908203 seconds
+39.997621374535264 % done after 31.135797023773193 seconds
+44.997388682913716 % done after 35.074958086013794 seconds
+49.99715599129216 % done after 39.51917624473572 seconds
+54.99692329967061 % done after 43.55309534072876 seconds
+59.996690608049065 % done after 47.50706148147583 seconds
+64.99645791642752 % done after 51.4269597530365 seconds
+69.99622522480595 % done after 55.10201573371887 seconds
+74.9959925331844 % done after 59.01391339302063 seconds
+79.99575984156286 % done after 62.66536808013916 seconds
+84.99552714994131 % done after 66.54948210716248 seconds
+89.99529445831976 % done after 70.39764761924744 seconds
+94.99506176669821 % done after 74.19239830970764 seconds
+99.99482907507667 % done after 78.17370319366455 seconds
+4.999250215886115 % done after 3.8088369369506836 seconds
+9.999017524264564 % done after 7.844883441925049 seconds
+14.998784832643015 % done after 11.459086418151855 seconds
+19.998552141021463 % done after 15.333667755126953 seconds
+24.998319449399915 % done after 19.48992419242859 seconds
+29.998086757778363 % done after 23.647006273269653 seconds
+34.99785406615681 % done after 27.99341106414795 seconds
+39.997621374535264 % done after 31.90523624420166 seconds
+44.997388682913716 % done after 36.12453007698059 seconds
+49.99715599129216 % done after 40.38550329208374 seconds
+54.99692329967061 % done after 44.19791889190674 seconds
+59.996690608049065 % done after 48.3220055103302 seconds
+64.99645791642752 % done after 52.455726623535156 seconds
+69.99622522480595 % done after 56.22860050201416 seconds
+74.9959925331844 % done after 60.12852120399475 seconds
+79.99575984156286 % done after 63.74618887901306 seconds
+84.99552714994131 % done after 67.78056144714355 seconds
+89.99529445831976 % done after 71.76670098304749 seconds
+94.99506176669821 % done after 75.5690667629242 seconds
+99.99482907507667 % done after 79.42677974700928 seconds
+4.999250215886115 % done after 3.6544504165649414 seconds
+9.999017524264564 % done after 7.556798934936523 seconds
+14.998784832643015 % done after 11.14007568359375 seconds
+19.998552141021463 % done after 14.960201501846313 seconds
+24.998319449399915 % done after 18.53769278526306 seconds
+29.998086757778363 % done after 22.49564266204834 seconds
+34.99785406615681 % done after 26.43397855758667 seconds
+39.997621374535264 % done after 30.082422494888306 seconds
+44.997388682913716 % done after 33.881152629852295 seconds
+49.99715599129216 % done after 37.724414587020874 seconds
+54.99692329967061 % done after 41.383166790008545 seconds
+59.996690608049065 % done after 45.20920491218567 seconds
+64.99645791642752 % done after 49.03186511993408 seconds
+69.99622522480595 % done after 52.60315203666687 seconds
+74.9959925331844 % done after 56.58128762245178 seconds
+79.99575984156286 % done after 60.2288920879364 seconds
+84.99552714994131 % done after 64.13597893714905 seconds
+89.99529445831976 % done after 68.10341095924377 seconds
+94.99506176669821 % done after 71.83333468437195 seconds
+99.99482907507667 % done after 75.95488953590393 seconds
+4.999250215886115 % done after 3.7605910301208496 seconds
+9.999017524264564 % done after 7.745980739593506 seconds
+14.998784832643015 % done after 11.595702886581421 seconds
+19.998552141021463 % done after 15.614461183547974 seconds
+24.998319449399915 % done after 19.65095829963684 seconds
+29.998086757778363 % done after 23.226273775100708 seconds
+34.99785406615681 % done after 27.174665451049805 seconds
+39.997621374535264 % done after 31.08003520965576 seconds
+44.997388682913716 % done after 34.66356563568115 seconds
+49.99715599129216 % done after 38.53293323516846 seconds
+54.99692329967061 % done after 42.180877923965454 seconds
+59.996690608049065 % done after 46.11000895500183 seconds
+64.99645791642752 % done after 50.50112223625183 seconds
+69.99622522480595 % done after 54.27536606788635 seconds
+74.9959925331844 % done after 58.33747720718384 seconds
+79.99575984156286 % done after 62.56215190887451 seconds
+84.99552714994131 % done after 66.33448553085327 seconds
+89.99529445831976 % done after 70.26439046859741 seconds
+94.99506176669821 % done after 74.15322613716125 seconds
+99.99482907507667 % done after 77.76899361610413 seconds
+68773.55 1071.819 0.0 2.8913682
+Overall regularization factor: 1.0
+63.31 s i = 0 chi2 = 95.32 step size = 0.3 reg. param. = 0.11 chi2 change = 92.42566 reg. change = -0.10921
+Setup:  0.5654871463775635 Solver:  59.331443548202515 Stepper:  3.413912057876587
+New combined FOM: 95.42702596350448 Old combined FOM: 187.7434725870973 Change: 92.31644662359282
+230.58 s i = 1 chi2 = 20.85 step size = 0.85 reg. param. = 0.42 chi2 change = 74.46903 reg. change = -0.31577
+Setup:  1.1865673065185547 Solver:  223.40030813217163 Stepper:  5.99060320854187
+New combined FOM: 21.273768281015748 Old combined FOM: 95.42702596350448 Change: 74.15325768248873
+434.42 s i = 2 chi2 = 4.07 step size = 0.85 reg. param. = 0.64 chi2 change = 16.77595 reg. change = -0.21177
+Setup:  1.5448462963104248 Solver:  423.64679527282715 Stepper:  9.227931261062622
+New combined FOM: 4.709590903425218 Old combined FOM: 21.273768281015748 Change: 16.564177377590532
+597.65 s i = 3 chi2 = 1.11 step size = 0.85 reg. param. = 0.69 chi2 change = 2.96758 reg. change = -0.05535
+Setup:  2.168287515640259 Solver:  583.1541709899902 Stepper:  12.32373857498169
+New combined FOM: 1.7973591651917677 Old combined FOM: 4.709590903425218 Change: 2.9122317382334497
+639.87 s i = 4 chi2 = 0.88 step size = 0.85 reg. param. = 0.68 chi2 change = 0.22662 reg. change = 0.01401
+Setup:  2.5896167755126953 Solver:  620.4067232608795 Stepper:  16.87498188018799
+New combined FOM: 1.5567279713778215 Old combined FOM: 1.7973591651917677 Change: 0.24063119381394626
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">multi_em_demsequence</span> <span class="o">=</span> <span class="n">emtk</span><span class="o">.</span><span class="n">dem_model</span><span class="p">(</span><span class="n">multi_coeffs</span><span class="p">,</span> <span class="n">multi_logts</span><span class="p">,</span> <span class="n">multi_bases</span><span class="p">,</span> <span class="n">multi_coords</span><span class="p">,</span> <span class="n">multi_algorithm</span><span class="p">,</span> <span class="n">multi_em_wrapper</span><span class="p">)</span>
+<span class="n">em_collection</span><span class="o">.</span><span class="n">add_model</span><span class="p">(</span><span class="n">multi_em_demsequence</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+INFO: Missing metadata for solar radius: assuming the standard radius of the photosphere. [sunpy.map.mapbase]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING: SunpyMetadataWarning: Missing metadata for observer: assuming Earth-based observer.
+For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: hgln_obs,hglt_obs,dsun_obs
+For frame &#39;heliographic_carrington&#39; the following metadata is missing: crlt_obs,crln_obs,dsun_obs
+ [sunpy.map.mapbase]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">multi_synthmaps</span> <span class="o">=</span> <span class="p">[</span><span class="n">em_collection</span><span class="o">.</span><span class="n">synthesize_map</span><span class="p">(</span><span class="nb">map</span><span class="p">)</span> <span class="k">for</span> <span class="nb">map</span> <span class="ow">in</span> <span class="n">em_collection</span><span class="o">.</span><span class="n">data</span><span class="p">()]</span>
+<span class="n">multi_synthdata</span> <span class="o">=</span> <span class="p">[</span><span class="nb">map</span> <span class="k">for</span> <span class="nb">map</span> <span class="ow">in</span> <span class="n">multi_synthmaps</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calc_resids</span><span class="p">(</span><span class="n">synthdata</span><span class="p">,</span> <span class="n">em_collection</span><span class="p">):</span><span class="c1"># Calculate the residuals and Chi squared:</span>
+    <span class="n">ndata</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">synthdata</span><span class="p">)</span>
+    <span class="n">resids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">datasequence</span> <span class="o">=</span> <span class="n">em_collection</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+    <span class="n">chi2</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">[</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">datasequence</span><span class="p">:</span> <span class="p">[</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">seq</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">nx</span><span class="p">]),</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">seq</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">ny</span><span class="p">])]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ndata</span><span class="p">):</span>
+            <span class="n">resids</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">synthdata</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">-</span><span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">/</span><span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">array</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">chi2</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">resids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="n">ndata</span>
+    <span class="k">return</span> <span class="n">resids</span><span class="p">,</span> <span class="n">chi2</span>
+
+<span class="c1">#spars_resids, spars_chi2 = calc_resids(spars_synthdata,em_collection)</span>
+<span class="c1">#simpl_resids, simpl_chi2 = calc_resids(simpl_synthdata,em_collection)</span>
+<span class="n">multi_resids</span><span class="p">,</span> <span class="n">multi_chi2</span> <span class="o">=</span> <span class="n">calc_resids</span><span class="p">(</span><span class="n">multi_synthdata</span><span class="p">,</span><span class="n">em_collection</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Multi-instrument Chi squared = &quot;</span><span class="p">,</span><span class="n">multi_chi2</span><span class="p">)</span>
+<span class="c1">#print(&#39;simple_reg_dem Chi squared = &#39;,simpl_chi2, &#39;spars_em Chi squared = &#39;,spars_chi2)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Multi-instrument Chi squared =  1.0187591209873754
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot Residuals:</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">12</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Residuals for &#39;</span><span class="o">+</span><span class="n">multi_algorithm</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">):</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">multi_resids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">em_collection</span><span class="o">.</span><span class="n">data</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_EMToolKit_example_multi_instrument_downsampling_10_0.png" src="../_images/examples_EMToolKit_example_multi_instrument_downsampling_10_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">fixed</span><span class="p">,</span> <span class="n">interact_manual</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+
+
+<span class="k">class</span> <span class="nc">dashboard_object</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">em_collection</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emc</span> <span class="o">=</span> <span class="n">em_collection</span>
+
+    <span class="k">def</span> <span class="nf">widgwrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xpt</span><span class="p">,</span> <span class="n">ypt</span><span class="p">,</span> <span class="n">rtemp</span><span class="p">,</span> <span class="n">gtemp</span><span class="p">,</span> <span class="n">btemp</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">):</span>
+        <span class="n">dashboard_figure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">emc</span><span class="p">,</span> <span class="n">plotpoint</span><span class="o">=</span><span class="p">[</span><span class="n">xpt</span><span class="p">,</span><span class="n">ypt</span><span class="p">],</span> <span class="n">temperatures</span><span class="o">=</span><span class="p">[</span><span class="n">rtemp</span><span class="p">,</span><span class="n">gtemp</span><span class="p">,</span><span class="n">btemp</span><span class="p">],</span> <span class="n">sigmas</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">algorithm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">EMToolKit</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">dashboard</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_figure</span>
+<span class="n">dash</span> <span class="o">=</span> <span class="n">dashboard_object</span><span class="p">(</span><span class="n">em_collection</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="n">dash</span><span class="o">.</span><span class="n">emc</span><span class="o">.</span><span class="n">collection</span><span class="p">[</span><span class="n">dash</span><span class="o">.</span><span class="n">emc</span><span class="o">.</span><span class="n">collection</span><span class="p">[</span><span class="s1">&#39;models&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">xpt</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">nx</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;xpt&#39;</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ypt</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">ny</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;ypt&#39;</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">rtemp</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">5.8</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;rtemp&#39;</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gtemp</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">6.1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;gtemp&#39;</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">btemp</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">6.4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;btemp&#39;</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sigma</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.125</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">algorithm</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">dash</span><span class="o">.</span><span class="n">emc</span><span class="o">.</span><span class="n">collection</span><span class="p">[</span><span class="s1">&#39;models&#39;</span><span class="p">],</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;algorithm&#39;</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ui</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">([</span><span class="n">xpt</span><span class="p">,</span><span class="n">ypt</span><span class="p">,</span><span class="n">rtemp</span><span class="p">,</span><span class="n">gtemp</span><span class="p">,</span><span class="n">btemp</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">algorithm</span><span class="p">])</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive_output</span><span class="p">(</span><span class="n">dash</span><span class="o">.</span><span class="n">widgwrap</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;xpt&#39;</span><span class="p">:</span><span class="n">xpt</span><span class="p">,</span><span class="s1">&#39;ypt&#39;</span><span class="p">:</span><span class="n">ypt</span><span class="p">,</span><span class="s1">&#39;rtemp&#39;</span><span class="p">:</span><span class="n">rtemp</span><span class="p">,</span><span class="s1">&#39;gtemp&#39;</span><span class="p">:</span><span class="n">gtemp</span><span class="p">,</span><span class="s1">&#39;btemp&#39;</span><span class="p">:</span><span class="n">btemp</span><span class="p">,</span><span class="s1">&#39;sigma&#39;</span><span class="p">:</span><span class="n">sigma</span><span class="p">,</span><span class="s1">&#39;algorithm&#39;</span><span class="p">:</span><span class="n">algorithm</span><span class="p">})</span>
+<span class="n">display</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "98199664c1b9482994088300625bb7de", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8bfa54d24dd64d808d30fde7d4da68cb", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
