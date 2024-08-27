@@ -6,4 +6,4 @@ Example Gallery
 
    ./EMToolKit_example_07252010
    ./EMToolKit_example_multi_instrument
-   ./EMToolKit_example_multi_instrument_downsampling.ipynb
+   ./EMToolKit_example_multi_instrument_downsampling

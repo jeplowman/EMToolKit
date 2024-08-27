@@ -53,7 +53,7 @@ def estimate_xrt_error(map_in):
 	return ((np.abs(map_in.data.astype(np.float32))*25 + 25**2)**0.5)
 
 
-def xrt_temperature_response(map_in, temperature_array):
+def xrt_temperature_response(map_in, temperature_array, *, do_plot=True):
 	"""
 	This Python function calculates the temperature response for a given filter channel using xrtpy
 	library and plots the response curve.
@@ -78,7 +78,7 @@ def xrt_temperature_response(map_in, temperature_array):
 
 	channel = map_in.meta['ec_fw1_']+'/'+map_in.meta['ec_fw2_']
 	channel = channel.replace("Open/", "")
-	print("MAP FILTER IS : ", channel)
+
 	filt = channel
 	date_time = "2007-09-22T21:59:59"
 	Temperature_Response_Fundamental = xrtpy.response.TemperatureResponseFundamental(
@@ -88,10 +88,11 @@ def xrt_temperature_response(map_in, temperature_array):
 	CHIANTI_temperature = Temperature_Response_Fundamental.CHIANTI_temperature
 	log_CHIANTI_temperature = np.log10(CHIANTI_temperature.value)
 	logt, tresp = interp1d_logt(log_CHIANTI_temperature, temperature_response.value, temperature_array)
-	plt.plot(logt, tresp, 'b')
-	plt.show()
-	print(len(logt), len(tresp))
-	print(type(logt), type(tresp))
+	if do_plot:
+		plt.plot(logt,tresp)
+		plt.title(f"XRT MAP FILTER IS : {channel}")
+		plt.xlabel("Temperature")
+		plt.show()
 	return logt, tresp
 
 
