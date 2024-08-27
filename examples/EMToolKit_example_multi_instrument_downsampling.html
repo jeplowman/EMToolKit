@@ -192,11 +192,14 @@
              
   <section id="Multi-Instrument-Downsampling-Dashboard">
 <h1>Multi-Instrument Downsampling Dashboard<a class="headerlink" href="#Multi-Instrument-Downsampling-Dashboard" title="Link to this heading"></a></h1>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<section id="Import-Statements">
+<h2>Import Statements<a class="headerlink" href="#Import-Statements" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># %pip install astropy scipy ipympl ndcube numba xrtpy sunpy lxml drms zeep</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
 <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;style&gt;:root { --jp-notebook-max-width: 100% !important; }&lt;/style&gt;&quot;</span><span class="p">))</span>
 
 
@@ -220,7 +223,7 @@
 <span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
 
 <span class="kn">import</span> <span class="nn">EMToolKit.EMToolKit</span> <span class="k">as</span> <span class="nn">emtk</span>
-<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_figure</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_object</span>
 <span class="kn">from</span> <span class="nn">EMToolKit.instruments.aia</span> <span class="kn">import</span> <span class="n">load_from_paths</span><span class="p">,</span> <span class="n">aia_wrapper</span>
 <span class="kn">from</span> <span class="nn">EMToolKit.instruments.xrt</span> <span class="kn">import</span> <span class="n">xrt_wrapper</span>
 <span class="kn">from</span> <span class="nn">EMToolKit.algorithms.sparse_em_wrapper</span> <span class="kn">import</span> <span class="n">sparse_em_wrapper</span>
@@ -228,6 +231,12 @@
 <span class="kn">from</span> <span class="nn">EMToolKit.algorithms.sparse_nlmap_dem_wrapper</span> <span class="kn">import</span> <span class="n">sparse_nlmap_dem_wrapper</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<style>:root { --jp-notebook-max-width: 100% !important; }</style></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -239,7 +248,7 @@
 <span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">EMToolKit</span><span class="o">.</span><span class="n">visualization</span><span class="p">)</span>
 <span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">EMToolKit</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">dashboard</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">EMToolKit.EMToolKit</span> <span class="k">as</span> <span class="nn">emtk</span>
-<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_figure</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_object</span>
 <span class="n">em_collection</span><span class="o">=</span><span class="mi">0</span>
 </pre></div>
 </div>
@@ -250,31 +259,43 @@
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">daystr</span> <span class="o">=</span> <span class="s1">&#39;20100725&#39;</span>
 <span class="n">date</span><span class="o">=</span><span class="s1">&#39;2010/07/25 17:58:44&#39;</span>
-<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span><span class="s1">&#39;data&#39;</span><span class="p">,</span><span class="n">daystr</span><span class="p">)</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span><span class="s1">&#39;.data&#39;</span><span class="p">,</span><span class="n">daystr</span><span class="p">)</span>
 
-<span class="n">xl</span><span class="p">,</span> <span class="n">yl</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="mi">240</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">,</span> <span class="o">-</span><span class="mi">525</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">,</span> <span class="mi">270</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">,</span> <span class="mi">240</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span>
-<span class="c1">#xl, yl, dx, dy = 240*u.arcsec, -525*u.arcsec, 135*u.arcsec, 120*u.arcsec</span>
 
-<span class="c1"># Commands for initial data download. Comment out once that&#39;s successful.</span>
-<span class="c1"># VSO can sometimes be a bit flakey here, in my experience, may require multiple tries:</span>
-<span class="c1">#paths = []</span>
-<span class="c1">#passbands = np.array([94,131,171,193,211,335])*u.angstrom</span>
-<span class="c1">#for band in passbands:</span>
-<span class="c1">#    qry = Fido.search(a.Time(TimeRange(date,12*u.s)),a.Instrument(&#39;AIA&#39;),a.Wavelength(band))[0,0]</span>
-<span class="c1">#    paths.append(Fido.fetch(qry,path=data_path))</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.instruments.aia</span> <span class="kn">import</span> <span class="n">download_sdo_data</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.instruments.xrt</span> <span class="kn">import</span> <span class="n">download_xrt_data</span>
 
-<span class="n">aia94dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_94a_2010_07_25t17_58_44_13z_image_lev1.fits&#39;</span><span class="p">)</span>
-<span class="n">aia131dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_131a_2010_07_25t17_58_45_62z_image_lev1.fits&#39;</span><span class="p">)</span>
-<span class="n">aia171dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_171a_2010_07_25t17_58_36_34z_image_lev1.fits&#39;</span><span class="p">)</span>
-<span class="n">aia193dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_193a_2010_07_25t17_58_43_84z_image_lev1.fits&#39;</span><span class="p">)</span>
-<span class="n">aia211dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_211a_2010_07_25t17_58_36_62z_image_lev1.fits&#39;</span><span class="p">)</span>
-<span class="n">aia335dat_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;aia_lev1_335a_2010_07_25t17_58_39_63z_image_lev1.fits&#39;</span><span class="p">)</span>
+<span class="n">date</span><span class="o">=</span><span class="s1">&#39;2010/07/25 17:58:44&#39;</span>
+<span class="n">redownload</span><span class="o">=</span><span class="kc">False</span>
+<span class="c1"># Download the data</span>
+<span class="n">aia_paths</span><span class="p">,</span> <span class="n">sdo_data_dir</span> <span class="o">=</span> <span class="n">download_sdo_data</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">redownload</span><span class="o">=</span><span class="n">redownload</span><span class="p">)</span>
+<span class="n">xrt_paths</span><span class="p">,</span> <span class="n">xrt_data_dir</span> <span class="o">=</span> <span class="n">download_xrt_data</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">redownload</span><span class="o">=</span><span class="n">redownload</span><span class="p">)</span>
+<span class="n">paths</span> <span class="o">=</span> <span class="n">aia_paths</span> <span class="o">+</span> <span class="n">xrt_paths</span>
 
-<span class="c1"># Hinode data was downloaded directly rather than using Fido since I had trouble getting it the latter way:</span>
-<span class="n">hinode_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;XRT20100725_175844.2.fits&#39;</span><span class="p">)</span>
 
-<span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">aia94dat_path</span><span class="p">,</span> <span class="n">aia131dat_path</span><span class="p">,</span> <span class="n">aia171dat_path</span><span class="p">,</span> <span class="n">aia193dat_path</span><span class="p">,</span> <span class="n">aia211dat_path</span><span class="p">,</span> <span class="n">aia335dat_path</span><span class="p">,</span> <span class="n">hinode_path</span><span class="p">]</span>
-<span class="n">channel_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;AIA94_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA131_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA171_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA193_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA211_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;AIA335_THIN&#39;</span><span class="p">,</span> <span class="s1">&#39;XRT&#39;</span><span class="p">])</span>
+<span class="c1"># xl, yl, dx, dy = 240*u.arcsec, -525*u.arcsec, 270*u.arcsec, 240*u.arcsec</span>
+<span class="c1"># #xl, yl, dx, dy = 240*u.arcsec, -525*u.arcsec, 135*u.arcsec, 120*u.arcsec</span>
+
+<span class="c1"># # Commands for initial data download. Comment out once that&#39;s successful.</span>
+<span class="c1"># # VSO can sometimes be a bit flakey here, in my experience, may require multiple tries:</span>
+<span class="c1"># #paths = []</span>
+<span class="c1"># #passbands = np.array([94,131,171,193,211,335])*u.angstrom</span>
+<span class="c1"># #for band in passbands:</span>
+<span class="c1"># #    qry = Fido.search(a.Time(TimeRange(date,12*u.s)),a.Instrument(&#39;AIA&#39;),a.Wavelength(band))[0,0]</span>
+<span class="c1"># #    paths.append(Fido.fetch(qry,path=data_path))</span>
+
+<span class="c1"># aia94dat_path = os.path.join(data_path,&#39;aia_lev1_94a_2010_07_25t17_58_44_13z_image_lev1.fits&#39;)</span>
+<span class="c1"># aia131dat_path = os.path.join(data_path,&#39;aia_lev1_131a_2010_07_25t17_58_45_62z_image_lev1.fits&#39;)</span>
+<span class="c1"># aia171dat_path = os.path.join(data_path,&#39;aia_lev1_171a_2010_07_25t17_58_36_34z_image_lev1.fits&#39;)</span>
+<span class="c1"># aia193dat_path = os.path.join(data_path,&#39;aia_lev1_193a_2010_07_25t17_58_43_84z_image_lev1.fits&#39;)</span>
+<span class="c1"># aia211dat_path = os.path.join(data_path,&#39;aia_lev1_211a_2010_07_25t17_58_36_62z_image_lev1.fits&#39;)</span>
+<span class="c1"># aia335dat_path = os.path.join(data_path,&#39;aia_lev1_335a_2010_07_25t17_58_39_63z_image_lev1.fits&#39;)</span>
+
+<span class="c1"># # Hinode data was downloaded directly rather than using Fido since I had trouble getting it the latter way:</span>
+<span class="c1"># hinode_path = os.path.join(data_path,&#39;XRT20100725_175844.2.fits&#39;)</span>
+
+<span class="c1"># paths = [aia94dat_path, aia131dat_path, aia171dat_path, aia193dat_path, aia211dat_path, aia335dat_path, hinode_path]</span>
+<span class="c1"># channel_names = np.array([&#39;AIA94_THIN&#39;, &#39;AIA131_THIN&#39;, &#39;AIA171_THIN&#39;, &#39;AIA193_THIN&#39;, &#39;AIA211_THIN&#39;, &#39;AIA335_THIN&#39;, &#39;XRT&#39;])</span>
 </pre></div>
 </div>
 </div>
@@ -311,28 +332,78 @@
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-INFO: Missing metadata for solar radius: assuming the standard radius of the photosphere. [sunpy.map.mapbase]
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[4], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> aiamaps <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">load_from_paths</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">paths</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">0</span><span class="ansi-yellow-bg">:</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">6</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg">xl</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">xl</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg">yl</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">yl</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg">dx</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">dx</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg">dy</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">dy</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span style="color: rgb(95,135,135)"># We&#39;re loading these separately so that we can apply an offset to the XRT data -- there appears</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span style="color: rgb(95,135,135)"># to be a significant misalignment based on manual inspection and testing:</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span style="color: rgb(95,135,135)">#xrt_offsets = [-2*u.arcsec, -11*u.arcsec]</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span style="color: rgb(95,135,135)">#xrt_offsets = [-7*u.arcsec, -23*u.arcsec]</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> xrt_offsets <span style="color: rgb(98,98,98)">=</span> [<span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">5</span><span style="color: rgb(98,98,98)">*</span>u<span style="color: rgb(98,98,98)">.</span>arcsec, <span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">20</span><span style="color: rgb(98,98,98)">*</span>u<span style="color: rgb(98,98,98)">.</span>arcsec]
+
+File <span class="ansi-green-fg">~/vscode/EMToolKit/EMToolKit/instruments/aia.py:122</span>, in <span class="ansi-cyan-fg">load_from_paths</span><span class="ansi-blue-fg">(paths, xl, yl, dx, dy, refindex)</span>
+<span class="ansi-green-intense-fg ansi-bold">    104</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">load_from_paths</span>(paths, xl<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, yl<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, dx<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, dy<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, refindex<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0</span>):
+<span class="ansi-green-intense-fg ansi-bold">    105</span> <span style="color: rgb(188,188,188)">    </span><span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    106</span> <span style="color: rgb(175,0,0)">    Loads AIA data from a set of file paths and returns the necessary arguments</span>
+<span class="ansi-green-intense-fg ansi-bold">    107</span> <span style="color: rgb(175,0,0)">    for use in an EMToolKit DataSequence. This includes a list of SunPy maps,</span>
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">    120</span> <span style="color: rgb(175,0,0)">        list: A list of SunPy maps after optional cropping.</span>
+<span class="ansi-green-intense-fg ansi-bold">    121</span> <span style="color: rgb(175,0,0)">    &#34;&#34;&#34;</span>
+<span class="ansi-green-fg">--&gt; 122</span>     refmap <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">Map</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">paths</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">refindex</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    123</span>     nocrop <span style="color: rgb(98,98,98)">=</span> (xl <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span> <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> yl <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span> <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> dx <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span> <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> dy <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>)
+<span class="ansi-green-intense-fg ansi-bold">    124</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> nocrop:
+
+File <span class="ansi-green-fg">/opt/homebrew/anaconda3/envs/EMToolkit_env/lib/python3.10/site-packages/astropy/utils/decorators.py:603</span>, in <span class="ansi-cyan-fg">deprecated_renamed_argument.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    600</span>             msg <span style="color: rgb(98,98,98)">+</span><span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span class="ansi-bold" style="color: rgb(175,95,0)">\n</span><span style="color: rgb(175,0,0)">        Use </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>alternative<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)"> instead.</span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    601</span>         warnings<span style="color: rgb(98,98,98)">.</span>warn(msg, warning_type, stacklevel<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">2</span>)
+<span class="ansi-green-fg">--&gt; 603</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">function</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">/opt/homebrew/anaconda3/envs/EMToolkit_env/lib/python3.10/site-packages/sunpy/map/map_factory.py:261</span>, in <span class="ansi-cyan-fg">MapFactory.__call__</span><span class="ansi-blue-fg">(self, composite, sequence, silence_errors, allow_errors, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    229</span> <span style="color: rgb(175,0,255)">@deprecated_renamed_argument</span>(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">silence_errors</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">allow_errors</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">5.1</span><span style="color: rgb(175,0,0)">&#34;</span>, warning_type<span style="color: rgb(98,98,98)">=</span>SunpyDeprecationWarning)
+<span class="ansi-green-intense-fg ansi-bold">    230</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">__call__</span>(<span style="color: rgb(0,135,0)">self</span>, <span style="color: rgb(98,98,98)">*</span>args, composite<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>, sequence<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>, silence_errors<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>, allow_errors<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>, <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">*</span>kwargs):
+<span class="ansi-green-intense-fg ansi-bold">    231</span> <span style="color: rgb(188,188,188)">    </span><span style="color: rgb(175,0,0)">&#34;&#34;&#34; Method for running the factory. Takes arbitrary arguments and</span>
+<span class="ansi-green-intense-fg ansi-bold">    232</span> <span style="color: rgb(175,0,0)">    keyword arguments and passes them to a sequence of pre-registered types</span>
+<span class="ansi-green-intense-fg ansi-bold">    233</span> <span style="color: rgb(175,0,0)">    to determine which is the correct Map-type to build.</span>
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">    259</span> <span style="color: rgb(175,0,0)">    ``memmap`` for FITS files.</span>
+<span class="ansi-green-intense-fg ansi-bold">    260</span> <span style="color: rgb(175,0,0)">    &#34;&#34;&#34;</span>
+<span class="ansi-green-fg">--&gt; 261</span>     data_header_pairs <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_parse_args</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">silence_errors</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">silence_errors</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">allow_errors</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">allow_errors</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    262</span>     new_maps <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">list</span>()
+<span class="ansi-green-intense-fg ansi-bold">    264</span>     <span style="color: rgb(95,135,135)"># Loop over each registered type and check to see if WidgetType</span>
+<span class="ansi-green-intense-fg ansi-bold">    265</span>     <span style="color: rgb(95,135,135)"># matches the arguments.  If it does, use that type.</span>
+
+File <span class="ansi-green-fg">/opt/homebrew/anaconda3/envs/EMToolkit_env/lib/python3.10/site-packages/sunpy/map/map_factory.py:185</span>, in <span class="ansi-cyan-fg">MapFactory._parse_args</span><span class="ansi-blue-fg">(self, silence_errors, allow_errors, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    183</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> arg <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> args:
+<span class="ansi-green-intense-fg ansi-bold">    184</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">--&gt; 185</span>         data_header_pairs <span style="color: rgb(98,98,98)">+</span><span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_parse_arg</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">arg</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">silence_errors</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">silence_errors</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">allow_errors</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">allow_errors</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    186</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> NoMapsInFileError <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> e:
+<span class="ansi-green-intense-fg ansi-bold">    187</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> (silence_errors <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> allow_errors):
+
+File <span class="ansi-green-fg">/opt/homebrew/anaconda3/envs/EMToolkit_env/lib/python3.10/site-packages/sunpy/util/functools.py:17</span>, in <span class="ansi-cyan-fg">seconddispatch.&lt;locals&gt;.wrapper</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     16</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">wrapper</span>(<span style="color: rgb(98,98,98)">*</span>args, <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">*</span>kwargs):
+<span class="ansi-green-fg">---&gt; 17</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">dispatcher</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">dispatch</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">1</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg" style="color: rgb(0,0,135)">__class__</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">/opt/homebrew/anaconda3/envs/EMToolkit_env/lib/python3.10/site-packages/sunpy/map/map_factory.py:227</span>, in <span class="ansi-cyan-fg">MapFactory._parse_path</span><span class="ansi-blue-fg">(self, arg, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    225</span> <span style="color: rgb(175,0,255)">@_parse_arg</span><span style="color: rgb(98,98,98)">.</span>register(pathlib<span style="color: rgb(98,98,98)">.</span>Path)
+<span class="ansi-green-intense-fg ansi-bold">    226</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">_parse_path</span>(<span style="color: rgb(0,135,0)">self</span>, arg, <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">*</span>kwargs):
+<span class="ansi-green-fg">--&gt; 227</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">parse_path</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">arg</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_read_file</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">/opt/homebrew/anaconda3/envs/EMToolkit_env/lib/python3.10/site-packages/sunpy/util/io.py:44</span>, in <span class="ansi-cyan-fg">parse_path</span><span class="ansi-blue-fg">(path, f, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     42</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> read_files
+<span class="ansi-green-intense-fg ansi-bold">     43</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">---&gt; 44</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">Did not find any files at </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>path<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">&#39;</span>)
+
+<span class="ansi-red-fg">ValueError</span>: Did not find any files at /Users/cgilbert/vscode/EMToolKit/docs/source/examples/data/20100725/aia_lev1_94a_2010_07_25t17_58_44_13z_image_lev1.fits
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-WARNING: SunpyMetadataWarning: Missing metadata for observer: assuming Earth-based observer.
-For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: hgln_obs,hglt_obs,dsun_obs
-For frame &#39;heliographic_carrington&#39; the following metadata is missing: crlt_obs,crln_obs,dsun_obs
-For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: solar_b0,dsun_obs
- [sunpy.map.mapbase]
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make data sequence from AIA data:</span>
@@ -343,28 +414,8 @@ For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: s
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-INFO: Missing metadata for solar radius: assuming the standard radius of the photosphere. [sunpy.map.mapbase]
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-WARNING: SunpyMetadataWarning: Missing metadata for observer: assuming Earth-based observer.
-For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: hgln_obs,hglt_obs,dsun_obs
-For frame &#39;heliographic_carrington&#39; the following metadata is missing: crlt_obs,crln_obs,dsun_obs
-For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: solar_b0,dsun_obs
- [sunpy.map.mapbase]
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show some of the AIA channels and their temperature responses for illustration:</span>
@@ -389,217 +440,16 @@ For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: s
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[Text(0.5, 1.0, &#39;AIA 94 Temperature Response&#39;),
- Text(0.5, 0, &#39;Temperature (dB Kelvin)&#39;),
- Text(0, 0.5, &#39;Response (DN/s/(cm$^{-3})^2$/Mm)&#39;)]
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/examples_EMToolKit_example_multi_instrument_downsampling_6_1.png" src="../_images/examples_EMToolKit_example_multi_instrument_downsampling_6_1.png" />
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">multi_coeffs</span><span class="p">,</span> <span class="n">multi_logts</span><span class="p">,</span> <span class="n">multi_bases</span><span class="p">,</span> <span class="n">multi_coords</span><span class="p">,</span> <span class="n">multi_algorithm</span><span class="p">,</span> <span class="n">multi_em_wrapper</span> <span class="o">=</span> <span class="n">sparse_nlmap_dem_wrapper</span><span class="p">(</span><span class="n">datasequence</span><span class="p">,</span> <span class="n">wrapargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;norms&#39;</span><span class="p">:</span><span class="n">norms</span><span class="p">,</span> <span class="s1">&#39;overall_norm&#39;</span><span class="p">:</span><span class="n">overall_norm</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-INFO: Missing metadata for solar radius: assuming the standard radius of the photosphere. [sunpy.map.mapbase]
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-WARNING: SunpyMetadataWarning: Missing metadata for observer: assuming Earth-based observer.
-For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: hgln_obs,hglt_obs,dsun_obs
-For frame &#39;heliographic_carrington&#39; the following metadata is missing: crlt_obs,crln_obs,dsun_obs
- [sunpy.map.mapbase]
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-4.999250215886115 % done after 3.110848903656006 seconds
-9.999017524264564 % done after 6.480065822601318 seconds
-14.998784832643015 % done after 9.653247594833374 seconds
-19.998552141021463 % done after 13.153360843658447 seconds
-24.998319449399915 % done after 16.924364805221558 seconds
-29.998086757778363 % done after 20.763426065444946 seconds
-34.99785406615681 % done after 25.038889169692993 seconds
-39.997621374535264 % done after 28.81321120262146 seconds
-44.997388682913716 % done after 32.9749596118927 seconds
-49.99715599129216 % done after 36.952210903167725 seconds
-54.99692329967061 % done after 40.60025453567505 seconds
-59.996690608049065 % done after 44.56484603881836 seconds
-64.99645791642752 % done after 48.55983114242554 seconds
-69.99622522480595 % done after 52.280149936676025 seconds
-74.9959925331844 % done after 56.31605935096741 seconds
-79.99575984156286 % done after 60.15965175628662 seconds
-84.99552714994131 % done after 65.0708065032959 seconds
-89.99529445831976 % done after 69.23694920539856 seconds
-94.99506176669821 % done after 73.81574368476868 seconds
-99.99482907507667 % done after 77.96471452713013 seconds
-4.999250215886115 % done after 3.954819917678833 seconds
-9.999017524264564 % done after 8.030447006225586 seconds
-14.998784832643015 % done after 11.843273162841797 seconds
-19.998552141021463 % done after 15.828091621398926 seconds
-24.998319449399915 % done after 19.783579349517822 seconds
-29.998086757778363 % done after 24.0409836769104 seconds
-34.99785406615681 % done after 28.567872762680054 seconds
-39.997621374535264 % done after 33.02411890029907 seconds
-44.997388682913716 % done after 37.179752349853516 seconds
-49.99715599129216 % done after 41.08158826828003 seconds
-54.99692329967061 % done after 44.63177299499512 seconds
-59.996690608049065 % done after 48.61902737617493 seconds
-64.99645791642752 % done after 52.64832615852356 seconds
-69.99622522480595 % done after 57.39676642417908 seconds
-74.9959925331844 % done after 63.24455904960632 seconds
-79.99575984156286 % done after 69.62983727455139 seconds
-84.99552714994131 % done after 74.18715476989746 seconds
-89.99529445831976 % done after 78.93065071105957 seconds
-94.99506176669821 % done after 83.20911717414856 seconds
-99.99482907507667 % done after 87.5703444480896 seconds
-4.999250215886115 % done after 4.4067018032073975 seconds
-9.999017524264564 % done after 8.991491794586182 seconds
-14.998784832643015 % done after 13.742652654647827 seconds
-19.998552141021463 % done after 18.292463302612305 seconds
-24.998319449399915 % done after 22.498626947402954 seconds
-29.998086757778363 % done after 26.923829555511475 seconds
-34.99785406615681 % done after 31.3502836227417 seconds
-39.997621374535264 % done after 35.51889228820801 seconds
-44.997388682913716 % done after 40.177979707717896 seconds
-49.99715599129216 % done after 45.0867063999176 seconds
-54.99692329967061 % done after 49.53115439414978 seconds
-59.996690608049065 % done after 55.00101351737976 seconds
-64.99645791642752 % done after 60.86434769630432 seconds
-69.99622522480595 % done after 67.24055314064026 seconds
-74.9959925331844 % done after 74.32497787475586 seconds
-79.99575984156286 % done after 80.79583358764648 seconds
-84.99552714994131 % done after 86.33464884757996 seconds
-89.99529445831976 % done after 90.8029272556305 seconds
-94.99506176669821 % done after 95.16171550750732 seconds
-99.99482907507667 % done after 99.21502995491028 seconds
-4.999250215886115 % done after 3.773562431335449 seconds
-9.999017524264564 % done after 7.7406439781188965 seconds
-14.998784832643015 % done after 11.447117328643799 seconds
-19.998552141021463 % done after 15.40975308418274 seconds
-24.998319449399915 % done after 19.03388738632202 seconds
-29.998086757778363 % done after 23.288485765457153 seconds
-34.99785406615681 % done after 27.435535430908203 seconds
-39.997621374535264 % done after 31.135797023773193 seconds
-44.997388682913716 % done after 35.074958086013794 seconds
-49.99715599129216 % done after 39.51917624473572 seconds
-54.99692329967061 % done after 43.55309534072876 seconds
-59.996690608049065 % done after 47.50706148147583 seconds
-64.99645791642752 % done after 51.4269597530365 seconds
-69.99622522480595 % done after 55.10201573371887 seconds
-74.9959925331844 % done after 59.01391339302063 seconds
-79.99575984156286 % done after 62.66536808013916 seconds
-84.99552714994131 % done after 66.54948210716248 seconds
-89.99529445831976 % done after 70.39764761924744 seconds
-94.99506176669821 % done after 74.19239830970764 seconds
-99.99482907507667 % done after 78.17370319366455 seconds
-4.999250215886115 % done after 3.8088369369506836 seconds
-9.999017524264564 % done after 7.844883441925049 seconds
-14.998784832643015 % done after 11.459086418151855 seconds
-19.998552141021463 % done after 15.333667755126953 seconds
-24.998319449399915 % done after 19.48992419242859 seconds
-29.998086757778363 % done after 23.647006273269653 seconds
-34.99785406615681 % done after 27.99341106414795 seconds
-39.997621374535264 % done after 31.90523624420166 seconds
-44.997388682913716 % done after 36.12453007698059 seconds
-49.99715599129216 % done after 40.38550329208374 seconds
-54.99692329967061 % done after 44.19791889190674 seconds
-59.996690608049065 % done after 48.3220055103302 seconds
-64.99645791642752 % done after 52.455726623535156 seconds
-69.99622522480595 % done after 56.22860050201416 seconds
-74.9959925331844 % done after 60.12852120399475 seconds
-79.99575984156286 % done after 63.74618887901306 seconds
-84.99552714994131 % done after 67.78056144714355 seconds
-89.99529445831976 % done after 71.76670098304749 seconds
-94.99506176669821 % done after 75.5690667629242 seconds
-99.99482907507667 % done after 79.42677974700928 seconds
-4.999250215886115 % done after 3.6544504165649414 seconds
-9.999017524264564 % done after 7.556798934936523 seconds
-14.998784832643015 % done after 11.14007568359375 seconds
-19.998552141021463 % done after 14.960201501846313 seconds
-24.998319449399915 % done after 18.53769278526306 seconds
-29.998086757778363 % done after 22.49564266204834 seconds
-34.99785406615681 % done after 26.43397855758667 seconds
-39.997621374535264 % done after 30.082422494888306 seconds
-44.997388682913716 % done after 33.881152629852295 seconds
-49.99715599129216 % done after 37.724414587020874 seconds
-54.99692329967061 % done after 41.383166790008545 seconds
-59.996690608049065 % done after 45.20920491218567 seconds
-64.99645791642752 % done after 49.03186511993408 seconds
-69.99622522480595 % done after 52.60315203666687 seconds
-74.9959925331844 % done after 56.58128762245178 seconds
-79.99575984156286 % done after 60.2288920879364 seconds
-84.99552714994131 % done after 64.13597893714905 seconds
-89.99529445831976 % done after 68.10341095924377 seconds
-94.99506176669821 % done after 71.83333468437195 seconds
-99.99482907507667 % done after 75.95488953590393 seconds
-4.999250215886115 % done after 3.7605910301208496 seconds
-9.999017524264564 % done after 7.745980739593506 seconds
-14.998784832643015 % done after 11.595702886581421 seconds
-19.998552141021463 % done after 15.614461183547974 seconds
-24.998319449399915 % done after 19.65095829963684 seconds
-29.998086757778363 % done after 23.226273775100708 seconds
-34.99785406615681 % done after 27.174665451049805 seconds
-39.997621374535264 % done after 31.08003520965576 seconds
-44.997388682913716 % done after 34.66356563568115 seconds
-49.99715599129216 % done after 38.53293323516846 seconds
-54.99692329967061 % done after 42.180877923965454 seconds
-59.996690608049065 % done after 46.11000895500183 seconds
-64.99645791642752 % done after 50.50112223625183 seconds
-69.99622522480595 % done after 54.27536606788635 seconds
-74.9959925331844 % done after 58.33747720718384 seconds
-79.99575984156286 % done after 62.56215190887451 seconds
-84.99552714994131 % done after 66.33448553085327 seconds
-89.99529445831976 % done after 70.26439046859741 seconds
-94.99506176669821 % done after 74.15322613716125 seconds
-99.99482907507667 % done after 77.76899361610413 seconds
-68773.55 1071.819 0.0 2.8913682
-Overall regularization factor: 1.0
-63.31 s i = 0 chi2 = 95.32 step size = 0.3 reg. param. = 0.11 chi2 change = 92.42566 reg. change = -0.10921
-Setup:  0.5654871463775635 Solver:  59.331443548202515 Stepper:  3.413912057876587
-New combined FOM: 95.42702596350448 Old combined FOM: 187.7434725870973 Change: 92.31644662359282
-230.58 s i = 1 chi2 = 20.85 step size = 0.85 reg. param. = 0.42 chi2 change = 74.46903 reg. change = -0.31577
-Setup:  1.1865673065185547 Solver:  223.40030813217163 Stepper:  5.99060320854187
-New combined FOM: 21.273768281015748 Old combined FOM: 95.42702596350448 Change: 74.15325768248873
-434.42 s i = 2 chi2 = 4.07 step size = 0.85 reg. param. = 0.64 chi2 change = 16.77595 reg. change = -0.21177
-Setup:  1.5448462963104248 Solver:  423.64679527282715 Stepper:  9.227931261062622
-New combined FOM: 4.709590903425218 Old combined FOM: 21.273768281015748 Change: 16.564177377590532
-597.65 s i = 3 chi2 = 1.11 step size = 0.85 reg. param. = 0.69 chi2 change = 2.96758 reg. change = -0.05535
-Setup:  2.168287515640259 Solver:  583.1541709899902 Stepper:  12.32373857498169
-New combined FOM: 1.7973591651917677 Old combined FOM: 4.709590903425218 Change: 2.9122317382334497
-639.87 s i = 4 chi2 = 0.88 step size = 0.85 reg. param. = 0.68 chi2 change = 0.22662 reg. change = 0.01401
-Setup:  2.5896167755126953 Solver:  620.4067232608795 Stepper:  16.87498188018799
-New combined FOM: 1.5567279713778215 Old combined FOM: 1.7973591651917677 Change: 0.24063119381394626
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">multi_em_demsequence</span> <span class="o">=</span> <span class="n">emtk</span><span class="o">.</span><span class="n">dem_model</span><span class="p">(</span><span class="n">multi_coeffs</span><span class="p">,</span> <span class="n">multi_logts</span><span class="p">,</span> <span class="n">multi_bases</span><span class="p">,</span> <span class="n">multi_coords</span><span class="p">,</span> <span class="n">multi_algorithm</span><span class="p">,</span> <span class="n">multi_em_wrapper</span><span class="p">)</span>
@@ -607,27 +457,37 @@ New combined FOM: 1.5567279713778215 Old combined FOM: 1.7973591651917677 Change
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
+</section>
+<section id="Run-the-Dashboard">
+<h2>Run the Dashboard<a class="headerlink" href="#Run-the-Dashboard" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-INFO: Missing metadata for solar radius: assuming the standard radius of the photosphere. [sunpy.map.mapbase]
-</pre></div></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the most recent version from the tool kit:</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_object</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">EMToolKit</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">dashboard</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_object</span>
+
+<span class="c1"># Suppress specific SunpyMetadataWarning</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">sunpy.util.exceptions</span> <span class="kn">import</span> <span class="n">SunpyMetadataWarning</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">SunpyMetadataWarning</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-WARNING: SunpyMetadataWarning: Missing metadata for observer: assuming Earth-based observer.
-For frame &#39;heliographic_stonyhurst&#39; the following metadata is missing: hgln_obs,hglt_obs,dsun_obs
-For frame &#39;heliographic_carrington&#39; the following metadata is missing: crlt_obs,crln_obs,dsun_obs
- [sunpy.map.mapbase]
-</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the dashboard:</span>
+<span class="n">dash</span> <span class="o">=</span> <span class="n">dashboard_object</span><span class="p">(</span><span class="n">em_collection</span><span class="p">,</span> <span class="n">xsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ysize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">dash</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">multi_synthmaps</span> <span class="o">=</span> <span class="p">[</span><span class="n">em_collection</span><span class="o">.</span><span class="n">synthesize_map</span><span class="p">(</span><span class="nb">map</span><span class="p">)</span> <span class="k">for</span> <span class="nb">map</span> <span class="ow">in</span> <span class="n">em_collection</span><span class="o">.</span><span class="n">data</span><span class="p">()]</span>
@@ -635,8 +495,8 @@ For frame &#39;heliographic_carrington&#39; the following metadata is missing: c
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calc_resids</span><span class="p">(</span><span class="n">synthdata</span><span class="p">,</span> <span class="n">em_collection</span><span class="p">):</span><span class="c1"># Calculate the residuals and Chi squared:</span>
@@ -659,16 +519,8 @@ For frame &#39;heliographic_carrington&#39; the following metadata is missing: c
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Multi-instrument Chi squared =  1.0187591209873754
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot Residuals:</span>
@@ -681,15 +533,8 @@ Multi-instrument Chi squared =  1.0187591209873754
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/examples_EMToolKit_example_multi_instrument_downsampling_11_0.png" src="../_images/examples_EMToolKit_example_multi_instrument_downsampling_11_0.png" />
-</div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
@@ -702,22 +547,22 @@ Multi-instrument Chi squared =  1.0187591209873754
         <span class="bp">self</span><span class="o">.</span><span class="n">emc</span> <span class="o">=</span> <span class="n">em_collection</span>
 
     <span class="k">def</span> <span class="nf">widgwrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xpt</span><span class="p">,</span> <span class="n">ypt</span><span class="p">,</span> <span class="n">rtemp</span><span class="p">,</span> <span class="n">gtemp</span><span class="p">,</span> <span class="n">btemp</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">):</span>
-        <span class="n">dashboard_figure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">emc</span><span class="p">,</span> <span class="n">plotpoint</span><span class="o">=</span><span class="p">[</span><span class="n">xpt</span><span class="p">,</span><span class="n">ypt</span><span class="p">],</span> <span class="n">temperatures</span><span class="o">=</span><span class="p">[</span><span class="n">rtemp</span><span class="p">,</span><span class="n">gtemp</span><span class="p">,</span><span class="n">btemp</span><span class="p">],</span> <span class="n">sigmas</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">algorithm</span><span class="p">)</span>
+        <span class="n">dashboard_object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">emc</span><span class="p">,</span> <span class="n">plotpoint</span><span class="o">=</span><span class="p">[</span><span class="n">xpt</span><span class="p">,</span><span class="n">ypt</span><span class="p">],</span> <span class="n">temperatures</span><span class="o">=</span><span class="p">[</span><span class="n">rtemp</span><span class="p">,</span><span class="n">gtemp</span><span class="p">,</span><span class="n">btemp</span><span class="p">],</span> <span class="n">sigmas</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">algorithm</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">EMToolKit</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">dashboard</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_figure</span>
+<span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_object</span>
 <span class="n">dash</span> <span class="o">=</span> <span class="n">dashboard_object</span><span class="p">(</span><span class="n">em_collection</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="n">dash</span><span class="o">.</span><span class="n">emc</span><span class="o">.</span><span class="n">collection</span><span class="p">[</span><span class="n">dash</span><span class="o">.</span><span class="n">emc</span><span class="o">.</span><span class="n">collection</span><span class="p">[</span><span class="s1">&#39;models&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
@@ -734,18 +579,6 @@ Multi-instrument Chi squared =  1.0187591209873754
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "98199664c1b9482994088300625bb7de", "version_major": 2, "version_minor": 0}</script></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8bfa54d24dd64d808d30fde7d4da68cb", "version_major": 2, "version_minor": 0}</script></div>
-</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -754,6 +587,7 @@ Multi-instrument Chi squared =  1.0187591209873754
 </pre></div>
 </div>
 </div>
+</section>
 </section>
 
 

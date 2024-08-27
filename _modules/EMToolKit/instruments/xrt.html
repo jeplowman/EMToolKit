@@ -247,7 +247,7 @@
 
 <div class="viewcode-block" id="xrt_temperature_response">
 <a class="viewcode-back" href="../../../api/EMToolKit.instruments.xrt.xrt_temperature_response.html#EMToolKit.instruments.xrt.xrt_temperature_response">[docs]</a>
-<span class="k">def</span> <span class="nf">xrt_temperature_response</span><span class="p">(</span><span class="n">map_in</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">xrt_temperature_response</span><span class="p">(</span><span class="n">map_in</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">do_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	This Python function calculates the temperature response for a given filter channel using xrtpy</span>
 <span class="sd">	library and plots the response curve.</span>
@@ -272,7 +272,7 @@
 
 	<span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span>
 	<span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Open/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAP FILTER IS : &quot;</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
+
 	<span class="n">filt</span> <span class="o">=</span> <span class="n">channel</span>
 	<span class="n">date_time</span> <span class="o">=</span> <span class="s2">&quot;2007-09-22T21:59:59&quot;</span>
 	<span class="n">Temperature_Response_Fundamental</span> <span class="o">=</span> <span class="n">xrtpy</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">TemperatureResponseFundamental</span><span class="p">(</span>
@@ -282,10 +282,11 @@
 	<span class="n">CHIANTI_temperature</span> <span class="o">=</span> <span class="n">Temperature_Response_Fundamental</span><span class="o">.</span><span class="n">CHIANTI_temperature</span>
 	<span class="n">log_CHIANTI_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">CHIANTI_temperature</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 	<span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span> <span class="o">=</span> <span class="n">interp1d_logt</span><span class="p">(</span><span class="n">log_CHIANTI_temperature</span><span class="p">,</span> <span class="n">temperature_response</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">temperature_array</span><span class="p">)</span>
-	<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
-	<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-	<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">tresp</span><span class="p">))</span>
-	<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">logt</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">tresp</span><span class="p">))</span>
+	<span class="k">if</span> <span class="n">do_plot</span><span class="p">:</span>
+		<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">logt</span><span class="p">,</span><span class="n">tresp</span><span class="p">)</span>
+		<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;XRT MAP FILTER IS : </span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+		<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Temperature&quot;</span><span class="p">)</span>
+		<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 	<span class="k">return</span> <span class="n">logt</span><span class="p">,</span> <span class="n">tresp</span></div>
 
 
