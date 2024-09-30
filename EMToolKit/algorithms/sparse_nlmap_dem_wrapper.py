@@ -28,6 +28,7 @@ from EMToolKit.schemas.coord_grid import coord_grid
 from EMToolKit.schemas.element_source_responses import element_source_responses as esr
 from . import sparse_nlmap_solver
 from EMToolKit.schemas.basic_schemas import basic_detector, basic_source
+import EMToolKit.EMToolKit as emtk
 
 def minmax(arg):
 	return([np.min(arg),np.max(arg)])
@@ -54,6 +55,35 @@ def minmax(arg):
 # We should begin by implementing a backward compatible layer
 # for that.
 def sparse_nlmap_dem_wrapper(datasequence, wrapargs={}):
+	"""
+    Wrapper function for the sparse non-linear map-based Differential Emission Measure (DEM) calculation.
+
+    This function prepares input data and passes it to the `sparse_nlmap_dem_wrapper` algorithm.
+    It processes the input data to ensure that all input maps have consistent dimensions,
+    extracts the necessary metadata, and then calls the DEM calculation.
+
+    Parameters
+    ----------
+    datasequence : NDCubeSequence
+        A sequence of data cubes containing the observations. Each cube should contain
+        2D spatial data with associated uncertainties and metadata.
+    wrapargs : dict, optional
+        Additional arguments to pass to the initialization routines of the `sparse_nlmap_dem_wrapper` function.
+
+    Returns
+    -------
+    list of numpy.ndarray
+        The calculated DEM coefficients for each temperature bin.
+    list of numpy.ndarray
+        The temperature bins used in the calculation.
+    list of numpy.ndarray
+        The basis functions for the temperature bins.
+    WCS
+        World Coordinate System (WCS) information from the input data.
+    str
+        A string identifier for the DEM method used.
+    """
+
 	nc = len(datasequence)
 	nc = len(datasequence)
 	drv_con = wrapargs.get('drv_con',8)
@@ -67,7 +97,7 @@ def sparse_nlmap_dem_wrapper(datasequence, wrapargs={}):
 	src_dims_all = source.shape
 	ndims = len(src_dims_all)
 	steps = []
-	for i in range(0,ndims): steps.append((source.axes[i][1:]-source.axes[i][0:-1]))
+	for i in range(ndims): steps.append((source.axes[i][1:]-source.axes[i][0:-1]))
 
 	reg_steps = copy.deepcopy(steps)
 	for i in range(1,len(reg_steps)): reg_steps[i] /= 60
@@ -109,7 +139,7 @@ def sparse_nlmap_dem_wrapper(datasequence, wrapargs={}):
 
 	fwd_operator = multi_instrument_linear_operator(fwdops, wrapargs=wrapargs)
 	data, errors = [[],[]]
-	for i in range(0,nc):
+	for i in range(nc):
 		errors.append(datasequence[i].uncertainty.array.flatten().astype(dtype))
 		errors[i] = np.clip(errors[i],np.min(errors[i][errors[i] > 0]),None)/norms[i]/overall_norm
 		data.append(np.clip(datasequence[i].data.astype(dtype).flatten(),0.0,None)/norms[i]/overall_norm)
@@ -124,7 +154,13 @@ def sparse_nlmap_dem_wrapper(datasequence, wrapargs={}):
 
 	dem_soln = soln[0].reshape(source.shape)*overall_norm
 	alg_object = sparse_nlmap_dem_wrap_object(wrapargs,source=source)
-	return list(dem_soln), source.logts, source.bases, source.wcs, 'sparse_multi_instrument', alg_object
+
+	if wrapargs is not None:
+		name = wrapargs.get("prepend", "single_") + 'sparse_nlmap_dem'
+	else:
+		name = 'sparse_nlmap_dem'
+
+	return list(dem_soln), source.logts, source.bases, source.wcs, name, alg_object
 
 def process_data_element(i, element, source):
 	# print(f"Running on image {i + 1}")
@@ -141,4 +177,54 @@ class sparse_nlmap_dem_wrap_object(object):
 
 	def compute_dem(self,datasequence,wrapargs=None):
 		if(wrapargs is None): wrapargs = self.wrapargs
-		return sparse_multi_instrument_dem_wrapper(datasequence, wrapargs=wrapargs)
+		return sparse_nlmap_dem_wrapper(datasequence, wrapargs=wrapargs)
+
+
+def autoloading_sparse_nlmap_dem_wrapper(datasequence, data_dir=".data/default/", recalc=False, wrapargs={}):
+    """
+    Wrapper function that calculates or loads a precomputed sparse non-linear map-based DEM.
+
+    This function first checks if a precomputed DEM exists in the specified directory. If not,
+    it calculates the DEM using `sparse_nlmap_dem_wrapper`, saves the result, and returns it.
+
+    Parameters
+    ----------
+    datasequence : NDCubeSequence
+        A sequence of data cubes containing the observations. Each cube should contain
+        2D spatial data with associated uncertainties and metadata.
+    data_dir : str, optional
+        The directory where the DEM result will be saved or loaded from. Default is ".data/default/".
+    recalc : bool, optional
+        If True, the DEM will be recalculated even if a precomputed result exists. Default is False.
+    wrapargs : dict, optional
+        Additional arguments to pass to the initialization routines of the `sparse_nlmap_dem_wrapper` function.
+
+    Returns
+    -------
+    emtk.dem_model
+        The DEM model generated from the input data.
+    tuple
+        The output from the `sparse_nlmap_dem_wrapper` function.
+    """
+    # Create the directory if it does not exist
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+    pk_file = os.path.join(data_dir, wrapargs.get("prepend",'single_') + 'sparse_nlmap_demsequence.pkl')
+
+    # Load or calculate the DEM sequence
+    if os.path.exists(pk_file) and not recalc:
+        print('Loading sparse_nlmap_demsequence from', pk_file)
+        with open(pk_file, 'rb') as file:
+            (sparse_nlmap_demsequence, sparse_nlmap_out) = pickle.load(file)
+    else:
+        print(f"Calculating {pk_file} from scratch...", end="")
+        tstart = time.time()
+        (sparse_nlmap_out, other_out) = sparse_nlmap_dem_wrapper(datasequence, wrapargs)
+        print('Done! Sparse method took', time.time() - tstart)
+        sparse_nlmap_demsequence = emtk.dem_model(*sparse_nlmap_out, sparse_nlmap_dem_wrapper)
+
+        # Save the DEM sequence to a file
+        with open(pk_file, 'wb') as file:
+            pickle.dump((sparse_nlmap_demsequence, sparse_nlmap_out), file)
+
+    return sparse_nlmap_demsequence, sparse_nlmap_out

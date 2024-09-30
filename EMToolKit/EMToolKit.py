@@ -28,7 +28,7 @@ def em_data(maps, errs, logts, tresps, channels=None):
     return NDCubeSequence(cubes)
 
 
-def dem_model(coeffs, logts, bases, coord_info, algorithm, wrapper, meta=None, wrapargs=None):
+def dem_model(coeffs, logts, bases, coord_info, algorithm, wrapper, meta=None, wrapargs={}):
     nd = len(coeffs)
     dem_sequence = []
     if isinstance(coord_info, astropy.wcs.wcs.WCS):
@@ -44,6 +44,7 @@ def dem_model(coeffs, logts, bases, coord_info, algorithm, wrapper, meta=None, w
             meta = dict(wcs.to_header())
         else:
             print('Warning in EMToolKit dem_model: need wcs or image meta')
+    print(meta)
     if 'LOGT' not in meta:
         meta['LOGT'] = logts[0]
     if 'SCHEMA' not in meta:
@@ -112,9 +113,9 @@ class em_collection:
 
         dem = np.zeros(logt.size)
         interpolations = self.precomputed_interpolations[algorithm]
-
         for component, interp_func in zip(model, interpolations):
-            dem += component.data[i, j] * interp_func(logt)
+            if j <= component.data.shape[1] and i <= component.data.shape[0]:
+                dem += component.data[i, j] * interp_func(logt)
 
         return logt, dem
 
