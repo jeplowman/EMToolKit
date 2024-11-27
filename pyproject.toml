@@ -1,6 +1,6 @@
 [project]
 name = "EMToolKit"
-version = "0.1.3"
+version = "0.1.5"
 description = "This package provides an interface to the EMToolKit through PyPi"
 authors = [
     { name = "J. Plowman", email = "jplowman@boulder.swri.edu" },
@@ -21,23 +21,23 @@ dependencies = [
     "drms>=0.7.1",
     "reproject>=0.13.0",
     "ipykernel>=6.29.5",
+    "jupyter",
     "notebook"
 ]
 readme = "README.md"
 requires-python = ">= 3.9, <3.13"
-license = { text = "MIT" }
+license = { text = "BSD 3" }
 keywords = ["EMToolKit", "space physics", "package interface"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: BSD 3 License",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Physics"
 ]
-# scripts = { pyfitsserver = "pyfitsserver.server:main" }
 
 [build-system]
 requires = ["hatchling"]
