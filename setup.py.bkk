@@ -21,7 +21,6 @@ setup(
         'scipy',
         'ipympl',
         'ndcube',
-        'numba',
         'xrtpy',
         'sunpy',
         'requests',

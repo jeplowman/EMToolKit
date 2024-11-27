@@ -16,7 +16,7 @@
 # power is in very large dimensional problems which are only tractable
 # when they're sparse.
 
-import numba, os, sys, time, pickle, resource, copy, numpy as np
+import os, sys, time, pickle, resource, copy, numpy as np
 from EMToolKit.schemas.operators import multi_instrument_linear_operator, sparse_d2_partial_matrix
 from EMToolKit.schemas.operators import reg_operator_postfac_wrapper, single_instrument_linear_operator_separable
 #from EMToolKit.schemas.coord_transform import coord_transform, trivialframe, basic_fits_transform

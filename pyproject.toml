@@ -11,7 +11,6 @@ dependencies = [
     "scipy>=1.13.1",
     "ipympl>=0.9.4",
     "ndcube>=2.2.2",
-    "numba>=0.60.0",
     "xrtpy>=0.4.0",
     "sunpy>=5.1.5",
     "requests>=2.32.3",
@@ -39,7 +38,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Physics"
 ]
 
-scripts = { EMTEST = "EMToolKit.examples:run_example" }
+scripts = { emtest = "EMToolKit.examples:example_run" }
 
 [build-system]
 requires = ["hatchling"]

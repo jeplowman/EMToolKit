@@ -3,7 +3,7 @@ import subprocess
 import time
 import os
 
-def examples():
+def example_dir():
     url = "https://emtoolkit.readthedocs.io/en/latest/examples/GALLERY_HEADER.html"
     webbrowser.open(url)
 
@@ -36,7 +36,7 @@ def stop_jupyter_notebook(process):
     process.terminate()
 
 
-def run_example():
+def example_run():
     # Start the Jupyter notebook
     jupyter_process = start_jupyter_notebook(notebook_path)
 

@@ -34,7 +34,6 @@ def masked_median_filter(data,mask,radius,footprint=None,missing=0.0,footprint_i
     #    if(np.sum(good) > 0): data_filt[ind] = np.median(dat[good])
     return data_filt.reshape(data.shape)
 
-#@numba.jit(fastmath=True, parallel=True, nopython=True)
 def _masked_medfilt_inner(flatinds,data,footprint_inds,footprint_ind_offset,tparg,dat_pad_shape,data_fppad,mask_fppad,data_filt):
     for ind in flatinds:
         ijkpad = np.unravel_index(ind,data.shape)+footprint_inds-footprint_ind_offset

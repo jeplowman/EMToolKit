@@ -148,8 +148,6 @@ kiwisolver==1.4.5
     # via matplotlib
 lazy-loader==0.4
     # via scikit-image
-llvmlite==0.43.0
-    # via numba
 locket==1.0.0
     # via partd
 lxml==5.2.2
@@ -170,8 +168,6 @@ nest-asyncio==1.6.0
     # via ipykernel
 networkx==3.2.1
     # via scikit-image
-numba==0.60.0
-    # via EMToolKit
 numcodecs==0.12.1
     # via zarr
 numpy==1.26.4
@@ -187,7 +183,6 @@ numpy==1.26.4
     # via ipympl
     # via matplotlib
     # via ndcube
-    # via numba
     # via numcodecs
     # via pandas
     # via pyerfa

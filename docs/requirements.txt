@@ -21,7 +21,6 @@ esbonio>=0.12.0
 sunpy[all]
 astropy
 scipy
-numba
 tqdm
 ndcube
 lxml
