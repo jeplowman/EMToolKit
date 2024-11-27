@@ -39,6 +39,8 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Physics"
 ]
 
+scripts = { EMTEST = "EMToolKit.examples:run_example" }
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
