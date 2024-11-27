@@ -184,3 +184,73 @@ class em_collection:
         output_map.meta['CHANNEL'] += '_SYNTHETIC'
         output_map.data[:] = (((map.meta['SCHEMA']).fwdop(source)) * coeffs).reshape(map.data.shape)
         return output_map
+
+# Beta DEM uncertainty estimation code. First, a lengthy preamble:
+# The DEM forward problem is given by $M_j = \sum_j R_{ij}c_j$ with data $D_i$ 
+# and associated uncertainties $\sigma_i$, where the DEM is determined by $c_j$ 
+# e.g., as $\sum_j B_j(T)c_j$ and $R_{ij} = \int R_i(T)B_j(T)dT$ ($R_i$ being the
+# continuous response functions provided for the observations in question): solve
+# for $c_j$ minimizing $\chi^2=\sum_i\frac{(D_i-M_i)^2}{\sigma_i^2}$, while
+# satisfying constraints like $\vec{c} > 0$ and minizing some regularization 
+# operator like $\sum{ij}c_i\Lambda_{ij}c_j$.
+
+# The uncertainty problem is similar: 'Given a solution for which $M_i=D_i$,
+# how much can the $c_j$ change (resulting in $M'_i = \sum_j R_{ij}(c_j + \Delta 
+# c_j)$) before the resulting $\chi'^2$ is a nominal threshold value (usually
+# this is the number of data points, $n_\mathrm{data}$)?
+
+# This question has multiple answers depending on interpretation. Do we mean
+# 'how much can an individual $c_j$ change?', or all of them? Do they change
+# in the same way, randomly/incoherently, or do they change in such a way as
+# to counterbalance each other? The uncertainty will depend drastically on the
+# version of this question -- in the last version, it can easily be inifite or
+# undefined. If they all change in the same way, the resulting uncertainty is
+# fairly small. If only one is changing, then the uncertainty is larger (in
+# proportion to the number of $c_j$). Randomly falls between by the square
+# root of the number of parameters. We use the 'one at a time' estimate since
+# it is the most conservative of the ones that are straightforward to compute,
+# as a nod to the potential ill-posedness of the fully inqualified question.
+# Conveniently, this uncertainty estimate doesn't require knowledge of the
+# solution and is independent of it! It does, however, depend on the definition
+# of a basis element; we will assume temperature bins of width 0.1 in 
+# $\log_{10}(T)$ (1 Dex), see below.
+
+# If $\Delta c_j$ is the only source of deviation from agreement (i.e, none of
+# the other c in the coefficient vector are changing) then $\chi'^2=n_{data}$
+# implies that $\sum_i \frac{(R_{ij}\Delta c_j)^2}{\sigma_i^2} = n_\mathrm{data}$
+
+# Therefore the uncertainty estimate is just
+
+# $\Delta c_j = \frac{\sqrt(n_\mathrm{data})}{\sqrt{\sum_i R_{ij}^2/\sigma_i^2}}$
+
+# In terms of the original temperature response functions, 
+# $R_{ij} = \int R_i(T) B_j(T) dT$. For purposes of this uncertainty estimate,
+# we take the basis functions to be top hats of width $\Delta logT=0.1$ at 
+# temperature $T_j$. Therefore $R_{ij} = R_i(T_j)\Delta logT$ and the 
+# uncertainty in a DEM component with that characteristic width is 
+
+# $\sigma E_j = \frac{\sqrt(n_\mathrm{data}}{\sqrt{\sum_i (R_i(T_j) \Delta lotT)^2/\sigma_i^2}}$
+
+# The input temperatures to this may have any spacing, irrespective of
+# $\Delta logT$. The output therefore is an independent uncertainty
+# estimate for an effective temperature bin of width $\Delta logT$ at that
+# temperature.
+def estimate_uncertainty(self, logt, dlogt=0.1, project_map=None):
+    data = self.data()
+    
+    if(project_map is None): project_map = data[0]
+    
+    output_cube = np.zeros([project_map.shape[0],project_map.shape[1],len(logt)])
+    
+    for i in range(0,data):
+        dat_tresp = data[i].meta['TRESP']
+        dat_logt = data[i].meta['LOGT']
+        dati = copy.deepcopy(data[i])
+        dati.data[:] = dati.uncertainty.array
+        tresp = np.interp(logt,dat_logt,dat_tresp,right=0,left=0)
+        data_reproj = dati.reproject_to(project_map.wcs)
+        for j in range(0,len(logt)):
+            output_cube[:,:,j] += (tresp[j]*dlogt/data_reproj.data)**2
+	
+    return np.sqrt(len(data)/output_cube)
+	
