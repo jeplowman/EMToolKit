@@ -240,7 +240,7 @@ def estimate_uncertainty(self, logt, dlogt=0.1, project_map=None):
     
     if(project_map is None): project_map = data[0]
     
-    output_cube = np.zeros([project_map.shape[0],project_map.shape[1],len(logt)])
+    output_cube = np.zeros([project_map.data.shape[0],project_map.data.shape[1],len(logt)])
     
     for i in range(0,data):
         dat_tresp = data[i].meta['TRESP']
