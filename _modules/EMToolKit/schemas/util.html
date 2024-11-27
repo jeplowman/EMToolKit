@@ -131,7 +131,6 @@
     <span class="k">return</span> <span class="n">data_filt</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
 
 
-<span class="c1">#@numba.jit(fastmath=True, parallel=True, nopython=True)</span>
 <span class="k">def</span> <span class="nf">_masked_medfilt_inner</span><span class="p">(</span><span class="n">flatinds</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">footprint_inds</span><span class="p">,</span><span class="n">footprint_ind_offset</span><span class="p">,</span><span class="n">tparg</span><span class="p">,</span><span class="n">dat_pad_shape</span><span class="p">,</span><span class="n">data_fppad</span><span class="p">,</span><span class="n">mask_fppad</span><span class="p">,</span><span class="n">data_filt</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">flatinds</span><span class="p">:</span>
         <span class="n">ijkpad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">+</span><span class="n">footprint_inds</span><span class="o">-</span><span class="n">footprint_ind_offset</span>

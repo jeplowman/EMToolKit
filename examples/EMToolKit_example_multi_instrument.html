@@ -105,10 +105,11 @@
 <section id="Import-Statements">
 <h3>Import Statements<a class="headerlink" href="#Import-Statements" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># %pip install astropy scipy ipympl ndcube numba xrtpy sunpy lxml drms zeep</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># %pip install astropy scipy ipympl ndcube xrtpy sunpy lxml drms zeep</span>
+<span class="c1"># %pip install emtoolkit</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
 <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;style&gt;:root { --jp-notebook-max-width: 100% !important; }&lt;/style&gt;&quot;</span><span class="p">))</span>
 
@@ -117,7 +118,7 @@
 <span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">path</span>
 <span class="kn">import</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;qt5Agg&quot;</span><span class="p">)</span>
+<span class="c1"># mpl.use(&quot;qt5Agg&quot;)</span>
 <span class="c1"># Enable interactive plotting with widgets</span>
 <span class="o">%</span><span class="k">matplotlib</span> widget
 
@@ -136,7 +137,10 @@
 
 <span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
 
-<span class="kn">import</span> <span class="nn">EMToolKit.EMToolKit</span> <span class="k">as</span> <span class="nn">emtk</span>
+<span class="kn">import</span> <span class="nn">EMToolKit</span> <span class="k">as</span> <span class="nn">emtk</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">emtk</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span>
+
 <span class="kn">from</span> <span class="nn">EMToolKit.visualization.dashboard</span> <span class="kn">import</span> <span class="n">dashboard_object</span>
 <span class="kn">from</span> <span class="nn">EMToolKit.instruments.aia</span> <span class="kn">import</span> <span class="n">load_from_paths</span><span class="p">,</span> <span class="n">aia_wrapper</span>
 <span class="kn">from</span> <span class="nn">EMToolKit.instruments.xrt</span> <span class="kn">import</span> <span class="n">xrt_wrapper</span>
@@ -146,14 +150,31 @@
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
 <style>:root { --jp-notebook-max-width: 100% !important; }</style></div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[6], line 30</span>
+<span class="ansi-green-intense-fg ansi-bold">     26</span> np<span style="color: rgb(98,98,98)">.</span>set_printoptions(linewidth<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">128</span>)
+<span class="ansi-green-intense-fg ansi-bold">     28</span> base_path <span style="color: rgb(98,98,98)">=</span> os<span style="color: rgb(98,98,98)">.</span>getcwd()
+<span class="ansi-green-fg">---&gt; 30</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">EMToolKit</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">emtk</span>
+<span class="ansi-green-intense-fg ansi-bold">     32</span> <span style="color: rgb(0,135,0)">print</span>(emtk<span style="color: rgb(98,98,98)">.</span><span style="color: rgb(0,0,135)">__file__</span>)
+<span class="ansi-green-intense-fg ansi-bold">     34</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">EMToolKit</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">visualization</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">dashboard</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> dashboard_object
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;EMToolKit&#39;
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">EMToolKit</span>
@@ -168,7 +189,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">daystr</span> <span class="o">=</span> <span class="s1">&#39;20100725&#39;</span>
@@ -201,7 +222,7 @@ Found 1 xrt images on disk.
 <section id="Load-and-Crop-the-Imagery">
 <h3>Load and Crop the Imagery<a class="headerlink" href="#Load-and-Crop-the-Imagery" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">EMToolKit.instruments.aia</span> <span class="kn">import</span> <span class="n">load_from_paths</span><span class="p">,</span> <span class="n">aia_wrapper</span>
@@ -222,7 +243,7 @@ Found 1 xrt images on disk.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># Load the XRT Image ###</span>
@@ -245,7 +266,7 @@ Found 1 xrt images on disk.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># Normalizing the response functions makes them much easier for the solver to handle.</span>
@@ -256,7 +277,7 @@ Found 1 xrt images on disk.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make data sequence from AIA + XRT data:</span>
@@ -268,7 +289,7 @@ Found 1 xrt images on disk.
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show some of the AIA channels and their temperature responses for illustration:</span>
@@ -311,7 +332,7 @@ Found 1 xrt images on disk.
 <section id="Compute-the-Differential-Emission-Measure">
 <h3>Compute the Differential Emission Measure<a class="headerlink" href="#Compute-the-Differential-Emission-Measure" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sparse_nlmap_demsequence</span><span class="p">,</span> <span class="n">multi_out</span> <span class="o">=</span> <span class="n">autoloading_sparse_nlmap_dem_wrapper</span><span class="p">(</span><span class="n">datasequence</span><span class="p">,</span> <span class="n">recalc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">wrapargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;norms&#39;</span><span class="p">:</span><span class="n">norms</span><span class="p">,</span> <span class="s1">&#39;overall_norm&#39;</span><span class="p">:</span><span class="n">overall_norm</span><span class="p">})</span>
