@@ -1,6 +1,6 @@
 [project]
 name = "EMToolKit"
-version = "0.1.6"
+version = "0.1.7"
 description = "This package provides an interface to the EMToolKit through PyPi"
 authors = [
     { name = "J. Plowman", email = "jplowman@boulder.swri.edu" },
