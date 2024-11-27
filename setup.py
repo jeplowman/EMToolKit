@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="EMToolKit",
-    version="0.1.0",
+    version="0.1.1",
     author="Joseph Plowman",
     author_email="joseph.plowman@swri.org",
     description="A Standardized Framework for Computing and Visualizing Differential Emission Measures",
