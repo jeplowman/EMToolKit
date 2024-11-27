@@ -23,6 +23,14 @@ EMToolKit.EMToolKit module
    :undoc-members:
    :show-inheritance:
 
+EMToolKit.examples module
+-------------------------
+
+.. automodule:: EMToolKit.examples
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 EMToolKit.util module
 ---------------------
 
