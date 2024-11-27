@@ -308,6 +308,79 @@
         <span class="k">return</span> <span class="n">output_map</span></div>
 </div>
 
+
+<span class="c1"># Beta DEM uncertainty estimation code. First, a lengthy preamble:</span>
+<span class="c1"># The DEM forward problem is given by $M_j = \sum_j R_{ij}c_j$ with data $D_i$ </span>
+<span class="c1"># and associated uncertainties $\sigma_i$, where the DEM is determined by $c_j$ </span>
+<span class="c1"># e.g., as $\sum_j B_j(T)c_j$ and $R_{ij} = \int R_i(T)B_j(T)dT$ ($R_i$ being the</span>
+<span class="c1"># continuous response functions provided for the observations in question): solve</span>
+<span class="c1"># for $c_j$ minimizing $\chi^2=\sum_i\frac{(D_i-M_i)^2}{\sigma_i^2}$, while</span>
+<span class="c1"># satisfying constraints like $\vec{c} &gt; 0$ and minizing some regularization </span>
+<span class="c1"># operator like $\sum{ij}c_i\Lambda_{ij}c_j$.</span>
+
+<span class="c1"># The uncertainty problem is similar: &#39;Given a solution for which $M_i=D_i$,</span>
+<span class="c1"># how much can the $c_j$ change (resulting in $M&#39;_i = \sum_j R_{ij}(c_j + \Delta </span>
+<span class="c1"># c_j)$) before the resulting $\chi&#39;^2$ is a nominal threshold value (usually</span>
+<span class="c1"># this is the number of data points, $n_\mathrm{data}$)?</span>
+
+<span class="c1"># This question has multiple answers depending on interpretation. Do we mean</span>
+<span class="c1"># &#39;how much can an individual $c_j$ change?&#39;, or all of them? Do they change</span>
+<span class="c1"># in the same way, randomly/incoherently, or do they change in such a way as</span>
+<span class="c1"># to counterbalance each other? The uncertainty will depend drastically on the</span>
+<span class="c1"># version of this question -- in the last version, it can easily be inifite or</span>
+<span class="c1"># undefined. If they all change in the same way, the resulting uncertainty is</span>
+<span class="c1"># fairly small. If only one is changing, then the uncertainty is larger (in</span>
+<span class="c1"># proportion to the number of $c_j$). Randomly falls between by the square</span>
+<span class="c1"># root of the number of parameters. We use the &#39;one at a time&#39; estimate since</span>
+<span class="c1"># it is the most conservative of the ones that are straightforward to compute,</span>
+<span class="c1"># as a nod to the potential ill-posedness of the fully inqualified question.</span>
+<span class="c1"># Conveniently, this uncertainty estimate doesn&#39;t require knowledge of the</span>
+<span class="c1"># solution and is independent of it! It does, however, depend on the definition</span>
+<span class="c1"># of a basis element; we will assume temperature bins of width 0.1 in </span>
+<span class="c1"># $\log_{10}(T)$ (1 Dex), see below.</span>
+
+<span class="c1"># If $\Delta c_j$ is the only source of deviation from agreement (i.e, none of</span>
+<span class="c1"># the other c in the coefficient vector are changing) then $\chi&#39;^2=n_{data}$</span>
+<span class="c1"># implies that $\sum_i \frac{(R_{ij}\Delta c_j)^2}{\sigma_i^2} = n_\mathrm{data}$</span>
+
+<span class="c1"># Therefore the uncertainty estimate is just</span>
+
+<span class="c1"># $\Delta c_j = \frac{\sqrt(n_\mathrm{data})}{\sqrt{\sum_i R_{ij}^2/\sigma_i^2}}$</span>
+
+<span class="c1"># In terms of the original temperature response functions, </span>
+<span class="c1"># $R_{ij} = \int R_i(T) B_j(T) dT$. For purposes of this uncertainty estimate,</span>
+<span class="c1"># we take the basis functions to be top hats of width $\Delta logT=0.1$ at </span>
+<span class="c1"># temperature $T_j$. Therefore $R_{ij} = R_i(T_j)\Delta logT$ and the </span>
+<span class="c1"># uncertainty in a DEM component with that characteristic width is </span>
+
+<span class="c1"># $\sigma E_j = \frac{\sqrt(n_\mathrm{data}}{\sqrt{\sum_i (R_i(T_j) \Delta lotT)^2/\sigma_i^2}}$</span>
+
+<span class="c1"># The input temperatures to this may have any spacing, irrespective of</span>
+<span class="c1"># $\Delta logT$. The output therefore is an independent uncertainty</span>
+<span class="c1"># estimate for an effective temperature bin of width $\Delta logT$ at that</span>
+<span class="c1"># temperature.</span>
+<div class="viewcode-block" id="estimate_uncertainty">
+<a class="viewcode-back" href="../../EMToolKit.html#EMToolKit.EMToolKit.estimate_uncertainty">[docs]</a>
+<span class="k">def</span> <span class="nf">estimate_uncertainty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logt</span><span class="p">,</span> <span class="n">dlogt</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">project_map</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+    
+    <span class="k">if</span><span class="p">(</span><span class="n">project_map</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span> <span class="n">project_map</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">output_cube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">project_map</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">project_map</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">)])</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+        <span class="n">dat_tresp</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;TRESP&#39;</span><span class="p">]</span>
+        <span class="n">dat_logt</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;LOGT&#39;</span><span class="p">]</span>
+        <span class="n">dati</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">dati</span><span class="o">.</span><span class="n">data</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">dati</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">array</span>
+        <span class="n">tresp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">logt</span><span class="p">,</span><span class="n">dat_logt</span><span class="p">,</span><span class="n">dat_tresp</span><span class="p">,</span><span class="n">right</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">data_reproj</span> <span class="o">=</span> <span class="n">dati</span><span class="o">.</span><span class="n">reproject_to</span><span class="p">(</span><span class="n">project_map</span><span class="o">.</span><span class="n">wcs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">logt</span><span class="p">)):</span>
+            <span class="n">output_cube</span><span class="p">[:,:,</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">tresp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">dlogt</span><span class="o">/</span><span class="n">data_reproj</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+	
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">/</span><span class="n">output_cube</span><span class="p">)</span></div>
+
+	
 </pre></div>
 
            </div>
