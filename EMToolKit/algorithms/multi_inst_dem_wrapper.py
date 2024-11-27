@@ -4,7 +4,7 @@ using multiple instruments. It includes functions for reprojecting data with
 uncertainties and plotting the results.
 
 Functions:
-    multi_inst_simple_dem_wrapper: Wraps simple DEM analysis for multiple instruments.
+    autoloading_multi_inst_dem_wrapper: Wraps simple DEM analysis for multiple instruments.
     reproject_with_uncertainties: Reprojects a sequence of maps to the smallest map.
     plot_reprojected: Plots reprojected maps and their uncertainties.
 """
@@ -21,14 +21,18 @@ from ndcube import NDCube, NDCubeSequence, NDCollection
 from sunpy.visualization.colormaps.color_tables import aia_color_table, xrt_color_table
 from astropy.nddata import StdDevUncertainty
 from EMToolKit.algorithms.simple_reg_dem_wrapper import autoloading_simple_reg_dem_wrapper
+from EMToolKit.algorithms.sparse_nlmap_dem_wrapper import autoloading_sparse_nlmap_dem_wrapper
+from EMToolKit.algorithms.sparse_em_wrapper import autoloading_sparse_em_wrapper
 
-def multi_inst_simple_dem_wrapper(datasequence, wrapargs={}, doPlot=False, dat_dir="../.data/default", recalc_simple=False):
+
+def autoloading_multi_down_inst_dem_wrapper(datasequence,*, wrapargs={}, method='simple', doPlot=False, dat_dir=".data/default", recalc=False):
     """
-    Perform simple DEM analysis using multiple instruments.
+    Perform DEM analysis using multiple instruments. This is the main call for the downsampling method.
 
     Parameters:
         datasequence (NDCubeSequence): Sequence of data cubes for multiple instruments.
         wrapargs (dict): Arguments for the DEM wrapper.
+        method (string): which DEM algorithm to use.
         doPlot (bool): Whether to plot the reprojected data immediately.
         dat_dir (str): Directory for data storage.
         recalc_simple (bool): Whether to recalculate simple DEM.
@@ -36,16 +40,22 @@ def multi_inst_simple_dem_wrapper(datasequence, wrapargs={}, doPlot=False, dat_d
     Returns:
         NDCubeSequence: Resulting DEM analysis.
     """
+
+    datasequence.meta = datasequence[0].meta
+
     downprojected_sequence, nan_mask, coarsest_cube = reproject_with_uncertainties(datasequence)
 
     if doPlot:
         plot_reprojected(downprojected_sequence, nan_mask, coarsest_cube)
 
-    # print("Performing simple DEM...")
-    wrapargs["prepend"] = "multi_inst_"
+    wrapargs["prepend"] = "multi_down_"
 
-    return autoloading_simple_reg_dem_wrapper(datasequence, dat_dir, wrapargs=wrapargs, recalc_simple=recalc_simple)
-
+    if "simple" in method.casefold():
+        return autoloading_simple_reg_dem_wrapper(downprojected_sequence, dat_dir, wrapargs=wrapargs, recalc=recalc)
+    elif "sparse" in method.casefold():
+        return autoloading_sparse_em_wrapper(downprojected_sequence, dat_dir, wrapargs=wrapargs, recalc=recalc)
+    elif "nlmap" in method.casefold():
+        return autoloading_sparse_nlmap_dem_wrapper(downprojected_sequence, dat_dir, wrapargs=wrapargs, recalc=recalc)
 
 
 
@@ -111,6 +121,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import astropy.units as u
 from ndcube import NDCubeSequence
+from sunpy.map import Map
 
 def plot_reprojected(downprojected_sequence, nan_mask, coarsest_cube):
     """
@@ -121,13 +132,13 @@ def plot_reprojected(downprojected_sequence, nan_mask, coarsest_cube):
         nan_mask (numpy.ndarray): Mask for NaN values.
         coarsest_cube (NDCube): Coarsest data cube for comparison.
     """
-    for aia_reproj_map in downprojected_sequence:
+    for aia_reproj_map in Map(downprojected_sequence):
         fig = plt.figure(figsize=(12, 6))
 
         # Apply NaN mask to the data
         coarsest_data_masked = coarsest_cube.data * nan_mask
         aia_data_masked = aia_reproj_map.data * nan_mask
-        aia_uncertainty_masked = aia_reproj_map.uncertainty.array * nan_mask
+        # aia_uncertainty_masked = aia_reproj_map.uncertainty.array * nan_mask
 
         # Create axes with WCS projection
         ax1 = fig.add_subplot(1, 2, 1, projection=coarsest_cube.wcs)
@@ -146,7 +157,7 @@ def plot_reprojected(downprojected_sequence, nan_mask, coarsest_cube):
         ax1.imshow(np.sqrt(aia_data_masked), alpha=0.75, cmap='inferno')
 
         # Plot the uncertainties
-        ax2.imshow(aia_uncertainty_masked, cmap="plasma")
+        # ax2.imshow(aia_uncertainty_masked, cmap="plasma")
 
         ax1.set_title(f'AIA {wave} overlaid on Coarsest Cube\nShape: {aia_reproj_map.data.shape}')
         ax2.set_title(f'Uncertainty\nShape: {aia_reproj_map.uncertainty.array.shape}')

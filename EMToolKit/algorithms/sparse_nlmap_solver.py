@@ -145,7 +145,7 @@ def solve(data0, errors0, amat0, guess=None, reg_fac=1, func=None, dfunc=None, i
 		tsolver = time.time()
 		# Run sparse matrix solver:
 		[nlmo.map_drvvec,nlmo.reg_map_drvvec] = [dguess,dregguess]
-		svec2 = solver(nlmo,bvec.astype(dtype),svec.astype(dtype),store_outer_Av=False,tol=solver_tol.astype(dtype))
+		svec2 = solver(nlmo,bvec.astype(dtype),svec.astype(dtype),store_outer_Av=False,rtol=solver_tol.astype(dtype))
 		svec2 = svec2[0]
 		solver_timer += time.time()-tsolver
 

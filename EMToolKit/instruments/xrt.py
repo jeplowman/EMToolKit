@@ -53,7 +53,7 @@ def estimate_xrt_error(map_in):
 	return ((np.abs(map_in.data.astype(np.float32))*25 + 25**2)**0.5)
 
 
-def xrt_temperature_response(map_in, temperature_array, *, do_plot=True):
+def xrt_temperature_response(map_in, temperature_array, *, do_plot=False):
 	"""
 	This Python function calculates the temperature response for a given filter channel using xrtpy
 	library and plots the response curve.
