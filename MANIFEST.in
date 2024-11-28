@@ -1,0 +1,21 @@
+# Include essential files
+include README.md
+include LICENSE
+include dashboard.png
+
+# Recursively include everything under the package directories
+recursive-include EMToolKit *
+
+# Exclude specific files and patterns
+exclude .gitignore
+exclude *.code-workspace
+exclude server.log
+
+# Exclude hidden directories and files
+exclude .*
+
+# Optionally, exclude additional unwanted files and patterns
+exclude *.log
+exclude *.pyc
+exclude __pycache__/
+exclude .DS_Store
