@@ -201,7 +201,7 @@ def sparse_d2_partial_matrix(dims, axis, nd, steps=None, drv_con=8.0, dtype=np.f
 	if(use_postfactor==True): offdiagvec[...,0:-1] = -1
 	offdiagvec = offdiagvec.T.transpose(tparg).flatten()
     
-	if(axis < len(dims)-1): offset = np.prod(dims[axis+1:])
+	if(axis < len(dims)-1): offset = np.prod(dims[axis+1:]).astype(np.int64)
 	else: offset = 1
 
 	output_matrix = diags((diagvec,offdiagvec,offdiagvec), offsets = (0,-offset,offset), shape=(npt,npt), dtype=dtype_internal, format='dia')
