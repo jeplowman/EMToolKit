@@ -66,6 +66,12 @@ def sparse_em_wrapper(datasequence, wrapargs={}):
 
     # Sparse_em_solve puts the temperature axis last. Transpose so it's the first:
     coeffs = coeffs.transpose(np.roll(np.arange(coeffs.ndim), 1))
+    # Initialize and solve the sparse EM problem
+    Dict, lgtaxis, basis_funcs, bases_sigmas = sparse_em_init(trlogts, tresps, differential=True)
+    coeffs, zmax, status = sparse_em_solve(datacube, errscube, exptimes, Dict)
+
+    # Sparse_em_solve puts the temperature axis last. Transpose so it's the first:
+    coeffs = coeffs.transpose(np.roll(np.arange(coeffs.ndim), 1))
 
     nchannels, nb = Dict.shape
     wcs = datasequence[0].wcs  # WCS information from the first cube

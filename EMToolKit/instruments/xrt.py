@@ -78,7 +78,6 @@ def xrt_temperature_response(map_in, temperature_array, *, do_plot=False):
 
 	channel = map_in.meta['ec_fw1_']+'/'+map_in.meta['ec_fw2_']
 	channel = channel.replace("Open/", "")
-
 	filt = channel
 	date_time = "2007-09-22T21:59:59"
 	Temperature_Response_Fundamental = xrtpy.response.TemperatureResponseFundamental(
