@@ -242,7 +242,7 @@ class em_collection:
 
         output_cube = np.zeros([project_map.data.shape[0],project_map.data.shape[1],len(logt)])
 
-        for i in range(0,data):
+        for i in range(0,len(data)):
             dat_tresp = data[i].meta['TRESP']
             dat_logt = data[i].meta['LOGT']
             dati = copy.deepcopy(data[i])
