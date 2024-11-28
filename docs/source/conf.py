@@ -23,6 +23,7 @@ extensions = [
     'sphinx_gallery.gen_gallery',  # To handle Python scripts as gallery examples
     'myst_parser',  # Markdown support
     'sphinx.ext.autosummary',  # Automatic API summaries
+    'sphinx_automodapi.automodapi',
     'sphinx.ext.napoleon',  # Support for Google/NumPy style docstrings
     'sphinx.ext.todo',  # TODO directives
     'sphinx_autodoc_typehints',  # Include type hints in documentation
@@ -113,9 +114,15 @@ sphinx_gallery_conf = {
 # -------------------------------------------------------------------------
 # Setup Function to Add Custom JavaScript Files
 # -------------------------------------------------------------------------
+
 def setup(app):
     try:
         app.add_js_file('open_external_links_in_new_tab.js')
         logging.info("Added JavaScript file for external links.")
     except Exception as e:
         logging.error(f"Error adding JS file: {e}")
+    # app.add_autodocumenter(NoIndexModuleDocumenter)
+
+# conf.py
+from sphinx.ext.autodoc import ModuleDocumenter
+

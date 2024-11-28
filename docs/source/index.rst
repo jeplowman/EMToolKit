@@ -14,11 +14,11 @@ Explore the `EMToolKit <https://github.com/jeplowman/EMToolKit?tab=readme-ov-fil
 
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :titlesonly:
    :caption: Package Documentation
 
-   EMToolKit
+   api/EMToolKit
 
 Dive into the various modules that make up EMToolKit. Each module is designed to handle specific aspects of electromagnetic analysis, from algorithms to visualization.
 
@@ -37,7 +37,6 @@ See EMToolKit in action through real-world examples. These examples will guide y
    :caption: Contribution Guides
 
    develop
-
    contribute
    Android_EMToolKit_Setup
 

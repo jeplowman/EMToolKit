@@ -45,7 +45,7 @@ def simple_reg_dem_wrapper(datasequence,wrapargs=None):
 
 
 
-def autoloading_simple_reg_dem_wrapper(datasequence, data_dir="../", recalc_simple=False, wrapargs=None):
+def autoloading_simple_reg_dem_wrapper(datasequence, data_dir="../", recalc_simple=False, wrapargs={}):
     pk_file = os.path.join(data_dir, 'simple_reg_demsequence.pkl')
 
     if os.path.exists(pk_file) and not recalc_simple:
@@ -53,7 +53,7 @@ def autoloading_simple_reg_dem_wrapper(datasequence, data_dir="../", recalc_simp
         with open(pk_file, 'rb') as file:
             (simple_reg_demsequence, simpl_out) = pickle.load(file)
     else:
-        print("Calculating DEM from scratch...", end="")
+        print("Calculating simple_reg_demsequence from scratch in parallel...", end="")
         tstart=time.time()
         simpl_out = simple_reg_dem_wrapper(datasequence, wrapargs)
         print('Done! Simple method took',time.time()-tstart)

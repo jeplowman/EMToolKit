@@ -124,3 +124,6 @@ $RECYCLE.BIN/
 .ipynb_checkpoints/
 
 esbonio.*
+.vscode/*
+docs/source/api/*
+!dashboard.png
