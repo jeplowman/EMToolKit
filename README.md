@@ -4,7 +4,7 @@
 
 Welcome to the [EMToolKit](https://github.com/jeplowman/EMToolKit) repository, a suite of tools for computing Solar Differential Emission Measures (DEM) in Python. This toolkit is designed for photometric analysis and visualization, tailored for solar physics research and applications.
 
-![alt text](dashboard.png)
+![alt text](https://github.com/jeplowman/EMToolKit/blob/develop/dashboard.png)
 
 
 ## Documentation

@@ -126,3 +126,4 @@ $RECYCLE.BIN/
 esbonio.*
 .vscode/*
 docs/source/api/*
+!dashboard.png
