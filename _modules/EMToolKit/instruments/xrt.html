@@ -56,12 +56,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">Single Instrument Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Dashboard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument_downsampling.html">Multi-Instrument Downsampling Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">Single Instrument Dashboard</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../develop.html">EMToolKit Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute.html">Ways to Contribute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Android_EMToolKit_Setup.html">Android Setup for Running EMToolKit on JupyterLab</a></li>
 </ul>
 
@@ -178,7 +181,6 @@
 
 	<span class="n">channel</span> <span class="o">=</span> <span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw1_&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">map_in</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;ec_fw2_&#39;</span><span class="p">]</span>
 	<span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Open/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-
 	<span class="n">filt</span> <span class="o">=</span> <span class="n">channel</span>
 	<span class="n">date_time</span> <span class="o">=</span> <span class="s2">&quot;2007-09-22T21:59:59&quot;</span>
 	<span class="n">Temperature_Response_Fundamental</span> <span class="o">=</span> <span class="n">xrtpy</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">TemperatureResponseFundamental</span><span class="p">(</span>

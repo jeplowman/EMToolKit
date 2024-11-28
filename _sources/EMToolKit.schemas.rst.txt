@@ -1,8 +1,6 @@
 EMToolKit.schemas package
 =========================
 
-Submodules
-----------
 
 EMToolKit.schemas.basic\_schemas module
 ---------------------------------------
@@ -64,14 +62,6 @@ EMToolKit.schemas.util module
 -----------------------------
 
 .. automodule:: EMToolKit.schemas.util
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: EMToolKit.schemas
    :members:
    :undoc-members:
    :show-inheritance:

@@ -56,12 +56,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">Single Instrument Dashboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Dashboard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument_downsampling.html">Multi-Instrument Downsampling Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">Single Instrument Dashboard</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../develop.html">EMToolKit Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute.html">Ways to Contribute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Android_EMToolKit_Setup.html">Android Setup for Running EMToolKit on JupyterLab</a></li>
 </ul>
 
@@ -154,6 +157,12 @@
         <span class="n">trlogts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;logt&#39;</span><span class="p">])</span>
         <span class="n">exptimes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">datasequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;exptime&#39;</span><span class="p">]</span>
 
+    <span class="c1"># Initialize and solve the sparse EM problem</span>
+    <span class="n">Dict</span><span class="p">,</span> <span class="n">lgtaxis</span><span class="p">,</span> <span class="n">basis_funcs</span><span class="p">,</span> <span class="n">bases_sigmas</span> <span class="o">=</span> <span class="n">sparse_em_init</span><span class="p">(</span><span class="n">trlogts</span><span class="p">,</span> <span class="n">tresps</span><span class="p">,</span> <span class="n">differential</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">coeffs</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">sparse_em_solve</span><span class="p">(</span><span class="n">datacube</span><span class="p">,</span> <span class="n">errscube</span><span class="p">,</span> <span class="n">exptimes</span><span class="p">,</span> <span class="n">Dict</span><span class="p">)</span>
+
+    <span class="c1"># Sparse_em_solve puts the temperature axis last. Transpose so it&#39;s the first:</span>
+    <span class="n">coeffs</span> <span class="o">=</span> <span class="n">coeffs</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">coeffs</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
     <span class="c1"># Initialize and solve the sparse EM problem</span>
     <span class="n">Dict</span><span class="p">,</span> <span class="n">lgtaxis</span><span class="p">,</span> <span class="n">basis_funcs</span><span class="p">,</span> <span class="n">bases_sigmas</span> <span class="o">=</span> <span class="n">sparse_em_init</span><span class="p">(</span><span class="n">trlogts</span><span class="p">,</span> <span class="n">tresps</span><span class="p">,</span> <span class="n">differential</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">coeffs</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">sparse_em_solve</span><span class="p">(</span><span class="n">datacube</span><span class="p">,</span> <span class="n">errscube</span><span class="p">,</span> <span class="n">exptimes</span><span class="p">,</span> <span class="n">Dict</span><span class="p">)</span>

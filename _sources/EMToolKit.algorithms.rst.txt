@@ -1,9 +1,6 @@
 EMToolKit.algorithms package
 ============================
 
-Submodules
-----------
-
 EMToolKit.algorithms.multi\_inst\_dem\_wrapper module
 -----------------------------------------------------
 

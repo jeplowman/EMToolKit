@@ -1,37 +1,44 @@
-EMToolKit package
-=================
+EMToolKit package description
+#############################
+
+These top-level modules provide access to the EMToolKit engine.
 
 Subpackages
 -----------
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
+   :titlesonly:
 
-   EMToolKit.algorithms
-   EMToolKit.instruments
-   EMToolKit.schemas
-   EMToolKit.visualization
+   Algorithms <EMToolKit.algorithms>
+   Instruments <EMToolKit.instruments>
+   Schemas <EMToolKit.schemas>
+   Visualization <EMToolKit.visualization>
 
-Submodules
-----------
+**Algorithms**
+This is where the various inversion methods are hosted.
 
-EMToolKit.EMToolKit module
---------------------------
+**Instruments**
+These wrappers assist in procuring and preparing the images.
 
+**Schemas**
+Description of Schemas (if needed).
+
+**Visualization**
+This module hosts the dashboard and other visualizations.
+
+
+
+
+EMToolKit module
+****************
 .. automodule:: EMToolKit.EMToolKit
    :members:
    :undoc-members:
-   :show-inheritance:
 
-EMToolKit.examples module
--------------------------
 
-.. automodule:: EMToolKit.examples
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
-EMToolKit.util module
+util module
 ---------------------
 
 .. automodule:: EMToolKit.util
@@ -39,10 +46,3 @@ EMToolKit.util module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: EMToolKit
-   :members:
-   :undoc-members:
-   :show-inheritance:
