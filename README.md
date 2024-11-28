@@ -12,7 +12,7 @@ Welcome to the [EMToolKit](https://github.com/jeplowman/EMToolKit) repository, a
 - **Documentation Mirror**: [GitHub Pages](https://jeplowman.github.io/EMToolKit/)
 
 ## Installation
-For installation instructions, please refer to the [Installation Guide](https://github.com/jeplowman/EMToolKit/blob/6d91fd672b34810401679ccdc975a88937b4abf8/INSTALL.md). Following that, please use the [example gallery](https://github.com/jeplowman/EMToolKit/blob/8fdc8a59abfb24471770a02a5cd71d9c7bbfd379/docs/source/examples/GALLERY_HEADER.rst) to
+For installation instructions, please refer to the [Installation Guide](https://github.com/jeplowman/EMToolKit/blob/6d91fd672b34810401679ccdc975a88937b4abf8/INSTALL.md). Following that, please use the [example gallery](https://emtoolkit.readthedocs.io/en/latest/examples/GALLERY_HEADER.html) to
 see how to use the code.
 
 ## Contributing
