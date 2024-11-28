@@ -2,8 +2,7 @@ import webbrowser
 import subprocess
 import time
 import os
-
-notebook_path = "EMToolKit_top_example_07252010.ipynb"
+from importlib import resources
 
 def example_dir():
     """
@@ -11,6 +10,27 @@ def example_dir():
     """
     url = "https://emtoolkit.readthedocs.io/en/latest/examples/GALLERY_HEADER.html"
     webbrowser.open(url)
+
+import os
+
+def get_notebook_path():
+    """
+    Retrieves the path to the example Jupyter Notebook located at the top level of the package.
+
+    Returns:
+        str: Absolute path to the notebook.
+    """
+    # Determine the directory of the current script
+    current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    # Construct the path to the notebook
+    notebook_path = os.path.join(current_dir, "EMToolKit_top_example_07252010.ipynb")
+
+    # Check if the notebook exists
+    if not os.path.exists(notebook_path):
+        raise FileNotFoundError(f"The example notebook could not be found: {notebook_path}")
+
+    return notebook_path
 
 def start_jupyter_notebook(notebook_path, open_browser=True):
     """
@@ -23,11 +43,13 @@ def start_jupyter_notebook(notebook_path, open_browser=True):
     Returns:
         subprocess.Popen: The Jupyter server process, if started successfully.
     """
-    notebook_path = os.path.abspath(notebook_path)
     notebook_dir = os.path.dirname(notebook_path)
 
-    if not os.path.exists(notebook_path):
-        raise FileNotFoundError(f"The specified notebook does not exist: {notebook_path}")
+    try:
+        if not os.path.exists(notebook_path):
+            raise FileNotFoundError(f"The specified notebook does not exist: {notebook_path}")
+    except FileNotFoundError:
+        pass
 
     try:
         os.chdir(notebook_dir)
@@ -59,6 +81,9 @@ def example_run():
     Main function to start the example notebook and keep it running.
     """
     try:
+        # Get the path to the included notebook
+        notebook_path = get_notebook_path()
+
         # Start the Jupyter notebook
         jupyter_process = start_jupyter_notebook(notebook_path)
 

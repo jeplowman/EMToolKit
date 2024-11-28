@@ -52,3 +52,6 @@ repository = "https://github.com/jeplowman/EMToolKit"
 
 [tool.hatch.build.targets.wheel]
 packages = ["EMToolKit"]
+
+[tool.setuptools.package-data]
+"emtoolkit" = ["EMToolKit_top_example_07252010.ipynb"]
