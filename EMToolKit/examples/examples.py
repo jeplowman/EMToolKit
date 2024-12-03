@@ -3,6 +3,14 @@ import subprocess
 import time
 import os
 from importlib import resources
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
+# Example module for resource management
+import EMToolKit
+
 
 def example_dir():
     """
@@ -10,27 +18,28 @@ def example_dir():
     """
     url = "https://emtoolkit.readthedocs.io/en/latest/examples/GALLERY_HEADER.html"
     webbrowser.open(url)
+    logging.info("Opened example gallery in the web browser.")
 
-import os
 
-def get_notebook_path():
+def get_notebook_path(filename="EMToolKit_top_example_07252010.ipynb"):
     """
-    Retrieves the path to the example Jupyter Notebook located at the top level of the package.
+    Retrieves the path to a specified Jupyter Notebook located in the package.
+
+    Args:
+        filename (str): Name of the notebook file.
 
     Returns:
         str: Absolute path to the notebook.
     """
-    # Determine the directory of the current script
-    current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    try:
+        notebook_path = resources.files("EMToolKit.examples").joinpath(filename)
+        if not notebook_path.exists():
+            raise FileNotFoundError(f"Notebook not found in package: {notebook_path}")
+        return str(notebook_path)
+    except FileNotFoundError as e:
+        logging.error(e)
+        raise
 
-    # Construct the path to the notebook
-    notebook_path = os.path.join(current_dir, "EMToolKit_top_example_07252010.ipynb")
-
-    # Check if the notebook exists
-    if not os.path.exists(notebook_path):
-        raise FileNotFoundError(f"The example notebook could not be found: {notebook_path}")
-
-    return notebook_path
 
 def start_jupyter_notebook(notebook_path, open_browser=True):
     """
@@ -44,26 +53,23 @@ def start_jupyter_notebook(notebook_path, open_browser=True):
         subprocess.Popen: The Jupyter server process, if started successfully.
     """
     notebook_dir = os.path.dirname(notebook_path)
-
-    try:
-        if not os.path.exists(notebook_path):
-            raise FileNotFoundError(f"The specified notebook does not exist: {notebook_path}")
-    except FileNotFoundError:
-        pass
+    if not os.path.exists(notebook_path):
+        raise FileNotFoundError(f"The specified notebook does not exist: {notebook_path}")
 
     try:
         os.chdir(notebook_dir)
-        print("Attempting to launch notebook using subprocess...")
+        logging.info("Launching Jupyter Notebook...")
         command = ["jupyter", "notebook", notebook_path]
         if not open_browser:
             command.append("--no-browser")
         process = subprocess.Popen(command)
         time.sleep(2)  # Allow the server time to initialize
-        print("Notebook launched successfully!")
+        logging.info("Notebook launched successfully!")
         return process
     except Exception as e:
-        print(f"Failed to launch notebook: {e}")
+        logging.error(f"Failed to launch notebook: {e}")
         raise
+
 
 def stop_jupyter_notebook(process):
     """
@@ -73,8 +79,9 @@ def stop_jupyter_notebook(process):
         process (subprocess.Popen): The server process to terminate.
     """
     if process:
-        print("Terminating the Jupyter server...")
+        logging.info("Terminating the Jupyter server...")
         process.terminate()
+
 
 def example_run():
     """
@@ -88,14 +95,16 @@ def example_run():
         jupyter_process = start_jupyter_notebook(notebook_path)
 
         # Keep the script running and the server open
+        logging.info("Press Ctrl+C to stop the Jupyter server.")
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
-        print("Stopping the Jupyter server...")
-        if jupyter_process:
+        logging.info("Stopping the Jupyter server...")
+        if 'jupyter_process' in locals():
             stop_jupyter_notebook(jupyter_process)
     except Exception as e:
-        print(f"Error encountered: {e}")
+        logging.error(f"Error encountered: {e}")
+
 
 if __name__ == "__main__":
     example_dir()  # Open the example directory in the browser

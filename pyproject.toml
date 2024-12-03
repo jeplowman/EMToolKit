@@ -1,6 +1,6 @@
 [project]
 name = "EMToolKit"
-version = "0.1.13"
+version = "0.1.14"
 description = "This package provides an interface to the EMToolKit through PyPi"
 authors = [
     { name = "J. Plowman", email = "jplowman@boulder.swri.edu" },
@@ -20,6 +20,8 @@ dependencies = [
     "drms>=0.7.1",
     "reproject>=0.13.0",
     "ipykernel>=6.29.5",
+    "jupyterlab",
+    "httpx",
     "jupyter",
     "notebook"
 ]
@@ -38,7 +40,10 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Physics"
 ]
 
-scripts = { emtest = "EMToolKit.examples:example_run" }
+[project.scripts]
+# emtestrun= "EMToolKit.examples:example_run"
+# emshowdir = "EMToolKit.examples:example_dir"
+emtoolkit = "EMToolKit.__main__:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -54,4 +59,4 @@ repository = "https://github.com/jeplowman/EMToolKit"
 packages = ["EMToolKit"]
 
 [tool.setuptools.package-data]
-"emtoolkit" = ["EMToolKit_top_example_07252010.ipynb"]
+"EMToolKit.examples" = ["EMToolKit_top_example_07252010.ipynb"]
