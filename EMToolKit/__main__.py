@@ -7,8 +7,13 @@ import logging
 import webbrowser
 import subprocess
 from pathlib import Path
+import importlib
 import importlib.resources as pkg_resources
-from .examples.examples import example_dir, example_run
+
+# Dynamically import example_dir and example_run from examples.examples
+examples_module = importlib.import_module("EMToolKit.examples.examples")
+example_dir = getattr(examples_module, "example_dir")
+example_run = getattr(examples_module, "example_run")
 
 def start_jupyter_notebook(notebook_path):
     """
@@ -57,21 +62,21 @@ def open_in_file_browser(directory):
         subprocess.Popen(['open', directory])  # 'open' is macOS specific
         # You might need 'xdg-open' for Linux: subprocess.Popen(['xdg-open', directory])
 
-def example_run(notebook_path, no_preview=False):
+def example_run(notebook_path, preview=True):
     """
     Main function to start the example notebook, open in browser, and keep it running.
 
     Args:
         notebook_path (str): Path to the notebook.
-        no_preview (bool): If True, do not open the notebook in the web browser.
+        preview (bool): If True, open the notebook in the web browser.
     """
     try:
         notebook_dir = str(Path(notebook_path).parent)
 
-        # Open the directory in the file browser
-        open_in_file_browser(notebook_dir)
 
-        if not no_preview:
+        if preview:
+            # Open the directory in the file browser
+            open_in_file_browser(notebook_dir)
             # Open the notebook in the default web browser
             webbrowser.open_new(f'file://{os.path.abspath(notebook_path)}')
 
@@ -98,6 +103,7 @@ def create_new_notebook(target_directory, *, images_directory=None, notebook_nam
         images_directory (str, optional): Path to the directory containing images. Defaults to None.
         notebook_name (str, optional): Name of the notebook file. Defaults to "new_notebook.ipynb".
     """
+    # Load notebook content from the template file using importlib.resources
     try:
         with pkg_resources.open_text(__package__, 'notebook_template.json') as file:
             notebook_content = json.load(file)
@@ -116,7 +122,7 @@ def create_new_notebook(target_directory, *, images_directory=None, notebook_nam
 
     # Construct the notebook file path
     if notebook_name is None:
-        notebook_name = f"{os.path.basename(os.getcwd())}_NB.ipynb"
+        notebook_name = f"{os.path.basename(target_directory)}_NB.ipynb"
     notebook_path = os.path.join(target_directory, notebook_name)
 
     # Ensure the path does not conflict with an existing directory
@@ -154,16 +160,18 @@ def main():
         "target_directory",
         nargs="?",
         type=str,
+        default=os.getcwd(),
         help="Directory where the notebook will be created (defaults to the current directory)",
     )
     create_parser.add_argument(
         "images_directory",
         nargs="?",
         type=str,
+        default=None,
         help="Path to the images directory (defaults to the target directory)",
     )
     create_parser.add_argument(
-        "--no-preview",
+        "--preview",
         action="store_true",
         help="Do not open the notebook in a web browser",
     )
@@ -185,18 +193,19 @@ def main():
 
     # Handle the create command
     if args.command == "create" or not args.command:
-        target_directory = args.target_directory or os.getcwd()
-        images_directory = args.images_directory or target_directory
+        target_directory = getattr(args, "target_directory", os.getcwd())
+        images_directory = getattr(args, "images_directory", os.getcwd())
         notebook_path = create_new_notebook(target_directory, images_directory=images_directory)
         if not notebook_path:
             sys.exit(1)
         else:
-            example_run(notebook_path, no_preview=args.no_preview)
+            preview = getattr(args, "preview", True)
+            example_run(notebook_path, preview=preview)
     # Handle additional commands
     elif args.examples:
         example_dir()
     elif args.test:
-        example_run(None, no_preview=True)  # Assuming example_run handles its own notebook path
+        example_run(None, preview=True)  # Assuming example_run handles its own notebook path
     else:
         parser.print_help()
 

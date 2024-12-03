@@ -4,15 +4,16 @@ from sunpy.map import Map
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty, UnknownUncertainty
-from astropy.nddata import StdDevUncertainty, UnknownUncertainty
-from EMToolKit.schemas.basic_schemas import basic_detector, basic_source
+# from .schemas.basic_schemas import basic_detector, basic_source
+import importlib
+
+schemas_module = importlib.import_module("schemas.basic_schemas", "EMToolKit")
+from schemas_module import basic_detector, basic_source
+
 import astropy
 from scipy.interpolate import interp1d
 from scipy.integrate import trapezoid
-
-from scipy.interpolate import interp1d
-from scipy.integrate import trapezoid
-
+import uuid
 
 def em_data(maps, errs, logts, tresps, channels=None):
     cubes = []
@@ -30,6 +31,7 @@ def em_data(maps, errs, logts, tresps, channels=None):
             mapi.meta['SCHEMA'] = basic_detector(mapi.meta)
         cubes.append(NDCube(mapi, uncertainty=errs[i]))
     return NDCubeSequence(cubes)
+
 def em_data(maps, errs, logts, tresps, channels=None):
     cubes = []
     for i in range(len(maps)):
@@ -328,4 +330,31 @@ class em_collection:
                 output_cube[:,:,j] += (tresp[j]*dlogt/data_reproj.data)**2
 
         return np.sqrt(len(data)/output_cube)
+
+import nbformat
+from nbformat import validate, ValidationError
+
+def normalize_notebook_cells(notebook_path):
+    # Load the notebook
+    with open(notebook_path, 'r') as f:
+        nb = nbformat.read(f, as_version=4)
+
+    # Normalize cells
+    for cell in nb.cells:
+        if 'id' not in cell:
+            cell['id'] = str(uuid.uuid4())
+        if cell.cell_type == 'code' and 'outputs' not in cell:
+            cell['outputs'] = []
+
+    # Validate the notebook
+    try:
+        validate(nb)
+        print("Notebook validation passed.")
+    except ValidationError as e:
+        print(f"Notebook validation failed: {e}")
+
+    # Write the normalized notebook back to the file
+    with open(notebook_path, 'w') as f:
+        nbformat.write(nb, f)
+    print(f"Notebook has been normalized and saved to {notebook_path}")
 

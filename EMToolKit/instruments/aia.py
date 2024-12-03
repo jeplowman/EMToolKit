@@ -79,13 +79,15 @@ def download_sdo_data(base_path, date, redownload=False):
     Returns:
         tuple: A tuple containing the paths to the downloaded data files and the directory where they are stored.
     """
-    folder_name = date.replace("/", "_").replace(" ", "_").replace(":", "_")
-    sdo_data_dir = os.path.join(base_path, ".data", folder_name)  # Place to put data files.
+    if date is not None:
+        folder_name = date.replace("/", "_").replace(" ", "_").replace(":", "_")
+        sdo_data_dir = os.path.join(base_path, ".data", folder_name)  # Place to put data files.
 
-    if not os.path.exists(sdo_data_dir):
-        os.makedirs(sdo_data_dir)
+        if not os.path.exists(sdo_data_dir):
+            os.makedirs(sdo_data_dir)
+    else:
+        paths = list_fits_files(sdo_data_dir, 'aia')
 
-    paths = list_fits_files(sdo_data_dir, 'aia')
     if paths and not redownload:
         print(f"Found {len(paths)} AIA images on disk.")
         return paths, sdo_data_dir

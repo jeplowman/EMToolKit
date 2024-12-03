@@ -1,6 +1,6 @@
 [project]
 name = "EMToolKit"
-version = "0.1.14"
+version = "0.1.17"
 description = "This package provides an interface to the EMToolKit through PyPi"
 authors = [
     { name = "J. Plowman", email = "jplowman@boulder.swri.edu" },
@@ -41,8 +41,8 @@ classifiers = [
 ]
 
 [project.scripts]
-# emtestrun= "EMToolKit.examples:example_run"
-# emshowdir = "EMToolKit.examples:example_dir"
+emtestrun= "EMToolKit.examples:example_run"
+emshowdir = "EMToolKit.examples:example_dir"
 emtoolkit = "EMToolKit.__main__:main"
 
 [build-system]

@@ -1,5 +1,7 @@
 import os, sys, time, pickle, resource, copy, numpy as np
-from EMToolKit.schemas import operators, element_functions, element_grid, coord_grid, element_source_responses
+# EMToolKit/schemas/basic_schemas.py
+from . import operators, element_functions, element_grid, coord_grid, element_source_responses
+# from .schemas import operators, element_functions, element_grid, coord_grid, element_source_responses
 from EMToolKit.schemas.operators import multi_instrument_linear_operator, sparse_d2_partial_matrix
 from EMToolKit.schemas.operators import reg_operator_postfac_wrapper, single_instrument_linear_operator_separable
 from EMToolKit.schemas.basic_transforms import generic_transform, trivialframe, fits_transform
