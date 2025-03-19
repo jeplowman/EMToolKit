@@ -85,7 +85,6 @@ def sparse_nlmap_dem_wrapper(datasequence, wrapargs={}):
     """
 
 	nc = len(datasequence)
-	nc = len(datasequence)
 	drv_con = wrapargs.get('drv_con',8)
 	dtype = wrapargs.get('dtype',np.float32)
 	norms = wrapargs.get('norms',np.ones(nc))
@@ -118,8 +117,6 @@ def sparse_nlmap_dem_wrapper(datasequence, wrapargs={}):
 	# 	#fwdops.append(model.get_fwdop(datasequence[i]))
 
 	import concurrent.futures
-
-
 
 	# Assuming datasequence, source, and nc are already defined
 	fwdops = []
