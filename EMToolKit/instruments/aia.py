@@ -193,7 +193,7 @@ def estimate_aia_error(map_in):
     return np.sqrt(np.clip(map_in.data * dnpp, 0.0, None) + rdn ** 2)
 
 
-def aia_temperature_response(map_in, temperature_array):
+def aia_temperature_response(map_in, *args, **kwargs):
     """
     Computes the temperature response function for a given AIA map and a specified temperature array.
 
@@ -205,35 +205,16 @@ def aia_temperature_response(map_in, temperature_array):
         tuple: A tuple containing the logarithmic temperature values and the corresponding
         temperature response function.
     """
-    channel = map_in.meta['detector'] + map_in.meta['wave_str']
+    channel = kwargs.get('channel',map_in.meta['detector'] + map_in.meta['wave_str'])
     refchannels = np.array(['AIA94_THIN', 'AIA131_THIN', 'AIA171_THIN', 'AIA193_THIN', 'AIA211_THIN', 'AIA335_THIN'])
 
     tresp_table = AIA_TEMPERATURE_RESPONSE_TABLE
+    tresp_temps = AIA_TEMPERATURES
+    tresp = copy.deepcopy(tresp_table[:,np.where(refchannels == channel)].flatten())
+    if(len(args) > 0):
+        logt = args[0]
+        tresp = np.interp(temperature_array, tresp_temps, tresp)
+    else: logt=tresp_table # logt, tresp = interpolate_table(tresp_table, temperature_array)
 
-    logt, tresp = interpolate_table(tresp_table, temperature_array)
-
-    return logt, tresp[:, np.where(refchannels == channel)].flatten()
-
-
-def interpolate_table(table, temperature_array):
-    """
-    Interpolates a given temperature response table to match a specified temperature array.
-
-    Args:
-        table (numpy.ndarray): The input temperature response table.
-        temperature_array (array-like): The array of temperatures for interpolation.
-
-    Returns:
-        tuple: A tuple containing the new logarithmic temperature values and the interpolated table.
-    """
-    logt = np.linspace(5.5, 7.5, num=len(table))
-    new_logt = temperature_array
-
-    interpolated_table = np.zeros((len(new_logt), table.shape[1]))
-
-    for i in range(table.shape[1]):
-        interpolated_table[:, i] = np.interp(new_logt, logt, table[:, i])
-
-    return new_logt, interpolated_table
-
+    return logt, tresp # [:, np.where(refchannels == channel)].flatten()
 
