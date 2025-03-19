@@ -1,10 +1,14 @@
 """
-This module provides a wrapper for Differential Emission Measure (DEM) analysis
-using multiple instruments. It includes functions for reprojecting data with
-uncertainties and plotting the results.
+This is the multi-instrument capable Differential Emission Measure
+(DEM) module using the *downsampling* method. It can handle input images
+with differing spatial resolution (e.g., from different instruments such
+as SDO/AIA and Hinode), and does so by by downsampling to the lowest common
+denominator pixel grid of the inputs, then applying standard per-pixel
+algorithms. It includes functions for reprojecting data with uncertainties
+and plotting the results.
 
 Functions:
-    autoloading_multi_inst_dem_wrapper: Wraps simple DEM analysis for multiple instruments.
+    downsampling_dem_wrapper: Wraps simple DEM analysis for multiple instruments.
     reproject_with_uncertainties: Reprojects a sequence of maps to the smallest map.
     plot_reprojected: Plots reprojected maps and their uncertainties.
 """
@@ -21,11 +25,10 @@ from ndcube import NDCube, NDCubeSequence, NDCollection
 from sunpy.visualization.colormaps.color_tables import aia_color_table, xrt_color_table
 from astropy.nddata import StdDevUncertainty
 from EMToolKit.algorithms.simple_reg_dem_wrapper import autoloading_simple_reg_dem_wrapper
-from EMToolKit.algorithms.sparse_nlmap_dem_wrapper import autoloading_sparse_nlmap_dem_wrapper
 from EMToolKit.algorithms.sparse_em_wrapper import autoloading_sparse_em_wrapper
 
 
-def autoloading_multi_down_inst_dem_wrapper(datasequence,*, wrapargs={}, method='simple', doPlot=False, dat_dir=".data/default", recalc=False):
+def downsampling_dem_wrapper(datasequence,*, wrapargs={}, method='simple', doPlot=False, dat_dir=".data/default", recalc=False):
     """
     Perform DEM analysis using multiple instruments. This is the main call for the downsampling method.
 
