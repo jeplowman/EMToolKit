@@ -1,7 +1,16 @@
-# This code computes DEMs by inverting the forward problem with sparse
-# matrix methods. It can seamlessly incorporate multiple instruments,
-# with regularization similar to the Plowman & Caspi 2020 method. Unlike
-# that method, the regularization can be applied to both the spatial
+# This is the multi-instrument capable Differential Emission Measure
+# (DEM) module using the sparse matrix inverse method. It can handle input data
+# with differing spatial resolution (e.g., from instruments such as SDO/AIA and
+# Hinode/XRT simultaneously) and even instruments with non-direct-imaging 
+# sampling patterns (e.g., RHESSI) simultaneously with conventional direct 
+# imagers. This code computes DEMs by inverting the general forward problem for
+# the entire field-of-view (rather than pixel-by-pixel) with sparse
+# matrix methods. Unlike the pixel-by-pixel methods it is not limited by
+# the pixel resolution of the input data and can make use of all 
+# spatial and thermal resolution information present in the data.
+# It uses a regularization similar to the Plowman & Caspi 2020 method,
+# with the same nonlinear mapping to enforce positivity as in that method.
+# Unlike that method, the regularization can be applied to both the spatial
 # and thermal directions. Regularization strength can be tweaked
 # along each axis independently. There is a multi-instrument example
 # notebook supplied that demonstrates the method.
@@ -26,7 +35,7 @@ from EMToolKit.schemas.element_functions import (nd_voigt_psf, bin_function, get
 from EMToolKit.schemas.element_grid import detector_grid, source_grid
 from EMToolKit.schemas.coord_grid import coord_grid
 from EMToolKit.schemas.element_source_responses import element_source_responses as esr
-from . import sparse_nlmap_solver
+from . import nlmap_sparse_solver
 from EMToolKit.schemas.basic_schemas import basic_detector, basic_source
 import EMToolKit.EMToolKit as emtk
 
@@ -54,7 +63,7 @@ def minmax(arg):
 # elements and only provides wcs for spatial information.
 # We should begin by implementing a backward compatible layer
 # for that.
-def sparse_nlmap_dem_wrapper(datasequence, wrapargs={}):
+def nlmap_sparse_dem_wrapper(datasequence, wrapargs={}):
 	"""
     Wrapper function for the sparse non-linear map-based Differential Emission Measure (DEM) calculation.
 
