@@ -46,7 +46,6 @@ def sparse_em_wrapper(datasequence, wrapargs={}):
     for seq in datasequence:
         [nx, ny] = [np.min([seq.data.shape[0], nx]), np.min([seq.data.shape[1], ny])]
 
-    # logt = datasequence[0].meta['logt']  # Temperature bins
     datacube = np.zeros([nx, ny, nc])  # Data cube for storing observations
     errscube = np.zeros([nx, ny, nc])  # Data cube for storing uncertainties
     trlogts, tresps = [], []  # Temperature response functions and temperature bins
@@ -60,12 +59,6 @@ def sparse_em_wrapper(datasequence, wrapargs={}):
         trlogts.append(datasequence[i].meta['logt'])
         exptimes[i] = datasequence[i].meta['exptime']
 
-    # Initialize and solve the sparse EM problem
-    Dict, lgtaxis, basis_funcs, bases_sigmas = sparse_em_init(trlogts, tresps, differential=True)
-    coeffs, zmax, status = sparse_em_solve(datacube, errscube, exptimes, Dict)
-
-    # Sparse_em_solve puts the temperature axis last. Transpose so it's the first:
-    coeffs = coeffs.transpose(np.roll(np.arange(coeffs.ndim), 1))
     # Initialize and solve the sparse EM problem
     Dict, lgtaxis, basis_funcs, bases_sigmas = sparse_em_init(trlogts, tresps, differential=True)
     coeffs, zmax, status = sparse_em_solve(datacube, errscube, exptimes, Dict)
