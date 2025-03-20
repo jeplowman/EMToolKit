@@ -9,7 +9,7 @@ import pickle
 import time
 import EMToolKit.EMToolKit as emtk
 
-def simple_reg_dem_wrapper(datasequence, wrapargs=None):
+def simple_reg_dem_wrapper(datasequence, wrapargs={}):
     """
     Wrapper function for the simple regularized Differential Emission Measure (DEM) calculation.
 
@@ -41,8 +41,7 @@ def simple_reg_dem_wrapper(datasequence, wrapargs=None):
     # Determine the smallest data cube dimensions in the sequence
     nc = len(datasequence)
     [nx, ny] = datasequence[0].data.shape
-    for seq in datasequence:
-        [nx, ny] = [np.min([seq.data.shape[0], nx]), np.min([seq.data.shape[1], ny])]
+    for seq in datasequence: [nx, ny] = [np.min([seq.data.shape[0], nx]), np.min([seq.data.shape[1], ny])]
 
     logt = datasequence[0].meta['logt']  # Temperature bins
     datacube = np.zeros([nx, ny, nc])  # Data cube for storing observations
@@ -58,7 +57,10 @@ def simple_reg_dem_wrapper(datasequence, wrapargs=None):
         exptimes[i] = datasequence[i].meta['exptime']
 
     # Perform the DEM calculation
-    coeffs, chi2 = simple_reg_dem(datacube, errscube, exptimes, logt, tresps)
+    if(wrapargs.get('drv_con',None) is not None):
+        coeffs,chi2 = simple_reg_dem(datacube,errscube,exptimes,logt,tresps,drv_con=wrapargs.get('drv_con'))
+    else:
+        coeffs,chi2 = simple_reg_dem(datacube,errscube,exptimes,logt,tresps)    
 
     # Simple_reg_dem puts the temperature axis last. Transpose so it's the first:
     coeffs = coeffs.transpose(np.roll(np.arange(coeffs.ndim), 1))
@@ -69,19 +71,12 @@ def simple_reg_dem_wrapper(datasequence, wrapargs=None):
 
     # Create the basis functions for the temperature bins
     logts, bases = [], []
-    for i in range(nt):
+    for i in range(0,nt):
         basis = (basislogt == logt[i]).astype(np.float64)
-        if i > 0:
-            basis += (basislogt - logt[i - 1]) * (basislogt < logt[i]) * (basislogt > logt[i - 1]) / (logt[i] - logt[i - 1])
-        if i < nt - 1:
-            basis += (logt[i + 1] - basislogt) * (basislogt < logt[i + 1]) * (basislogt > logt[i]) / (logt[i + 1] - logt[i])
-        if i > 0:
-            basis += (basislogt - logt[i - 1]) * (basislogt < logt[i]) * (basislogt > logt[i - 1]) / (logt[i] - logt[i - 1])
-        if i < nt - 1:
-            basis += (logt[i + 1] - basislogt) * (basislogt < logt[i + 1]) * (basislogt > logt[i]) / (logt[i + 1] - logt[i])
+        if(i > 0): basis += (basislogt-logt[i-1])*(basislogt < logt[i])*(basislogt > logt[i-1])/(logt[i]-logt[i-1])
+        if(i < nt-1): basis += (logt[i+1]-basislogt)*(basislogt < logt[i+1])*(basislogt > logt[i])/(logt[i+1]-logt[i])
         bases.append(basis)
         logts.append(basislogt)
-
     return list(coeffs), logts, bases, wcs, 'simple_reg_dem'
 
 
