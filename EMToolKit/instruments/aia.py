@@ -67,48 +67,59 @@ import astropy.units as u
 from sunpy.net import Fido, attrs as a
 from sunpy.time import TimeRange
 
-def download_sdo_data(base_path, date, redownload=False):
-    """
-    Downloads SDO data for a specified date, or retrieves it from disk if already available.
+def download_sdo_data(data_path, date, redownload=False, dt=11.5):
+	"""
+	Downloads SDO data for a specified date, or retrieves it from disk if already available.
+	
+	Args:
+		data_path (str): The directory where data should be stored.
+		date (str): The date for which to download SDO data.
+		redownload (bool, optional): If True, forces a re-download of the data even if it exists on disk. Defaults to False.
+	
+	Returns:
+		tuple: A tuple containing the paths to the downloaded data files and the directory where they are stored.
+	"""
+	sdo_data_dir = data_path
+	if not os.path.exists(sdo_data_dir):
+		os.makedirs(sdo_data_dir)
 
-    Args:
-        base_path (str): The base directory where data should be stored.
-        date (str): The date for which to download SDO data.
-        redownload (bool, optional): If True, forces a re-download of the data even if it exists on disk. Defaults to False.
+	datesecs = Time(date).utime; dt=np.ceil(dt)
+	passbands = np.array([94, 131, 171, 193, 211, 335]) * u.angstrom
 
-    Returns:
-        tuple: A tuple containing the paths to the downloaded data files and the directory where they are stored.
-    """
-    if date is not None:
-        folder_name = date.replace("/", "_").replace(" ", "_").replace(":", "_")
-        sdo_data_dir = os.path.join(base_path, ".data", folder_name)  # Place to put data files.
+	if not redownload: # Need to check files to find closest at each wavelength:
+		paths_all = np.array(list_fits_files(sdo_data_dir, 'aia'),dtype='object')
+		waves, times, paths = [], [], []
+		for path in paths_all:
+			hdul = fits.open(path)
+			if(len(hdul) > 0): # Need to make sure it's valid AIA file; has hdul[1] and INSTRUME begins with AIA:
+				if(hdul[1].header.get('INSTRUME','---')[0:3]=='AIA'):
+					waves.append(int(hdul[1].header['WAVELNTH']))
+					times.append(Time(hdul[1].header['date-obs']).utime)
+			hdul.close()
+		waves=np.array(waves); times=np.array(times)
+		for band in passbands.value: # Check to see if we have close enough time within the passbands:
+			if(len(waves) > 0 and np.sum(waves==band) > 0):
+				wavpaths, wavtimes = paths_all[waves==band], times[waves==band]
+				if(np.min(np.abs(datesecs-wavtimes)) <= dt):
+					paths.append(wavpaths[np.argmin(np.abs(datesecs-wavtimes))])
+		print(f"Found {len(paths)} AIA images on disk.")
+		if(len(paths) == len(passbands)): return paths, sdo_data_dir
 
-        if not os.path.exists(sdo_data_dir):
-            os.makedirs(sdo_data_dir)
-    else:
-        paths = list_fits_files(sdo_data_dir, 'aia')
+	print(f"Searching for images from {date}...")
+	
+	# Combine the wavelength queries using the | operator
+	wavelength_query = a.Wavelength(passbands[0])
+	for band in passbands[1:]:
+		wavelength_query |= a.Wavelength(band)
 
-    if paths and not redownload:
-        print(f"Found {len(paths)} AIA images on disk.")
-        return paths, sdo_data_dir
+	qry = Fido.search(a.Time(TimeRange(date, dt * u.s)), a.Instrument('AIA'), wavelength_query)
 
-    print(f"Searching for images from {date}...")
-    passbands = np.array([94, 131, 171, 193, 211, 335]) * u.angstrom
-
-    # Combine the wavelength queries using the | operator
-    wavelength_query = a.Wavelength(passbands[0])
-    for band in passbands[1:]:
-        wavelength_query |= a.Wavelength(band)
-
-    qry = Fido.search(a.Time(TimeRange(date, 11.5 * u.s)), a.Instrument('AIA'), wavelength_query)
-
-    print("Downloading images...")
-    Fido.fetch(qry, path=sdo_data_dir, max_conn=len(passbands) + 3)
-
-    paths = list_fits_files(sdo_data_dir, "aia")
-
-    return paths, sdo_data_dir
-
+	print("Downloading images...")
+	Fido.fetch(qry, path=sdo_data_dir, max_conn=len(passbands) + 3)
+	
+	paths = list_fits_files(sdo_data_dir, "aia")
+	
+	return paths, sdo_data_dir
 
 
 def load_from_paths(paths, xl=None, yl=None, dx=None, dy=None, refindex=0):
