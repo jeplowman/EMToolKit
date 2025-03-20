@@ -1,19 +1,13 @@
-import copy
-import numpy as np
+import copy, importlib, astropy, uuid, numpy as np
 from sunpy.map import Map
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty, UnknownUncertainty
-# from .schemas.basic_schemas import basic_detector, basic_source
-import importlib
 
-schemas_module = importlib.import_module("schemas.basic_schemas", "EMToolKit")
-from schemas_module import basic_detector, basic_source
+from EMToolKit.schemas.basic_schemas import basic_source, basic_detector
 
-import astropy
 from scipy.interpolate import interp1d
 from scipy.integrate import trapezoid
-import uuid
 
 def em_data(maps, errs, logts, tresps, channels=None):
     cubes = []
