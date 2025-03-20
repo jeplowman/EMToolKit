@@ -111,7 +111,7 @@ def autoloading_simple_reg_dem_wrapper(datasequence, save_dir=None, recalc=False
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
 
-    pk_file = os.path.join(save_dir, wrapargs.get("prepend",'single_') + 'sparse_em_demsequence.pkl')
+    pk_file = os.path.join(save_dir, wrapargs.get("prepend",'') + 'sparse_em_demsequence.pkl')
 
     # Load or calculate the DEM sequence
     if os.path.exists(pk_file) and not recalc:
