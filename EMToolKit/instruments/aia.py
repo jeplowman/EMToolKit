@@ -9,6 +9,7 @@ import astropy.units as u
 from sunpy.net import Fido, attrs as a
 from sunpy.time import TimeRange
 from astropy.time import Time
+from astropy.io import fits
 from EMToolKit.util import list_fits_files
 
 AIA_TEMPERATURE_RESPONSE_TABLE = np.array([
