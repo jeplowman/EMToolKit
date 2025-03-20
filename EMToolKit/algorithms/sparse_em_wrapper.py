@@ -75,8 +75,7 @@ def sparse_em_wrapper(datasequence, wrapargs={}):
     return list(coeffs), logts, list(basis_funcs), wcs, name
 
 
-
-def autoloading_sparse_em_wrapper(datasequence, data_dir=".data/default", *, wrapargs={}, recalc=False):
+def autoloading_sparse_em_wrapper(datasequence, save_dir=None, *, wrapargs={}, recalc=False):
     """
     Wrapper function that calculates or loads a precomputed sparse regularized DEM.
 
@@ -88,8 +87,8 @@ def autoloading_sparse_em_wrapper(datasequence, data_dir=".data/default", *, wra
     datasequence : NDCubeSequence
         A sequence of data cubes containing the observations. Each cube should contain
         2D spatial data with associated uncertainties and metadata.
-    data_dir : str, optional
-        The directory where the DEM result will be saved or loaded from. Default is "../.data/default".
+    save_dir : str, optional
+        The directory where the DEM result will be saved or loaded from. Default is current working.
     recalc : bool, optional
         If True, the DEM will be recalculated even if a precomputed result exists. Default is False.
     wrapargs : A dictionary
@@ -102,10 +101,11 @@ def autoloading_sparse_em_wrapper(datasequence, data_dir=".data/default", *, wra
         The output from the `sparse_em_wrapper` function.
     """
     # Create the directory if it does not exist
-    if not os.path.exists(data_dir):
-        os.makedirs(data_dir)
+	if(save_dir is None): save_dir=os.getcwd()
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
 
-    pk_file = os.path.join(data_dir, wrapargs.get("prepend",'single_') + 'sparse_em_demsequence.pkl')
+    pk_file = os.path.join(save_dir, wrapargs.get("prepend",'single_') + 'sparse_em_demsequence.pkl')
 
     # Load or calculate the DEM sequence
     if os.path.exists(pk_file) and not recalc:
