@@ -101,7 +101,7 @@ def autoloading_sparse_em_wrapper(datasequence, save_dir=None, *, wrapargs={}, r
         The output from the `sparse_em_wrapper` function.
     """
     # Create the directory if it does not exist
-	if(save_dir is None): save_dir=os.getcwd()
+    if(save_dir is None): save_dir=os.getcwd()
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
 
