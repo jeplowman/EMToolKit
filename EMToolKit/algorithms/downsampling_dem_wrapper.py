@@ -28,7 +28,7 @@ from EMToolKit.algorithms.simple_reg_dem_wrapper import autoloading_simple_reg_d
 from EMToolKit.algorithms.sparse_em_wrapper import autoloading_sparse_em_wrapper
 
 
-def downsampling_dem_wrapper(datasequence,*, wrapargs={}, method='simple', doPlot=False, dat_dir=".data/default", recalc=False):
+def downsampling_dem_wrapper(datasequence,*, wrapargs={}, method='simple', doPlot=False, save_dir=None, recalc=False):
     """
     Perform DEM analysis using multiple instruments. This is the main call for the downsampling method.
 
@@ -54,11 +54,9 @@ def downsampling_dem_wrapper(datasequence,*, wrapargs={}, method='simple', doPlo
     wrapargs["prepend"] = "multi_down_"
 
     if "simple" in method.casefold():
-        return autoloading_simple_reg_dem_wrapper(downprojected_sequence, dat_dir, wrapargs=wrapargs, recalc=recalc)
+        return autoloading_simple_reg_dem_wrapper(downprojected_sequence, save_dir=save_dir, wrapargs=wrapargs, recalc=recalc)
     elif "sparse" in method.casefold():
-        return autoloading_sparse_em_wrapper(downprojected_sequence, dat_dir, wrapargs=wrapargs, recalc=recalc)
-    elif "nlmap" in method.casefold():
-        return autoloading_sparse_nlmap_dem_wrapper(downprojected_sequence, dat_dir, wrapargs=wrapargs, recalc=recalc)
+        return autoloading_sparse_em_wrapper(downprojected_sequence, save_dir=save_dir, wrapargs=wrapargs, recalc=recalc)
 
 
 
