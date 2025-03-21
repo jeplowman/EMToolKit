@@ -13,11 +13,7 @@ Functions:
     plot_reprojected: Plots reprojected maps and their uncertainties.
 """
 
-import matplotlib.pyplot as plt
-import astropy.units as u
-import os
-import numpy as np
-import numpy as np
+import os, copy, numpy as np, astropy.units as u, matplotlib.pyplot as plt
 from ndcube import NDCube, NDCubeSequence
 from astropy.nddata import StdDevUncertainty
 
@@ -52,13 +48,10 @@ def downsampling_dem_wrapper(datasequence,*, wrapargs={}, method='simple', doPlo
         plot_reprojected(downprojected_sequence, nan_mask, coarsest_cube)
 
     wrapargs["prepend"] = "multi_down_"
-
     if "simple" in method.casefold():
         return autoloading_simple_reg_dem_wrapper(downprojected_sequence, save_dir=save_dir, wrapargs=wrapargs, recalc=recalc)
     elif "sparse" in method.casefold():
         return autoloading_sparse_em_wrapper(downprojected_sequence, save_dir=save_dir, wrapargs=wrapargs, recalc=recalc)
-
-
 
 def reproject_with_uncertainties(datasequence, nan_level=-50):
     """
@@ -84,38 +77,47 @@ def reproject_with_uncertainties(datasequence, nan_level=-50):
     if coarsest_cube is None:
         raise ValueError("No coarsest cube found in the sequence")
 
-    # Pull out the fine Sequence
-    fine_sequence = NDCubeSequence([mp for mp in datasequence if mp is not coarsest_cube], meta=datasequence.meta)
+    ## Pull out the fine Sequence
+    #fine_sequence = NDCubeSequence([mp for mp in datasequence if mp is not coarsest_cube], meta=datasequence.meta)
 
-    # Reproject the fine maps to the coarse map shape
-    downprojected_sequence = NDCubeSequence([mp.reproject_to(coarsest_cube.wcs) for mp in fine_sequence], meta=datasequence.meta)
+    # Reproject the fine maps to the coarse map shape -- Note this DOES NOT pixel bin for large factors
+    downprojected_sequence, uncertainties = [], []
+    for mp in datasequence:
+        mp_new = mp.reproject_to(coarsest_cube.wcs)
+        err_copy = copy.deepcopy(mp)
+        err_copy.data[:] = err_copy.uncertainty.array
+        mp_new.uncertainty = StdDevUncertainty(err_copy.reproject_to(coarsest_cube.wcs).data)
+        downprojected_sequence.append(mp_new)
+        uncertainties.append(mp_new.uncertainty)
+	#downprojected_sequence = NDCubeSequence([mp.reproject_to(coarsest_cube.wcs) for mp in datasequence], meta=datasequence.meta)
+    #print(dir(downprojected_sequence[0]))
 
-    # Compute factor to scale the uncertainties by the area ratio
-    orig_area = fine_sequence[0].data.shape[0] * fine_sequence[0].data.shape[1]
-    new_area = downprojected_sequence[0].data.shape[0] * downprojected_sequence[0].data.shape[1]
-    area_ratio_rt = np.sqrt(new_area / orig_area)
+    ## Compute factor to scale the uncertainties by the area ratio (not apropos given the above)
+    #orig_area = fine_sequence[0].data.shape[0] * fine_sequence[0].data.shape[1]
+    #new_area = downprojected_sequence[0].data.shape[0] * downprojected_sequence[0].data.shape[1]
+    area_ratio_rt = 1 #np.sqrt(new_area / orig_area)
 
     # print(f"Original area: {orig_area}, New area: {new_area}, Area ratio root: {area_ratio_rt}")
 
     # Reproject and scale the uncertainties
-    uncertainties = [StdDevUncertainty(
-        NDCube(area_ratio_rt * mp.uncertainty.array.data, mp.wcs, meta=mp.meta).
-        reproject_to(coarsest_cube.wcs).data
-    ) for mp in fine_sequence]
-    for I in range(len(downprojected_sequence)):
-        downprojected_sequence[I].uncertainty = uncertainties[I]
+    #uncertainties = [StdDevUncertainty(
+    #    NDCube(area_ratio_rt * mp.uncertainty.array.data, mp.wcs, meta=mp.meta).
+    #    reproject_to(coarsest_cube.wcs).data
+    #) for mp in downprojected_sequence]
+    #for I in range(len(downprojected_sequence)):
+    #    downprojected_sequence[I].uncertainty = uncertainties[I]
 
-    # Combine the reprojected fine maps with the coarse map
-    nan_mask = np.where(np.isnan(uncertainties[0].array), np.nan, 1)
+    ## Combine the reprojected fine maps with the coarse map
+    nan_mask = np.isnan(uncertainties[0].array)
     for cube in downprojected_sequence:
-        nan_mask *= np.where(np.isnan(cube.data) | (cube.data < nan_level), np.nan, 1)
-    full_list = [cube.data * nan_mask for cube in downprojected_sequence]
-    full_list.append(coarsest_cube.data * nan_mask)
-    datasequence = NDCubeSequence(full_list, common_axis=0, meta=datasequence.meta)
+        nan_mask *= np.isnan(cube.data) | (cube.data < nan_level)
+    #full_list = [cube.data * nan_mask for cube in downprojected_sequence]
+    #full_list.append(coarsest_cube.data * nan_mask)
+    #datasequence = NDCubeSequence(full_list, common_axis=0, meta=datasequence.meta)
 
     print("Reprojected successfully!")
 
-    return datasequence, nan_mask, coarsest_cube
+    return downprojected_sequence, nan_mask, coarsest_cube
 
 
 import matplotlib.pyplot as plt
