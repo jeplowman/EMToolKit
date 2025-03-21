@@ -84,7 +84,7 @@ def download_sdo_data(data_path, date, redownload=False, dt=11.5):
 	if not os.path.exists(sdo_data_dir):
 		os.makedirs(sdo_data_dir)
 
-	datesecs = Time(date).utime; dt=np.ceil(dt)
+	datesecs = Time(date).unix_tai; dt=np.ceil(dt)
 	passbands = np.array([94, 131, 171, 193, 211, 335]) * u.angstrom
 
 	if not redownload: # Need to check files to find closest at each wavelength:
@@ -95,7 +95,7 @@ def download_sdo_data(data_path, date, redownload=False, dt=11.5):
 			if(len(hdul) > 0): # Need to make sure it's valid AIA file; has hdul[1] and INSTRUME begins with AIA:
 				if(hdul[1].header.get('INSTRUME','---')[0:3]=='AIA'):
 					waves.append(int(hdul[1].header['WAVELNTH']))
-					times.append(Time(hdul[1].header['date-obs']).utime)
+					times.append(Time(hdul[1].header['date-obs']).unix_tai)
 			hdul.close()
 		waves=np.array(waves); times=np.array(times)
 		for band in passbands.value: # Check to see if we have close enough time within the passbands:
