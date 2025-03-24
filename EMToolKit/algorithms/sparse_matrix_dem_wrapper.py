@@ -120,33 +120,33 @@ def sparse_matrix_dem_wrapper(datasequence, wrapargs={}):
 		reg_operator += sparse_d2_partial_matrix(src_dims_all, i, nc, steps=reg_steps[i],
 								drv_con=drv_con, dtype=dtype, use_postfactor=False)
 
-	# fwdops = []
-	# for i in range(0,nc):
-	# 	# Need to check to see if the metadata for each data element
-	# 	# has a forward operator and whether or not it's the correct
-	# 	# one for the model. We'll leave it to the data element to check
-	# 	# that and compute one if it's not there:
-	# 	print(f"Running on image {i+1} of {nc}" )
-	# 	fwdops.append((datasequence[i].meta['SCHEMA']).fwdop(source))
+	fwdops = []
+	for i in range(0,nc):
+		# Need to check to see if the metadata for each data element
+		# has a forward operator and whether or not it's the correct
+		# one for the model. We'll leave it to the data element to check
+		# that and compute one if it's not there:
+		print(f"Computing forward matrix for data sequence element {i+1} of {nc}" )
+		fwdops.append((datasequence[i].meta['SCHEMA']).fwdop(source))
 	# 	#fwdops.append(model.get_fwdop(datasequence[i]))
 
-	import concurrent.futures
+	#import concurrent.futures
 
-	# Assuming datasequence, source, and nc are already defined
-	fwdops = []
-	with concurrent.futures.ProcessPoolExecutor() as executor:
-		# Submit tasks to the executor
-		futures = [executor.submit(process_data_element, i, datasequence[i], source) for i in range(nc)]
+	## Assuming datasequence, source, and nc are already defined
+	#fwdops = []
+	#with concurrent.futures.ProcessPoolExecutor() as executor:
+		## Submit tasks to the executor
+		#futures = [executor.submit(process_data_element, i, datasequence[i], source) for i in range(nc)]
 
-		# Retrieve results in the order they were submitted
-		for future in futures:
-			try:
-				result, ii = future.result()
-				fwdops.append(result)
-				# print(f"Got result for image {ii + 1}")
-			except Exception as e:
-				print(f"An error occurred: {e}")
-				fwdops.append(None)  # or handle the error as appropriate
+		## Retrieve results in the order they were submitted
+		#for future in futures:
+			#try:
+				#result, ii = future.result()
+				#fwdops.append(result)
+				## print(f"Got result for image {ii + 1}")
+			#except Exception as e:
+				#print(f"An error occurred: {e}")
+				#fwdops.append(None)  # or handle the error as appropriate
 
 	fwd_operator = multi_instrument_linear_operator(fwdops, wrapargs=wrapargs)
 	data, errors = [[],[]]
@@ -167,7 +167,7 @@ def sparse_matrix_dem_wrapper(datasequence, wrapargs={}):
 	alg_object = sparse_matrix_dem_wrap_object(wrapargs,source=source)
 
 	if wrapargs is not None:
-		name = wrapargs.get("prepend", "single_") + 'sparse_matrix_dem'
+		name = wrapargs.get("prepend", '') + 'sparse_matrix_dem'
 	else:
 		name = 'sparse_matrix_dem'
 
@@ -194,6 +194,10 @@ class sparse_matrix_dem_wrap_object(object):
 def autoloading_sparse_matrix_dem_wrapper(datasequence, data_dir=".data/default/", recalc=False, wrapargs={}):
     """
     Wrapper function that calculates or loads a precomputed sparse non-linear map-based DEM.
+    NOTE: Autoloading wrapper interfaces are supplied as an example and for convenience. They save
+    and loads by Pickle which is not a long-term solution. Saving and loading functionality
+    will be incorporated into the main EMToolKit code and not algorithm wrappers in the future.
+    Either way, the definitive interface is the regular non autoloading wrapper. 
 
     This function first checks if a precomputed DEM exists in the specified directory. If not,
     it calculates the DEM using `sparse_matrix_dem_wrapper`, saves the result, and returns it.
@@ -217,6 +221,9 @@ def autoloading_sparse_matrix_dem_wrapper(datasequence, data_dir=".data/default/
     tuple
         The output from the `sparse_matrix_dem_wrapper` function.
     """
+
+    print('NOTE: autoloading wrappers are provided for example and convenience. Not otherwise supported.'
+		  'Standardized save and load functionality will be incorporated into main EMToolKit in the future.')
     # Create the directory if it does not exist
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
