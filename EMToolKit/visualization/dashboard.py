@@ -145,8 +145,8 @@ class dashboard_object(object):
         self.demlines.append(self.ax3.plot(tt, dd, color=f"C{NC}", label=thelabel)[0])
 
     def get_dem_at(self, ix, iy):
-
-        [ptlogt, ptdem] = self.emc.compute_dem(ix, iy, logt=self.logt, algorithm=self.the_algorithm)
+        # Note the dashboard plots image using reversed matplotlib convention so we need to reverse ix and iy here:
+        [ptlogt, ptdem] = self.emc.compute_dem(iy, ix, logt=self.logt, algorithm=self.the_algorithm)
         # return np.ones_like(ptdem)*ix, np.ones_like(ptdem)*ix
         return 10*ptlogt, ptdem/1.0e28
 
