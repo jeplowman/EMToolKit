@@ -20,11 +20,11 @@ from astropy.nddata import StdDevUncertainty
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from sunpy.visualization.colormaps.color_tables import aia_color_table, xrt_color_table
 from astropy.nddata import StdDevUncertainty
-from EMToolKit.algorithms.simple_reg_dem_wrapper import autoloading_simple_reg_dem_wrapper
-from EMToolKit.algorithms.sparse_em_wrapper import autoloading_sparse_em_wrapper
+from EMToolKit.algorithms.simple_reg_dem_wrapper import simple_reg_dem_wrapper
+from EMToolKit.algorithms.sparse_em_wrapper import sparse_em_wrapper
 
 
-def downsampling_dem_wrapper(datasequence,*, wrapargs={}, method='simple', doPlot=False, save_dir=None, recalc=False):
+def downsampling_dem_wrapper(datasequence,*, wrapargs={}, method=simple_reg_dem_wrapper, doPlot=False, save_dir=None, recalc=False):
     """
     Perform DEM analysis using multiple instruments. This is the main call for the downsampling method.
 
@@ -48,10 +48,7 @@ def downsampling_dem_wrapper(datasequence,*, wrapargs={}, method='simple', doPlo
         plot_reprojected(downprojected_sequence, nan_mask, coarsest_cube)
 
     wrapargs["prepend"] = "multi_down_"
-    if "simple" in method.casefold():
-        return autoloading_simple_reg_dem_wrapper(downprojected_sequence, save_dir=save_dir, wrapargs=wrapargs, recalc=recalc)
-    elif "sparse" in method.casefold():
-        return autoloading_sparse_em_wrapper(downprojected_sequence, save_dir=save_dir, wrapargs=wrapargs, recalc=recalc)
+    return method(downprojected_sequence, wrapargs=wrapargs)
 
 def reproject_with_uncertainties(datasequence, nan_level=-50):
     """
