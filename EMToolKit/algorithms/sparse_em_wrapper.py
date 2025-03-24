@@ -75,9 +75,15 @@ def sparse_em_wrapper(datasequence, wrapargs={}):
     return list(coeffs), logts, list(basis_funcs), wcs, name
 
 
+
 def autoloading_sparse_em_wrapper(datasequence, save_dir=None, *, wrapargs={}, recalc=False):
     """
     Wrapper function that calculates or loads a precomputed sparse regularized DEM.
+
+    NOTE: Autoloading wrapper interfaces are supplied as an example and for convenience. They save
+    and loads by Pickle which is not a long-term solution. Saving and loading functionality
+    will be incorporated into the main EMToolKit code and not algorithm wrappers in the future.
+    Either way, the definitive interface is the regular non autoloading wrapper. 
 
     This function first checks if a precomputed DEM exists in the specified directory. If not,
     it calculates the DEM using `sparse_em_wrapper`, saves the result, and returns it.
@@ -100,6 +106,8 @@ def autoloading_sparse_em_wrapper(datasequence, save_dir=None, *, wrapargs={}, r
     tuple
         The output from the `sparse_em_wrapper` function.
     """
+    print('NOTE: autoloading wrappers are provided for example and convenience. Not otherwise supported.'
+		  'Standardized save and load functionality will be incorporated into main EMToolKit in the future.')
     # Create the directory if it does not exist
     if(save_dir is None): save_dir=os.getcwd()
     if not os.path.exists(save_dir):
@@ -125,4 +133,3 @@ def autoloading_sparse_em_wrapper(datasequence, save_dir=None, *, wrapargs={}, r
             pickle.dump((sparse_em_demsequence, spars_out), file)
 
     return sparse_em_demsequence, spars_out
-
