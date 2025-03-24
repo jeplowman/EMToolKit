@@ -84,6 +84,11 @@ def autoloading_simple_reg_dem_wrapper(datasequence, save_dir=None, recalc=False
     """
     Wrapper function that calculates or loads a precomputed simple regularized DEM.
 
+    NOTE: Autoloading wrapper interfaces are supplied as an example and for convenience. They save
+    and loads by Pickle which is not a long-term solution. Saving and loading functionality
+    will be incorporated into the main EMToolKit code and not algorithm wrappers in the future.
+    Either way, the definitive interface is the regular non autoloading wrapper. 
+
     This function first checks if a precomputed DEM exists in the specified directory. If not,
     it calculates the DEM using `simple_reg_dem_wrapper`, saves the result, and returns it.
 
@@ -106,12 +111,14 @@ def autoloading_simple_reg_dem_wrapper(datasequence, save_dir=None, recalc=False
     tuple
         The output from the `simple_reg_dem_wrapper` function.
     """
+    print('NOTE: autoloading wrappers are provided for example and convenience. Not otherwise supported.'
+		  'Standardized save and load functionality will be incorporated into main EMToolKit in the future.')
     # Create the directory if it does not exist
     if(save_dir is None): save_dir=os.getcwd()
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
 
-    pk_file = os.path.join(save_dir, wrapargs.get("prepend",'') + 'sparse_em_demsequence.pkl')
+    pk_file = os.path.join(save_dir, wrapargs.get("prepend",'') + 'simple_em_demsequence.pkl')
 
     # Load or calculate the DEM sequence
     if os.path.exists(pk_file) and not recalc:
