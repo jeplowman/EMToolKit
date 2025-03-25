@@ -70,7 +70,7 @@ def sparse_em_wrapper(datasequence, wrapargs={}):
     wcs = datasequence[0].wcs  # WCS information from the first cube
     logts = nb * [lgtaxis]
 
-    name = wrapargs.get("prepend", 'single_') + 'sparse_em'
+    name = wrapargs.get("prepend", '') + 'sparse_em'
 
     return list(coeffs), logts, list(basis_funcs), wcs, name
 
