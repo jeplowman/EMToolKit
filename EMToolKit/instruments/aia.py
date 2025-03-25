@@ -97,7 +97,7 @@ def download_sdo_data(data_path, date, redownload=False, dt=11.5):
 		for band in passbands.value: # Check to see if we have close enough time within the passbands:
 			if(len(waves) > 0 and np.sum(waves==band) > 0):
 				wavpaths, wavtimes = paths_all[waves==band], times[waves==band]
-				if(np.min(np.abs(datesecs-wavtimes)) <= dt):
+				if(np.min(np.abs(datesecs-wavtimes)) <= dt+1):
 					paths.append(wavpaths[np.argmin(np.abs(datesecs-wavtimes))])
 		print(f"Found {len(paths)} AIA images on disk.")
 		if(len(paths) == len(passbands)): return paths, sdo_data_dir
