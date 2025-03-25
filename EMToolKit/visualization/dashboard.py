@@ -55,7 +55,7 @@ class dashboard_object(object):
         self.first = em_collection.collection[em_collection.collection['models'][0]][0]
 
         rt0,gt0,bt0 = kwargs.get('rtemp',6.0), kwargs.get('gtemp',6.2), kwargs.get('btemp',6.4)
-        sg0 = 0.15 #0.5*np.mean(np.sort([rt0,gt0,bt0])[1:]-np.sort([rt0,gt0,bt0])[0:-1])
+        sg0 = np.mean(np.sort([rt0,gt0,bt0])[1:]-np.sort([rt0,gt0,bt0])[0:-1])/(8*np.log(2))**0.5
         self.the_normalization = kwargs.get('normalization',"area")
 
         [nx,ny] = em_collection.collection[em_collection.collection['models'][0]][0].data.shape
