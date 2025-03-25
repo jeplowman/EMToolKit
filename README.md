@@ -13,7 +13,12 @@ Welcome to the [EMToolKit](https://github.com/jeplowman/EMToolKit) repository, a
 
 ## Installation
 For installation instructions, please refer to the [Installation Guide](https://github.com/jeplowman/EMToolKit/blob/main/INSTALL.md). Following that, please use the [example gallery](https://emtoolkit.readthedocs.io/en/latest/examples/GALLERY_HEADER.html) to
-see how to use the code.
+see how to use the code. 
+
+To use without installing you can run the example notebooks in this directory from a local copy of this directory structure. You will need the following packages:
+  jupyter matplotlib numpy scipy astropy sunpy numba ndcube ipympl xrtpy
+
+This works from either conda-forge or pip installed packages, except that you may need to install xrtpy via pip even if the rest are installed via conda-forge.
 
 ## Contributing
 To contribute to EMToolKit, please see the [contribute](https://github.com/jeplowman/EMToolKit/blob/main/CONTRIBUTE.md) file for details on how to get involved.
