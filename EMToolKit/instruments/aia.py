@@ -1,11 +1,8 @@
-import copy, numpy as np
+import os, copy, numpy as np, astropy.units as u
 from sunpy.map import Map
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
-import os
-import numpy as np
-import astropy.units as u
 from sunpy.net import Fido, attrs as a
 from sunpy.time import TimeRange
 from astropy.time import Time
@@ -83,7 +80,6 @@ def download_sdo_data(data_path, date, redownload=False, dt=11.5):
 	sdo_data_dir = data_path
 	if not os.path.exists(sdo_data_dir):
 		os.makedirs(sdo_data_dir)
-
 	datesecs = Time(date).unix_tai; dt=np.ceil(dt)
 	passbands = np.array([94, 131, 171, 193, 211, 335]) * u.angstrom
 
@@ -121,6 +117,7 @@ def download_sdo_data(data_path, date, redownload=False, dt=11.5):
 	paths = list_fits_files(sdo_data_dir, "aia")
 	
 	return paths, sdo_data_dir
+
 
 
 def load_from_paths(paths, xl=None, yl=None, dx=None, dy=None, refindex=0):
@@ -225,7 +222,7 @@ def aia_temperature_response(map_in, *args, **kwargs):
     tresp = copy.deepcopy(tresp_table[:,np.where(refchannels == channel)].flatten())
     if(len(args) > 0):
         logt = args[0]
-        tresp = np.interp(temperature_array, tresp_temps, tresp)
+        tresp = np.interp(logt, tresp_temps, tresp)
     else: logt=tresp_table # logt, tresp = interpolate_table(tresp_table, temperature_array)
 
     return logt, tresp # [:, np.where(refchannels == channel)].flatten()
