@@ -60,7 +60,7 @@ def sparse_em_wrapper(datasequence, wrapargs={}):
         exptimes[i] = datasequence[i].meta['exptime']
 
     # Initialize and solve the sparse EM problem
-    Dict, lgtaxis, basis_funcs, bases_sigmas = sparse_em_init(trlogts, tresps, differential=True)
+    Dict, lgtaxis, basis_funcs, bases_sigmas = sparse_em_init(trlogts, tresps, differential=wrapargs.get('differential',True))
     coeffs, zmax, status = sparse_em_solve(datacube, errscube, exptimes, Dict)
 
     # Sparse_em_solve puts the temperature axis last. Transpose so it's the first:
