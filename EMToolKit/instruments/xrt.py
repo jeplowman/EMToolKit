@@ -1,17 +1,14 @@
-import copy, numpy as np
+import os, copy, numpy as np, matplotlib.pyplot as plt, astropy.units as u, xrtpy
 from sunpy.map import Map
 from ndcube import NDCube, NDCubeSequence, NDCollection
 from astropy.coordinates import SkyCoord
 from astropy.nddata import StdDevUncertainty
-import xrtpy
-import matplotlib.pyplot as plt
-import os
-import numpy as np
-import astropy.units as u
 from sunpy.net import Fido, attrs as a
 from sunpy.time import TimeRange
 from astropy.time import Time
 from EMToolKit.util import list_fits_files
+from astropy.io import fits
+
 
 # Given a set of XRT SunPy Maps, return the appropriate arguments for use
 # as an EMToolKit data sequence -- the selection of maps appropriate for
@@ -114,20 +111,31 @@ def interp1d_logt(logt, tresp, temperature_array):
 
 
 
-def download_xrt_data(data_path, date, redownload=False):
+def download_xrt_data(data_path, date, dt=11.5, redownload=False):
 	xrt_data_dir = data_path
+	datesecs = Time(date).unix_tai
 
 	if not os.path.exists(xrt_data_dir):
 		os.makedirs(xrt_data_dir)
 
-	paths = list_fits_files(xrt_data_dir, 'xrt')
+	paths = []
+	if(not redownload):
+		paths_all = list_fits_files(xrt_data_dir, 'xrt')
+		for path in paths_all:
+			hdul = fits.open(path)
+			hdr = hdul[0].header
+			hdul.close()
+			tobs = Time(hdr['date_obs']).unix_tai
+			if(hdr.get('INSTRUME','---')[0:3]=='XRT' and np.abs(tobs-datesecs) <= np.ceil(dt)+1):
+				paths.append(path)
+			
 
 	print(f"Found {len(paths)} xrt images on disk.")
 
 	if len(paths) == 0 or redownload:
 		try:
 			print(f"Searching for XRT images from {date}...")
-			qry = Fido.search(a.Time(TimeRange(date, 4 * u.s)), a.Instrument('XRT'))
+			qry = Fido.search(a.Time(TimeRange(date, dt * u.s)), a.Instrument('XRT'))
 			print("Downloading XRT images...")
 			Fido.fetch(qry, path=xrt_data_dir, max_conn=3)
 		except ConnectionError:
