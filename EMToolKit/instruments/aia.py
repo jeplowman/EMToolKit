@@ -80,7 +80,7 @@ def download_sdo_data(data_path, date, redownload=False, dt=11.5):
 	sdo_data_dir = data_path
 	if not os.path.exists(sdo_data_dir):
 		os.makedirs(sdo_data_dir)
-	datesecs = Time(date).unix_tai; dt=np.ceil(dt)
+	datesecs = Time(date).unix_tai
 	passbands = np.array([94, 131, 171, 193, 211, 335]) * u.angstrom
 
 	if not redownload: # Need to check files to find closest at each wavelength:
@@ -97,7 +97,7 @@ def download_sdo_data(data_path, date, redownload=False, dt=11.5):
 		for band in passbands.value: # Check to see if we have close enough time within the passbands:
 			if(len(waves) > 0 and np.sum(waves==band) > 0):
 				wavpaths, wavtimes = paths_all[waves==band], times[waves==band]
-				if(np.min(np.abs(datesecs-wavtimes)) <= dt+1):
+				if(np.min(np.abs(datesecs-wavtimes)) <= np.ceil(dt)+1):
 					paths.append(wavpaths[np.argmin(np.abs(datesecs-wavtimes))])
 		print(f"Found {len(paths)} AIA images on disk.")
 		if(len(paths) == len(passbands)): return paths, sdo_data_dir
