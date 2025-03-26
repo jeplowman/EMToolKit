@@ -325,30 +325,4 @@ class em_collection:
 
         return np.sqrt(len(data)/output_cube)
 
-import nbformat
-from nbformat import validate, ValidationError
-
-def normalize_notebook_cells(notebook_path):
-    # Load the notebook
-    with open(notebook_path, 'r') as f:
-        nb = nbformat.read(f, as_version=4)
-
-    # Normalize cells
-    for cell in nb.cells:
-        if 'id' not in cell:
-            cell['id'] = str(uuid.uuid4())
-        if cell.cell_type == 'code' and 'outputs' not in cell:
-            cell['outputs'] = []
-
-    # Validate the notebook
-    try:
-        validate(nb)
-        print("Notebook validation passed.")
-    except ValidationError as e:
-        print(f"Notebook validation failed: {e}")
-
-    # Write the normalized notebook back to the file
-    with open(notebook_path, 'w') as f:
-        nbformat.write(nb, f)
-    print(f"Notebook has been normalized and saved to {notebook_path}")
 
