@@ -127,3 +127,4 @@ esbonio.*
 .vscode/*
 docs/source/api/*
 !dashboard.png
+docs/source/_build/*
