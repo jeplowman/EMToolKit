@@ -114,9 +114,8 @@ def interp1d_logt(logt, tresp, temperature_array):
 
 
 
-def download_xrt_data(base_path, date, redownload=False):
-	folder_name = date.replace("/", "_").replace(" ", "_").replace(":", "_")
-	xrt_data_dir = os.path.join(base_path, ".data", folder_name)
+def download_xrt_data(data_path, date, redownload=False):
+	xrt_data_dir = data_path
 
 	if not os.path.exists(xrt_data_dir):
 		os.makedirs(xrt_data_dir)
