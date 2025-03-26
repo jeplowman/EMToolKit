@@ -1,0 +1,21 @@
+EMToolKit.examples package
+==========================
+
+Submodules
+----------
+
+EMToolKit.examples.examples module
+----------------------------------
+
+.. automodule:: EMToolKit.examples.examples
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: EMToolKit.examples
+   :members:
+   :undoc-members:
+   :show-inheritance:

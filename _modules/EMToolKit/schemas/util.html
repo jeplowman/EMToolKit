@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EMToolKit.schemas.util &mdash; EMToolKit 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -22,12 +22,11 @@
       <script src="../../../_static/documentation_options.js?v=01f34227"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script src="../../../_static/toggleprompt.js?v=263c9090"></script>
+      <script src="../../../_static/toggleprompt.js?v=5801b3bb"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../../_static/open_external_links_in_new_tab.js?v=ce535536"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -53,13 +52,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">Single Instrument Dashboard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Dashboard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_multi_instrument.html">Multi-Instrument Dashboard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples/EMToolKit_example_07252010.html">Single Instrument Dashboard</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/GALLERY_HEADER.html">Example Gallery</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Contribution Guides</span></p>
 <ul>
@@ -93,13 +86,13 @@
            <div itemprop="articleBody">
              
   <h1>Source code for EMToolKit.schemas.util</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">copy</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">pickle</span><span class="o">,</span> <span class="nn">resource</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">copy</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">pickle</span><span class="o">,</span><span class="w"> </span><span class="nn">resource</span><span class="o">,</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="c1">#from processify import processify</span>
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">readsav</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">readsav</span>
 
 <div class="viewcode-block" id="masked_median_filter">
 <a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.masked_median_filter">[docs]</a>
-<span class="k">def</span> <span class="nf">masked_median_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">mask</span><span class="p">,</span><span class="n">radius</span><span class="p">,</span><span class="n">footprint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">missing</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span><span class="n">footprint_ind_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">masked_median_filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">mask</span><span class="p">,</span><span class="n">radius</span><span class="p">,</span><span class="n">footprint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">missing</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span><span class="n">footprint_ind_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 
     <span class="k">if</span><span class="p">(</span><span class="n">footprint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">radius</span><span class="p">)):</span> <span class="n">radarr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">radius</span><span class="p">]</span><span class="o">*</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
@@ -132,7 +125,7 @@
     <span class="k">return</span> <span class="n">data_filt</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">_masked_medfilt_inner</span><span class="p">(</span><span class="n">flatinds</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">footprint_inds</span><span class="p">,</span><span class="n">footprint_ind_offset</span><span class="p">,</span><span class="n">tparg</span><span class="p">,</span><span class="n">dat_pad_shape</span><span class="p">,</span><span class="n">data_fppad</span><span class="p">,</span><span class="n">mask_fppad</span><span class="p">,</span><span class="n">data_filt</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_masked_medfilt_inner</span><span class="p">(</span><span class="n">flatinds</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">footprint_inds</span><span class="p">,</span><span class="n">footprint_ind_offset</span><span class="p">,</span><span class="n">tparg</span><span class="p">,</span><span class="n">dat_pad_shape</span><span class="p">,</span><span class="n">data_fppad</span><span class="p">,</span><span class="n">mask_fppad</span><span class="p">,</span><span class="n">data_filt</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">flatinds</span><span class="p">:</span>
         <span class="n">ijkpad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">+</span><span class="n">footprint_inds</span><span class="o">-</span><span class="n">footprint_ind_offset</span>
         <span class="n">ijkpad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel_multi_index</span><span class="p">(</span><span class="n">ijkpad</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">tparg</span><span class="p">),</span><span class="n">dat_pad_shape</span><span class="p">)</span>
@@ -159,14 +152,14 @@
 <span class="c1"># for ease of maintenance and explanation. It works for single vectors, too.</span>
 <div class="viewcode-block" id="multivec_matmul">
 <a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.multivec_matmul">[docs]</a>
-<span class="k">def</span> <span class="nf">multivec_matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
+<span class="k">def</span><span class="w"> </span><span class="nf">multivec_matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
 
 
 <span class="c1"># Forward rolling transpose, for switching from coordinate dimension last to</span>
 <span class="c1"># coordinate dimension first in multidimensional coordinate arrays:</span>
 <div class="viewcode-block" id="ftp">
 <a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.ftp">[docs]</a>
-<span class="k">def</span> <span class="nf">ftp</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ftp</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 	<span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span></div>
 
 
@@ -174,7 +167,7 @@
 <span class="c1"># coordinate dimension last in multidimensional coordinate arrays:</span>
 <div class="viewcode-block" id="btp">
 <a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.btp">[docs]</a>
-<span class="k">def</span> <span class="nf">btp</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">btp</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 	<span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></div>
 
 
@@ -186,21 +179,21 @@
 <span class="c1"># it could get unggkljhly real quick</span>
 <div class="viewcode-block" id="rindices">
 <a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.rindices">[docs]</a>
-<span class="k">def</span> <span class="nf">rindices</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rindices</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 	<span class="n">ia</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 	<span class="k">return</span> <span class="n">btp</span><span class="p">(</span><span class="n">ia</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="bindown">
 <a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.bindown">[docs]</a>
-<span class="k">def</span> <span class="nf">bindown</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bindown</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
     <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel_multi_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">n</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span><span class="n">n</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">inds</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">weights</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">minlength</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="bindown2">
 <a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.bindown2">[docs]</a>
-<span class="k">def</span> <span class="nf">bindown2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bindown2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">/</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
     <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel_multi_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">n</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span><span class="n">n</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">inds</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">weights</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">minlength</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n</span><span class="p">)</span></div>
@@ -208,7 +201,7 @@
 
 <div class="viewcode-block" id="binup">
 <a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.binup">[docs]</a>
-<span class="k">def</span> <span class="nf">binup</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">binup</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">f</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
     <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel_multi_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">inds</span><span class="p">],</span><span class="n">n</span><span class="p">)</span></div>
@@ -216,7 +209,7 @@
 
 <div class="viewcode-block" id="as_dict">
 <a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.as_dict">[docs]</a>
-<span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="n">rec</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">as_dict</span><span class="p">(</span><span class="n">rec</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; turn a numpy recarray record into a dict. this is mostly useful</span>
 <span class="sd">    just to have a human readable output of a record on the console.</span>
 
@@ -228,7 +221,7 @@
 
 <div class="viewcode-block" id="get_mask_errs">
 <a class="viewcode-back" href="../../../EMToolKit.schemas.html#EMToolKit.schemas.util.get_mask_errs">[docs]</a>
-<span class="k">def</span> <span class="nf">get_mask_errs</span><span class="p">(</span><span class="n">dat_cube</span><span class="p">,</span> <span class="n">iris_err_fac</span><span class="p">,</span> <span class="n">error_cube</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filt_thold</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_mask_errs</span><span class="p">(</span><span class="n">dat_cube</span><span class="p">,</span> <span class="n">iris_err_fac</span><span class="p">,</span> <span class="n">error_cube</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filt_thold</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
     <span class="n">dat_arr</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dat_cube</span><span class="p">)</span>
     <span class="n">dat_filt</span> <span class="o">=</span> <span class="n">masked_median_filter</span><span class="p">(</span><span class="n">dat_arr</span><span class="p">,(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">dat_arr</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
     <span class="k">if</span><span class="p">(</span><span class="n">error_cube</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span> <span class="n">error_cube</span> <span class="o">=</span> <span class="p">((</span><span class="n">iris_err_fac</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">dat_arr</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span><span class="o">*</span><span class="n">iris_err_fac</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
