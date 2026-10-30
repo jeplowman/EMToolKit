@@ -9,6 +9,7 @@ authors = [
 dependencies = [
     "astropy>=6.0.1",
     "scipy>=1.13.1",
+    "numba>=0.59",
     "ipympl>=0.9.4",
     "ndcube>=2.2.2",
     "xrtpy>=0.4.0",
